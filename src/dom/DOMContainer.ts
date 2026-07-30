@@ -107,21 +107,7 @@ export class DOMContainer extends ViewContainer<never>
      */
     constructor(options: DOMContainerOptions = {})
     {
-        const { element, anchor, ...rest } = options;
-
-        super({
-            label: 'DOMContainer',
-            ...rest
-        });
-
-        this._anchor = new Point(0, 0);
-
-        if (anchor)
-        {
-            this.anchor = anchor;
-        }
-
-        this.element = options.element || document.createElement('div');
+        throw new Error("STUB");
     }
 
     /**
@@ -147,7 +133,7 @@ export class DOMContainer extends ViewContainer<never>
      */
     get anchor(): Point
     {
-        return this._anchor;
+        throw new Error("STUB");
     }
 
     /**
@@ -158,7 +144,7 @@ export class DOMContainer extends ViewContainer<never>
      */
     set anchor(value: PointData | number)
     {
-        typeof value === 'number' ? this._anchor.set(value) : this._anchor.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -173,10 +159,7 @@ export class DOMContainer extends ViewContainer<never>
      */
     set element(value: HTMLElement)
     {
-        if (this._element === value) return;
-
-        this._element = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -190,31 +173,13 @@ export class DOMContainer extends ViewContainer<never>
      */
     get element(): HTMLElement
     {
-        return this._element;
+        throw new Error("STUB");
     }
 
     /** @private */
     protected updateBounds()
     {
-        const bounds = this._bounds;
-        const element = this._element;
-
-        if (!element)
-        {
-            bounds.minX = 0;
-            bounds.minY = 0;
-            bounds.maxX = 0;
-            bounds.maxY = 0;
-
-            return;
-        }
-
-        const { offsetWidth, offsetHeight } = element;
-
-        bounds.minX = 0;
-        bounds.maxX = offsetWidth;
-        bounds.minY = 0;
-        bounds.maxY = offsetHeight;
+        throw new Error("STUB");
     }
 
     /**

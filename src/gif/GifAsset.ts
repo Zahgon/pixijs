@@ -15,25 +15,22 @@ import type { AssetExtension } from '../assets/AssetExtension';
 const GifAsset: AssetExtension<GifSource, GifBufferOptions> = {
     extension: ExtensionType.Asset,
     detection: {
-        test: async () => true,
-        add: async (formats) => [...formats, 'gif'],
-        remove: async (formats) => formats.filter((format) => format !== 'gif'),
+        test: async () => { throw new Error("STUB"); },
+        add: async (formats) => { throw new Error("STUB"); },
+        remove: async (formats) => { throw new Error("STUB"); },
     },
     loader: {
         /** used for deprecation purposes */
         name: 'gifLoader',
         id: 'gif',
-        test: (url) => path.extname(url) === '.gif' || url.startsWith('data:image/gif'),
+        test: (url) => { throw new Error("STUB"); },
         load: async (url, asset) =>
         {
-            const response = await DOMAdapter.get().fetch(url);
-            const buffer = await response.arrayBuffer();
-
-            return GifSource.from(buffer, asset?.data);
+            throw new Error("STUB");
         },
         unload: async (asset) =>
         {
-            asset.destroy();
+            throw new Error("STUB");
         },
     }
 };

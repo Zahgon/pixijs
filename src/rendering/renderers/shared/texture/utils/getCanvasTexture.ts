@@ -27,10 +27,7 @@ export function getCanvasTexture(canvas: ICanvas, options?: CanvasSourceOptions)
 
         const onDestroy = () =>
         {
-            if (canvasCache.get(canvas) === texture)
-            {
-                canvasCache.delete(canvas);
-            }
+            throw new Error("STUB");
         };
 
         texture.once('destroy', onDestroy);
@@ -48,5 +45,5 @@ export function getCanvasTexture(canvas: ICanvas, options?: CanvasSourceOptions)
  */
 export function hasCachedCanvasTexture(canvas: ICanvas): boolean
 {
-    return canvasCache.has(canvas);
+    throw new Error("STUB");
 }

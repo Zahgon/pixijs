@@ -57,13 +57,12 @@ export class GpuStateSystem implements System
 
     constructor()
     {
-        this.defaultState = new State();
-        this.defaultState.blend = true;
+        throw new Error("STUB");
     }
 
     protected contextChange(gpu: GPU): void
     {
-        this.gpu = gpu;
+        throw new Error("STUB");
     }
 
     /**

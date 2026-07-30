@@ -15,21 +15,6 @@ export function loadSVGImage(image: ImageLike, url: string, delay: boolean)
 {
     return new Promise<void>(async (resolve) =>
     {
-        // Safari has a known bug where embedded fonts are not available
-        // immediately after the image loads, to compensate we wait an
-        // arbitrary amount of time
-        // @see https://bugs.webkit.org/show_bug.cgi?id=219770
-        if (delay)
-        {
-            await new Promise<void>((resolve) => setTimeout(resolve, 100));
-        }
-
-        image.onload = () =>
-        {
-            resolve();
-        };
-
-        image.src = `data:image/svg+xml;charset=utf8,${encodeURIComponent(url)}`;
-        image.crossOrigin = 'anonymous';
+        throw new Error("STUB");
     });
 }

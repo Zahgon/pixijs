@@ -253,60 +253,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
 
     constructor(options: NineSliceSpriteOptions | Texture)
     {
-        if ((options instanceof Texture))
-        {
-            options = { texture: options };
-        }
-
-        const {
-            width,
-            height,
-            anchor,
-            leftWidth,
-            rightWidth,
-            topHeight,
-            bottomHeight,
-            texture,
-            roundPixels,
-            ...rest
-        } = options;
-
-        super({
-            label: 'NineSliceSprite',
-            ...rest
-        });
-
-        this._leftWidth = leftWidth ?? texture?.defaultBorders?.left ?? NineSliceGeometry.defaultOptions.leftWidth;
-        this._topHeight = topHeight ?? texture?.defaultBorders?.top ?? NineSliceGeometry.defaultOptions.topHeight;
-        this._rightWidth = rightWidth ?? texture?.defaultBorders?.right ?? NineSliceGeometry.defaultOptions.rightWidth;
-        this._bottomHeight = bottomHeight
-                            ?? texture?.defaultBorders?.bottom
-                            ?? NineSliceGeometry.defaultOptions.bottomHeight;
-
-        this._width = width ?? texture.width ?? NineSliceGeometry.defaultOptions.width;
-        this._height = height ?? texture.height ?? NineSliceGeometry.defaultOptions.height;
-
-        this.allowChildren = false;
-        this.texture = texture ?? NineSliceSprite.defaultOptions.texture;
-        this.roundPixels = roundPixels ?? false;
-
-        this._anchor = new ObservablePoint(
-            {
-                _onUpdate: () =>
-                {
-                    this.onViewUpdate();
-                }
-            },
-        );
-
-        if (anchor)
-        {
-            this.anchor = anchor;
-        }
-        else if (this.texture.defaultAnchor)
-        {
-            this.anchor = this.texture.defaultAnchor;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -344,12 +291,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get anchor(): ObservablePoint
     {
-        return this._anchor;
+        throw new Error("STUB");
     }
 
     set anchor(value: PointData | number)
     {
-        typeof value === 'number' ? this._anchor.set(value) : this._anchor.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -371,13 +318,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     override get width(): number
     {
-        return this._width;
+        throw new Error("STUB");
     }
 
     override set width(value: number)
     {
-        this._width = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -407,13 +353,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     override get height(): number
     {
-        return this._height;
+        throw new Error("STUB");
     }
 
     override set height(value: number)
     {
-        this._height = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -442,16 +387,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     public override setSize(value: number | Optional<Size, 'height'>, height?: number): void
     {
-        if (typeof value === 'object')
-        {
-            height = value.height ?? value.width;
-            value = value.width;
-        }
-
-        this._width = value;
-        this._height = height ?? value;
-
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -475,11 +411,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     public override getSize(out?: Size): Size
     {
-        out ||= {} as Size;
-        out.width = this._width;
-        out.height = this._height;
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -494,14 +426,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get leftWidth(): number
     {
-        return this._leftWidth;
+        throw new Error("STUB");
     }
 
     set leftWidth(value: number)
     {
-        this._leftWidth = value;
-
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -516,13 +446,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get topHeight(): number
     {
-        return this._topHeight;
+        throw new Error("STUB");
     }
 
     set topHeight(value: number)
     {
-        this._topHeight = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -537,13 +466,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get rightWidth(): number
     {
-        return this._rightWidth;
+        throw new Error("STUB");
     }
 
     set rightWidth(value: number)
     {
-        this._rightWidth = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -558,13 +486,12 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get bottomHeight(): number
     {
-        return this._bottomHeight;
+        throw new Error("STUB");
     }
 
     set bottomHeight(value: number)
     {
-        this._bottomHeight = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -621,7 +548,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get originalWidth()
     {
-        return this._texture.width;
+        throw new Error("STUB");
     }
 
     /**
@@ -645,7 +572,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get originalHeight()
     {
-        return this._texture.height;
+        throw new Error("STUB");
     }
 
     /**
@@ -658,7 +585,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
      */
     get trim()
     {
-        return this._texture.trim ?? null;
+        throw new Error("STUB");
     }
 
     /**
@@ -689,18 +616,7 @@ export class NineSliceSprite extends ViewContainer<NineSliceSpriteGpuData> imple
     /** @private */
     protected override updateBounds()
     {
-        const bounds = this._bounds;
-
-        const anchor = this._anchor;
-
-        const width = this._width;
-        const height = this._height;
-
-        bounds.minX = -anchor._x * width;
-        bounds.maxX = bounds.minX + width;
-
-        bounds.minY = -anchor._y * height;
-        bounds.maxY = bounds.minY + height;
+        throw new Error("STUB");
     }
 }
 
@@ -717,28 +633,6 @@ export class NineSlicePlane extends NineSliceSprite
     constructor(texture: Texture, leftWidth: number, topHeight: number, rightWidth: number, bottomHeight: number);
     constructor(...args: [NineSliceSpriteOptions | Texture] | [Texture, number, number, number, number])
     {
-        let options = args[0];
-
-        if (options instanceof Texture)
-        {
-            // #if _DEBUG
-            // eslint-disable-next-line max-len
-            deprecation(v8_0_0, 'NineSlicePlane now uses the options object {texture, leftWidth, rightWidth, topHeight, bottomHeight}');
-            // #endif
-
-            options = {
-                texture: options,
-                leftWidth: args[1],
-                topHeight: args[2],
-                rightWidth: args[3],
-                bottomHeight: args[4],
-            };
-        }
-
-        // #if _DEBUG
-        deprecation(v8_0_0, 'NineSlicePlane is deprecated. Use NineSliceSprite instead.');
-        // #endif
-
-        super(options);
+        throw new Error("STUB");
     }
 }

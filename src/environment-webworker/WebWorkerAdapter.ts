@@ -19,18 +19,16 @@ import { DOMParser } from '@xmldom/xmldom';
  * @advanced
  */
 export const WebWorkerAdapter = {
-    createCanvas: (width?: number, height?: number) => new OffscreenCanvas(width ?? 0, height ?? 0),
-    createImage: (): ImageLike => new Image(),
-    getCanvasRenderingContext2D: () => OffscreenCanvasRenderingContext2D,
-    getWebGLRenderingContext: () => WebGLRenderingContext,
-    getNavigator: () => navigator,
-    getBaseUrl: () => globalThis.location.href,
-    getFontFaceSet: () => (globalThis as unknown as WorkerGlobalScope).fonts,
-    fetch: (url: RequestInfo, options?: RequestInit) => fetch(url, options),
+    createCanvas: (width?: number, height?: number) => { throw new Error("STUB"); },
+    createImage: (): ImageLike => { throw new Error("STUB"); },
+    getCanvasRenderingContext2D: () => { throw new Error("STUB"); },
+    getWebGLRenderingContext: () => { throw new Error("STUB"); },
+    getNavigator: () => { throw new Error("STUB"); },
+    getBaseUrl: () => { throw new Error("STUB"); },
+    getFontFaceSet: () => { throw new Error("STUB"); },
+    fetch: (url: RequestInfo, options?: RequestInit) => { throw new Error("STUB"); },
     parseXML: (xml: string) =>
     {
-        const parser = new DOMParser();
-
-        return parser.parseFromString(xml, 'text/xml');
+        throw new Error("STUB");
     },
 } as Adapter;

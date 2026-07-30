@@ -199,32 +199,7 @@ export class Ellipse implements ShapePrimitive
      */
     public strokeContains(x: number, y: number, strokeWidth: number, alignment: number = 0.5): boolean
     {
-        const { halfWidth, halfHeight } = this;
-
-        if (halfWidth <= 0 || halfHeight <= 0)
-        {
-            return false;
-        }
-
-        const strokeOuterWidth = strokeWidth * (1 - alignment);
-        const strokeInnerWidth = strokeWidth - strokeOuterWidth;
-
-        const innerHorizontal = halfWidth - strokeInnerWidth;
-        const innerVertical = halfHeight - strokeInnerWidth;
-
-        const outerHorizontal = halfWidth + strokeOuterWidth;
-        const outerVertical = halfHeight + strokeOuterWidth;
-
-        const normalizedX = x - this.x;
-        const normalizedY = y - this.y;
-
-        const innerEllipse = ((normalizedX * normalizedX) / (innerHorizontal * innerHorizontal))
-            + ((normalizedY * normalizedY) / (innerVertical * innerVertical));
-
-        const outerEllipse = ((normalizedX * normalizedX) / (outerHorizontal * outerHorizontal))
-            + ((normalizedY * normalizedY) / (outerVertical * outerVertical));
-
-        return innerEllipse > 1 && outerEllipse <= 1;
+        throw new Error("STUB");
     }
 
     /**

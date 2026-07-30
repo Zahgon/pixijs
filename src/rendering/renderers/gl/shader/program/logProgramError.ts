@@ -19,32 +19,24 @@ function logPrettyShaderError(gl: WebGLRenderingContext, shader: WebGLShader): v
 
     const shaderSrc = rawSource
         .split('\n')
-        .map((line, index) => `${index}: ${line}`);
+        .map((line, index) => { throw new Error("STUB"); });
 
     const shaderLog = gl.getShaderInfoLog(shader) ?? '';
     const splitShader = shaderLog.split('\n');
 
     const dedupe: Record<number, boolean> = {};
 
-    const lineNumbers = splitShader.map((line) => parseFloat(line.replace(/^ERROR\: 0\:([\d]+)\:.*$/, '$1')))
+    const lineNumbers = splitShader.map((line) => { throw new Error("STUB"); })
         .filter((n) =>
         {
-            if (n && !dedupe[n])
-            {
-                dedupe[n] = true;
-
-                return true;
-            }
-
-            return false;
+            throw new Error("STUB");
         });
 
     const logArgs = [''];
 
     lineNumbers.forEach((number) =>
     {
-        shaderSrc[number - 1] = `%c${shaderSrc[number - 1]}%c`;
-        logArgs.push('background: #FF0000; color:#FFFFFF; font-size: 10px', 'font-size: 10px');
+        throw new Error("STUB");
     });
 
     const fragmentSourceToLog = shaderSrc

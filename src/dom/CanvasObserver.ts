@@ -29,13 +29,7 @@ export class CanvasObserver
 
     constructor(options: { domElement: HTMLElement; renderer: Renderer })
     {
-        this._domElement = options.domElement;
-        this._renderer = options.renderer;
-
-        // We need to ensure that the canvas is not an OffscreenCanvas
-        if (globalThis.OffscreenCanvas && this._renderer.canvas instanceof OffscreenCanvas) return;
-        this._canvas = this._renderer.canvas;
-        this._attachObserver();
+        throw new Error("STUB");
     }
 
     /** The canvas element that this CanvasObserver is associated with. */
@@ -60,68 +54,13 @@ export class CanvasObserver
      */
     public readonly updateTranslation = () =>
     {
-        if (!this._canvas) return;
-
-        const rect = this._canvas.getBoundingClientRect(); // still needed for left/top
-        const contentWidth = this._canvas.width;
-        const contentHeight = this._canvas.height;
-
-        const sx = (rect.width / contentWidth) * this._renderer.resolution;
-        const sy = (rect.height / contentHeight) * this._renderer.resolution;
-        const tx = rect.left;
-        const ty = rect.top;
-
-        const newTransform = `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`;
-
-        if (newTransform !== this._lastTransform)
-        {
-            this._domElement.style.transform = newTransform;
-            this._lastTransform = newTransform;
-        }
+        throw new Error("STUB");
     };
 
     /** Sets up a ResizeObserver if available. This ensures that the DOM element is kept in sync with the canvas size . */
     private _attachObserver()
     {
-        if ('ResizeObserver' in globalThis)
-        {
-            if (this._observer)
-            {
-                this._observer.disconnect();
-                this._observer = null;
-            }
-
-            this._observer = new ResizeObserver((entries) =>
-            {
-                for (const entry of entries)
-                {
-                    if (entry.target !== this._canvas)
-                    {
-                        continue;
-                    }
-
-                    const contentWidth = this.canvas.width;
-                    const contentHeight = this.canvas.height;
-                    const sx = (entry.contentRect.width / contentWidth) * this._renderer.resolution;
-                    const sy = (entry.contentRect.height / contentHeight) * this._renderer.resolution;
-
-                    // Only refetch position if scale actually changed
-                    const needsUpdate = this._lastScaleX !== sx || this._lastScaleY !== sy;
-
-                    if (needsUpdate)
-                    {
-                        this.updateTranslation(); // safely fetch `left` and `top` only when needed
-                        this._lastScaleX = sx;
-                        this._lastScaleY = sy;
-                    }
-                }
-            });
-            this._observer.observe(this._canvas);
-        }
-        else if (!this._tickerAttached)
-        {
-            Ticker.shared.add(this.updateTranslation, this, UPDATE_PRIORITY.HIGH);
-        }
+        throw new Error("STUB");
     }
 
     /** Destroys the CanvasObserver instance, cleaning up observers and Ticker. */

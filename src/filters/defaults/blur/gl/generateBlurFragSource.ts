@@ -18,26 +18,5 @@ const fragTemplate = [
  */
 export function generateBlurFragSource(kernelSize: number): string
 {
-    const kernel = GAUSSIAN_VALUES[kernelSize];
-    const halfLength = kernel.length;
-
-    let blurLoop = '';
-    const prefixFirst = 'finalColor = ';
-    const prefixRest = '    + ';
-    const template = 'texture(uTexture, vBlurTexCoords[%index%]) * %value%';
-
-    for (let i = 0; i < kernelSize; i++)
-    {
-        const prefix = i === 0 ? prefixFirst : prefixRest;
-        const value = i < halfLength ? i : kernelSize - i - 1;
-        const blur = template
-            .replace('%index%', i.toString())
-            .replace('%value%', kernel[value].toString());
-
-        blurLoop += `${prefix}${blur}\n`;
-    }
-
-    return fragTemplate
-        .replace('%blur%', `${blurLoop};`)
-        .replace('%size%', kernelSize.toString());
+    throw new Error("STUB");
 }

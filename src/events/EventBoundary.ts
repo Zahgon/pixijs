@@ -149,27 +149,7 @@ export class EventBoundary
      */
     constructor(rootTarget?: Container)
     {
-        this.rootTarget = rootTarget;
-
-        this.hitPruneFn = this.hitPruneFn.bind(this);
-        this.hitTestFn = this.hitTestFn.bind(this);
-        this.mapPointerDown = this.mapPointerDown.bind(this);
-        this.mapPointerMove = this.mapPointerMove.bind(this);
-        this.mapPointerOut = this.mapPointerOut.bind(this);
-        this.mapPointerOver = this.mapPointerOver.bind(this);
-        this.mapPointerUp = this.mapPointerUp.bind(this);
-        this.mapPointerUpOutside = this.mapPointerUpOutside.bind(this);
-        this.mapWheel = this.mapWheel.bind(this);
-
-        this.mappingTable = {};
-        this.addEventMapping('pointerdown', this.mapPointerDown);
-        this.addEventMapping('pointermove', this.mapPointerMove);
-        this.addEventMapping('pointerout', this.mapPointerOut);
-        this.addEventMapping('pointerleave', this.mapPointerOut);
-        this.addEventMapping('pointerover', this.mapPointerOver);
-        this.addEventMapping('pointerup', this.mapPointerUp);
-        this.addEventMapping('pointerupoutside', this.mapPointerUpOutside);
-        this.addEventMapping('wheel', this.mapWheel);
+        throw new Error("STUB");
     }
 
     /**
@@ -186,16 +166,7 @@ export class EventBoundary
      */
     public addEventMapping(type: string, fn: (e: FederatedEvent) => void): void
     {
-        if (!this.mappingTable[type])
-        {
-            this.mappingTable[type] = [];
-        }
-
-        this.mappingTable[type].push({
-            fn,
-            priority: 0,
-        });
-        this.mappingTable[type].sort((a, b) => a.priority - b.priority);
+        throw new Error("STUB");
     }
 
     /**
@@ -218,26 +189,7 @@ export class EventBoundary
      */
     public mapEvent(e: FederatedEvent): void
     {
-        if (!this.rootTarget)
-        {
-            return;
-        }
-
-        const mappers = this.mappingTable[e.type];
-
-        if (mappers)
-        {
-            for (let i = 0, j = mappers.length; i < j; i++)
-            {
-                mappers[i].fn(e);
-            }
-        }
-        else
-        {
-            // #if _DEBUG
-            warn(`[EventBoundary]: Event mapping not defined for ${e.type}`);
-            // #endif
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -252,19 +204,7 @@ export class EventBoundary
         y: number,
     ): Container
     {
-        EventsTicker.pauseUpdate = true;
-        // if we are using global move events, we need to hit test the whole scene graph
-        const useMove = this._isPointerMoveEvent && this.enableGlobalMoveEvents;
-        const fn = useMove ? 'hitTestMoveRecursive' : 'hitTestRecursive';
-        const invertedPath = this[fn](
-            this.rootTarget,
-            this.rootTarget.eventMode,
-            tempHitLocation.set(x, y),
-            this.hitTestFn,
-            this.hitPruneFn,
-        );
-
-        return invertedPath && invertedPath[0];
+        throw new Error("STUB");
     }
 
     /**
@@ -338,8 +278,7 @@ export class EventBoundary
         {
             events.forEach((event) =>
             {
-                e.currentTarget = targets[i];
-                this.notifyTarget(e, event);
+                throw new Error("STUB");
             });
         }
     }
@@ -379,81 +318,7 @@ export class EventBoundary
         ignore = false
     ): Container[]
     {
-        let shouldReturn = false;
-
-        // only bail out early if it is not interactive
-        if (this._interactivePrune(currentTarget)) return null;
-
-        if (currentTarget.eventMode === 'dynamic' || eventMode === 'dynamic')
-        {
-            EventsTicker.pauseUpdate = false;
-        }
-
-        if (currentTarget.interactiveChildren && currentTarget.children)
-        {
-            const children = currentTarget.children;
-
-            for (let i = children.length - 1; i >= 0; i--)
-            {
-                const child = children[i] as Container;
-
-                const nestedHit = this.hitTestMoveRecursive(
-                    child,
-                    this._isInteractive(eventMode) ? eventMode : child.eventMode,
-                    location,
-                    testFn,
-                    pruneFn,
-                    ignore || pruneFn(currentTarget, location)
-                );
-
-                if (nestedHit)
-                {
-                    // Its a good idea to check if a child has lost its parent.
-                    // this means it has been removed whilst looping so its best
-                    if (nestedHit.length > 0 && !nestedHit[nestedHit.length - 1].parent)
-                    {
-                        continue;
-                    }
-
-                    // Only add the current hit-test target to the hit-test chain if the chain
-                    // has already started (i.e. the event target has been found) or if the current
-                    // target is interactive (i.e. it becomes the event target).
-                    const isInteractive = currentTarget.isInteractive();
-
-                    if (nestedHit.length > 0 || isInteractive)
-                    {
-                        if (isInteractive) this._allInteractiveElements.push(currentTarget);
-                        nestedHit.push(currentTarget);
-                    }
-
-                    // store all hit elements to be returned once we have traversed the whole tree
-                    if (this._hitElements.length === 0) this._hitElements = nestedHit;
-
-                    shouldReturn = true;
-                }
-            }
-        }
-
-        const isInteractiveMode = this._isInteractive(eventMode);
-        const isInteractiveTarget = currentTarget.isInteractive();
-
-        if (isInteractiveTarget && isInteractiveTarget) this._allInteractiveElements.push(currentTarget);
-
-        // we don't carry on hit testing something once we have found a hit,
-        // now only care about gathering the interactive elements
-        if (ignore || this._hitElements.length > 0) return null;
-
-        if (shouldReturn) return this._hitElements as Container[];
-
-        // Finally, hit test this Container itself.
-        if (isInteractiveMode && (!pruneFn(currentTarget, location) && testFn(currentTarget, location)))
-        {
-            // The current hit-test target is the event's target only if it is interactive. Otherwise,
-            // the first interactive ancestor will be the event's target.
-            return isInteractiveTarget ? [currentTarget] : [];
-        }
-
-        return null;
+        throw new Error("STUB");
     }
 
     /**
@@ -478,95 +343,17 @@ export class EventBoundary
         pruneFn: (object: Container, pt: Point) => boolean
     ): Container[]
     {
-        // Attempt to prune this Container and its subtree as an optimization.
-        if (this._interactivePrune(currentTarget) || pruneFn(currentTarget, location))
-        {
-            return null;
-        }
-        if (currentTarget.eventMode === 'dynamic' || eventMode === 'dynamic')
-        {
-            EventsTicker.pauseUpdate = false;
-        }
-
-        // Find a child that passes the hit testing and return one, if any.
-        if (currentTarget.interactiveChildren && currentTarget.children)
-        {
-            const children = currentTarget.children;
-            const relativeLocation = location;
-
-            for (let i = children.length - 1; i >= 0; i--)
-            {
-                const child = children[i] as Container;
-
-                const nestedHit = this.hitTestRecursive(
-                    child,
-                    this._isInteractive(eventMode) ? eventMode : child.eventMode,
-                    relativeLocation,
-                    testFn,
-                    pruneFn
-                );
-
-                if (nestedHit)
-                {
-                    // Its a good idea to check if a child has lost its parent.
-                    // this means it has been removed whilst looping so its best
-                    if (nestedHit.length > 0 && !nestedHit[nestedHit.length - 1].parent)
-                    {
-                        continue;
-                    }
-
-                    // Only add the current hit-test target to the hit-test chain if the chain
-                    // has already started (i.e. the event target has been found) or if the current
-                    // target is interactive (i.e. it becomes the event target).
-                    const isInteractive = currentTarget.isInteractive();
-
-                    if (nestedHit.length > 0 || isInteractive) nestedHit.push(currentTarget);
-
-                    return nestedHit;
-                }
-            }
-        }
-
-        const isInteractiveMode = this._isInteractive(eventMode);
-        const isInteractiveTarget = currentTarget.isInteractive();
-
-        // Finally, hit test this Container itself.
-        if (isInteractiveMode && testFn(currentTarget, location))
-        {
-            // The current hit-test target is the event's target only if it is interactive. Otherwise,
-            // the first interactive ancestor will be the event's target.
-            return isInteractiveTarget ? [currentTarget] : [];
-        }
-
-        return null;
+        throw new Error("STUB");
     }
 
     private _isInteractive(int: EventMode): int is 'static' | 'dynamic'
     {
-        return int === 'static' || int === 'dynamic';
+        throw new Error("STUB");
     }
 
     private _interactivePrune(container: Container): boolean
     {
-        // If container is a mask, invisible, or not renderable then it cannot be hit directly.
-        if (!container || !container.visible || !container.renderable || !container.measurable)
-        {
-            return true;
-        }
-
-        // If this Container is none then it cannot be hit by anything.
-        if (container.eventMode === 'none')
-        {
-            return true;
-        }
-
-        // If this Container is passive and it has no interactive children then it cannot be hit
-        if (container.eventMode === 'passive' && !container.interactiveChildren)
-        {
-            return true;
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**
@@ -579,35 +366,7 @@ export class EventBoundary
      */
     protected hitPruneFn(container: Container, location: Point): boolean
     {
-        if (container.hitArea)
-        {
-            container.worldTransform.applyInverse(location, tempLocalMapping);
-
-            if (!container.hitArea.contains(tempLocalMapping.x, tempLocalMapping.y))
-            {
-                return true;
-            }
-        }
-
-        if (container.effects && container.effects.length)
-        {
-            for (let i = 0; i < container.effects.length; i++)
-            {
-                const effect = container.effects[i];
-
-                if (effect.containsPoint)
-                {
-                    const effectContainsPoint = effect.containsPoint(location, this.hitTestFn);
-
-                    if (!effectContainsPoint)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**
@@ -618,22 +377,7 @@ export class EventBoundary
      */
     protected hitTestFn(container: Container, location: Point): boolean
     {
-        // If the container failed pruning with a hitArea, then it must pass it.
-        if (container.hitArea)
-        {
-            return true;
-        }
-
-        if ((container as Renderable)?.containsPoint)
-        {
-            container.worldTransform.applyInverse(location, tempLocalMapping);
-
-            return (container as Renderable).containsPoint(tempLocalMapping) as boolean;
-        }
-
-        // TODO: Should we hit test based on bounds?
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**
@@ -676,35 +420,7 @@ export class EventBoundary
      */
     protected mapPointerDown(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-pointer event as a pointer event');
-            // #endif
-
-            return;
-        }
-
-        const e = this.createPointerEvent(from);
-
-        this.dispatchEvent(e, 'pointerdown');
-
-        if (e.pointerType === 'touch')
-        {
-            this.dispatchEvent(e, 'touchstart');
-        }
-        else if (e.pointerType === 'mouse' || e.pointerType === 'pen')
-        {
-            const isRightButton = e.button === 2;
-
-            this.dispatchEvent(e, isRightButton ? 'rightdown' : 'mousedown');
-        }
-
-        const trackingData = this.trackingData(from.pointerId);
-
-        trackingData.pressTargetsByButton[from.button] = e.composedPath();
-
-        this.freeEvent(e);
+        throw new Error("STUB");
     }
 
     /**
@@ -716,137 +432,7 @@ export class EventBoundary
      */
     protected mapPointerMove(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-pointer event as a pointer event');
-            // #endif
-
-            return;
-        }
-
-        this._allInteractiveElements.length = 0;
-        this._hitElements.length = 0;
-        this._isPointerMoveEvent = true;
-        const e = this.createPointerEvent(from);
-
-        this._isPointerMoveEvent = false;
-        const isMouse = e.pointerType === 'mouse' || e.pointerType === 'pen';
-        const trackingData = this.trackingData(from.pointerId);
-        const outTarget = this.findMountedTarget(trackingData.overTargets);
-
-        // First pointerout/pointerleave
-        if (trackingData.overTargets?.length > 0 && outTarget !== e.target)
-        {
-            // pointerout always occurs on the overTarget when the pointer hovers over another element.
-            const outType = from.type === 'mousemove' ? 'mouseout' : 'pointerout';
-            const outEvent = this.createPointerEvent(from, outType, outTarget);
-
-            this.dispatchEvent(outEvent, 'pointerout');
-            if (isMouse) this.dispatchEvent(outEvent, 'mouseout');
-
-            // If the pointer exits overTarget and its descendants, then a pointerleave event is also fired. This event
-            // is dispatched to all ancestors that no longer capture the pointer.
-            if (!e.composedPath().includes(outTarget))
-            {
-                const leaveEvent = this.createPointerEvent(from, 'pointerleave', outTarget);
-
-                leaveEvent.eventPhase = leaveEvent.AT_TARGET;
-
-                while (leaveEvent.target && !e.composedPath().includes(leaveEvent.target))
-                {
-                    leaveEvent.currentTarget = leaveEvent.target;
-
-                    this.notifyTarget(leaveEvent);
-                    if (isMouse) this.notifyTarget(leaveEvent, 'mouseleave');
-
-                    leaveEvent.target = leaveEvent.target.parent;
-                }
-
-                this.freeEvent(leaveEvent);
-            }
-
-            this.freeEvent(outEvent);
-        }
-
-        // Then pointerover
-        if (outTarget !== e.target)
-        {
-            // pointerover always occurs on the new overTarget
-            const overType = from.type === 'mousemove' ? 'mouseover' : 'pointerover';
-            const overEvent = this.clonePointerEvent(e, overType);// clone faster
-
-            this.dispatchEvent(overEvent, 'pointerover');
-            if (isMouse) this.dispatchEvent(overEvent, 'mouseover');
-
-            // Probe whether the newly hovered Container is an ancestor of the original overTarget.
-            let overTargetAncestor = outTarget?.parent;
-
-            while (overTargetAncestor && overTargetAncestor !== this.rootTarget.parent)
-            {
-                if (overTargetAncestor === e.target) break;
-
-                overTargetAncestor = overTargetAncestor.parent;
-            }
-
-            // The pointer has entered a non-ancestor of the original overTarget. This means we need a pointerentered
-            // event.
-            const didPointerEnter = !overTargetAncestor || overTargetAncestor === this.rootTarget.parent;
-
-            if (didPointerEnter)
-            {
-                const enterEvent = this.clonePointerEvent(e, 'pointerenter');
-
-                enterEvent.eventPhase = enterEvent.AT_TARGET;
-
-                while (enterEvent.target
-                        && enterEvent.target !== outTarget
-                        && enterEvent.target !== this.rootTarget.parent)
-                {
-                    enterEvent.currentTarget = enterEvent.target;
-
-                    this.notifyTarget(enterEvent);
-                    if (isMouse) this.notifyTarget(enterEvent, 'mouseenter');
-
-                    enterEvent.target = enterEvent.target.parent;
-                }
-
-                this.freeEvent(enterEvent);
-            }
-
-            this.freeEvent(overEvent);
-        }
-
-        const allMethods: string[] = [];
-        const allowGlobalPointerEvents = this.enableGlobalMoveEvents ?? true;
-
-        this.moveOnAll ? allMethods.push('pointermove') : this.dispatchEvent(e, 'pointermove');
-        allowGlobalPointerEvents && allMethods.push('globalpointermove');
-
-        // Then pointermove
-        if (e.pointerType === 'touch')
-        {
-            this.moveOnAll ? allMethods.splice(1, 0, 'touchmove') : this.dispatchEvent(e, 'touchmove');
-            allowGlobalPointerEvents && allMethods.push('globaltouchmove');
-        }
-
-        if (isMouse)
-        {
-            this.moveOnAll ? allMethods.splice(1, 0, 'mousemove') : this.dispatchEvent(e, 'mousemove');
-            allowGlobalPointerEvents && allMethods.push('globalmousemove');
-            this.cursor = e.target?.cursor;
-        }
-
-        if (allMethods.length > 0)
-        {
-            this.all(e, allMethods);
-        }
-        this._allInteractiveElements.length = 0;
-        this._hitElements.length = 0;
-
-        trackingData.overTargets = e.composedPath();
-
-        this.freeEvent(e);
+        throw new Error("STUB");
     }
 
     /**
@@ -857,42 +443,7 @@ export class EventBoundary
      */
     protected mapPointerOver(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-pointer event as a pointer event');
-            // #endif
-
-            return;
-        }
-
-        const trackingData = this.trackingData(from.pointerId);
-        const e = this.createPointerEvent(from);
-        const isMouse = e.pointerType === 'mouse' || e.pointerType === 'pen';
-
-        this.dispatchEvent(e, 'pointerover');
-        if (isMouse) this.dispatchEvent(e, 'mouseover');
-        if (e.pointerType === 'mouse') this.cursor = e.target?.cursor;
-
-        // pointerenter events must be fired since the pointer entered from upstream.
-        const enterEvent = this.clonePointerEvent(e, 'pointerenter');
-
-        enterEvent.eventPhase = enterEvent.AT_TARGET;
-
-        while (enterEvent.target && enterEvent.target !== this.rootTarget.parent)
-        {
-            enterEvent.currentTarget = enterEvent.target;
-
-            this.notifyTarget(enterEvent);
-            if (isMouse) this.notifyTarget(enterEvent, 'mouseenter');
-
-            enterEvent.target = enterEvent.target.parent;
-        }
-
-        trackingData.overTargets = e.composedPath();
-
-        this.freeEvent(e);
-        this.freeEvent(enterEvent);
+        throw new Error("STUB");
     }
 
     /**
@@ -903,51 +454,7 @@ export class EventBoundary
      */
     protected mapPointerOut(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-pointer event as a pointer event');
-            // #endif
-
-            return;
-        }
-
-        const trackingData = this.trackingData(from.pointerId);
-
-        if (trackingData.overTargets)
-        {
-            const isMouse = from.pointerType === 'mouse' || from.pointerType === 'pen';
-            const outTarget = this.findMountedTarget(trackingData.overTargets);
-
-            // pointerout first
-            const outEvent = this.createPointerEvent(from, 'pointerout', outTarget);
-
-            this.dispatchEvent(outEvent);
-            if (isMouse) this.dispatchEvent(outEvent, 'mouseout');
-
-            // pointerleave(s) are also dispatched b/c the pointer must've left rootTarget and its descendants to
-            // get an upstream pointerout event (upstream events do not know rootTarget has descendants).
-            const leaveEvent = this.createPointerEvent(from, 'pointerleave', outTarget);
-
-            leaveEvent.eventPhase = leaveEvent.AT_TARGET;
-
-            while (leaveEvent.target && leaveEvent.target !== this.rootTarget.parent)
-            {
-                leaveEvent.currentTarget = leaveEvent.target;
-
-                this.notifyTarget(leaveEvent);
-                if (isMouse) this.notifyTarget(leaveEvent, 'mouseleave');
-
-                leaveEvent.target = leaveEvent.target.parent;
-            }
-
-            trackingData.overTargets = null;
-
-            this.freeEvent(outEvent);
-            this.freeEvent(leaveEvent);
-        }
-
-        this.cursor = null;
+        throw new Error("STUB");
     }
 
     /**
@@ -962,120 +469,7 @@ export class EventBoundary
      */
     protected mapPointerUp(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-pointer event as a pointer event');
-            // #endif
-
-            return;
-        }
-
-        const now = performance.now();
-        const e = this.createPointerEvent(from);
-
-        this.dispatchEvent(e, 'pointerup');
-
-        if (e.pointerType === 'touch')
-        {
-            this.dispatchEvent(e, 'touchend');
-        }
-        else if (e.pointerType === 'mouse' || e.pointerType === 'pen')
-        {
-            const isRightButton = e.button === 2;
-
-            this.dispatchEvent(e, isRightButton ? 'rightup' : 'mouseup');
-        }
-
-        const trackingData = this.trackingData(from.pointerId);
-        const pressTarget = this.findMountedTarget(trackingData.pressTargetsByButton[from.button]);
-
-        let clickTarget = pressTarget;
-
-        // pointerupoutside only bubbles. It only bubbles upto the parent that doesn't contain
-        // the pointerup location.
-        if (pressTarget && !e.composedPath().includes(pressTarget))
-        {
-            let currentTarget = pressTarget;
-
-            while (currentTarget && !e.composedPath().includes(currentTarget))
-            {
-                e.currentTarget = currentTarget;
-
-                this.notifyTarget(e, 'pointerupoutside');
-
-                if (e.pointerType === 'touch')
-                {
-                    this.notifyTarget(e, 'touchendoutside');
-                }
-                else if (e.pointerType === 'mouse' || e.pointerType === 'pen')
-                {
-                    const isRightButton = e.button === 2;
-
-                    this.notifyTarget(e, isRightButton ? 'rightupoutside' : 'mouseupoutside');
-                }
-
-                currentTarget = currentTarget.parent;
-            }
-
-            delete trackingData.pressTargetsByButton[from.button];
-
-            // currentTarget is the most specific ancestor holding both the pointerdown and pointerup
-            // targets. That is - it's our click target!
-            clickTarget = currentTarget;
-        }
-
-        // click!
-        if (clickTarget)
-        {
-            const clickEvent = this.clonePointerEvent(e, 'click');
-
-            clickEvent.target = clickTarget;
-            clickEvent.path = null;
-
-            if (!trackingData.clicksByButton[from.button])
-            {
-                trackingData.clicksByButton[from.button] = {
-                    clickCount: 0,
-                    target: clickEvent.target,
-                    timeStamp: now,
-                };
-            }
-
-            const clickHistory = trackingData.clicksByButton[from.button];
-
-            if (clickHistory.target === clickEvent.target
-                && now - clickHistory.timeStamp < 200)
-            {
-                ++clickHistory.clickCount;
-            }
-            else
-            {
-                clickHistory.clickCount = 1;
-            }
-
-            clickHistory.target = clickEvent.target;
-            clickHistory.timeStamp = now;
-
-            clickEvent.detail = clickHistory.clickCount;
-
-            if (clickEvent.pointerType === 'mouse')
-            {
-                const isRightButton = clickEvent.button === 2;
-
-                this.dispatchEvent(clickEvent, isRightButton ? 'rightclick' : 'click');
-            }
-            else if (clickEvent.pointerType === 'touch')
-            {
-                this.dispatchEvent(clickEvent, 'tap');
-            }
-
-            this.dispatchEvent(clickEvent, 'pointertap');
-
-            this.freeEvent(clickEvent);
-        }
-
-        this.freeEvent(e);
+        throw new Error("STUB");
     }
 
     /**
@@ -1091,45 +485,7 @@ export class EventBoundary
      */
     protected mapPointerUpOutside(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-pointer event as a pointer event');
-            // #endif
-
-            return;
-        }
-
-        const trackingData = this.trackingData(from.pointerId);
-        const pressTarget = this.findMountedTarget(trackingData.pressTargetsByButton[from.button]);
-        const e = this.createPointerEvent(from);
-
-        if (pressTarget)
-        {
-            let currentTarget = pressTarget;
-
-            while (currentTarget)
-            {
-                e.currentTarget = currentTarget;
-
-                this.notifyTarget(e, 'pointerupoutside');
-
-                if (e.pointerType === 'touch')
-                {
-                    this.notifyTarget(e, 'touchendoutside');
-                }
-                else if (e.pointerType === 'mouse' || e.pointerType === 'pen')
-                {
-                    this.notifyTarget(e, e.button === 2 ? 'rightupoutside' : 'mouseupoutside');
-                }
-
-                currentTarget = currentTarget.parent;
-            }
-
-            delete trackingData.pressTargetsByButton[from.button];
-        }
-
-        this.freeEvent(e);
+        throw new Error("STUB");
     }
 
     /**
@@ -1138,19 +494,7 @@ export class EventBoundary
      */
     protected mapWheel(from: FederatedEvent): void
     {
-        if (!(from instanceof FederatedWheelEvent))
-        {
-            // #if _DEBUG
-            warn('EventBoundary cannot map a non-wheel event as a wheel event');
-            // #endif
-
-            return;
-        }
-
-        const wheelEvent = this.createWheelEvent(from);
-
-        this.dispatchEvent(wheelEvent);
-        this.freeEvent(wheelEvent);
+        throw new Error("STUB");
     }
 
     /**
@@ -1163,28 +507,7 @@ export class EventBoundary
      */
     protected findMountedTarget(propagationPath: Container[]): Container
     {
-        if (!propagationPath)
-        {
-            return null;
-        }
-
-        let currentTarget = propagationPath[0];
-
-        for (let i = 1; i < propagationPath.length; i++)
-        {
-            // Set currentTarget to the next target in the path only if it is still attached to the
-            // scene graph (i.e. parent still points to the expected ancestor).
-            if (propagationPath[i].parent === currentTarget)
-            {
-                currentTarget = propagationPath[i];
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        return currentTarget;
+        throw new Error("STUB");
     }
 
     /**
@@ -1201,24 +524,7 @@ export class EventBoundary
         target?: Container
     ): FederatedPointerEvent
     {
-        const event = this.allocateEvent(FederatedPointerEvent);
-
-        this.copyPointerData(from, event);
-        this.copyMouseData(from, event);
-        this.copyData(from, event);
-
-        event.nativeEvent = from.nativeEvent;
-        event.originalEvent = from;
-        event.target = target
-            ?? this.hitTest(event.global.x, event.global.y) as Container
-            ?? this._hitElements[0];
-
-        if (typeof type === 'string')
-        {
-            event.type = type;
-        }
-
-        return event;
+        throw new Error("STUB");
     }
 
     /**
@@ -1229,17 +535,7 @@ export class EventBoundary
      */
     protected createWheelEvent(from: FederatedWheelEvent): FederatedWheelEvent
     {
-        const event = this.allocateEvent(FederatedWheelEvent);
-
-        this.copyWheelData(from, event);
-        this.copyMouseData(from, event);
-        this.copyData(from, event);
-
-        event.nativeEvent = from.nativeEvent;
-        event.originalEvent = from;
-        event.target = this.hitTest(event.global.x, event.global.y);
-
-        return event;
+        throw new Error("STUB");
     }
 
     /**
@@ -1251,21 +547,7 @@ export class EventBoundary
      */
     protected clonePointerEvent(from: FederatedPointerEvent, type?: string): FederatedPointerEvent
     {
-        const event = this.allocateEvent(FederatedPointerEvent);
-
-        event.nativeEvent = from.nativeEvent;
-        event.originalEvent = from.originalEvent;
-
-        this.copyPointerData(from, event);
-        this.copyMouseData(from, event);
-        this.copyData(from, event);
-
-        // copy propagation path for perf
-        event.target = from.target;
-        event.path = from.composedPath().slice();
-        event.type = type ?? event.type;
-
-        return event;
+        throw new Error("STUB");
     }
 
     /**
@@ -1281,10 +563,7 @@ export class EventBoundary
      */
     protected copyWheelData(from: FederatedWheelEvent, to: FederatedWheelEvent): void
     {
-        to.deltaMode = from.deltaMode;
-        to.deltaX = from.deltaX;
-        to.deltaY = from.deltaY;
-        to.deltaZ = from.deltaZ;
+        throw new Error("STUB");
     }
 
     /**
@@ -1305,19 +584,7 @@ export class EventBoundary
      */
     protected copyPointerData(from: FederatedEvent, to: FederatedEvent): void
     {
-        if (!(from instanceof FederatedPointerEvent && to instanceof FederatedPointerEvent)) return;
-
-        to.pointerId = from.pointerId;
-        to.width = from.width;
-        to.height = from.height;
-        to.isPrimary = from.isPrimary;
-        to.pointerType = from.pointerType;
-        to.pressure = from.pressure;
-        to.tangentialPressure = from.tangentialPressure;
-        to.tiltX = from.tiltX;
-        to.tiltY = from.tiltY;
-        to.twist = from.twist;
-        to.persistentDeviceId = from.persistentDeviceId;
+        throw new Error("STUB");
     }
 
     /**
@@ -1344,18 +611,7 @@ export class EventBoundary
      */
     protected copyMouseData(from: FederatedEvent, to: FederatedEvent): void
     {
-        if (!(from instanceof FederatedMouseEvent && to instanceof FederatedMouseEvent)) return;
-
-        to.altKey = from.altKey;
-        to.button = from.button;
-        to.buttons = from.buttons;
-        to.client.copyFrom(from.client);
-        to.ctrlKey = from.ctrlKey;
-        to.metaKey = from.metaKey;
-        to.movement.copyFrom(from.movement);
-        to.screen.copyFrom(from.screen);
-        to.shiftKey = from.shiftKey;
-        to.global.copyFrom(from.global);
+        throw new Error("STUB");
     }
 
     /**
@@ -1371,15 +627,7 @@ export class EventBoundary
      */
     protected copyData(from: FederatedEvent, to: FederatedEvent): void
     {
-        to.isTrusted = from.isTrusted;
-        to.srcElement = from.srcElement;
-        to.timeStamp = performance.now();
-        to.type = from.type;
-        to.detail = from.detail;
-        to.view = from.view;
-        to.which = from.which;
-        to.layer.copyFrom(from.layer);
-        to.page.copyFrom(from.page);
+        throw new Error("STUB");
     }
 
     /**
@@ -1389,16 +637,7 @@ export class EventBoundary
      */
     protected trackingData(id: number): TrackingData
     {
-        if (!this.mappingState.trackingData[id])
-        {
-            this.mappingState.trackingData[id] = {
-                pressTargetsByButton: {},
-                clicksByButton: {},
-                overTarget: null
-            };
-        }
-
-        return this.mappingState.trackingData[id];
+        throw new Error("STUB");
     }
 
     /**
@@ -1413,21 +652,7 @@ export class EventBoundary
         constructor: { new(boundary: EventBoundary): T }
     ): T
     {
-        if (!this.eventPool.has(constructor as any))
-        {
-            this.eventPool.set(constructor as any, []);
-        }
-
-        const event = this.eventPool.get(constructor as any).pop() as T
-            || new constructor(this);
-
-        event.eventPhase = event.NONE;
-        event.currentTarget = null;
-        event.defaultPrevented = false;
-        event.path = null;
-        event.target = null;
-
-        return event;
+        throw new Error("STUB");
     }
 
     /**
@@ -1443,16 +668,7 @@ export class EventBoundary
      */
     protected freeEvent<T extends FederatedEvent>(event: T): void
     {
-        if (event.manager !== this) throw new Error('It is illegal to free an event not managed by this EventBoundary!');
-
-        const constructor = event.constructor;
-
-        if (!this.eventPool.has(constructor as any))
-        {
-            this.eventPool.set(constructor as any, []);
-        }
-
-        this.eventPool.get(constructor as any).push(event);
+        throw new Error("STUB");
     }
 
     /**

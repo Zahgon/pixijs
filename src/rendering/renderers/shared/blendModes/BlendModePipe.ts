@@ -24,14 +24,10 @@ const BLEND_MODE_FILTERS: Partial<Record<BLEND_MODES, new () => BlendModeFilter>
 
 extensions.handle(ExtensionType.BlendMode, (value) =>
 {
-    if (!value.name)
-    {
-        throw new Error('BlendMode extension must have a name property');
-    }
-    BLEND_MODE_FILTERS[value.name as BLEND_MODES] = value.ref;
+    throw new Error("STUB");
 }, (value) =>
 {
-    delete BLEND_MODE_FILTERS[value.name as BLEND_MODES];
+    throw new Error("STUB");
 });
 
 /**
@@ -71,16 +67,12 @@ export class BlendModePipe implements InstructionPipe<AdvancedBlendInstruction>
 
     constructor(renderer: Renderer)
     {
-        this._renderer = renderer;
-        this._renderer.runners.prerender.add(this);
+        throw new Error("STUB");
     }
 
     public prerender()
     {
-        // make sure we reset the blend modes to normal
-        // this way the next render will register any changes
-        this._activeBlendMode = 'normal';
-        this._isAdvanced = false;
+        throw new Error("STUB");
     }
 
     /**

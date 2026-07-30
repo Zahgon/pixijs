@@ -102,48 +102,7 @@ export class GlGeometrySystem implements System
     /** Sets up the renderer context and necessary buffers. */
     protected contextChange(): void
     {
-        const gl = this.gl = this._renderer.gl;
-
-        if (!this._renderer.context.supports.vertexArrayObject)
-        {
-            throw new Error('[PixiJS] Vertex Array Objects are not supported on this device');
-        }
-
-        this.destroyAll(true);
-        const nativeVaoExtension = this._renderer.context.extensions.vertexArrayObject;
-
-        if (nativeVaoExtension)
-        {
-            gl.createVertexArray = (): WebGLVertexArrayObject =>
-                nativeVaoExtension.createVertexArrayOES();
-
-            gl.bindVertexArray = (vao): void =>
-                nativeVaoExtension.bindVertexArrayOES(vao);
-
-            gl.deleteVertexArray = (vao): void =>
-                nativeVaoExtension.deleteVertexArrayOES(vao);
-        }
-
-        const nativeInstancedExtension = this._renderer.context.extensions.vertexAttribDivisorANGLE;
-
-        if (nativeInstancedExtension)
-        {
-            gl.drawArraysInstanced = (a, b, c, d): void =>
-            {
-                nativeInstancedExtension.drawArraysInstancedANGLE(a, b, c, d);
-            };
-
-            gl.drawElementsInstanced = (a, b, c, d, e): void =>
-            {
-                nativeInstancedExtension.drawElementsInstancedANGLE(a, b, c, d, e);
-            };
-
-            gl.vertexAttribDivisor = (a, b): void =>
-                nativeInstancedExtension.vertexAttribDivisorANGLE(a, b);
-        }
-
-        this._activeGeometry = null;
-        this._activeVao = null;
+        throw new Error("STUB");
     }
 
     /**
@@ -174,7 +133,7 @@ export class GlGeometrySystem implements System
     /** Reset and unbind any active VAO and geometry. */
     public resetState(): void
     {
-        this.unbind();
+        throw new Error("STUB");
     }
 
     /** Update buffers of the currently bound geometry. */
@@ -317,23 +276,7 @@ export class GlGeometrySystem implements System
 
     protected onGeometryUnload(geometry: Geometry, contextLost = false): void
     {
-        const gpuData = geometry._gpuData[this._renderer.uid];
-
-        if (!gpuData) return;
-
-        const vaoCache = gpuData.vaoCache;
-
-        if (!contextLost)
-        {
-            for (const i in vaoCache)
-            {
-                if (this._activeVao !== vaoCache[i])
-                {
-                    this.resetState();
-                }
-                this.gl.deleteVertexArray(vaoCache[i]);
-            }
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -342,7 +285,7 @@ export class GlGeometrySystem implements System
      */
     public destroyAll(contextLost = false): void
     {
-        this._managedGeometries.removeAll(contextLost);
+        throw new Error("STUB");
     }
 
     /**

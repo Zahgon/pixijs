@@ -33,18 +33,7 @@ export function buildAdaptiveBezier(
     smoothness?: number,
 )
 {
-    // TODO expose as a parameter
-    const scale = 1;
-    const smoothing = Math.min(
-        0.99, // a value of 1.0 actually inverts smoothing, so we cap it at 0.99
-        Math.max(0, smoothness ?? GraphicsContextSystem.defaultOptions.bezierSmoothness)
-    );
-    let distanceTolerance = (PATH_DISTANCE_EPSILON - smoothing) / scale;
-
-    distanceTolerance *= distanceTolerance;
-    begin(sX, sY, cp1x, cp1y, cp2x, cp2y, eX, eY, points, distanceTolerance);
-
-    return points;
+    throw new Error("STUB");
 }
 
 // //// Based on:

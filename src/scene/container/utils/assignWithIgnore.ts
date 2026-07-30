@@ -12,11 +12,5 @@ export function assignWithIgnore<T extends Record<string, any>>(
     ignore: Record<string, boolean> = {}
 )
 {
-    for (const key in options)
-    {
-        if (!ignore[key] && options[key] !== undefined)
-        {
-            target[key] = options[key];
-        }
-    }
+    throw new Error("STUB");
 }

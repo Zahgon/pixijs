@@ -190,35 +190,7 @@ export class Filter extends Shader
      */
     constructor(options: FilterWithShader)
     {
-        options = { ...Filter.defaultOptions, ...options };
-
-        super(options as ShaderWithResources);
-
-        this.blendMode = options.blendMode;
-        this.padding = options.padding;
-
-        // check if is boolean
-        if (typeof options.antialias === 'boolean')
-        {
-            this.antialias = options.antialias ? 'on' : 'off';
-        }
-        else
-        {
-            this.antialias = options.antialias;
-        }
-
-        this.resolution = options.resolution;
-        this.blendRequired = options.blendRequired;
-        this.clipToViewport = options.clipToViewport;
-
-        // this is where the filter system will attach the filter texture
-        this.addResource('uTexture', 0, 1);
-
-        if (options.blendRequired)
-        {
-            // this is where the filter system will attach the back texture
-            this.addResource('uBackTexture', 0, 3);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -244,13 +216,13 @@ export class Filter extends Shader
      */
     get blendMode(): BLEND_MODES
     {
-        return this._state.blendMode;
+        throw new Error("STUB");
     }
 
     /** Sets the blend mode of the filter. */
     set blendMode(value: BLEND_MODES)
     {
-        this._state.blendMode = value;
+        throw new Error("STUB");
     }
 
     /**

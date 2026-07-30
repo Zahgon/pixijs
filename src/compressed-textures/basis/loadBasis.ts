@@ -52,7 +52,7 @@ export const loadBasis = {
     {
         if (Array.isArray(texture))
         {
-            texture.forEach((t) => t.destroy(true));
+            texture.forEach((t) => { throw new Error("STUB"); });
         }
         else
         {

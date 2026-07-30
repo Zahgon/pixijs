@@ -258,7 +258,7 @@ const extensions = {
     {
         extensions.map(normalizeExtension).forEach((ext) =>
         {
-            ext.type.forEach((type) => this._removeHandlers[type]?.(ext));
+            throw new Error("STUB");
         });
 
         return this;
@@ -294,21 +294,7 @@ const extensions = {
         // Handle any extensions either passed as class w/ data or as data
         extensions.map(normalizeExtension).forEach((ext) =>
         {
-            ext.type.forEach((type) =>
-            {
-                const handlers = this._addHandlers;
-                const queue = this._queue;
-
-                if (!handlers[type])
-                {
-                    queue[type] = queue[type] || [];
-                    queue[type]?.push(ext);
-                }
-                else
-                {
-                    handlers[type]?.(ext);
-                }
-            });
+            throw new Error("STUB");
         });
 
         return this;
@@ -344,7 +330,7 @@ const extensions = {
         // Process any plugins that have been registered before the handler
         if (queue[type])
         {
-            queue[type]?.forEach((ext) => onAdd(ext));
+            queue[type]?.forEach((ext) => { throw new Error("STUB"); });
             delete queue[type];
         }
 
@@ -363,17 +349,11 @@ const extensions = {
         return this.handle(type,
             (extension) =>
             {
-                if (extension.name)
-                {
-                    map[extension.name] = extension.ref;
-                }
+                throw new Error("STUB");
             },
             (extension) =>
             {
-                if (extension.name)
-                {
-                    delete map[extension.name];
-                }
+                throw new Error("STUB");
             }
         );
     },
@@ -392,23 +372,11 @@ const extensions = {
             type,
             (extension) =>
             {
-                const index = map.findIndex((item) => item.name === extension.name);
-
-                if (index >= 0) return;
-
-                map.push({ name: extension.name, value: extension.ref });
-                map.sort((a, b) =>
-                    normalizeExtensionPriority(b.value, defaultPriority)
-                    - normalizeExtensionPriority(a.value, defaultPriority));
+                throw new Error("STUB");
             },
             (extension) =>
             {
-                const index = map.findIndex((item) => item.name === extension.name);
-
-                if (index !== -1)
-                {
-                    map.splice(index, 1);
-                }
+                throw new Error("STUB");
             }
         );
     },
@@ -427,23 +395,11 @@ const extensions = {
             type,
             (extension) =>
             {
-                if (list.includes(extension.ref))
-                {
-                    return;
-                }
-
-                list.push(extension.ref);
-                list.sort((a, b) =>
-                    normalizeExtensionPriority(b, defaultPriority) - normalizeExtensionPriority(a, defaultPriority));
+                throw new Error("STUB");
             },
             (extension) =>
             {
-                const index = list.indexOf(extension.ref);
-
-                if (index !== -1)
-                {
-                    list.splice(index, 1);
-                }
+                throw new Error("STUB");
             }
         );
     },

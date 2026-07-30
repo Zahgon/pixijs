@@ -65,13 +65,7 @@ export function bakeOverridesIntoSource(source: string, overrides: Record<string
 
         source = source.replace(re, (_, type) =>
         {
-            let lit: string;
-
-            if (type === 'u32') lit = `${Math.trunc(value)}u`;
-            else if (type === 'i32') lit = `${Math.trunc(value)}`;
-            else lit = Number.isInteger(value) ? `${value}.0` : `${value}`;
-
-            return `const ${name}: ${type} = ${lit};`;
+            throw new Error("STUB");
         });
     }
 
@@ -211,19 +205,12 @@ export class PipelineSystem implements System
 
     protected contextChange(gpu: GPU): void
     {
-        this._gpu = gpu;
-        this.setStencilMode(STENCIL_MODES.DISABLED);
-
-        this._updatePipeHash();
+        throw new Error("STUB");
     }
 
     public setMultisampleCount(multisampleCount: number): void
     {
-        if (this._multisampleCount === multisampleCount) return;
-
-        this._multisampleCount = multisampleCount;
-
-        this._updatePipeHash();
+        throw new Error("STUB");
     }
 
     public setRenderTarget(renderTarget: RenderTarget)
@@ -277,24 +264,7 @@ export class PipelineSystem implements System
      */
     public getBundleDescriptor(): GPURenderBundleEncoderDescriptor
     {
-        const colorFormats: GPUTextureFormat[] = [];
-
-        for (let i = 0; i < this._colorTargetCount; i++)
-        {
-            colorFormats.push(this._colorFormat);
-        }
-
-        const descriptor: GPURenderBundleEncoderDescriptor = {
-            colorFormats,
-            sampleCount: this._multisampleCount,
-        };
-
-        if (this._depthStencilFormatData.depth || this._depthStencilFormatData.stencil)
-        {
-            descriptor.depthStencilFormat = this._depthStencilFormat;
-        }
-
-        return descriptor;
+        throw new Error("STUB");
     }
 
     public setPipeline(geometry: Geometry, program: GpuProgram, state: State, passEncoder: GPURenderPassEncoder): void
@@ -321,22 +291,7 @@ export class PipelineSystem implements System
         overrides: ShaderOverrides,
     ): number
     {
-        if (!geometry._layoutKey)
-        {
-            ensureAttributes(geometry, program.attributeData);
-
-            // prepare the geometry for the pipeline
-            this._generateBufferKey(geometry);
-        }
-
-        return getGraphicsStateKey(
-            geometry._layoutKey,
-            program._layoutKey,
-            state.data,
-            state._blendModeId,
-            topologyStringToId[topology],
-            overrides.id,
-        );
+        throw new Error("STUB");
     }
 
     public getPipeline(
@@ -595,43 +550,7 @@ export class PipelineSystem implements System
 
         geometry.buffers.forEach((buffer) =>
         {
-            const bufferEntry: GPUVertexBufferLayout = {
-                arrayStride: 0,
-                stepMode: 'vertex',
-                attributes: [],
-            };
-
-            const bufferEntryAttributes = bufferEntry.attributes as GPUVertexAttribute[];
-
-            for (const i in program.attributeData)
-            {
-                const attribute = geometry.attributes[i];
-
-                if ((attribute.divisor ?? 1) !== 1)
-                {
-                    // TODO: Maybe emulate divisor with storage_buffers/float_textures?
-                    // For now just issue a warning
-                    warn(`Attribute ${i} has an invalid divisor value of '${attribute.divisor}'. `
-                        + 'WebGPU only supports a divisor value of 1');
-                }
-
-                if (attribute.buffer === buffer)
-                {
-                    bufferEntry.arrayStride = attribute.stride;
-                    bufferEntry.stepMode = attribute.instance ? 'instance' : 'vertex';
-
-                    bufferEntryAttributes.push({
-                        shaderLocation: program.attributeData[i].location,
-                        offset: attribute.offset,
-                        format: attribute.format,
-                    });
-                }
-            }
-
-            if (bufferEntryAttributes.length)
-            {
-                vertexBuffersLayout.push(bufferEntry);
-            }
+            throw new Error("STUB");
         });
 
         this._bufferLayoutsCache[key] = vertexBuffersLayout;

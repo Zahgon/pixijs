@@ -55,7 +55,9 @@ export class GlTextureSystem implements System, CanvasGenerator
     /**
      * @deprecated since 8.15.0
      */
-    public get managedTextures(): Readonly<TextureSource[]> { return Object.values(this._managedTextures.items); }
+    public get managedTextures(): Readonly<TextureSource[]> {
+        throw new Error("STUB");
+    }
 
     private _glSamplers: Record<string, WebGLSampler> = Object.create(null);
 
@@ -79,54 +81,12 @@ export class GlTextureSystem implements System, CanvasGenerator
 
     constructor(renderer: WebGLRenderer)
     {
-        this._renderer = renderer;
-
-        this._managedTextures = new GCManagedHash({
-            renderer,
-            type: 'resource',
-            onUnload: this.onSourceUnload.bind(this),
-            name: 'glTexture'
-        });
-
-        // our 2D uploaders..
-        const baseUploaders = {
-            image: glUploadImageResource,
-            buffer: glUploadBufferImageResource,
-            video: glUploadVideoResource,
-            compressed: glUploadCompressedTextureResource,
-            ...GlTextureSystem.uploadExtensions,
-        };
-
-        this._uploads = {
-            ...baseUploaders,
-            cube: createGlUploadCubeTextureResource(baseUploaders),
-        };
+        throw new Error("STUB");
     }
 
     protected contextChange(gl: GlRenderingContext): void
     {
-        this._gl = gl;
-
-        if (!this._mapFormatToInternalFormat)
-        {
-            // rebuild all our maps if they don't exist yet
-            this._mapFormatToInternalFormat = mapFormatToGlInternalFormat(gl, this._renderer.context.extensions);
-
-            this._mapFormatToType = mapFormatToGlType(gl);
-            this._mapFormatToFormat = mapFormatToGlFormat(gl);
-            this._mapViewDimensionToGlTarget = mapViewDimensionToGlTarget(gl);
-        }
-
-        this._managedTextures.removeAll(true);
-
-        this._glSamplers = Object.create(null);
-        this._boundSamplers = Object.create(null);
-        this._premultiplyAlpha = false;
-
-        for (let i = 0; i < 16; i++)
-        {
-            this.bind(Texture.EMPTY, i);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -277,7 +237,7 @@ export class GlTextureSystem implements System, CanvasGenerator
 
     protected onStyleChange(source: TextureSource): void
     {
-        this.updateStyle(source, false);
+        throw new Error("STUB");
     }
 
     protected updateStyle(source: TextureSource, firstCreation: boolean): void
@@ -305,19 +265,7 @@ export class GlTextureSystem implements System, CanvasGenerator
 
     protected onSourceUnload(source: TextureSource, contextLost = false): void
     {
-        const glTexture = source._gpuData[this._renderer.uid] as GlTexture;
-
-        if (!glTexture) return;
-
-        if (!contextLost)
-        {
-            this.unbind(source);
-            this._gl.deleteTexture(glTexture.texture);
-        }
-        source.off('update', this.onSourceUpdate, this);
-        source.off('resize', this.onSourceUpdate, this);
-        source.off('styleChange', this.onStyleChange, this);
-        source.off('updateMipmaps', this.onUpdateMipmaps, this);
+        throw new Error("STUB");
     }
 
     protected onSourceUpdate(source: TextureSource): void
@@ -649,15 +597,7 @@ export class GlTextureSystem implements System, CanvasGenerator
 
     public resetState(): void
     {
-        this._activeTextureLocation = -1;
-        this._boundTextures.fill(Texture.EMPTY.source);
-        this._boundSamplers = Object.create(null);
-
-        const gl = this._gl;
-
-        this._premultiplyAlpha = false;
-
-        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, this._premultiplyAlpha);
+        throw new Error("STUB");
     }
 }
 

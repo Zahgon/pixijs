@@ -67,7 +67,7 @@ export abstract class PrepareBase
      */
     public getQueue(): PrepareQueueItem[]
     {
-        return [...this.queue];
+        throw new Error("STUB");
     }
 
     /**
@@ -122,22 +122,7 @@ export abstract class PrepareBase
 
         return new Promise((resolve) =>
         {
-            if (this.queue.length)
-            {
-                // add resolve callback to the collection
-                this.resolves.push(resolve);
-
-                // eliminate duplicates first
-                this.dedupeQueue();
-
-                // launch first tick
-                Ticker.system.addOnce(this._tick, this, UPDATE_PRIORITY.UTILITY);
-            }
-            else
-            {
-                // queue is empty, resolve immediately
-                resolve();
-            }
+            throw new Error("STUB");
         });
     }
 
@@ -170,39 +155,13 @@ export abstract class PrepareBase
     /** called per frame by the ticker, defer processing to next tick */
     private readonly _tick = () =>
     {
-        if (this._destroyed) return;
-
-        this.timeout = setTimeout(this._processQueue, 0) as unknown as number;
+        throw new Error("STUB");
     };
 
     /** process the queue up to max item limit per frame */
     private readonly _processQueue = () =>
     {
-        if (this._destroyed) return;
-
-        const { queue } = this;
-        let itemsProcessed = 0;
-
-        // process the maximum number of items per frame
-        while (queue.length && itemsProcessed < PrepareBase.uploadsPerFrame)
-        {
-            const queueItem = queue.shift();
-
-            this.uploadQueueItem(queueItem);
-
-            itemsProcessed++;
-        }
-
-        if (queue.length)
-        {
-            // queue is not empty, continue processing on next frame
-            Ticker.system.addOnce(this._tick, this, UPDATE_PRIORITY.UTILITY);
-        }
-        else
-        {
-            // queue is empty, resolve immediately
-            this._resolve();
-        }
+        throw new Error("STUB");
     };
 
     /** Call all the resolve callbacks */

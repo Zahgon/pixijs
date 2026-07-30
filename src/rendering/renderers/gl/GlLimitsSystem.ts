@@ -53,21 +53,7 @@ export class GlLimitsSystem implements System
 
     public contextChange(): void
     {
-        const gl = this._renderer.gl;
-
-        // step 1: first check max textures the GPU can handle.
-        this.maxTextures = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
-
-        // step 2: check the maximum number of if statements the shader can have too..
-        this.maxBatchableTextures = checkMaxIfStatementsInShader(this.maxTextures, gl);
-
-        // step 3: check the limit of uniform buffer bindings.
-        // UBs are available only in WebGL2 context, requesting within WebGL1 produces a warning.
-        const isWebGl2 = this._renderer.context.webGLVersion === 2;
-
-        this.maxUniformBindings = isWebGl2
-            ? gl.getParameter(gl.MAX_UNIFORM_BUFFER_BINDINGS)
-            : 0;
+        throw new Error("STUB");
     }
 
     public destroy(): void

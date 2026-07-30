@@ -48,55 +48,6 @@ export const WGSL_TO_STD40_SIZE: Record<string, number> = {
  */
 export function createUboElementsSTD40(uniformData: UniformData[]): UboLayout
 {
-    const uboElements: UboElement[] = uniformData.map((data: UniformData) =>
-        ({
-            data,
-            offset: 0,
-            size: 0,
-        }));
-
-    const chunkSize = 16;
-
-    let size = 0;
-    let offset = 0;
-
-    for (let i = 0; i < uboElements.length; i++)
-    {
-        const uboElement = uboElements[i];
-
-        size = WGSL_TO_STD40_SIZE[uboElement.data.type];
-
-        if (!size)
-        {
-            throw new Error(`Unknown type ${uboElement.data.type}`);
-        }
-
-        if (uboElement.data.size > 1)
-        {
-            size = Math.max(size, chunkSize) * uboElement.data.size;
-        }
-
-        const boundary = size === 12 ? 16 : size;
-
-        uboElement.size = size;
-
-        const curOffset = offset % chunkSize;
-
-        if (curOffset > 0 && chunkSize - curOffset < boundary)
-        {
-            offset += (chunkSize - curOffset) % 16;
-        }
-        else
-        {
-            offset += (size - (curOffset % size)) % size;
-        }
-
-        uboElement.offset = offset;
-        offset += size;
-    }
-
-    offset = Math.ceil(offset / 16) * 16;
-
-    return { uboElements, size: offset };
+    throw new Error("STUB");
 }
 

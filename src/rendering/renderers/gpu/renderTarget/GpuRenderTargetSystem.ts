@@ -22,8 +22,6 @@ export class GpuRenderTargetSystem extends RenderTargetSystem<GpuRenderTarget>
 
     constructor(renderer: WebGPURenderer)
     {
-        super(renderer);
-
-        this.adaptor.init(renderer, this);
+        throw new Error("STUB");
     }
 }

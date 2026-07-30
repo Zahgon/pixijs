@@ -191,56 +191,12 @@ export class Text
     constructor(text?: TextString, options?: Partial<TextStyle>);
     constructor(...args: [CanvasTextOptions?] | [TextString, Partial<TextStyle>])
     {
-        const options = ensureTextOptions<CanvasTextOptions>(args, 'Text');
-
-        super(options, TextStyle);
-
-        if (options.textureStyle)
-        {
-            this.textureStyle = options.textureStyle instanceof TextureStyle
-                ? options.textureStyle
-                : new TextureStyle(options.textureStyle);
-        }
-
-        this.autoGenerateMipmaps = options.autoGenerateMipmaps ?? TextureSource.defaultOptions.autoGenerateMipmaps;
+        throw new Error("STUB");
     }
 
     /** @private */
     protected updateBounds()
     {
-        const bounds = this._bounds;
-        const anchor = this._anchor;
-
-        let width = 0;
-        let height = 0;
-
-        if (this._style.trim)
-        {
-            const { frame, canvasAndContext } = CanvasTextGenerator.getCanvasAndContext({
-                text: this.text,
-                style: this._style,
-                resolution: 1,
-            });
-
-            CanvasTextGenerator.returnCanvasAndContext(canvasAndContext);
-
-            width = frame.width;
-            height = frame.height;
-        }
-        else
-        {
-            const canvasMeasurement = CanvasTextMetrics.measureText(
-                this._text,
-                this._style
-            );
-
-            width = canvasMeasurement.width;
-            height = canvasMeasurement.height;
-        }
-
-        bounds.minX = (-anchor._x * width);
-        bounds.maxX = bounds.minX + width;
-        bounds.minY = (-anchor._y * height);
-        bounds.maxY = bounds.minY + height;
+        throw new Error("STUB");
     }
 }

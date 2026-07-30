@@ -21,24 +21,17 @@ import { type ImageLike } from '../environment/ImageLike';
 export const BrowserAdapter = {
     createCanvas: (width: number, height: number): HTMLCanvasElement =>
     {
-        const canvas = document.createElement('canvas');
-
-        canvas.width = width;
-        canvas.height = height;
-
-        return canvas;
+        throw new Error("STUB");
     },
-    createImage: (): ImageLike => new Image(),
-    getCanvasRenderingContext2D: () => CanvasRenderingContext2D,
-    getWebGLRenderingContext: () => WebGLRenderingContext,
-    getNavigator: () => navigator,
-    getBaseUrl: () => (document.baseURI ?? window.location.href),
-    getFontFaceSet: () => document.fonts,
-    fetch: (url: RequestInfo, options?: RequestInit) => fetch(url, options),
+    createImage: (): ImageLike => { throw new Error("STUB"); },
+    getCanvasRenderingContext2D: () => { throw new Error("STUB"); },
+    getWebGLRenderingContext: () => { throw new Error("STUB"); },
+    getNavigator: () => { throw new Error("STUB"); },
+    getBaseUrl: () => { throw new Error("STUB"); },
+    getFontFaceSet: () => { throw new Error("STUB"); },
+    fetch: (url: RequestInfo, options?: RequestInit) => { throw new Error("STUB"); },
     parseXML: (xml: string) =>
     {
-        const parser = new DOMParser();
-
-        return parser.parseFromString(xml, 'text/xml');
+        throw new Error("STUB");
     },
 } as Adapter;

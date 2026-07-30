@@ -42,23 +42,7 @@ export class BindGroup
      */
     public get _key(): string
     {
-        if (this._dirty)
-        {
-            this._dirty = false;
-
-            const keyParts = [];
-            let index = 0;
-
-            for (const i in this.resources)
-            {
-                // -1 marks a destroyed buffer-like resource's null slot
-                keyParts[index++] = this.resources[i] ? this.resources[i]._resourceId : -1;
-            }
-
-            this._keyValue = keyParts.join('|');
-        }
-
-        return this._keyValue;
+        throw new Error("STUB");
     }
 
     private _keyValue: string;
@@ -70,14 +54,7 @@ export class BindGroup
      */
     constructor(resources?: Record<string, BindResource>)
     {
-        let index = 0;
-
-        for (const i in resources)
-        {
-            const resource: BindResource = resources[i];
-
-            this.setResource(resource, index++);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -153,26 +130,6 @@ export class BindGroup
 
     protected onResourceChange(resource: BindResource)
     {
-        this._dirty = true;
-
-        // A destroyed resource must not stay bound — null the slot. Consumers tolerate the
-        // null; actually rendering with it raises a clear error in BindGroupSystem.
-        if (resource.destroyed)
-        {
-            const resources = this.resources;
-
-            for (const i in resources)
-            {
-                if (resources[i] === resource)
-                {
-                    resources[i] = null;
-                }
-            }
-
-            // #if _DEBUG
-            warn(`[BindGroup] a '${resource._resourceType}' was destroyed while still bound to a shader. `
-                + 'Remove it from the shader before destroying it.');
-            // #endif
-        }
+        throw new Error("STUB");
     }
 }

@@ -10,30 +10,7 @@ const placeholderGpu: Record<number, GPUTexture> = Object.create(null);
 
 function getPlaceholder(renderer: Renderer): GPUTexture | WebGLTexture
 {
-    if (renderer.type === RendererType.WEBGPU)
-    {
-        placeholderGpu[renderer.uid] ||= (renderer as any).gpu.device.createTexture({
-            label: 'ExternalSource placeholder',
-            size: { width: 1, height: 1 },
-            format: 'rgba8unorm',
-            usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST,
-        });
-
-        return placeholderGpu[renderer.uid];
-    }
-
-    if (!placeholderGl[renderer.uid])
-    {
-        const gl = (renderer as any).gl as WebGLRenderingContext;
-        const texture = gl.createTexture();
-
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-
-        placeholderGl[renderer.uid] = texture;
-    }
-
-    return placeholderGl[renderer.uid];
+    throw new Error("STUB");
 }
 
 /**
@@ -110,24 +87,7 @@ export class ExternalSource extends TextureSource<GPUTexture | WebGLTexture>
 
     constructor({ resource, renderer, label, width, height }: ExternalSourceOptions)
     {
-        resource ||= getPlaceholder(renderer);
-        width ||= width ?? (resource as GPUTexture)?.width ?? 1;
-        height ||= height ?? (resource as GPUTexture)?.height ?? 1;
-
-        // Only pass the minimal required options to TextureSource
-        super({
-            resource,
-            width,
-            height,
-            label,
-            // External textures shouldn't be garbage collected - the external library owns them
-            autoGarbageCollect: false,
-        });
-
-        this._renderer = renderer;
-
-        // Pre-populate _gpuData
-        this._initGpuData(resource);
+        throw new Error("STUB");
     }
 
     /**
@@ -145,49 +105,12 @@ export class ExternalSource extends TextureSource<GPUTexture | WebGLTexture>
 
     private _validateTexture(resource: GPUTexture | WebGLTexture): void
     {
-        const renderer = this._renderer;
-        const isWebGPU = !!(renderer as any).gpu;
-        const isGPUTexture = globalThis.GPUTexture && resource instanceof GPUTexture;
-        const isWebGLTexture = globalThis.WebGLTexture && resource instanceof WebGLTexture;
-
-        if (isWebGPU && isWebGLTexture)
-        {
-            throw new Error('Cannot use WebGLTexture with a WebGPU renderer');
-        }
-
-        if (!isWebGPU && isGPUTexture)
-        {
-            throw new Error('Cannot use GPUTexture with a WebGL renderer');
-        }
-
-        // WebGL context ownership check
-        if (!isWebGPU)
-        {
-            const gl = (renderer as any).gl;
-
-            if (gl && !gl.isTexture(resource as WebGLTexture))
-            {
-                throw new Error('WebGLTexture does not belong to this renderer\'s WebGL context');
-            }
-        }
+        throw new Error("STUB");
     }
 
     private _initGpuData(resource: GPUTexture | WebGLTexture): void
     {
-        const renderer = this._renderer;
-
-        this._validateTexture(resource);
-
-        if ((renderer as any).gpu)
-        {
-            // WebGPU
-            this._gpuData[renderer.uid] = new GPUTextureGpuData(resource as GPUTexture);
-        }
-        else
-        {
-            // WebGL
-            this._gpuData[renderer.uid] = new GlTexture(resource as WebGLTexture);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -199,57 +122,7 @@ export class ExternalSource extends TextureSource<GPUTexture | WebGLTexture>
      */
     public updateGPUTexture(gpuTexture: GPUTexture | WebGLTexture, width?: number, height?: number): void
     {
-        const renderer = this._renderer;
-        const gpuData = this._gpuData[renderer.uid];
-
-        // Update the resource property to reflect the new texture
-        this.resource = gpuTexture;
-
-        if ((renderer as any).gpu)
-        {
-            // WebGPU - validate and update
-            this._validateTexture(gpuTexture);
-
-            const data = gpuData as GPUTextureGpuData;
-
-            if (data.gpuTexture !== gpuTexture)
-            {
-                data.gpuTexture = gpuTexture as GPUTexture;
-
-                // every cached view points at the old GPUTexture
-                data.textureView = null;
-                data.textureViews = Object.create(null);
-
-                // a new GPU object invalidates every bind group referencing this source —
-                // the resource id bump + 'change' event is the established signal that
-                // makes them re-resolve (see TextureSource)
-                this._resourceId = uid('resource');
-                this.emit('change', this);
-            }
-
-            // Update dimensions from GPUTexture (or use provided values)
-            const newWidth = width ?? (gpuTexture as GPUTexture).width;
-            const newHeight = height ?? (gpuTexture as GPUTexture).height;
-
-            this.resize(newWidth, newHeight);
-        }
-        else
-        {
-            // WebGL - validate and update the texture reference
-            this._validateTexture(gpuTexture);
-
-            const data = gpuData as GlTexture;
-
-            data.texture = gpuTexture as WebGLTexture;
-
-            // WebGL: dimensions must be provided (WebGLTexture is opaque)
-            if (width !== undefined && height !== undefined)
-            {
-                this.resize(width, height);
-            }
-        }
-
-        this.emit('update', this);
+        throw new Error("STUB");
     }
 
     public override destroy(): void

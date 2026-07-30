@@ -41,13 +41,7 @@ async function getKTX(): Promise<LIBKTXModule>
 
         ktxPromise = new Promise((resolve) =>
         {
-            LIBKTX({
-                locateFile: (_file) =>
-                    absoluteWasmUrl
-            }).then((libktx: LIBKTXModule) =>
-            {
-                resolve(libktx);
-            });
+            throw new Error("STUB");
         });
     }
 
@@ -127,7 +121,7 @@ async function init(
     if (wasmUrl)settings.wasmUrl = wasmUrl;
 
     basisTranscodedTextureFormat = preferredTranscodedFormat
-        .filter((format) => supportedTextures.includes(format))[0] as COMPRESSED_TEXTURE_FORMATS;
+        .filter((format) => { throw new Error("STUB"); })[0] as COMPRESSED_TEXTURE_FORMATS;
 
     basisTranscoderFormat = gpuFormatToKTXBasisTranscoderFormat(basisTranscodedTextureFormat);
 
@@ -137,52 +131,16 @@ async function init(
 const messageHandlers = {
     init: async (data: { wasmUrl: string, jsUrl: string, supportedTextures: TEXTURE_FORMATS[]}) =>
     {
-        const { jsUrl, wasmUrl, supportedTextures } = data;
-
-        await init(jsUrl, wasmUrl, supportedTextures);
+        throw new Error("STUB");
     },
     load: async (data: {url: string}) =>
     {
-        // eslint-disable-next-line no-useless-catch
-        try
-        {
-            const textureOptions = await load(data.url) as TextureSourceOptions<Uint8Array[]>;
-
-            return {
-                type: 'load',
-                url: data.url,
-                success: true,
-                textureOptions,
-                transferables: textureOptions.resource?.map((arr) => arr.buffer)
-            };
-        }
-        catch (e)
-        {
-            throw e;
-        }
+        throw new Error("STUB");
     }
 
 };
 
 self.onmessage = (async (messageEvent) =>
 {
-    const message = messageEvent.data;
-
-    try
-    {
-        const response = await messageHandlers[message.type as 'load' | 'init']?.(message as any);
-
-        if (response)
-        {
-            (self as any).postMessage(response, response.transferables);
-        }
-    }
-    catch (err)
-    {
-        (self as any).postMessage({
-            type: 'error',
-            err,
-            url: message.url,
-        });
-    }
+    throw new Error("STUB");
 });

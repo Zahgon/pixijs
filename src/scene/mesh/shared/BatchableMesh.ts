@@ -39,10 +39,16 @@ export class BatchableMesh implements DefaultBatchableMeshElement
     private _transformedUvs: Float32Array;
     private _uvUpdateId: number = -1;
 
-    get blendMode() { return this.renderable.groupBlendMode; }
+    get blendMode() {
+        throw new Error("STUB");
+    }
 
-    get topology() { return this._topology || this.geometry.topology; }
-    set topology(value: Topology) { this._topology = value; }
+    get topology() {
+        throw new Error("STUB");
+    }
+    set topology(value: Topology) {
+        throw new Error("STUB");
+    }
 
     public reset()
     {
@@ -71,63 +77,36 @@ export class BatchableMesh implements DefaultBatchableMeshElement
 
     get uvs()
     {
-        const geometry = this.geometry;
-
-        const uvBuffer = geometry.getBuffer('aUV');
-
-        const uvs = uvBuffer.data;
-
-        let transformedUvs = uvs;
-        const textureMatrix = this.texture.textureMatrix;
-
-        if (!textureMatrix.isSimple)
-        {
-            transformedUvs = this._transformedUvs;
-
-            if (this._textureMatrixUpdateId !== textureMatrix._updateID || this._uvUpdateId !== uvBuffer._updateID)
-            {
-                if (!transformedUvs || transformedUvs.length < uvs.length)
-                {
-                    transformedUvs = this._transformedUvs = new Float32Array(uvs.length);
-                }
-
-                this._textureMatrixUpdateId = textureMatrix._updateID;
-                this._uvUpdateId = uvBuffer._updateID;
-
-                textureMatrix.multiplyUvs(uvs as Float32Array, transformedUvs);
-            }
-        }
-
-        return transformedUvs as Float32Array;
+        throw new Error("STUB");
     }
 
     get positions()
     {
-        return this.geometry.positions;
+        throw new Error("STUB");
     }
 
     get indices()
     {
-        return this.geometry.indices;
+        throw new Error("STUB");
     }
 
     get color()
     {
-        return this.renderable.groupColorAlpha;
+        throw new Error("STUB");
     }
 
     get groupTransform()
     {
-        return this.renderable.groupTransform;
+        throw new Error("STUB");
     }
 
     get attributeSize()
     {
-        return this.geometry.positions.length / 2;
+        throw new Error("STUB");
     }
 
     get indexSize()
     {
-        return this.geometry.indices.length;
+        throw new Error("STUB");
     }
 }

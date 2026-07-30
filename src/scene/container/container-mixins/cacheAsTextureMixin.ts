@@ -88,7 +88,7 @@ export interface CacheAsTextureMixin extends Required<CacheAsTextureMixinConstru
 export const cacheAsTextureMixin: Partial<Container> = {
     get isCachedAsTexture(): boolean
     {
-        return !!this.renderGroup?.isCachedAsTexture;
+        throw new Error("STUB");
     },
 
     cacheAsTexture(val: boolean | CacheAsTextureOptions): void
@@ -111,14 +111,11 @@ export const cacheAsTextureMixin: Partial<Container> = {
 
     get cacheAsBitmap(): boolean
     {
-        return this.isCachedAsTexture;
+        throw new Error("STUB");
     },
 
     set cacheAsBitmap(val: boolean)
     {
-        // #if _DEBUG
-        deprecation('v8.6.0', 'cacheAsBitmap is deprecated, use cacheAsTexture instead.');
-        // #endif
-        this.cacheAsTexture(val);
+        throw new Error("STUB");
     },
 } as Container;

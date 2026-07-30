@@ -15,21 +15,6 @@ export class PassthroughFilter extends Filter
 {
     constructor()
     {
-        const gpuProgram = GpuProgram.from({
-            vertex: { source, entryPoint: 'mainVertex' },
-            fragment: { source, entryPoint: 'mainFragment' },
-            name: 'passthrough-filter'
-        });
-
-        const glProgram = GlProgram.from({
-            vertex,
-            fragment,
-            name: 'passthrough-filter'
-        });
-
-        super({
-            gpuProgram,
-            glProgram,
-        });
+        throw new Error("STUB");
     }
 }

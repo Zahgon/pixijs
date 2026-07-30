@@ -71,34 +71,7 @@ export class BlurFilterPass extends Filter
      */
     constructor(options: BlurFilterPassOptions)
     {
-        options = { ...BlurFilterPass.defaultOptions, ...options };
-
-        const glProgram = generateBlurGlProgram(options.horizontal, options.kernelSize);
-        const gpuProgram = generateBlurProgram(options.horizontal, options.kernelSize);
-
-        super({
-            glProgram,
-            gpuProgram,
-            resources: {
-                blurUniforms: {
-                    uStrength: { value: 0, type: 'f32' },
-                }
-            },
-            ...options
-        });
-
-        this.horizontal = options.horizontal;
-        this.legacy = options.legacy ?? false;
-
-        this._quality = 0;
-
-        this.quality = options.quality;
-
-        this.blur = options.strength;
-
-        // Store reference to the UniformGroup before any resource swapping
-        this._blurUniforms = this.resources.blurUniforms as UniformGroup;
-        this._uniforms = this._blurUniforms.uniforms;
+        throw new Error("STUB");
     }
 
     /**
@@ -247,13 +220,12 @@ export class BlurFilterPass extends Filter
      */
     get blur(): number
     {
-        return this.strength;
+        throw new Error("STUB");
     }
 
     set blur(value: number)
     {
-        this.padding = 1 + (Math.abs(value) * 2);
-        this.strength = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -263,12 +235,11 @@ export class BlurFilterPass extends Filter
      */
     get quality(): number
     {
-        return this._quality;
+        throw new Error("STUB");
     }
 
     set quality(value: number)
     {
-        this._quality = value;
-        this.passes = value;
+        throw new Error("STUB");
     }
 }

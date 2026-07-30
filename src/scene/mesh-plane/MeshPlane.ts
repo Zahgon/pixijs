@@ -122,19 +122,7 @@ export class MeshPlane extends Mesh
      */
     constructor(options: MeshPlaneOptions)
     {
-        const { texture, verticesX, verticesY, ...rest } = options;
-        const planeGeometry = new PlaneGeometry(definedProps({
-            width: texture.width,
-            height: texture.height,
-            verticesX,
-            verticesY,
-        }));
-
-        super(definedProps({ ...rest, geometry: planeGeometry, texture }));
-
-        // lets call the setter to ensure all necessary updates are performed
-        this.texture = texture;
-        this.autoResize = true;
+        throw new Error("STUB");
     }
 
     /**
@@ -144,15 +132,7 @@ export class MeshPlane extends Mesh
      */
     public textureUpdated(): void
     {
-        const geometry: PlaneGeometry = this.geometry as any;
-        const { width, height } = this.texture;
-
-        if (this.autoResize && (geometry.width !== width || geometry.height !== height))
-        {
-            geometry.width = width;
-            geometry.height = height;
-            geometry.build({});
-        }
+        throw new Error("STUB");
     }
 
     set texture(value: Texture)

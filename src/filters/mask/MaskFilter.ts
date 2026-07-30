@@ -39,49 +39,7 @@ export class MaskFilter extends Filter
 
     constructor(options: MaskFilterOptions)
     {
-        const { sprite, ...rest } = options;
-
-        const textureMatrix = new TextureMatrix(sprite.texture);
-
-        const filterUniforms = new UniformGroup({
-            uFilterMatrix: { value: new Matrix(), type: 'mat3x3<f32>' },
-            uMaskClamp: { value: textureMatrix.uClampFrame, type: 'vec4<f32>' },
-            uAlpha: { value: 1, type: 'f32' },
-            uInverse: { value: options.inverse ? 1 : 0, type: 'f32' },
-            uChannel: { value: options.channel === 'alpha' ? 1 : 0, type: 'f32' },
-        });
-
-        const gpuProgram = GpuProgram.from({
-            vertex: {
-                source,
-                entryPoint: 'mainVertex',
-            },
-            fragment: {
-                source,
-                entryPoint: 'mainFragment',
-            },
-        });
-
-        const glProgram = GlProgram.from({
-            vertex,
-            fragment,
-            name: 'mask-filter',
-        });
-
-        super({
-            ...rest,
-            gpuProgram,
-            glProgram,
-            clipToViewport: false,
-            resources: {
-                filterUniforms,
-                uMaskTexture: sprite.texture.source,
-            },
-        });
-
-        this.sprite = sprite;
-
-        this._textureMatrix = textureMatrix;
+        throw new Error("STUB");
     }
 
     set inverse(value: boolean)
@@ -96,12 +54,12 @@ export class MaskFilter extends Filter
 
     set channel(value: MaskChannel)
     {
-        this.resources.filterUniforms.uniforms.uChannel = value === 'alpha' ? 1 : 0;
+        throw new Error("STUB");
     }
 
     get channel(): MaskChannel
     {
-        return this.resources.filterUniforms.uniforms.uChannel === 1 ? 'alpha' : 'red';
+        throw new Error("STUB");
     }
 
     public apply(

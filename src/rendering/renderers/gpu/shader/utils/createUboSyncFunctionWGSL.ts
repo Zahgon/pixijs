@@ -12,9 +12,5 @@ export function createUboSyncFunctionWGSL(
     uboElements: UboElement[],
 ): UniformsSyncCallback
 {
-    return compileBufferSync(
-        uboElements,
-        uboSyncFunctionsWGSL,
-        generateArraySyncWGSL,
-    );
+    throw new Error("STUB");
 }

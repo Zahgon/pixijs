@@ -13,11 +13,7 @@ const isCornerWithinStroke = (
     strokeWidthOuter: number
 ) =>
 {
-    const dx = pX - cornerX;
-    const dy = pY - cornerY;
-    const distance = Math.sqrt((dx * dx) + (dy * dy));
-
-    return distance >= radius - strokeWidthInner && distance <= radius + strokeWidthOuter;
+    throw new Error("STUB");
 };
 
 /**
@@ -351,52 +347,7 @@ export class RoundedRectangle implements ShapePrimitive
      */
     public strokeContains(pX: number, pY: number, strokeWidth: number, alignment: number = 0.5): boolean
     {
-        const { x, y, width, height, radius } = this;
-
-        const strokeWidthOuter = strokeWidth * (1 - alignment);
-        const strokeWidthInner = strokeWidth - strokeWidthOuter;
-
-        const innerX = x + radius;
-        const innerY = y + radius;
-        const innerWidth = width - (radius * 2);
-        const innerHeight = height - (radius * 2);
-        const rightBound = x + width;
-        const bottomBound = y + height;
-
-        // Check if point is within the vertical edges (excluding corners)
-        if (((pX >= x - strokeWidthOuter && pX <= x + strokeWidthInner)
-            || (pX >= rightBound - strokeWidthInner && pX <= rightBound + strokeWidthOuter))
-            && pY >= innerY && pY <= innerY + innerHeight)
-        {
-            return true;
-        }
-
-        // Check if point is within the horizontal edges (excluding corners)
-        if (((pY >= y - strokeWidthOuter && pY <= y + strokeWidthInner)
-            || (pY >= bottomBound - strokeWidthInner && pY <= bottomBound + strokeWidthOuter))
-            && pX >= innerX && pX <= innerX + innerWidth)
-        {
-            return true;
-        }
-
-        // Top-left, top-right, bottom-right, bottom-left corners
-        return (
-            // Top-left
-            (pX < innerX && pY < innerY
-                && isCornerWithinStroke(pX, pY, innerX, innerY,
-                    radius, strokeWidthInner, strokeWidthOuter))
-            //  top-right
-            || (pX > rightBound - radius && pY < innerY
-                && isCornerWithinStroke(pX, pY, rightBound - radius, innerY,
-                    radius, strokeWidthInner, strokeWidthOuter))
-            // bottom-right
-            || (pX > rightBound - radius && pY > bottomBound - radius
-                && isCornerWithinStroke(pX, pY, rightBound - radius, bottomBound - radius,
-                    radius, strokeWidthInner, strokeWidthOuter))
-            // bottom-left
-            || (pX < innerX && pY > bottomBound - radius
-                && isCornerWithinStroke(pX, pY, innerX, bottomBound - radius,
-                    radius, strokeWidthInner, strokeWidthOuter)));
+        throw new Error("STUB");
     }
 
     // #if _DEBUG

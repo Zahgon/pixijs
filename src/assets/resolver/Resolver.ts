@@ -87,9 +87,9 @@ export class Resolver
     private readonly _defaultBundleIdentifierOptions: Required<BundleIdentifierOptions> = {
         connector: '-',
         createBundleAssetId: (bundleId, assetId) =>
-            `${bundleId}${this._bundleIdConnector}${assetId}`,
+            { throw new Error("STUB"); },
         extractAssetIdFromBundle: (bundleId, assetBundleId) =>
-            assetBundleId.replace(`${bundleId}${this._bundleIdConnector}`, ''),
+            { throw new Error("STUB"); },
     };
 
     /** The character that is used to connect the bundleId and the assetId when generating a bundle asset id key */
@@ -165,13 +165,7 @@ export class Resolver
     {
         preferOrders.forEach((prefer) =>
         {
-            this._preferredOrder.push(prefer);
-
-            if (!prefer.priority)
-            {
-                // generate the priority based on the order of the object
-                prefer.priority = Object.keys(prefer.params);
-            }
+            throw new Error("STUB");
         });
 
         this._resolverHash = {};
@@ -187,12 +181,12 @@ export class Resolver
      */
     public set basePath(basePath: string)
     {
-        this._basePath = basePath;
+        throw new Error("STUB");
     }
 
     public get basePath(): string
     {
-        return this._basePath;
+        throw new Error("STUB");
     }
 
     /**
@@ -208,12 +202,12 @@ export class Resolver
      */
     public set rootPath(rootPath: string)
     {
-        this._rootPath = rootPath;
+        throw new Error("STUB");
     }
 
     public get rootPath(): string
     {
-        return this._rootPath;
+        throw new Error("STUB");
     }
 
     /**
@@ -255,7 +249,7 @@ export class Resolver
      */
     public get parsers(): ResolveURLParser[]
     {
-        return this._parsers;
+        throw new Error("STUB");
     }
 
     /** Used for testing, this resets the resolver to its initial state */
@@ -290,7 +284,7 @@ export class Resolver
             const queryValues = searchParams as Record<string, any>;
 
             this._defaultSearchParams = Object.keys(queryValues)
-                .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(queryValues[key])}`)
+                .map((key) => { throw new Error("STUB"); })
                 .join('&');
         }
     }
@@ -305,13 +299,7 @@ export class Resolver
         const aliasesToUse = convertToList<ArrayOr<string | AssetSrc>>(
             alias || src, (value: string | AssetSrc) =>
             {
-                if (typeof value === 'string') return value;
-
-                if (Array.isArray(value)) return value.map((v) => (v as ResolvedSrc)?.src ?? v);
-
-                if (value?.src) return value.src;
-
-                return value;
+                throw new Error("STUB");
             }, true) as string[];
 
         return aliasesToUse;
@@ -345,18 +333,7 @@ export class Resolver
      */
     public removeAlias(alias: string, asset?: ResolvedAsset): void
     {
-        if (!this._assetMap[alias])
-        {
-            return;
-        }
-
-        if (asset && asset !== this._resolverHash[alias])
-        {
-            return;
-        }
-
-        delete this._resolverHash[alias];
-        delete this._assetMap[alias];
+        throw new Error("STUB");
     }
 
     /**
@@ -377,7 +354,7 @@ export class Resolver
 
         manifest.bundles.forEach((bundle) =>
         {
-            this.addBundle(bundle.name, bundle.assets);
+            throw new Error("STUB");
         });
     }
 
@@ -411,12 +388,7 @@ export class Resolver
             // convert to array...
             convertedAssets = Object.entries(assets).map(([alias, src]) =>
             {
-                if (typeof src === 'string' || Array.isArray(src))
-                {
-                    return { alias, src };
-                }
-
-                return { alias, ...src };
+                throw new Error("STUB");
             });
         }
 
@@ -427,32 +399,7 @@ export class Resolver
 
         convertedAssets.forEach((asset) =>
         {
-            const srcs = asset.src;
-            const aliases = asset.alias;
-            let ids: string[];
-
-            if (typeof aliases === 'string')
-            {
-                const bundleAssetId = this._createBundleAssetId(bundleId, aliases);
-
-                assetNames.push(bundleAssetId);
-                ids = [aliases, bundleAssetId];
-            }
-            else
-            {
-                const bundleIds = aliases.map((name) => this._createBundleAssetId(bundleId, name));
-
-                assetNames.push(...bundleIds);
-                ids = [...aliases, ...bundleIds];
-            }
-
-            this.add({
-                ...asset,
-                ...{
-                    alias: ids,
-                    src: srcs,
-                }
-            });
+            throw new Error("STUB");
         });
 
         this._bundles[bundleId] = assetNames;
@@ -506,12 +453,7 @@ export class Resolver
         // eslint-disable-next-line prefer-const
         keyCheck = (key: string) =>
         {
-            if (this.hasKey(key))
-            {
-                // #if _DEBUG
-                warn(`[Resolver] already has key: ${key} overwriting`);
-                // #endif
-            }
+            throw new Error("STUB");
         };
         // #endif
 
@@ -520,95 +462,7 @@ export class Resolver
         // loop through all the assets and generate a resolve asset for each src
         assetArray.forEach((asset) =>
         {
-            const { src } = asset;
-            let {
-                data,
-                format,
-                loadParser: userDefinedLoadParser,
-                parser: userDefinedParser,
-            } = asset;
-
-            // src can contain an unresolved asset itself
-            // so we need to merge that data with the current asset
-            // we dont need to create string variations for the src if it is a ResolvedAsset
-            const srcsToUse: (string | ResolvedSrc)[][] = convertToList<AssetSrc>(src).map((src) =>
-            {
-                if (typeof src === 'string')
-                { return createStringVariations(src); }
-
-                return Array.isArray(src) ? src : [src];
-            });
-
-            const aliasesToUse = this.getAlias(asset);
-
-            // #if _DEBUG
-            Array.isArray(aliasesToUse) ? aliasesToUse.forEach(keyCheck) : keyCheck(aliasesToUse);
-            // #endif
-
-            // loop through all the srcs and generate a resolve asset for each src
-            const resolvedAssets: ResolvedAsset[] = [];
-
-            // Helper function to parse a URL string using registered parsers
-            const parseUrl = (url: string): ResolvedAsset =>
-            {
-                const parser = this._parsers.find((p) => p.test(url));
-
-                return {
-                    src: url,
-                    ...parser?.parse(url),
-                };
-            };
-
-            srcsToUse.forEach((srcs) =>
-            {
-                srcs.forEach((src) =>
-                {
-                    let formattedAsset = {} as ResolvedAsset;
-
-                    if (typeof src !== 'object')
-                    {
-                        // first see if it contains any {} tags...
-                        formattedAsset = parseUrl(src);
-                    }
-                    else
-                    {
-                        data = src.data ?? data;
-                        format = src.format ?? format;
-                        if (src.loadParser || src.parser)
-                        {
-                            userDefinedLoadParser = src.loadParser ?? userDefinedLoadParser;
-                            userDefinedParser = src.parser ?? userDefinedParser;
-                        }
-
-                        formattedAsset = {
-                            ...parseUrl(src.src),
-                            ...src,
-                        };
-                    }
-
-                    // check if aliases is undefined
-                    if (!aliasesToUse)
-                    {
-                        throw new Error(`[Resolver] alias is undefined for this asset: ${formattedAsset.src}`);
-                    }
-
-                    formattedAsset = this._buildResolvedAsset(formattedAsset, {
-                        aliases: aliasesToUse,
-                        data,
-                        format,
-                        loadParser: userDefinedLoadParser,
-                        parser: userDefinedParser,
-                        progressSize: asset.progressSize,
-                    });
-
-                    resolvedAssets.push(formattedAsset);
-                });
-            });
-
-            aliasesToUse.forEach((alias) =>
-            {
-                this._assetMap[alias] = resolvedAssets;
-            });
+            throw new Error("STUB");
         });
     }
 
@@ -657,34 +511,7 @@ export class Resolver
     public resolveBundle(bundleIds: ArrayOr<string>):
     Record<string, ResolvedAsset> | Record<string, Record<string, ResolvedAsset>>
     {
-        const singleAsset = isSingleItem(bundleIds);
-
-        bundleIds = convertToList<string>(bundleIds);
-
-        const out: Record<string, Record<string, ResolvedAsset>> = {};
-
-        bundleIds.forEach((bundleId) =>
-        {
-            const assetNames = this._bundles[bundleId];
-
-            if (assetNames)
-            {
-                const results = this.resolve(assetNames) as Record<string, ResolvedAsset>;
-
-                const assets: Record<string, ResolvedAsset> = {};
-
-                for (const key in results)
-                {
-                    const asset = results[key];
-
-                    assets[this._extractAssetIdFromBundle(bundleId, key)] = asset;
-                }
-
-                out[bundleId] = assets;
-            }
-        });
-
-        return singleAsset ? out[bundleIds[0]] : out;
+        throw new Error("STUB");
     }
 
     /**
@@ -694,21 +521,7 @@ export class Resolver
      */
     public resolveUrl(key: ArrayOr<string>): string | Record<string, string>
     {
-        const result = this.resolve(key as string) as ResolvedAsset | Record<string, ResolvedAsset>;
-
-        if (typeof key !== 'string')
-        {
-            const out: Record<string, string> = {};
-
-            for (const i in result)
-            {
-                out[i] = (result as Record<string, ResolvedAsset>)[i].src;
-            }
-
-            return out;
-        }
-
-        return (result as ResolvedAsset).src;
+        throw new Error("STUB");
     }
 
     /**
@@ -738,46 +551,7 @@ export class Resolver
 
         keys.forEach((key) =>
         {
-            if (!this._resolverHash[key])
-            {
-                if (this._assetMap[key])
-                {
-                    let assets = this._assetMap[key];
-                    const preferredOrder = this._getPreferredOrder(assets);
-
-                    preferredOrder?.priority.forEach((priorityKey) =>
-                    {
-                        preferredOrder.params[priorityKey].forEach((value: unknown) =>
-                        {
-                            const filteredAssets = assets.filter((asset) =>
-                            {
-                                if (asset[priorityKey as keyof ResolvedAsset])
-                                {
-                                    return asset[priorityKey as keyof ResolvedAsset] === value;
-                                }
-
-                                return false;
-                            });
-
-                            if (filteredAssets.length)
-                            {
-                                assets = filteredAssets;
-                            }
-                        });
-                    });
-
-                    this._resolverHash[key] = assets[0];
-                }
-                else
-                {
-                    this._resolverHash[key] = this._buildResolvedAsset({
-                        alias: [key],
-                        src: key,
-                    }, {});
-                }
-            }
-
-            result[key] = this._resolverHash[key];
+            throw new Error("STUB");
         });
 
         return singleAsset ? result[keys[0]] : result;
@@ -798,7 +572,7 @@ export class Resolver
      */
     public hasBundle(key: string): boolean
     {
-        return !!this._bundles[key];
+        throw new Error("STUB");
     }
 
     /**
@@ -812,7 +586,7 @@ export class Resolver
             const asset = assets[i];
 
             const preferred = this._preferredOrder.find((preference: PreferOrder) =>
-                preference.params.format.includes(asset.format));
+                { throw new Error("STUB"); });
 
             if (preferred)
             {

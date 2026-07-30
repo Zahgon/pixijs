@@ -187,12 +187,12 @@ export class TickerPlugin
 
         this.stop = (): void =>
         {
-            this._ticker.stop();
+            throw new Error("STUB");
         };
 
         this.start = (): void =>
         {
-            this._ticker.start();
+            throw new Error("STUB");
         };
 
         this._ticker = null;

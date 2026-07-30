@@ -18,5 +18,5 @@ export const ktxTranscoderUrls = {
  */
 export function setKTXTranscoderPath(config: Partial<typeof ktxTranscoderUrls>)
 {
-    Object.assign(ktxTranscoderUrls, config);
+    throw new Error("STUB");
 }

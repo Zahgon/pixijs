@@ -30,11 +30,11 @@ function getCubeCacheKey(faceIds: CubeTextureFaces<string>, options: Omit<CubeTe
 
     const optKeys = Object.keys(opts).sort();
     const optPart = optKeys.length
-        ? `|${optKeys.map((k) => `${k}=${String(opts[k])}`).join('&')}`
+        ? `|${optKeys.map((k) => { throw new Error("STUB"); }).join('&')}`
         : '';
 
     // Note: Order is explicit and stable.
-    const facesPart = faceKeys.map((k) => faceIds[k]).join(',');
+    const facesPart = faceKeys.map((k) => { throw new Error("STUB"); }).join(',');
 
     return `cube:${facesPart}${optPart}`;
 }
@@ -113,15 +113,7 @@ export class CubeTexture extends EventEmitter<{ destroy: CubeTexture }> implemen
 
     constructor(options: CubeTextureOptions)
     {
-        super();
-
-        const { label, source } = options;
-
-        this.label = label;
-
-        this.source = source;
-
-        this.source.label = this.label ?? this.source.label;
+        throw new Error("STUB");
     }
 
     /**
@@ -164,7 +156,7 @@ export class CubeTexture extends EventEmitter<{ destroy: CubeTexture }> implemen
         // Cache only when faces are string ids (matches Texture.from string semantics).
         let cacheKey: string = null;
 
-        const isFaceIds = faceKeys.every((key) => typeof faces[key] === 'string');
+        const isFaceIds = faceKeys.every((key) => { throw new Error("STUB"); });
 
         if (!skipCache && isFaceIds)
         {
@@ -204,10 +196,7 @@ export class CubeTexture extends EventEmitter<{ destroy: CubeTexture }> implemen
 
             cubeTexture.once('destroy', () =>
             {
-                if (Cache.has(cacheKey))
-                {
-                    Cache.remove(cacheKey);
-                }
+                throw new Error("STUB");
             });
         }
 

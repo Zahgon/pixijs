@@ -286,173 +286,117 @@ export class TextureSource<T extends Record<string, any> = any> extends EventEmi
      */
     constructor(protected readonly options: TextureSourceOptions<T> = {})
     {
-        super();
-
-        options = { ...TextureSource.defaultOptions, ...options };
-
-        this.label = options.label ?? '';
-        this.resource = options.resource;
-        this.autoGarbageCollect = options.autoGarbageCollect;
-        this._resolution = options.resolution;
-
-        if (options.width)
-        {
-            this.pixelWidth = options.width * this._resolution;
-        }
-        else
-        {
-            this.pixelWidth = this.resource ? (this.resourceWidth ?? 1) : 1;
-        }
-
-        if (options.height)
-        {
-            this.pixelHeight = options.height * this._resolution;
-        }
-        else
-        {
-            this.pixelHeight = this.resource ? (this.resourceHeight ?? 1) : 1;
-        }
-
-        this.width = this.pixelWidth / this._resolution;
-        this.height = this.pixelHeight / this._resolution;
-
-        this.format = options.format;
-        this.dimension = options.dimensions;
-        this.viewDimension = options.viewDimension ?? options.dimensions;
-        this.arrayLayerCount = options.arrayLayerCount;
-        this.mipLevelCount = options.mipLevelCount;
-        this.autoGenerateMipmaps = options.autoGenerateMipmaps;
-        this.sampleCount = options.sampleCount;
-        this.antialias = options.antialias;
-        this.transient = options.transient ?? false;
-        this.alphaMode = options.alphaMode;
-
-        this.style = new TextureStyle(definedProps(options));
-        // the source constructed this style itself, so it may destroy it; styles assigned
-        // from outside (e.g. TexturePool's shared default) are shared and must survive us
-        this._ownsStyle = true;
-
-        this.destroyed = false;
-
-        this._refreshPOT();
+        throw new Error("STUB");
     }
 
     /** returns itself */
     get source(): TextureSource
     {
-        return this;
+        throw new Error("STUB");
     }
 
     /** the style of the texture */
     get style(): TextureStyle
     {
-        return this._style;
+        throw new Error("STUB");
     }
 
     set style(value: TextureStyle)
     {
-        if (this.style === value) return;
-
-        // an assigned style instance is shared with its provider — we no longer own it
-        this._ownsStyle = false;
-        this._style?.off('change', this._onStyleChange, this);
-        this._style = value;
-        this._style?.on('change', this._onStyleChange, this);
-
-        this._onStyleChange();
+        throw new Error("STUB");
     }
 
     /** Specifies the maximum anisotropy value clamp used by the sampler. */
     set maxAnisotropy(value: number)
     {
-        this._style.maxAnisotropy = value;
+        throw new Error("STUB");
     }
 
     get maxAnisotropy(): number
     {
-        return this._style.maxAnisotropy;
+        throw new Error("STUB");
     }
 
     /** setting this will set wrapModeU, wrapModeV and wrapModeW all at once! */
     get addressMode(): WRAP_MODE
     {
-        return this._style.addressMode;
+        throw new Error("STUB");
     }
 
     set addressMode(value: WRAP_MODE)
     {
-        this._style.addressMode = value;
+        throw new Error("STUB");
     }
 
     /** setting this will set wrapModeU, wrapModeV and wrapModeW all at once! */
     get repeatMode(): WRAP_MODE
     {
-        return this._style.addressMode;
+        throw new Error("STUB");
     }
 
     set repeatMode(value: WRAP_MODE)
     {
-        this._style.addressMode = value;
+        throw new Error("STUB");
     }
 
     /** Specifies the sampling behavior when the sample footprint is smaller than or equal to one texel. */
     get magFilter(): SCALE_MODE
     {
-        return this._style.magFilter;
+        throw new Error("STUB");
     }
 
     set magFilter(value: SCALE_MODE)
     {
-        this._style.magFilter = value;
+        throw new Error("STUB");
     }
 
     /** Specifies the sampling behavior when the sample footprint is larger than one texel. */
     get minFilter(): SCALE_MODE
     {
-        return this._style.minFilter;
+        throw new Error("STUB");
     }
 
     set minFilter(value: SCALE_MODE)
     {
-        this._style.minFilter = value;
+        throw new Error("STUB");
     }
 
     /** Specifies behavior for sampling between mipmap levels. */
     get mipmapFilter(): SCALE_MODE
     {
-        return this._style.mipmapFilter;
+        throw new Error("STUB");
     }
 
     set mipmapFilter(value: SCALE_MODE)
     {
-        this._style.mipmapFilter = value;
+        throw new Error("STUB");
     }
 
     /** Specifies the minimum and maximum levels of detail, respectively, used internally when sampling a texture. */
     get lodMinClamp(): number
     {
-        return this._style.lodMinClamp;
+        throw new Error("STUB");
     }
 
     set lodMinClamp(value: number)
     {
-        this._style.lodMinClamp = value;
+        throw new Error("STUB");
     }
 
     /** Specifies the minimum and maximum levels of detail, respectively, used internally when sampling a texture. */
     get lodMaxClamp(): number
     {
-        return this._style.lodMaxClamp;
+        throw new Error("STUB");
     }
 
     set lodMaxClamp(value: number)
     {
-        this._style.lodMaxClamp = value;
+        throw new Error("STUB");
     }
 
     private _onStyleChange()
     {
-        this.emit('styleChange', this);
+        throw new Error("STUB");
     }
 
     /** call this if you have modified the texture outside of the constructor */
@@ -514,17 +458,13 @@ export class TextureSource<T extends Record<string, any> = any> extends EventEmi
     /** the width of the resource. This is the REAL pure number, not accounting resolution   */
     public get resourceWidth(): number
     {
-        const { resource } = this;
-
-        return resource.naturalWidth || resource.videoWidth || resource.displayWidth || resource.width;
+        throw new Error("STUB");
     }
 
     /** the height of the resource. This is the REAL pure number, not accounting resolution */
     public get resourceHeight(): number
     {
-        const { resource } = this;
-
-        return resource.naturalHeight || resource.videoHeight || resource.displayHeight || resource.height;
+        throw new Error("STUB");
     }
 
     /**
@@ -536,17 +476,12 @@ export class TextureSource<T extends Record<string, any> = any> extends EventEmi
      */
     get resolution(): number
     {
-        return this._resolution;
+        throw new Error("STUB");
     }
 
     set resolution(resolution: number)
     {
-        if (this._resolution === resolution) return;
-
-        this._resolution = resolution;
-
-        this.width = this.pixelWidth / resolution;
-        this.height = this.pixelHeight / resolution;
+        throw new Error("STUB");
     }
 
     /**
@@ -609,23 +544,23 @@ export class TextureSource<T extends Record<string, any> = any> extends EventEmi
 
     set wrapMode(value: WRAP_MODE)
     {
-        this._style.wrapMode = value;
+        throw new Error("STUB");
     }
 
     get wrapMode(): WRAP_MODE
     {
-        return this._style.wrapMode;
+        throw new Error("STUB");
     }
 
     set scaleMode(value: SCALE_MODE)
     {
-        this._style.scaleMode = value;
+        throw new Error("STUB");
     }
 
     /** setting this will set magFilter,minFilter and mipmapFilter all at once!  */
     get scaleMode(): SCALE_MODE
     {
-        return this._style.scaleMode;
+        throw new Error("STUB");
     }
 
     /**

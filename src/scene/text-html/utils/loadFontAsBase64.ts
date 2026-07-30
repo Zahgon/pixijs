@@ -16,9 +16,7 @@ export async function loadFontAsBase64(url: string): Promise<string>
 
     const dataSrc: string = await new Promise((resolve, reject) =>
     {
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
+        throw new Error("STUB");
     });
 
     return dataSrc;

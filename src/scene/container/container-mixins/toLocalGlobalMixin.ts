@@ -108,17 +108,7 @@ export interface ToLocalGlobalMixin
 export const toLocalGlobalMixin: Partial<Container> = {
     getGlobalPosition(point: Point = new Point(), skipUpdate = false): Point
     {
-        if (this.parent)
-        {
-            this.parent.toGlobal(this._position, point, skipUpdate);
-        }
-        else
-        {
-            point.x = this._position.x;
-            point.y = this._position.y;
-        }
-
-        return point;
+        throw new Error("STUB");
     },
 
     toGlobal<P extends PointData = Point>(position: PointData, point?: P, skipUpdate = false): P
@@ -135,18 +125,6 @@ export const toLocalGlobalMixin: Partial<Container> = {
 
     toLocal<P extends PointData = Point>(position: PointData, from?: Container, point?: P, skipUpdate?: boolean): P
     {
-        if (from)
-        {
-            position = from.toGlobal(position, point, skipUpdate);
-        }
-
-        const globalMatrix = this.getGlobalTransform(matrixPool.get(), skipUpdate);
-
-        // simply apply the matrix..
-        point = globalMatrix.applyInverse(position, point);
-
-        matrixPool.return(globalMatrix);
-
-        return point;
+        throw new Error("STUB");
     }
 } as Container;

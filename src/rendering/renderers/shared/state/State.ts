@@ -68,15 +68,12 @@ export class State
      */
     get blend(): boolean
     {
-        return !!(this.data & (1 << BLEND));
+        throw new Error("STUB");
     }
 
     set blend(value: boolean)
     {
-        if (!!(this.data & (1 << BLEND)) !== value)
-        {
-            this.data ^= (1 << BLEND);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -85,39 +82,23 @@ export class State
      */
     get offsets(): boolean
     {
-        return !!(this.data & (1 << OFFSET));
+        throw new Error("STUB");
     }
 
     set offsets(value: boolean)
     {
-        if (!!(this.data & (1 << OFFSET)) !== value)
-        {
-            this.data ^= (1 << OFFSET);
-        }
+        throw new Error("STUB");
     }
 
     /** The culling settings for this state none - No culling back - Back face culling front - Front face culling */
     set cullMode(value: CULL_MODES)
     {
-        if (value === 'none')
-        {
-            this.culling = false;
-
-            return;
-        }
-
-        this.culling = true;
-        this.clockwiseFrontFace = value === 'front';
+        throw new Error("STUB");
     }
 
     get cullMode(): CULL_MODES
     {
-        if (!this.culling)
-        {
-            return 'none';
-        }
-
-        return this.clockwiseFrontFace ? 'front' : 'back';
+        throw new Error("STUB");
     }
 
     /**
@@ -126,15 +107,12 @@ export class State
      */
     get culling(): boolean
     {
-        return !!(this.data & (1 << CULLING));
+        throw new Error("STUB");
     }
 
     set culling(value: boolean)
     {
-        if (!!(this.data & (1 << CULLING)) !== value)
-        {
-            this.data ^= (1 << CULLING);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -143,15 +121,12 @@ export class State
      */
     get depthTest(): boolean
     {
-        return !!(this.data & (1 << DEPTH_TEST));
+        throw new Error("STUB");
     }
 
     set depthTest(value: boolean)
     {
-        if (!!(this.data & (1 << DEPTH_TEST)) !== value)
-        {
-            this.data ^= (1 << DEPTH_TEST);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -160,15 +135,12 @@ export class State
      */
     get depthMask(): boolean
     {
-        return !!(this.data & (1 << DEPTH_MASK));
+        throw new Error("STUB");
     }
 
     set depthMask(value: boolean)
     {
-        if (!!(this.data & (1 << DEPTH_MASK)) !== value)
-        {
-            this.data ^= (1 << DEPTH_MASK);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -177,15 +149,12 @@ export class State
      */
     get clockwiseFrontFace(): boolean
     {
-        return !!(this.data & (1 << WINDING));
+        throw new Error("STUB");
     }
 
     set clockwiseFrontFace(value: boolean)
     {
-        if (!!(this.data & (1 << WINDING)) !== value)
-        {
-            this.data ^= (1 << WINDING);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -195,14 +164,12 @@ export class State
      */
     get blendMode(): BLEND_MODES
     {
-        return this._blendMode;
+        throw new Error("STUB");
     }
 
     set blendMode(value: BLEND_MODES)
     {
-        this.blend = (value !== 'none');
-        this._blendMode = value;
-        this._blendModeId = blendModeIds[value as keyof typeof blendModeIds] || 0;
+        throw new Error("STUB");
     }
 
     /**
@@ -211,13 +178,12 @@ export class State
      */
     get polygonOffset(): number
     {
-        return this._polygonOffset;
+        throw new Error("STUB");
     }
 
     set polygonOffset(value: number)
     {
-        this.offsets = !!value;
-        this._polygonOffset = value;
+        throw new Error("STUB");
     }
 
     // #if _DEBUG

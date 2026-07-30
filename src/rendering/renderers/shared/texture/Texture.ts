@@ -243,79 +243,36 @@ export class Texture<TextureSourceType extends TextureSource = TextureSource> ex
         dynamic
     }: TextureOptions<TextureSourceType> = {})
     {
-        super();
-
-        this.label = label;
-        this.source = (source?.source ?? new TextureSource()) as TextureSourceType;
-
-        this.noFrame = !frame;
-
-        if (frame)
-        {
-            this.frame.copyFrom(frame);
-        }
-        else
-        {
-            const { width, height } = this._source;
-
-            this.frame.width = width;
-            this.frame.height = height;
-        }
-
-        this.orig = orig || this.frame;
-        this.trim = trim;
-
-        this.rotate = rotate ?? 0;
-        this.defaultAnchor = defaultAnchor;
-        this.defaultBorders = defaultBorders;
-
-        this.destroyed = false;
-        this.dynamic = dynamic || false;
-
-        this.updateUvs();
+        throw new Error("STUB");
     }
 
     set source(value: TextureSourceType)
     {
-        if (this._source)
-        {
-            this._source.off('resize', this.update, this);
-        }
-
-        this._source = value;
-
-        value.on('resize', this.update, this);
-
-        this.emit('update', this);
+        throw new Error("STUB");
     }
 
     /** the underlying source of the texture (equivalent of baseTexture in v7) */
     get source(): TextureSourceType
     {
-        return this._source;
+        throw new Error("STUB");
     }
 
     /** returns a TextureMatrix instance for this texture. By default, that object is not created because its heavy. */
     get textureMatrix()
     {
-        if (!this._textureMatrix)
-        {
-            this._textureMatrix = new TextureMatrix(this);
-        }
-
-        return this._textureMatrix;
+        throw new Error("STUB");
     }
 
     /** The width of the Texture in pixels. */
     get width(): number
     {
-        return this.orig.width;
+        throw new Error("STUB");
     }
 
     /** The height of the Texture in pixels. */
     get height(): number
     {
-        return this.orig.height;
+        throw new Error("STUB");
     }
 
     /** Call this function when you have modified the frame of this texture. */
@@ -415,11 +372,7 @@ export class Texture<TextureSourceType extends TextureSource = TextureSource> ex
     /** @deprecated since 8.0.0 */
     get baseTexture(): TextureSource
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Texture.baseTexture is now Texture.source');
-        // #endif
-
-        return this._source;
+        throw new Error("STUB");
     }
 
     /** an Empty Texture used internally by the engine */

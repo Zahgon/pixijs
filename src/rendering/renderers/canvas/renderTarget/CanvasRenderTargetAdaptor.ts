@@ -225,7 +225,7 @@ export class CanvasRenderTargetAdaptor implements RenderTargetAdaptor<CanvasRend
         _originDest?: { x: number; y: number; },
     ): void
     {
-        warn('[CanvasRenderTargetAdaptor] copyDepthTexture is not supported in the canvas renderer');
+        throw new Error("STUB");
     }
 
     /**

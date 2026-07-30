@@ -9,23 +9,5 @@ let unsafeEval: boolean;
  */
 export function unsafeEvalSupported(): boolean
 {
-    if (typeof unsafeEval === 'boolean')
-    {
-        return unsafeEval;
-    }
-
-    try
-    {
-        /* eslint-disable no-new-func */
-        const func = new Function('param1', 'param2', 'param3', 'return param1[param2] === param3;');
-        /* eslint-enable no-new-func */
-
-        unsafeEval = func({ a: 'b' }, 'a', 'b') === true;
-    }
-    catch (_e)
-    {
-        unsafeEval = false;
-    }
-
-    return unsafeEval;
+    throw new Error("STUB");
 }

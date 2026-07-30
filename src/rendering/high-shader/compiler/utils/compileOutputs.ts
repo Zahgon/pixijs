@@ -39,10 +39,7 @@ export function compileOutputs(fragments: any[], template: string)
 
     fragments.forEach((fragment) =>
     {
-        if (fragment.header)
-        {
-            extractOutputs(fragment.header, results);
-        }
+        throw new Error("STUB");
     });
 
     let index = 0;
@@ -52,26 +49,21 @@ export function compileOutputs(fragments: any[], template: string)
         .sort()
         .map((inValue) =>
         {
-            if (inValue.indexOf('builtin') > -1)
-            {
-                return inValue;
-            }
-
-            return `@location(${index++}) ${inValue}`;
+            throw new Error("STUB");
         })
         .join(',\n');
 
     // generate the variables we will set:
     const mainStart = results
         .sort()
-        .map((inValue) => `       var ${stripVariable(inValue)};`)
+        .map((inValue) => { throw new Error("STUB"); })
         .join('\n');
 
     // generate the return object
     const mainEnd = `return VSOutput(
             ${results
                 .sort()
-                .map((inValue) => ` ${extractVariableName(inValue)}`)
+                .map((inValue) => { throw new Error("STUB"); })
                 .join(',\n')});`;
 
     // Remove lines from original string

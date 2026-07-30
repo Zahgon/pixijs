@@ -202,12 +202,12 @@ export class GraphicsContext extends EventEmitter<{
      */
     get fillStyle(): ConvertedFillStyle
     {
-        return this._fillStyle;
+        throw new Error("STUB");
     }
 
     set fillStyle(value: FillInput)
     {
-        this._fillStyle = toFillStyle(value, GraphicsContext.defaultFillStyle);
+        throw new Error("STUB");
     }
 
     /**
@@ -215,12 +215,12 @@ export class GraphicsContext extends EventEmitter<{
      */
     get strokeStyle(): ConvertedStrokeStyle
     {
-        return this._strokeStyle;
+        throw new Error("STUB");
     }
 
     set strokeStyle(value: FillInput)
     {
-        this._strokeStyle = toStrokeStyle(value, GraphicsContext.defaultStrokeStyle);
+        throw new Error("STUB");
     }
 
     /**
@@ -232,9 +232,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public setFillStyle(style: FillInput): this
     {
-        this._fillStyle = toFillStyle(style, GraphicsContext.defaultFillStyle);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -246,9 +244,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public setStrokeStyle(style: StrokeInput): this
     {
-        this._strokeStyle = toFillStyle(style, GraphicsContext.defaultStrokeStyle) as ConvertedStrokeStyle;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -496,19 +492,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): this
     {
-        this._tick++;
-
-        const t = this._transform;
-
-        this._activePath.arcTo(
-            (t.a * x1) + (t.c * y1) + t.tx,
-            (t.b * x1) + (t.d * y1) + t.ty,
-            (t.a * x2) + (t.c * y2) + t.tx,
-            (t.b * x2) + (t.d * y2) + t.ty,
-            radius,
-        );
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -531,20 +515,7 @@ export class GraphicsContext extends EventEmitter<{
         x: number, y: number
     ): this
     {
-        this._tick++;
-
-        const t = this._transform;
-
-        this._activePath.arcToSvg(
-            rx, ry,
-            xAxisRotation, // should we rotate this with transform??
-            largeArcFlag,
-            sweepFlag,
-            (t.a * x) + (t.c * y) + t.tx,
-            (t.b * x) + (t.d * y) + t.ty,
-        );
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -562,22 +533,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number, smoothness?: number): this
     {
-        this._tick++;
-
-        // TODO optimize for no transform
-        const t = this._transform;
-
-        this._activePath.bezierCurveTo(
-            (t.a * cp1x) + (t.c * cp1y) + t.tx,
-            (t.b * cp1x) + (t.d * cp1y) + t.ty,
-            (t.a * cp2x) + (t.c * cp2y) + t.tx,
-            (t.b * cp2x) + (t.d * cp2y) + t.ty,
-            (t.a * x) + (t.c * y) + t.tx,
-            (t.b * x) + (t.d * y) + t.ty,
-            smoothness,
-        );
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -621,11 +577,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public circle(x: number, y: number, radius: number): this
     {
-        this._tick++;
-
-        this._activePath.circle(x, y, radius, this._transform.clone());
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -787,10 +739,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public regularPoly(x: number, y: number, radius: number, sides: number, rotation = 0, transform?: Matrix): this
     {
-        this._tick++;
-        this._activePath.regularPoly(x, y, radius, sides, rotation, transform);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -806,10 +755,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public roundPoly(x: number, y: number, radius: number, sides: number, corner: number, rotation?: number): this
     {
-        this._tick++;
-        this._activePath.roundPoly(x, y, radius, sides, corner, rotation);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -827,10 +773,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public roundShape(points: RoundedPoint[], radius: number, useQuadratic?: boolean, smoothness?: number): this
     {
-        this._tick++;
-        this._activePath.roundShape(points, radius, useQuadratic, smoothness);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -844,10 +787,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public filletRect(x: number, y: number, width: number, height: number, fillet: number): this
     {
-        this._tick++;
-        this._activePath.filletRect(x, y, width, height, fillet);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -861,10 +801,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public chamferRect(x: number, y: number, width: number, height: number, chamfer: number, transform?: Matrix): this
     {
-        this._tick++;
-        this._activePath.chamferRect(x, y, width, height, chamfer, transform);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -885,11 +822,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public star(x: number, y: number, points: number, radius: number, innerRadius = 0, rotation = 0): this
     {
-        this._tick++;
-
-        this._activePath.star(x, y, points, radius, innerRadius, rotation, this._transform.clone());
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -942,7 +875,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public getTransform(): Matrix
     {
-        return this._transform;
+        throw new Error("STUB");
     }
 
     /**
@@ -1087,62 +1020,7 @@ export class GraphicsContext extends EventEmitter<{
     /** The bounds of the graphic shape. */
     get bounds(): Bounds
     {
-        if (!this._boundsDirty) return this._bounds;
-
-        this._boundsDirty = false;
-
-        // TODO switch to idy dirty with tick..
-        const bounds = this._bounds;
-
-        bounds.clear();
-
-        for (let i = 0; i < this.instructions.length; i++)
-        {
-            const instruction = this.instructions[i];
-            const action = instruction.action;
-
-            if (action === 'fill')
-            {
-                const data = instruction.data as FillInstruction['data'];
-
-                bounds.addBounds(data.path.bounds);
-            }
-            else if (action === 'texture')
-            {
-                const data = instruction.data as TextureInstruction['data'];
-
-                bounds.addFrame(data.dx, data.dy, data.dx + data.dw, data.dy + data.dh, data.transform);
-            }
-            if (action === 'stroke')
-            {
-                const data = instruction.data as StrokeInstruction['data'];
-
-                const alignment = data.style.alignment;
-
-                let outerPadding = (data.style.width * (1 - alignment));
-
-                if (data.style.join === 'miter')
-                {
-                    outerPadding *= getMaxMiterRatio(data.path, data.style.miterLimit);
-                }
-
-                const _bounds = data.path.bounds;
-
-                bounds.addFrame(
-                    _bounds.minX - outerPadding,
-                    _bounds.minY - outerPadding,
-                    _bounds.maxX + outerPadding,
-                    _bounds.maxY + outerPadding
-                );
-            }
-        }
-
-        if (!bounds.isValid)
-        {
-            bounds.set(0, 0, 0, 0);
-        }
-
-        return bounds;
+        throw new Error("STUB");
     }
 
     /**
@@ -1152,71 +1030,7 @@ export class GraphicsContext extends EventEmitter<{
      */
     public containsPoint(point: PointData): boolean
     {
-        // early out if the bounding box is not hit
-        if (!this.bounds.containsPoint(point.x, point.y)) return false;
-
-        const instructions = this.instructions;
-        let hasHit = false;
-
-        for (let k = 0; k < instructions.length; k++)
-        {
-            const instruction = instructions[k];
-
-            const data = instruction.data as FillInstruction['data'];
-            const path = data.path;
-
-            if (!instruction.action || !path) continue;
-
-            const style = data.style;
-            const shapes = path.shapePath.shapePrimitives;
-
-            for (let i = 0; i < shapes.length; i++)
-            {
-                const shape = shapes[i].shape;
-
-                if (!style || !shape) continue;
-
-                const transform = shapes[i].transform;
-
-                const transformedPoint = transform ? transform.applyInverse(point, tmpPoint) : point;
-
-                if (instruction.action === 'fill')
-                {
-                    hasHit = shape.contains(transformedPoint.x, transformedPoint.y);
-                }
-                else
-                {
-                    const strokeStyle = (style as ConvertedStrokeStyle);
-
-                    hasHit = shape.strokeContains(transformedPoint.x, transformedPoint.y, strokeStyle.width, strokeStyle.alignment);
-                }
-
-                const holes = data.hole;
-
-                if (holes)
-                {
-                    const holeShapes = holes.shapePath?.shapePrimitives;
-
-                    if (holeShapes)
-                    {
-                        for (let j = 0; j < holeShapes.length; j++)
-                        {
-                            if (holeShapes[j].shape.contains(transformedPoint.x, transformedPoint.y))
-                            {
-                                hasHit = false;
-                            }
-                        }
-                    }
-                }
-
-                if (hasHit)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return hasHit;
+        throw new Error("STUB");
     }
 
     /** Unloads the GPU data from the graphics context. */

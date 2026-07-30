@@ -94,30 +94,13 @@ export class RenderContainer extends ViewContainer implements Instruction
      */
     constructor(options: RenderContainerOptions | RenderFunction)
     {
-        if (typeof options === 'function')
-        {
-            options = { render: options };
-        }
-
-        const { render, ...rest } = options;
-
-        super({
-            label: 'RenderContainer',
-            ...rest,
-        });
-
-        if (render) this.render = render;
-
-        this.containsPoint = options.containsPoint ?? (() => false);
-        this.addBounds = options.addBounds ?? (() => false);
+        throw new Error("STUB");
     }
 
     /** @private */
     protected updateBounds(): void
     {
-        // NOTE: this is for backwards compatibility with the old bounds system
-        this._bounds.clear();
-        this.addBounds(this._bounds);
+        throw new Error("STUB");
     }
 
     /**

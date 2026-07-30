@@ -17,42 +17,10 @@ export async function getFontCss(
 )
 {
     const fontPromises = fontFamilies
-        .filter((fontFamily) => Cache.has(`${fontFamily}-and-url`))
+        .filter((fontFamily) => { throw new Error("STUB"); })
         .map((fontFamily) =>
         {
-            if (!FontStylePromiseCache.has(fontFamily))
-            {
-                const { entries } = Cache.get<FontFaceCache>(`${fontFamily}-and-url`);
-                const promises: Promise<string>[] = [];
-
-                entries.forEach((entry) =>
-                {
-                    const url = entry.url;
-                    const faces = entry.faces;
-
-                    const out = faces.map((face) => ({ weight: face.weight, style: face.style }));
-
-                    // load each out font with the correct style
-                    promises.push(
-                        ...out.map((style) =>
-                            loadFontCSS(
-                                {
-                                    fontWeight: style.weight,
-                                    fontStyle: style.style,
-                                    fontFamily,
-                                },
-                                url,
-                            ),
-                        ),
-                    );
-                });
-                FontStylePromiseCache.set(
-                    fontFamily,
-                    Promise.all(promises).then((css) => css.join('\n')),
-                );
-            }
-
-            return FontStylePromiseCache.get(fontFamily);
+            throw new Error("STUB");
         });
 
     return (await Promise.all(fontPromises)).join('\n');

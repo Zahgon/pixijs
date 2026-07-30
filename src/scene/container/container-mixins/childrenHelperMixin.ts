@@ -312,9 +312,7 @@ export const childrenHelperMixin: ChildrenHelperMixin<ContainerChild> = {
 
     removeChildAt<U extends ContainerChild>(index: number): U
     {
-        const child = this.getChildAt<U>(index);
-
-        return this.removeChild(child);
+        throw new Error("STUB");
     },
 
     getChildAt<U extends ContainerChild>(index: number): U
@@ -428,25 +426,7 @@ export const childrenHelperMixin: ChildrenHelperMixin<ContainerChild> = {
 
     swapChildren<U extends ContainerChild>(child: U, child2: U): void
     {
-        if (child === child2)
-        {
-            return;
-        }
-
-        const index1 = this.getChildIndex(child);
-        const index2 = this.getChildIndex(child2);
-
-        this.children[index1] = child2;
-        this.children[index2] = child;
-
-        const renderGroup = this.renderGroup || this.parentRenderGroup;
-
-        if (renderGroup)
-        {
-            renderGroup.structureDidChange = true;
-        }
-
-        this._didContainerChangeTick++;
+        throw new Error("STUB");
     },
 
     removeFromParent()
@@ -456,14 +436,7 @@ export const childrenHelperMixin: ChildrenHelperMixin<ContainerChild> = {
 
     reparentChild<U extends ContainerChild[]>(...child: U): U[0]
     {
-        if (child.length === 1)
-        {
-            return this.reparentChildAt(child[0], this.children.length);
-        }
-
-        child.forEach((c) => this.reparentChildAt(c, this.children.length));
-
-        return child[0];
+        throw new Error("STUB");
     },
 
     reparentChildAt<U extends ContainerChild>(child: U, index: number): U
@@ -492,11 +465,6 @@ export const childrenHelperMixin: ChildrenHelperMixin<ContainerChild> = {
 
     replaceChild<U extends ContainerChild, T extends ContainerChild>(oldChild: U, newChild: T)
     {
-        oldChild.updateLocalTransform();
-        this.addChildAt(newChild, this.getChildIndex(oldChild));
-
-        newChild.setFromMatrix(oldChild.localTransform);
-        newChild.updateLocalTransform();
-        this.removeChild(oldChild);
+        throw new Error("STUB");
     },
 } as Container;

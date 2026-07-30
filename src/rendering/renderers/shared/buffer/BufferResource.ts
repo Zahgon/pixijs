@@ -85,20 +85,12 @@ export class BufferResource extends EventEmitter<{
      */
     constructor({ buffer, offset, size }: { buffer: Buffer; offset?: number; size?: number; })
     {
-        super();
-
-        this.buffer = buffer;
-        this.offset = offset | 0;
-        this.size = size;
-
-        this.buffer.on('change', this.onBufferChange, this);
+        throw new Error("STUB");
     }
 
     protected onBufferChange(): void
     {
-        this._resourceId = uid('resource');
-
-        this.emit('change', this);
+        throw new Error("STUB");
     }
 
     /**

@@ -35,5 +35,5 @@ export async function loadEnvironmentExtensions(skip: boolean): Promise<void>
  */
 export async function autoDetectEnvironment(add: boolean): Promise<void>
 {
-    return loadEnvironmentExtensions(!add);
+    throw new Error("STUB");
 }

@@ -38,7 +38,9 @@ export class CustomRenderPipe implements InstructionPipe<RenderContainer>, Rende
     }
 
     public updateRenderable() { /** empty */ }
-    public destroyRenderable() { /** empty */ }
+    public destroyRenderable() {
+        throw new Error("STUB");
+    }
     public validateRenderable() { return false; }
 
     public addRenderable(container: RenderContainer, instructionSet: InstructionSet): void

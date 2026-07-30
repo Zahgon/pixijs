@@ -17,6 +17,6 @@ export const resolveJsonUrl = {
         name: 'resolveJson',
     },
     test: (value: string): boolean =>
-        Resolver.RETINA_PREFIX.test(value) && value.endsWith('.json'),
+        { throw new Error("STUB"); },
     parse: resolveTextureUrl.parse,
 } satisfies ResolveURLParser;

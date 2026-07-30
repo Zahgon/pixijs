@@ -13,9 +13,7 @@ export const detectWebp = {
         type: ExtensionType.DetectionParser,
         priority: 0,
     },
-    test: async (): Promise<boolean> => testImageFormat(
-        'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA='
-    ),
-    add: async (formats) => [...formats, 'webp'],
-    remove: async (formats) => formats.filter((f) => f !== 'webp'),
+    test: async (): Promise<boolean> => { throw new Error("STUB"); },
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 } as FormatDetectionParser;

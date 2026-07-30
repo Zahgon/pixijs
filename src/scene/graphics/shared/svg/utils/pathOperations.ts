@@ -10,7 +10,7 @@ export function extractSubpaths(pathData: string): string[]
 {
     // Split on Move commands (M or m) to get individual subpaths
     const parts = pathData.split(/(?=[Mm])/);
-    const subpaths = parts.filter((part) => part.trim().length > 0);
+    const subpaths = parts.filter((part) => { throw new Error("STUB"); });
 
     return subpaths;
 }

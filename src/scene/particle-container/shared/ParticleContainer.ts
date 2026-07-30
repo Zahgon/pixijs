@@ -323,43 +323,7 @@ export class ParticleContainer
      */
     constructor(options: ParticleContainerOptions<T> = {})
     {
-        options = {
-            ...ParticleContainer.defaultOptions,
-            ...options,
-            dynamicProperties: {
-                ...ParticleContainer.defaultOptions.dynamicProperties,
-                ...options?.dynamicProperties,
-            },
-        };
-
-        // split out
-        const { dynamicProperties, shader, roundPixels, texture, particles, ...rest } = options;
-
-        super({
-            label: 'ParticleContainer',
-            ...rest,
-        });
-
-        this.texture = texture || null;
-        this.shader = shader;
-
-        this._properties = {};
-
-        for (const key in particleData)
-        {
-            const property = particleData[key];
-            const dynamic = dynamicProperties[key];
-
-            this._properties[key] = {
-                ...property,
-                dynamic,
-            };
-        }
-
-        this.allowChildren = true;
-        this.roundPixels = roundPixels ?? false;
-
-        this.particleChildren = particles ?? [];
+        throw new Error("STUB");
     }
 
     /**
@@ -389,14 +353,7 @@ export class ParticleContainer
      */
     public addParticle(...children: T[]): T
     {
-        for (let i = 0; i < children.length; i++)
-        {
-            this.particleChildren.push(children[i]);
-        }
-
-        this.onViewUpdate();
-
-        return children[0];
+        throw new Error("STUB");
     }
 
     /**
@@ -418,22 +375,7 @@ export class ParticleContainer
      */
     public removeParticle(...children: T[]): T
     {
-        let didRemove = false;
-
-        for (let i = 0; i < children.length; i++)
-        {
-            const index = this.particleChildren.indexOf(children[i] as T);
-
-            if (index > -1)
-            {
-                this.particleChildren.splice(index, 1);
-                didRemove = true;
-            }
-        }
-
-        if (didRemove) this.onViewUpdate();
-
-        return children[0];
+        throw new Error("STUB");
     }
 
     /**
@@ -495,11 +437,13 @@ export class ParticleContainer
      */
     public get bounds()
     {
-        return emptyBounds;
+        throw new Error("STUB");
     }
 
     /** @private */
-    protected override updateBounds(): void { /* empty */ }
+    protected override updateBounds(): void {
+        throw new Error("STUB");
+    }
 
     /**
      * Destroys this sprite renderable and optionally its texture.
@@ -540,18 +484,7 @@ export class ParticleContainer
      */
     public removeParticles(beginIndex?: number, endIndex?: number)
     {
-        beginIndex ??= 0;
-        endIndex ??= this.particleChildren.length;
-
-        // Remove the correct range
-        const children = this.particleChildren.splice(
-            beginIndex,
-            endIndex - beginIndex
-        );
-
-        this.onViewUpdate();
-
-        return children as T[];
+        throw new Error("STUB");
     }
 
     /**
@@ -561,11 +494,7 @@ export class ParticleContainer
      */
     public removeParticleAt<U extends T = T>(index: number): U
     {
-        const child = this.particleChildren.splice(index, 1);
-
-        this.onViewUpdate();
-
-        return child[0] as U;
+        throw new Error("STUB");
     }
 
     /**
@@ -577,11 +506,7 @@ export class ParticleContainer
      */
     public addParticleAt<U extends T = T>(child: U, index: number): U
     {
-        this.particleChildren.splice(index, 0, child);
-
-        this.onViewUpdate();
-
-        return child;
+        throw new Error("STUB");
     }
 
     /**
@@ -636,9 +561,7 @@ export class ParticleContainer
      */
     public override removeChildAt<U extends ContainerChild>(_index: number): U
     {
-        throw new Error(
-            'ParticleContainer.removeChildAt() is not available. Please use ParticleContainer.removeParticleAt()',
-        );
+        throw new Error("STUB");
     }
     /**
      * This method is not available in ParticleContainer.
@@ -708,9 +631,7 @@ export class ParticleContainer
      */
     public override swapChildren<U extends ContainerChild>(_child: U, _child2: U): void
     {
-        throw new Error(
-            'ParticleContainer.swapChildren() is not available. Please use ParticleContainer.swapParticles()',
-        );
+        throw new Error("STUB");
     }
 
     /**
@@ -723,7 +644,7 @@ export class ParticleContainer
      */
     public override reparentChild(..._child: ContainerChild[]): any
     {
-        throw new Error('ParticleContainer.reparentChild() is not available with the particle container');
+        throw new Error("STUB");
     }
 
     /**

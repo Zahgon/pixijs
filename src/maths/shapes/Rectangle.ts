@@ -147,7 +147,7 @@ export class Rectangle implements ShapePrimitive
      */
     get left(): number
     {
-        return this.x;
+        throw new Error("STUB");
     }
 
     /**
@@ -173,7 +173,7 @@ export class Rectangle implements ShapePrimitive
      */
     get right(): number
     {
-        return this.x + this.width;
+        throw new Error("STUB");
     }
 
     /**
@@ -199,7 +199,7 @@ export class Rectangle implements ShapePrimitive
      */
     get top(): number
     {
-        return this.y;
+        throw new Error("STUB");
     }
 
     /**
@@ -225,7 +225,7 @@ export class Rectangle implements ShapePrimitive
      */
     get bottom(): number
     {
-        return this.y + this.height;
+        throw new Error("STUB");
     }
 
     /**
@@ -258,7 +258,7 @@ export class Rectangle implements ShapePrimitive
      */
     static get EMPTY(): Rectangle
     {
-        return new Rectangle(0, 0, 0, 0);
+        throw new Error("STUB");
     }
 
     /**
@@ -302,12 +302,7 @@ export class Rectangle implements ShapePrimitive
      */
     public copyFromBounds(bounds: Bounds): this
     {
-        this.x = bounds.minX;
-        this.y = bounds.minY;
-        this.width = bounds.maxX - bounds.minX;
-        this.height = bounds.maxY - bounds.minY;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -423,28 +418,7 @@ export class Rectangle implements ShapePrimitive
      */
     public strokeContains(x: number, y: number, strokeWidth: number, alignment: number = 0.5): boolean
     {
-        const { width, height } = this;
-
-        if (width <= 0 || height <= 0) return false;
-
-        const _x = this.x;
-        const _y = this.y;
-
-        const strokeWidthOuter = strokeWidth * (1 - alignment);
-        const strokeWidthInner = strokeWidth - strokeWidthOuter;
-
-        const outerLeft = _x - strokeWidthOuter;
-        const outerRight = _x + width + strokeWidthOuter;
-        const outerTop = _y - strokeWidthOuter;
-        const outerBottom = _y + height + strokeWidthOuter;
-
-        const innerLeft = _x + strokeWidthInner;
-        const innerRight = _x + width - strokeWidthInner;
-        const innerTop = _y + strokeWidthInner;
-        const innerBottom = _y + height - strokeWidthInner;
-
-        return (x >= outerLeft && x <= outerRight && y >= outerTop && y <= outerBottom)
-            && !(x > innerLeft && x < innerRight && y > innerTop && y < innerBottom);
+        throw new Error("STUB");
     }
     /**
      * Determines whether the `other` Rectangle transformed by `transform` intersects with `this` Rectangle object.
@@ -626,17 +600,7 @@ export class Rectangle implements ShapePrimitive
      */
     public fit(rectangle: Rectangle): this
     {
-        const x1 = Math.max(this.x, rectangle.x);
-        const x2 = Math.min(this.x + this.width, rectangle.x + rectangle.width);
-        const y1 = Math.max(this.y, rectangle.y);
-        const y2 = Math.min(this.y + this.height, rectangle.y + rectangle.height);
-
-        this.x = x1;
-        this.width = Math.max(x2 - x1, 0);
-        this.y = y1;
-        this.height = Math.max(y2 - y1, 0);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -726,17 +690,7 @@ export class Rectangle implements ShapePrimitive
      */
     public enlarge(rectangle: Rectangle): this
     {
-        const x1 = Math.min(this.x, rectangle.x);
-        const x2 = Math.max(this.x + this.width, rectangle.x + rectangle.width);
-        const y1 = Math.min(this.y, rectangle.y);
-        const y2 = Math.max(this.y + this.height, rectangle.y + rectangle.height);
-
-        this.x = x1;
-        this.width = x2 - x1;
-        this.y = y1;
-        this.height = y2 - y1;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**

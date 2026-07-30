@@ -85,7 +85,7 @@ export interface FillPatternOptions
 
 function isFillPatternOptions(value: Texture | FillPatternOptions): value is FillPatternOptions
 {
-    return (value as FillPatternOptions).texture !== undefined;
+    throw new Error("STUB");
 }
 
 const repetitionMap = {
@@ -173,20 +173,7 @@ export class FillPattern implements CanvasPattern
     constructor(texture: Texture, repetition?: PatternRepetition);
     constructor(textureOrOptions: Texture | FillPatternOptions, repetition?: PatternRepetition)
     {
-        const options: FillPatternOptions = isFillPatternOptions(textureOrOptions)
-            ? textureOrOptions
-            : { texture: textureOrOptions, repetition };
-
-        this.texture = options.texture;
-        this.textureSpace = options.textureSpace ?? 'global';
-
-        const rep = options.repetition;
-
-        if (rep)
-        {
-            this.texture.source.style.addressModeU = repetitionMap[rep].addressModeU as WRAP_MODE;
-            this.texture.source.style.addressModeV = repetitionMap[rep].addressModeV as WRAP_MODE;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -230,7 +217,7 @@ export class FillPattern implements CanvasPattern
      */
     public get styleKey(): string
     {
-        return `fill-pattern-${this.uid}-${this._tick}`;
+        throw new Error("STUB");
     }
 
     /** Destroys the fill pattern, releasing resources. This will also destroy the internal texture. */

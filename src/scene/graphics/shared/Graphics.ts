@@ -108,51 +108,12 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     constructor(options?: GraphicsOptions | GraphicsContext)
     {
-        if (options instanceof GraphicsContext)
-        {
-            options = { context: options };
-        }
-
-        const { context, roundPixels, ...rest } = options || {};
-
-        super({
-            label: 'Graphics',
-            ...rest
-        });
-
-        if (!context)
-        {
-            this.context = this._ownedContext = new GraphicsContext();
-            this.context.autoGarbageCollect = this.autoGarbageCollect;
-        }
-        else
-        {
-            this.context = context;
-        }
-
-        this.didViewUpdate = true;
-
-        this.allowChildren = false;
-        this.roundPixels = roundPixels ?? false;
+        throw new Error("STUB");
     }
 
     set context(context: GraphicsContext)
     {
-        if (context === this._context) return;
-
-        if (this._context)
-        {
-            this._context.off('update', this.onViewUpdate, this);
-            this._context.off('unload', this.unload, this);
-        }
-
-        this._context = context;
-
-        // TODO store this bound function somewhere else..
-        this._context.on('update', this.onViewUpdate, this);
-        this._context.on('unload', this.unload, this);
-
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -181,7 +142,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     get context(): GraphicsContext
     {
-        return this._context;
+        throw new Error("STUB");
     }
 
     /**
@@ -207,14 +168,16 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     override get bounds(): Bounds
     {
-        return this._context.bounds;
+        throw new Error("STUB");
     }
 
     /**
      * Graphics objects do not need to update their bounds as the context handles this.
      * @private
      */
-    protected updateBounds(): void { /** */ }
+    protected updateBounds(): void {
+        throw new Error("STUB");
+    }
 
     /**
      * Checks if the object contains the given point.
@@ -240,7 +203,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public override containsPoint(point: PointData)
     {
-        return this._context.containsPoint(point);
+        throw new Error("STUB");
     }
 
     /**
@@ -343,7 +306,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public setFillStyle(...args: Parameters<GraphicsContext['setFillStyle']>): this
     {
-        return this._callContextMethod('setFillStyle', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -401,7 +364,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public setStrokeStyle(...args: Parameters<GraphicsContext['setStrokeStyle']>): this
     {
-        return this._callContextMethod('setStrokeStyle', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -673,7 +636,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): this;
     public arcTo(...args: Parameters<GraphicsContext['arcTo']>): this
     {
-        return this._callContextMethod('arcTo', args);
+        throw new Error("STUB");
     }
     /**
      * Adds an SVG-style arc to the path, allowing for elliptical arcs based on the SVG spec.
@@ -726,7 +689,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     ): this;
     public arcToSvg(...args: Parameters<GraphicsContext['arcToSvg']>): this
     {
-        return this._callContextMethod('arcToSvg', args);
+        throw new Error("STUB");
     }
     /**
      * Adds a cubic Bézier curve to the path, from the current point to the specified end point.
@@ -772,7 +735,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     ): this;
     public bezierCurveTo(...args: Parameters<GraphicsContext['bezierCurveTo']>): this
     {
-        return this._callContextMethod('bezierCurveTo', args);
+        throw new Error("STUB");
     }
     /**
      * Closes the current path by drawing a straight line back to the start point.
@@ -862,7 +825,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public circle(x: number, y: number, radius: number): this;
     public circle(...args: Parameters<GraphicsContext['circle']>): this
     {
-        return this._callContextMethod('circle', args);
+        throw new Error("STUB");
     }
     /**
      * Adds another `GraphicsPath` to this path, optionally applying a transformation.
@@ -1170,7 +1133,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public regularPoly(x: number, y: number, radius: number, sides: number, rotation?: number, transform?: Matrix): this;
     public regularPoly(...args: Parameters<GraphicsContext['regularPoly']>): this
     {
-        return this._callContextMethod('regularPoly', args);
+        throw new Error("STUB");
     }
     /**
      * Draws a polygon with rounded corners.
@@ -1211,7 +1174,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public roundPoly(x: number, y: number, radius: number, sides: number, corner: number, rotation?: number): this;
     public roundPoly(...args: Parameters<GraphicsContext['roundPoly']>): this
     {
-        return this._callContextMethod('roundPoly', args);
+        throw new Error("STUB");
     }
     /**
      * Draws a shape with rounded corners. This function supports custom radius for each corner of the shape.
@@ -1266,7 +1229,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public roundShape(points: RoundedPoint[], radius: number, useQuadratic?: boolean, smoothness?: number): this;
     public roundShape(...args: Parameters<GraphicsContext['roundShape']>): this
     {
-        return this._callContextMethod('roundShape', args);
+        throw new Error("STUB");
     }
     /**
      * Draws a rectangle with fillet corners. Unlike rounded rectangles, this supports negative corner
@@ -1298,7 +1261,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public filletRect(x: number, y: number, width: number, height: number, fillet: number): this;
     public filletRect(...args: Parameters<GraphicsContext['filletRect']>): this
     {
-        return this._callContextMethod('filletRect', args);
+        throw new Error("STUB");
     }
     /**
      * Draws a rectangle with chamfered (angled) corners. Each corner is cut off at
@@ -1334,7 +1297,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public chamferRect(x: number, y: number, width: number, height: number, chamfer: number, transform?: Matrix): this;
     public chamferRect(...args: Parameters<GraphicsContext['chamferRect']>): this
     {
-        return this._callContextMethod('chamferRect', args);
+        throw new Error("STUB");
     }
     /**
      * Draws a star shape centered at a specified location. This method allows for the creation
@@ -1373,7 +1336,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public star(x: number, y: number, points: number, radius: number, innerRadius?: number, rotation?: number): this;
     public star(...args: Parameters<GraphicsContext['star']>): this
     {
-        return this._callContextMethod('star', args);
+        throw new Error("STUB");
     }
     /**
      * Parses and renders an SVG string into the graphics context. This allows for complex shapes
@@ -1501,7 +1464,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public getTransform(): Matrix
     {
-        return this.context.getTransform();
+        throw new Error("STUB");
     }
     /**
      * Resets the current transformation matrix to the identity matrix, effectively removing
@@ -1553,7 +1516,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public rotateTransform(angle: number): this;
     public rotateTransform(...args: Parameters<GraphicsContext['rotate']>): this
     {
-        return this._callContextMethod('rotate', args);
+        throw new Error("STUB");
     }
     /**
      * Applies a scaling transformation to the graphics context, scaling drawings by x horizontally
@@ -1583,7 +1546,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public scaleTransform(x: number, y?: number): this;
     public scaleTransform(...args: Parameters<GraphicsContext['scale']>): this
     {
-        return this._callContextMethod('scale', args);
+        throw new Error("STUB");
     }
     /**
      * Sets the current transformation matrix of the graphics context.
@@ -1707,7 +1670,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
     public translateTransform(x: number, y?: number): this;
     public translateTransform(...args: Parameters<GraphicsContext['translate']>): this
     {
-        return this._callContextMethod('translate', args);
+        throw new Error("STUB");
     }
     /**
      * Clears all drawing commands from the graphics context, effectively resetting it.
@@ -1787,11 +1750,11 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     get fillStyle(): GraphicsContext['fillStyle']
     {
-        return this._context.fillStyle;
+        throw new Error("STUB");
     }
     set fillStyle(value: FillInput)
     {
-        this._context.fillStyle = value;
+        throw new Error("STUB");
     }
     /**
      * Gets or sets the current stroke style for the graphics context. The stroke style determines
@@ -1838,11 +1801,11 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     get strokeStyle(): GraphicsContext['strokeStyle']
     {
-        return this._context.strokeStyle;
+        throw new Error("STUB");
     }
     set strokeStyle(value: StrokeStyle)
     {
-        this._context.strokeStyle = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -1905,20 +1868,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public lineStyle(width?: number, color?: ColorSource, alpha?: number): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#lineStyle is no longer needed. Use Graphics#setStrokeStyle to set the stroke style.');
-        // #endif
-
-        const strokeStyle: Partial<StrokeStyle> = {};
-
-        // avoid undefined assignment
-        width && (strokeStyle.width = width);
-        color && (strokeStyle.color = color);
-        alpha && (strokeStyle.alpha = alpha);
-
-        this.context.strokeStyle = strokeStyle;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -1928,20 +1878,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public beginFill(color: ColorSource, alpha?: number)
     {
-        // #if _DEBUG
-        // eslint-disable-next-line max-len
-        deprecation(v8_0_0, 'Graphics#beginFill is no longer needed. Use Graphics#fill to fill the shape with the desired style.');
-        // #endif
-
-        const fillStyle: Partial<FillStyle> = {};
-
-        // avoid undefined assignment
-        if (color !== undefined) fillStyle.color = color;
-        if (alpha !== undefined) fillStyle.alpha = alpha;
-
-        this.context.fillStyle = fillStyle;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -1949,22 +1886,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public endFill()
     {
-        // #if _DEBUG
-        // eslint-disable-next-line max-len
-        deprecation(v8_0_0, 'Graphics#endFill is no longer needed. Use Graphics#fill to fill the shape with the desired style.');
-        // #endif
-
-        this.context.fill();
-        const strokeStyle = this.context.strokeStyle;
-
-        if (strokeStyle.width !== GraphicsContext.defaultStrokeStyle.width
-            || strokeStyle.color !== GraphicsContext.defaultStrokeStyle.color
-            || strokeStyle.alpha !== GraphicsContext.defaultStrokeStyle.alpha)
-        {
-            this.context.stroke();
-        }
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -1973,11 +1895,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public drawCircle(...args: Parameters<GraphicsContext['circle']>): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#drawCircle has been renamed to Graphics#circle');
-        // #endif
-
-        return this._callContextMethod('circle', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -1986,11 +1904,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public drawEllipse(...args: Parameters<GraphicsContext['ellipse']>): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#drawEllipse has been renamed to Graphics#ellipse');
-        // #endif
-
-        return this._callContextMethod('ellipse', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -1999,11 +1913,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public drawPolygon(...args: Parameters<GraphicsContext['poly']>): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#drawPolygon has been renamed to Graphics#poly');
-        // #endif
-
-        return this._callContextMethod('poly', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -2012,11 +1922,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public drawRect(...args: Parameters<GraphicsContext['rect']>): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#drawRect has been renamed to Graphics#rect');
-        // #endif
-
-        return this._callContextMethod('rect', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -2025,11 +1931,7 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public drawRoundedRect(...args: Parameters<GraphicsContext['roundRect']>): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#drawRoundedRect has been renamed to Graphics#roundRect');
-        // #endif
-
-        return this._callContextMethod('roundRect', args);
+        throw new Error("STUB");
     }
 
     /**
@@ -2038,10 +1940,6 @@ export class Graphics extends ViewContainer<GraphicsGpuData> implements Instruct
      */
     public drawStar(...args: Parameters<GraphicsContext['star']>): this
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Graphics#drawStar has been renamed to Graphics#star');
-        // #endif
-
-        return this._callContextMethod('star', args);
+        throw new Error("STUB");
     }
 }

@@ -28,50 +28,5 @@ function buildGrid(graphics: Graphics) {
 }
 
 (async () => {
-  // Create and initialize a new PixiJS application
-  const app = new Application();
-
-  await app.init({ antialias: true, resizeTo: window });
-  document.body.appendChild(app.canvas);
-
-  // Create two grids - one with pixel-perfect lines and one without
-  const gridPixel = buildGrid(new Graphics()).stroke({ color: 0xffffff, pixelLine: true, width: 1 });
-
-  const grid = buildGrid(new Graphics()).stroke({ color: 0xffffff, pixelLine: false });
-
-  // Position the grids side by side
-  grid.x = -100;
-  grid.y = -50;
-  gridPixel.y = -50;
-
-  // Create a container to hold both grids
-  const container = new Container();
-
-  container.addChild(grid, gridPixel);
-
-  // Center the container on screen
-  container.x = app.screen.width / 2;
-  container.y = app.screen.height / 2;
-  app.stage.addChild(container);
-
-  // Animation variables
-  let count = 0;
-
-  // Add animation to scale the grids over time
-  app.ticker.add(() => {
-    count += 0.01;
-    container.scale = 1 + ((Math.sin(count) + 1) * 2);
-  });
-
-  // Add descriptive label
-  const label = new Text({
-    text: 'Grid Comparison: Standard Lines (Left) vs Pixel-Perfect Lines (Right)',
-    style: { fill: 0xffffff },
-  });
-
-  // Position label in top-left corner
-  label.position.set(20, 20);
-  label.width = app.screen.width - 40;
-  label.scale.y = label.scale.x;
-  app.stage.addChild(label);
+    throw new Error("STUB");
 })();

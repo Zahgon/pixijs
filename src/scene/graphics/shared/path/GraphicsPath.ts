@@ -66,18 +66,7 @@ export class GraphicsPath
      */
     get shapePath(): ShapePath
     {
-        if (!this._shapePath)
-        {
-            this._shapePath = new ShapePath(this);
-        }
-
-        if (this._dirty)
-        {
-            this._dirty = false;
-            this._shapePath.buildPath();
-        }
-
-        return this._shapePath;
+        throw new Error("STUB");
     }
 
     /**
@@ -87,16 +76,7 @@ export class GraphicsPath
      */
     constructor(instructions?: string | PathInstruction[], signed = false)
     {
-        this.checkForHoles = signed;
-
-        if (typeof instructions === 'string')
-        {
-            parseSVGPath(instructions, this);
-        }
-        else
-        {
-            this.instructions = instructions?.slice() ?? [];
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -149,11 +129,7 @@ export class GraphicsPath
     public arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): this;
     public arcTo(...args: [number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'arcTo', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -172,11 +148,7 @@ export class GraphicsPath
     public arcToSvg(rx: number, ry: number, xAxisRotation: number, largeArcFlag: number, sweepFlag: number, x: number, y: number): this;
     public arcToSvg(...args: [number, number, number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'arcToSvg', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -199,11 +171,7 @@ export class GraphicsPath
     ): this;
     public bezierCurveTo(...args: [number, number, number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'bezierCurveTo', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -219,35 +187,7 @@ export class GraphicsPath
      */
     public bezierCurveToShort(cp2x: number, cp2y: number, x: number, y: number, smoothness?: number): this
     {
-        const last = this.instructions[this.instructions.length - 1];
-
-        const lastPoint = this.getLastPoint(Point.shared);
-
-        let cp1x = 0;
-        let cp1y = 0;
-
-        if (!last || last.action !== 'bezierCurveTo')
-        {
-            cp1x = lastPoint.x;
-            cp1y = lastPoint.y;
-        }
-        else
-        {
-            cp1x = last.data[2];
-            cp1y = last.data[3];
-
-            const currentX = lastPoint.x;
-            const currentY = lastPoint.y;
-
-            cp1x = currentX + (currentX - cp1x);
-            cp1y = currentY + (currentY - cp1y);
-        }
-
-        this.instructions.push({ action: 'bezierCurveTo', data: [cp1x, cp1y, cp2x, cp2y, x, y, smoothness] });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -345,36 +285,7 @@ export class GraphicsPath
      */
     public quadraticCurveToShort(x: number, y: number, smoothness?: number): this
     {
-        // check if we have a previous quadraticCurveTo
-        const last = this.instructions[this.instructions.length - 1];
-
-        const lastPoint = this.getLastPoint(Point.shared);
-
-        let cpx1 = 0;
-        let cpy1 = 0;
-
-        if (!last || last.action !== 'quadraticCurveTo')
-        {
-            cpx1 = lastPoint.x;
-            cpy1 = lastPoint.y;
-        }
-        else
-        {
-            cpx1 = last.data[0];
-            cpy1 = last.data[1];
-
-            const currentX = lastPoint.x;
-            const currentY = lastPoint.y;
-
-            cpx1 = currentX + (currentX - cpx1);
-            cpy1 = currentY + (currentY - cpy1);
-        }
-
-        this.instructions.push({ action: 'quadraticCurveTo', data: [cpx1, cpy1, x, y, smoothness] });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -405,11 +316,7 @@ export class GraphicsPath
      */
     public circle(x: number, y: number, radius: number, transform?: Matrix): this
     {
-        this.instructions.push({ action: 'circle', data: [x, y, radius, transform] });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -466,11 +373,7 @@ export class GraphicsPath
     public regularPoly(x: number, y: number, radius: number, sides: number, rotation?: number, transform?: Matrix): this;
     public regularPoly(...args: [number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'regularPoly', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -487,11 +390,7 @@ export class GraphicsPath
     public roundPoly(x: number, y: number, radius: number, sides: number, corner: number, rotation?: number): this;
     public roundPoly(...args: [number, number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'roundPoly', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -510,11 +409,7 @@ export class GraphicsPath
     public roundShape(points: RoundedPoint[], radius: number, useQuadratic?: boolean, smoothness?: number): this;
     public roundShape(...args: [RoundedPoint[], number, boolean, number]): this
     {
-        this.instructions.push({ action: 'roundShape', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -529,11 +424,7 @@ export class GraphicsPath
     public filletRect(x: number, y: number, width: number, height: number, fillet: number): this;
     public filletRect(...args: [number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'filletRect', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -548,11 +439,7 @@ export class GraphicsPath
     public chamferRect(x: number, y: number, width: number, height: number, chamfer: number, transform?: Matrix): this;
     public chamferRect(...args: [number, number, number, number, number]): this
     {
-        this.instructions.push({ action: 'chamferRect', data: args });
-
-        this._dirty = true;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -576,27 +463,7 @@ export class GraphicsPath
     // eslint-disable-next-line max-len
     public star(x: number, y: number, points: number, radius: number, innerRadius?: number, rotation?: number, transform?: Matrix): this
     {
-        innerRadius ||= radius / 2;
-
-        const startAngle = (-1 * Math.PI / 2) + rotation;
-        const len = points * 2;
-        const delta = (Math.PI * 2) / len;
-        const polygon = [];
-
-        for (let i = 0; i < len; i++)
-        {
-            const r = i % 2 ? innerRadius : radius;
-            const angle = (i * delta) + startAngle;
-
-            polygon.push(
-                x + (r * Math.cos(angle)),
-                y + (r * Math.sin(angle))
-            );
-        }
-
-        this.poly(polygon, true, transform);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -781,7 +648,7 @@ export class GraphicsPath
 
     get bounds(): Bounds
     {
-        return this.shapePath.bounds;
+        throw new Error("STUB");
     }
 
     /**

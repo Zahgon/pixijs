@@ -143,15 +143,12 @@ export class HTMLTextStyle extends TextStyle
      */
     public override get tagStyles(): Record<string, HTMLTextStyleOptions> | undefined
     {
-        return this._tagStyles;
+        throw new Error("STUB");
     }
     /** @standard */
     public override set tagStyles(value: Record<string, HTMLTextStyleOptions> | undefined)
     {
-        if (this._tagStyles === value) return;
-
-        this._tagStyles = value ?? {};
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
@@ -161,14 +158,13 @@ export class HTMLTextStyle extends TextStyle
      */
     set cssOverrides(value: string | string[])
     {
-        this._cssOverrides = value instanceof Array ? value : [value];
-        this.update();
+        throw new Error("STUB");
     }
 
     /** @advanced */
     get cssOverrides(): string[]
     {
-        return this._cssOverrides;
+        throw new Error("STUB");
     }
 
     /**
@@ -267,12 +263,7 @@ export class HTMLTextStyle extends TextStyle
      */
     get cssStyle(): string
     {
-        if (!this._cssStyle)
-        {
-            this._cssStyle = textStyleToCSS(this);
-        }
-
-        return this._cssStyle;
+        throw new Error("STUB");
     }
 
     /**
@@ -287,13 +278,7 @@ export class HTMLTextStyle extends TextStyle
      */
     public addOverride(...value: string[]): void
     {
-        const toAdd = value.filter((v) => !this.cssOverrides.includes(v));
-
-        if (toAdd.length > 0)
-        {
-            this.cssOverrides.push(...toAdd);
-            this.update();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -305,13 +290,7 @@ export class HTMLTextStyle extends TextStyle
      */
     public removeOverride(...value: string[]): void
     {
-        const toRemove = value.filter((v) => this.cssOverrides.includes(v));
-
-        if (toRemove.length > 0)
-        {
-            this.cssOverrides = this.cssOverrides.filter((v) => !toRemove.includes(v));
-            this.update();
-        }
+        throw new Error("STUB");
     }
 
     /**

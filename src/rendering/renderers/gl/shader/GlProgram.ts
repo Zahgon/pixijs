@@ -142,44 +142,7 @@ export class GlProgram
      */
     constructor(options: GlProgramOptions)
     {
-        options = { ...GlProgram.defaultOptions, ...options };
-
-        // only need to check one as they both need to be the same or
-        // errors ensue!
-        const isES300 = options.fragment.indexOf('#version 300 es') !== -1;
-
-        const preprocessorOptions = {
-            stripVersion: isES300,
-            ensurePrecision: {
-                requestedFragmentPrecision: options.preferredFragmentPrecision,
-                requestedVertexPrecision: options.preferredVertexPrecision,
-                maxSupportedVertexPrecision: 'highp',
-                maxSupportedFragmentPrecision: getMaxFragmentPrecision(),
-            },
-            setProgramName: {
-                name: options.name,
-            },
-            addProgramDefines: isES300,
-            insertVersion: isES300
-        };
-
-        let fragment = options.fragment;
-        let vertex = options.vertex;
-
-        Object.keys(processes).forEach((processKey) =>
-        {
-            const processOptions = preprocessorOptions[processKey as keyof typeof preprocessorOptions];
-
-            fragment = processes[processKey](fragment, processOptions, true);
-            vertex = processes[processKey](vertex, processOptions, false);
-        });
-
-        this.fragment = fragment;
-        this.vertex = vertex;
-
-        this.transformFeedbackVaryings = options.transformFeedbackVaryings;
-
-        this._key = createIdFromString(`${this.vertex}:${this.fragment}`, 'gl-program');
+        throw new Error("STUB");
     }
 
     /** destroys the program */

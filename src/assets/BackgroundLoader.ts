@@ -104,7 +104,7 @@ export class BackgroundLoader
     {
         assetUrls.forEach((a) =>
         {
-            this._assetList.push(a);
+            throw new Error("STUB");
         });
 
         if (this.verbose)
@@ -175,18 +175,11 @@ export class BackgroundLoader
      */
     public get active(): boolean
     {
-        return this._isActive;
+        throw new Error("STUB");
     }
 
     set active(value: boolean)
     {
-        if (this._isActive === value) return;
-
-        this._isActive = value;
-
-        if (value && !this._isLoading)
-        {
-            void this._next();
-        }
+        throw new Error("STUB");
     }
 }

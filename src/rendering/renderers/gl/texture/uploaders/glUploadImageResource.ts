@@ -64,67 +64,7 @@ function uploadImageWebGL2(
     resourceFitsTexture: boolean
 ): void
 {
-    if (!resourceFitsTexture)
-    {
-        // Allocate the full texture and upload the (smaller) resource into it.
-        if (needsAllocation)
-        {
-            gl.texImage2D(
-                target,
-                0,
-                glTexture.internalFormat,
-                textureWidth,
-                textureHeight,
-                0,
-                glTexture.format,
-                glTexture.type,
-                null
-            );
-        }
-
-        gl.texSubImage2D(
-            target,
-            0,
-            0,
-            0,
-            resourceWidth,
-            resourceHeight,
-            glTexture.format,
-            glTexture.type,
-            resource
-        );
-
-        return;
-    }
-
-    if (!needsAllocation)
-    {
-        // Texture already allocated at the correct size; update in-place.
-        gl.texSubImage2D(
-            target,
-            0,
-            0,
-            0,
-            glTexture.format,
-            glTexture.type,
-            resource
-        );
-
-        return;
-    }
-
-    // WebGL2 supports the sized texImage2D overload with TexImageSource.
-    gl.texImage2D(
-        target,
-        0,
-        glTexture.internalFormat,
-        textureWidth,
-        textureHeight,
-        0,
-        glTexture.format,
-        glTexture.type,
-        resource
-    );
+    throw new Error("STUB");
 }
 
 function uploadImageWebGL1(
@@ -140,60 +80,5 @@ function uploadImageWebGL1(
     resourceFitsTexture: boolean
 ): void
 {
-    if (!resourceFitsTexture)
-    {
-        // Allocate the full texture and upload the (smaller) resource into it.
-        if (needsAllocation)
-        {
-            gl.texImage2D(
-                target,
-                0,
-                glTexture.internalFormat,
-                textureWidth,
-                textureHeight,
-                0,
-                glTexture.format,
-                glTexture.type,
-                null
-            );
-        }
-
-        gl.texSubImage2D(
-            target,
-            0,
-            0,
-            0,
-            glTexture.format,
-            glTexture.type,
-            resource
-        );
-
-        return;
-    }
-
-    if (!needsAllocation)
-    {
-        // Texture already allocated at the correct size; update in-place.
-        gl.texSubImage2D(
-            target,
-            0,
-            0,
-            0,
-            glTexture.format,
-            glTexture.type,
-            resource
-        );
-
-        return;
-    }
-
-    // WebGL1 uses the unsized TexImageSource overload.
-    gl.texImage2D(
-        target,
-        0,
-        glTexture.internalFormat,
-        glTexture.format,
-        glTexture.type,
-        resource
-    );
+    throw new Error("STUB");
 }

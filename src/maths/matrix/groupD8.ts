@@ -207,7 +207,7 @@ export const groupD8 = {
      * @returns {GD8Symmetry} The X-component of the U-axis
      *    after rotating the axes.
      */
-    uX: (ind: GD8Symmetry): GD8Symmetry => ux[ind],
+    uX: (ind: GD8Symmetry): GD8Symmetry => { throw new Error("STUB"); },
 
     /**
      * @group groupD8
@@ -215,7 +215,7 @@ export const groupD8 = {
      * @returns {GD8Symmetry} The Y-component of the U-axis
      *    after rotating the axes.
      */
-    uY: (ind: GD8Symmetry): GD8Symmetry => uy[ind],
+    uY: (ind: GD8Symmetry): GD8Symmetry => { throw new Error("STUB"); },
 
     /**
      * @group groupD8
@@ -223,7 +223,7 @@ export const groupD8 = {
      * @returns {GD8Symmetry} The X-component of the V-axis
      *    after rotating the axes.
      */
-    vX: (ind: GD8Symmetry): GD8Symmetry => vx[ind],
+    vX: (ind: GD8Symmetry): GD8Symmetry => { throw new Error("STUB"); },
 
     /**
      * @group groupD8
@@ -231,7 +231,7 @@ export const groupD8 = {
      * @returns {GD8Symmetry} The Y-component of the V-axis
      *    after rotating the axes.
      */
-    vY: (ind: GD8Symmetry): GD8Symmetry => vy[ind],
+    vY: (ind: GD8Symmetry): GD8Symmetry => { throw new Error("STUB"); },
 
     /**
      * @group groupD8
@@ -242,12 +242,7 @@ export const groupD8 = {
      */
     inv: (rotation: GD8Symmetry): GD8Symmetry =>
     {
-        if (rotation & 8)// true only if between 8 & 15 (reflections)
-        {
-            return rotation & 15;// or rotation % 16
-        }
-
-        return (-rotation) & 7;// or (8 - rotation) % 8
+        throw new Error("STUB");
     },
 
     /**
@@ -274,9 +269,7 @@ export const groupD8 = {
      *   is the column in the above cayley table.
      * @returns {GD8Symmetry} Composed operation
      */
-    add: (rotationSecond: GD8Symmetry, rotationFirst: GD8Symmetry): GD8Symmetry => (
-        rotationCayley[rotationSecond][rotationFirst]
-    ),
+    add: (rotationSecond: GD8Symmetry, rotationFirst: GD8Symmetry): GD8Symmetry => { throw new Error("STUB"); },
 
     /**
      * Reverse of `add`.
@@ -285,9 +278,7 @@ export const groupD8 = {
      * @param {GD8Symmetry} rotationFirst - First operation
      * @returns {GD8Symmetry} Result
      */
-    sub: (rotationSecond: GD8Symmetry, rotationFirst: GD8Symmetry): GD8Symmetry => (
-        rotationCayley[rotationSecond][groupD8.inv(rotationFirst)]
-    ),
+    sub: (rotationSecond: GD8Symmetry, rotationFirst: GD8Symmetry): GD8Symmetry => { throw new Error("STUB"); },
 
     /**
      * Adds 180 degrees to rotation, which is a commutative
@@ -296,7 +287,7 @@ export const groupD8 = {
      * @param {number} rotation - The number to rotate.
      * @returns {number} Rotated number
      */
-    rotate180: (rotation: number): number => rotation ^ 4,
+    rotate180: (rotation: number): number => { throw new Error("STUB"); },
 
     /**
      * Checks if the rotation angle is vertical, i.e. south
@@ -305,7 +296,7 @@ export const groupD8 = {
      * @param {GD8Symmetry} rotation - The number to check.
      * @returns {boolean} Whether or not the direction is vertical
      */
-    isVertical: (rotation: GD8Symmetry): boolean => (rotation & 3) === 2, // rotation % 4 === 2
+    isVertical: (rotation: GD8Symmetry): boolean => { throw new Error("STUB"); }, // rotation % 4 === 2
 
     /**
      * Approximates the vector `V(dx,dy)` into one of the
@@ -318,39 +309,7 @@ export const groupD8 = {
      */
     byDirection: (dx: number, dy: number): GD8Symmetry =>
     {
-        if (Math.abs(dx) * 2 <= Math.abs(dy))
-        {
-            if (dy >= 0)
-            {
-                return groupD8.S;
-            }
-
-            return groupD8.N;
-        }
-        else if (Math.abs(dy) * 2 <= Math.abs(dx))
-        {
-            if (dx > 0)
-            {
-                return groupD8.E;
-            }
-
-            return groupD8.W;
-        }
-        else if (dy > 0)
-        {
-            if (dx > 0)
-            {
-                return groupD8.SE;
-            }
-
-            return groupD8.SW;
-        }
-        else if (dx > 0)
-        {
-            return groupD8.NE;
-        }
-
-        return groupD8.NW;
+        throw new Error("STUB");
     },
 
     /**
@@ -365,29 +324,7 @@ export const groupD8 = {
      */
     matrixAppendRotationInv: (matrix: Matrix, rotation: GD8Symmetry, tx = 0, ty = 0, dw = 0, dh = 0): void =>
     {
-        // Packer used "rotation", we use "inv(rotation)"
-        const mat: Matrix = rotationMatrices[groupD8.inv(rotation)];
-
-        const a = mat.a;
-        const b = mat.b;
-        const c = mat.c;
-        const d = mat.d;
-
-        const finalTx = tx - Math.min(0, a * dw, c * dh, (a * dw) + (c * dh));
-        const finalTy = ty - Math.min(0, b * dw, d * dh, (b * dw) + (d * dh));
-
-        const a1 = matrix.a;
-        const b1 = matrix.b;
-        const c1 = matrix.c;
-        const d1 = matrix.d;
-
-        matrix.a = (a * a1) + (b * c1);
-        matrix.b = (a * b1) + (b * d1);
-        matrix.c = (c * a1) + (d * c1);
-        matrix.d = (c * b1) + (d * d1);
-
-        matrix.tx = (finalTx * a1) + (finalTy * c1) + matrix.tx;
-        matrix.ty = (finalTx * b1) + (finalTy * d1) + matrix.ty;
+        throw new Error("STUB");
     },
 
     /**
@@ -407,49 +344,6 @@ export const groupD8 = {
         out: Rectangle
     ): Rectangle =>
     {
-        const { x, y, width, height } = rect;
-        const { x: frameX, y: frameY, width: frameWidth, height: frameHeight } = sourceFrame;
-
-        if (rotation === groupD8.E)
-        {
-            // No rotation
-            out.set(x + frameX, y + frameY, width, height);
-
-            return out;
-        }
-        else if (rotation === groupD8.S)
-        {
-            // 90° clockwise rotation
-            return out.set(
-                (frameWidth - y - height) + frameX,
-                x + frameY,
-                height,
-                width
-            );
-        }
-        else if (rotation === groupD8.W)
-        {
-            // 180° rotation
-            return out.set(
-                (frameWidth - x - width) + frameX,
-                (frameHeight - y - height) + frameY,
-                width,
-                height
-            );
-        }
-        else if (rotation === groupD8.N)
-        {
-            // 270° clockwise rotation (90° counter-clockwise)
-            return out.set(
-                y + frameX,
-                (frameHeight - x - width) + frameY,
-                height,
-                width
-            );
-        }
-
-        // For other rotations (diagonal and reflections), fall back to no rotation
-        // These are less common in typical texture atlases
-        return out.set(x + frameX, y + frameY, width, height);
+        throw new Error("STUB");
     },
 };

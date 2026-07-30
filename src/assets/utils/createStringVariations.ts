@@ -39,10 +39,7 @@ export function createStringVariations(string: string): string[]
 
         result.forEach((vars) =>
         {
-            // first remove the brackets...
-            const split = vars.substring(1, vars.length - 1).split(',');
-
-            ids.push(split);
+            throw new Error("STUB");
         });
 
         processX(string, ids, 0, result, tags);

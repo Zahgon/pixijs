@@ -247,10 +247,7 @@ export class Point implements PointLike
      */
     static get shared(): Point
     {
-        tempPoint.x = 0;
-        tempPoint.y = 0;
-
-        return tempPoint;
+        throw new Error("STUB");
     }
 }
 

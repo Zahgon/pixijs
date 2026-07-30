@@ -52,27 +52,7 @@ export class SchedulerSystem implements System<null>
      */
     public repeat(func: (elapsed: number) => void, duration: number, useOffset = true): number
     {
-        const id = uid++;
-
-        let offset = 0;
-
-        if (useOffset)
-        {
-            this._offset += 1000;
-            offset = this._offset;
-        }
-
-        this._tasks.push({
-            func,
-            duration,
-            start: performance.now(),
-            offset,
-            last: performance.now(),
-            repeat: true,
-            id
-        });
-
-        return id;
+        throw new Error("STUB");
     }
 
     /**
@@ -81,15 +61,7 @@ export class SchedulerSystem implements System<null>
      */
     public cancel(id: number): void
     {
-        for (let i = 0; i < this._tasks.length; i++)
-        {
-            if (this._tasks[i].id === id)
-            {
-                this._tasks.splice(i, 1);
-
-                return;
-            }
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -98,20 +70,7 @@ export class SchedulerSystem implements System<null>
      */
     private _update(): void
     {
-        const now = performance.now();
-
-        for (let i = 0; i < this._tasks.length; i++)
-        {
-            const task = this._tasks[i];
-
-            if ((now - task.offset) - task.last >= task.duration)
-            {
-                const elapsed = now - task.start;
-
-                task.func(elapsed);
-                task.last = now;
-            }
-        }
+        throw new Error("STUB");
     }
 
     /**

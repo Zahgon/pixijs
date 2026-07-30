@@ -296,40 +296,7 @@ export class Spritesheet<S extends SpritesheetData = SpritesheetData>
 
     constructor(optionsOrTexture: SpritesheetOptions<S> | BindableTexture, arg1?: S)
     {
-        let options = optionsOrTexture as SpritesheetOptions<S>;
-
-        if ((optionsOrTexture as BindableTexture)?.source instanceof TextureSource)
-        {
-            options = {
-                texture: optionsOrTexture as BindableTexture,
-                data: arg1,
-            };
-        }
-        const { texture, data, cachePrefix = '' } = options;
-
-        this.cachePrefix = cachePrefix;
-        this._texture = texture instanceof Texture ? texture : null;
-        this.textureSource = texture.source;
-        this.textures = {} as Record<keyof S['frames'], Texture>;
-        this.animations = {} as Record<keyof NonNullable<S['animations']>, Texture[]>;
-        this.data = data;
-
-        const metaResolution = parseFloat(data.meta.scale as string);
-
-        if (metaResolution)
-        {
-            this.resolution = metaResolution;
-            texture.source.resolution = this.resolution;
-        }
-        else
-        {
-            this.resolution = texture.source._resolution;
-        }
-
-        this._frames = this.data.frames;
-        this._frameKeys = Object.keys(this._frames);
-        this._batchIndex = 0;
-        this._callback = null;
+        throw new Error("STUB");
     }
 
     /**
@@ -340,19 +307,7 @@ export class Spritesheet<S extends SpritesheetData = SpritesheetData>
     {
         return new Promise((resolve) =>
         {
-            this._callback = resolve;
-            this._batchIndex = 0;
-
-            if (this._frameKeys.length <= Spritesheet.BATCH_SIZE)
-            {
-                this._processFrames(0);
-                this._processAnimations();
-                this._parseComplete();
-            }
-            else
-            {
-                this._nextBatch();
-            }
+            throw new Error("STUB");
         });
     }
 
@@ -367,10 +322,7 @@ export class Spritesheet<S extends SpritesheetData = SpritesheetData>
      */
     public parseSync(): Record<keyof S['frames'], Texture>
     {
-        this._processFrames(0, true);
-        this._processAnimations();
-
-        return this.textures;
+        throw new Error("STUB");
     }
 
     /**
@@ -486,15 +438,7 @@ export class Spritesheet<S extends SpritesheetData = SpritesheetData>
         this._batchIndex++;
         setTimeout(() =>
         {
-            if (this._batchIndex * Spritesheet.BATCH_SIZE < this._frameKeys.length)
-            {
-                this._nextBatch();
-            }
-            else
-            {
-                this._processAnimations();
-                this._parseComplete();
-            }
+            throw new Error("STUB");
         }, 0);
     }
 

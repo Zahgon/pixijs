@@ -103,10 +103,7 @@ export async function autoDetectRenderer(options: Partial<AutoDetectOptions>): P
 
             renderPriority.forEach((item) =>
             {
-                if (item !== options.preference)
-                {
-                    preferredOrder.push(item);
-                }
+                throw new Error("STUB");
             });
         }
     }

@@ -34,5 +34,5 @@ const GLSL_TO_SIZE: Dict<number> = {
  */
 export function mapSize(type: string): number
 {
-    return GLSL_TO_SIZE[type];
+    throw new Error("STUB");
 }

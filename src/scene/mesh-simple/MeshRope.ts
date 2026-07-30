@@ -171,33 +171,11 @@ export class MeshRope extends Mesh
      */
     constructor(options: MeshRopeOptions)
     {
-        const { width, texture, points, textureScale, ...rest } = { ...MeshRope.defaultOptions, ...options };
-        const ropeGeometry = new RopeGeometry(definedProps({ width: width ?? texture.height, points, textureScale }));
-
-        if (textureScale > 0)
-        {
-            // attempt to set UV wrapping, will fail on non-power of two textures
-            texture.source.style.addressMode = 'repeat';
-        }
-        super(definedProps({
-            ...rest,
-            texture,
-            geometry: ropeGeometry,
-        }));
-
-        this.autoUpdate = true;
-
-        this.onRender = this._render;
+        throw new Error("STUB");
     }
 
     private _render(): void
     {
-        const geometry: RopeGeometry = this.geometry as any;
-
-        if (this.autoUpdate || geometry._width !== this.texture.height)
-        {
-            geometry._width = this.texture.height;
-            geometry.update();
-        }
+        throw new Error("STUB");
     }
 }

@@ -60,26 +60,7 @@ export class PlaneGeometry extends MeshGeometry
     constructor(width?: number, height?: number, verticesX?: number, verticesY?: number);
     constructor(...args: [PlaneGeometryOptions?] | [number?, number?, number?, number?])
     {
-        super({});
-
-        let options = args[0] ?? {};
-
-        if (typeof options === 'number')
-        {
-            // #if _DEBUG
-            // eslint-disable-next-line max-len
-            deprecation(v8_0_0, 'PlaneGeometry constructor changed please use { width, height, verticesX, verticesY } instead');
-            // #endif
-
-            options = {
-                width: options,
-                height: args[1],
-                verticesX: args[2],
-                verticesY: args[3],
-            };
-        }
-
-        this.build(options);
+        throw new Error("STUB");
     }
 
     /**

@@ -138,70 +138,7 @@ export class BitmapFont extends AbstractBitmapFont<BitmapFont>
 
     constructor(options: BitmapFontOptions, url?: string)
     {
-        super();
-
-        const { textures, data } = options;
-
-        Object.keys(data.pages).forEach((key: string) =>
-        {
-            const pageData = data.pages[parseInt(key, 10)];
-
-            const texture = textures[pageData.id];
-
-            this.pages.push({ texture });
-        });
-
-        Object.keys(data.chars).forEach((key: string) =>
-        {
-            const charData = data.chars[key];
-            const {
-                frame: textureFrame,
-                source: textureSource,
-                rotate: textureRotate,
-            } = textures[charData.page];
-
-            // Transform character coordinates based on texture rotation
-            const frame = groupD8.transformRectCoords(
-                charData,
-                textureFrame,
-                textureRotate,
-                new Rectangle()
-            );
-
-            const texture = new Texture({
-                frame,
-                orig: new Rectangle(0, 0, charData.width, charData.height),
-                source: textureSource,
-                rotate: textureRotate,
-            });
-
-            this.chars[key] = {
-                id: key.codePointAt(0),
-                xOffset: charData.xOffset,
-                yOffset: charData.yOffset,
-                xAdvance: charData.xAdvance,
-                kerning: charData.kerning ?? {},
-                texture,
-            };
-        });
-
-        this.baseRenderedFontSize = data.fontSize;
-
-        (this.baseMeasurementFontSize as number) = data.fontSize;
-        (this.fontMetrics as FontMetrics) = {
-            ascent: 0,
-            descent: 0,
-            fontSize: data.fontSize,
-        };
-        (this.baseLineOffset as number) = data.baseLineOffset;
-        (this.lineHeight as number) = data.lineHeight;
-        (this.fontFamily as string) = data.fontFamily;
-        (this.distanceField as { type: string, range: number }) = data.distanceField ?? {
-            type: 'none',
-            range: 0,
-        };
-
-        this.url = url;
+        throw new Error("STUB");
     }
 
     /** Destroys the BitmapFont object. */
@@ -256,7 +193,7 @@ export class BitmapFont extends AbstractBitmapFont<BitmapFont>
      */
     public static install(options: BitmapFontInstallOptions)
     {
-        BitmapFontManager.install(options);
+        throw new Error("STUB");
     }
     /**
      * Uninstalls a bitmap font from the cache.
@@ -273,6 +210,6 @@ export class BitmapFont extends AbstractBitmapFont<BitmapFont>
      */
     public static uninstall(name: string)
     {
-        BitmapFontManager.uninstall(name);
+        throw new Error("STUB");
     }
 }

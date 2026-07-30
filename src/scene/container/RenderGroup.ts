@@ -210,7 +210,7 @@ export class RenderGroup implements Instruction
 
     get localTransform()
     {
-        return this.root.localTransform;
+        throw new Error("STUB");
     }
 
     public addRenderGroupChild(renderGroupChild: RenderGroup)
@@ -344,7 +344,7 @@ export class RenderGroup implements Instruction
 
     get isRenderable(): boolean
     {
-        return (this.root.localDisplayStatus === 0b111 && this.worldAlpha > 0);
+        throw new Error("STUB");
     }
 
     /**
@@ -385,30 +385,12 @@ export class RenderGroup implements Instruction
 
     public getChildren(out: Container[] = []): Container[]
     {
-        const children = this.root.children;
-
-        for (let i = 0; i < children.length; i++)
-        {
-            this._getChildren(children[i], out);
-        }
-
-        return out;
+        throw new Error("STUB");
     }
 
     private _getChildren(container: Container, out: Container[] = []): Container[]
     {
-        out.push(container);
-
-        if (container.renderGroup) return out;
-
-        const children = container.children;
-
-        for (let i = 0; i < children.length; i++)
-        {
-            this._getChildren(children[i], out);
-        }
-
-        return out;
+        throw new Error("STUB");
     }
 
     public invalidateMatrices()
@@ -422,16 +404,7 @@ export class RenderGroup implements Instruction
      */
     public get inverseWorldTransform()
     {
-        if ((this._matrixDirty & 0b001) === 0) return this._inverseWorldTransform;
-
-        this._matrixDirty &= ~0b001;
-
-        // TODO - add dirty flag
-        this._inverseWorldTransform ||= new Matrix();
-
-        return this._inverseWorldTransform
-            .copyFrom(this.worldTransform)
-            .invert();
+        throw new Error("STUB");
     }
 
     /**
@@ -440,19 +413,7 @@ export class RenderGroup implements Instruction
      */
     public get textureOffsetInverseTransform()
     {
-        if ((this._matrixDirty & 0b010) === 0) return this._textureOffsetInverseTransform;
-
-        this._matrixDirty &= ~0b010;
-
-        this._textureOffsetInverseTransform ||= new Matrix();
-
-        // TODO shared.. bad!
-        return this._textureOffsetInverseTransform
-            .copyFrom(this.inverseWorldTransform)
-            .translate(
-                -this._textureBounds.x,
-                -this._textureBounds.y
-            );
+        throw new Error("STUB");
     }
 
     /**
@@ -462,28 +423,7 @@ export class RenderGroup implements Instruction
      */
     public get inverseParentTextureTransform()
     {
-        if ((this._matrixDirty & 0b100) === 0) return this._inverseParentTextureTransform;
-
-        this._matrixDirty &= ~0b100;
-
-        const parentCacheAsTexture = this._parentCacheAsTextureRenderGroup;
-
-        if (parentCacheAsTexture)
-        {
-            this._inverseParentTextureTransform ||= new Matrix();
-
-            // Get relative transform by removing parent's world transform
-            return this._inverseParentTextureTransform
-                .copyFrom(this.worldTransform)
-                .prepend(parentCacheAsTexture.inverseWorldTransform)
-                // Offset by texture bounds
-                .translate(
-                    -parentCacheAsTexture._textureBounds.x,
-                    -parentCacheAsTexture._textureBounds.y
-                );
-        }
-
-        return this.worldTransform;
+        throw new Error("STUB");
     }
 
     /**
@@ -494,13 +434,6 @@ export class RenderGroup implements Instruction
      */
     public get cacheToLocalTransform()
     {
-        if (this.isCachedAsTexture)
-        {
-            return this.textureOffsetInverseTransform;
-        }
-
-        if (!this._parentCacheAsTextureRenderGroup) return null;
-
-        return this._parentCacheAsTextureRenderGroup.textureOffsetInverseTransform;
+        throw new Error("STUB");
     }
 }

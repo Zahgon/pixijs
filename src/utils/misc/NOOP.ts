@@ -1,5 +1,5 @@
 /** @internal */
 export const NOOP = () =>
 {
-    // empty!
+    throw new Error("STUB");
 };

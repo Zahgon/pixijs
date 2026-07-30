@@ -86,9 +86,7 @@ export class HTMLTextSystem implements System
         const promise = this._buildTexturePromise(text)
             .then((texture) =>
             {
-                this._activeTextures[textKey].texture = texture;
-
-                return texture;
+                throw new Error("STUB");
             });
 
         this._activeTextures[textKey] = {
@@ -107,7 +105,7 @@ export class HTMLTextSystem implements System
      */
     public getReferenceCount(textKey: string)
     {
-        return this._activeTextures[textKey]?.usageCount ?? null;
+        throw new Error("STUB");
     }
 
     private _increaseReferenceCount(textKey: string)
@@ -139,14 +137,10 @@ export class HTMLTextSystem implements System
                 // we did not resolve...
                 activeTexture.promise.then((texture) =>
                 {
-                    activeTexture.texture = texture;
-
-                    this._cleanUp(activeTexture.texture);
+                    throw new Error("STUB");
                 }).catch(() =>
                 {
-                    // #if _DEBUG
-                    warn('HTMLTextSystem: Failed to clean texture');
-                    // #endif
+                    throw new Error("STUB");
                 });
             }
 
@@ -228,12 +222,10 @@ export class HTMLTextSystem implements System
     {
         texturePromise.then((texture) =>
         {
-            this._cleanUp(texture);
+            throw new Error("STUB");
         }).catch(() =>
         {
-            // #if _DEBUG
-            warn('HTMLTextSystem: Failed to clean texture');
-            // #endif
+            throw new Error("STUB");
         });
     }
 

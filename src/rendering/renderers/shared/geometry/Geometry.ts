@@ -87,16 +87,7 @@ export interface GeometryDescriptor
 }
 function ensureIsAttribute(attribute: AttributeOption): Attribute
 {
-    if (attribute instanceof Buffer || Array.isArray(attribute) || (attribute as TypedArray).BYTES_PER_ELEMENT)
-    {
-        attribute = {
-            buffer: attribute as Buffer | TypedArray | number[],
-        };
-    }
-
-    (attribute as Attribute).buffer = ensureIsBuffer(attribute.buffer as Buffer | TypedArray | number[], false);
-
-    return attribute as Attribute;
+    throw new Error("STUB");
 }
 
 /**
@@ -180,37 +171,12 @@ export class Geometry extends EventEmitter<{
      */
     constructor(options: GeometryDescriptor = {})
     {
-        super();
-
-        const { attributes, indexBuffer, topology } = options;
-
-        this.buffers = [];
-
-        this.attributes = {};
-
-        if (attributes)
-        {
-            for (const i in attributes)
-            {
-                this.addAttribute(i, attributes[i]);
-            }
-        }
-
-        this.instanceCount = options.instanceCount ?? 1;
-
-        if (indexBuffer)
-        {
-            this.addIndex(indexBuffer);
-        }
-
-        this.topology = topology || 'triangle-list';
+        throw new Error("STUB");
     }
 
     protected onBufferUpdate(): void
     {
-        this._boundsDirty = true;
-        this._vertexCountDirty = true;
-        this.emit('update', this);
+        throw new Error("STUB");
     }
 
     /**
@@ -248,28 +214,7 @@ export class Geometry extends EventEmitter<{
      */
     get vertexCount(): number
     {
-        if (!this._vertexCountDirty) return this._vertexCount;
-
-        this._vertexCountDirty = false;
-
-        const attributes = this.attributes;
-
-        for (const i in attributes)
-        {
-            const attribute = attributes[i];
-
-            if (attribute.instance) continue;
-
-            const buffer = attribute.buffer;
-
-            this._vertexCount = (buffer.data as TypedArray).length / ((attribute.stride / 4) || attribute.size);
-
-            return this._vertexCount;
-        }
-
-        this._vertexCount = 0;
-
-        return 0;
+        throw new Error("STUB");
     }
 
     /**
@@ -279,11 +224,7 @@ export class Geometry extends EventEmitter<{
      */
     public getSize(): number
     {
-        // #if _DEBUG
-        deprecation('8.20.0', 'Geometry.getSize is deprecated, please use Geometry.vertexCount instead.');
-        // #endif
-
-        return this.vertexCount;
+        throw new Error("STUB");
     }
 
     /**
@@ -293,22 +234,7 @@ export class Geometry extends EventEmitter<{
      */
     public addAttribute(name: string, attributeOption: AttributeOption): void
     {
-        const attribute = ensureIsAttribute(attributeOption);
-
-        const bufferIndex = this.buffers.indexOf(attribute.buffer);
-
-        if (bufferIndex === -1)
-        {
-            this.buffers.push(attribute.buffer);
-
-            // two events here - one for a resize (new buffer change)
-            // and one for an update (existing buffer change)
-            attribute.buffer.on('update', this.onBufferUpdate, this);
-            attribute.buffer.on('change', this.onBufferUpdate, this);
-        }
-        this.attributes[name] = attribute;
-
-        this._vertexCountDirty = true;
+        throw new Error("STUB");
     }
 
     /**
@@ -317,18 +243,13 @@ export class Geometry extends EventEmitter<{
      */
     public addIndex(indexBuffer: Buffer | TypedArray | number[]): void
     {
-        this.indexBuffer = ensureIsBuffer(indexBuffer, true);
-        this.buffers.push(this.indexBuffer);
+        throw new Error("STUB");
     }
 
     /** Returns the bounds of the geometry. */
     get bounds(): Bounds
     {
-        if (!this._boundsDirty) return this._bounds;
-
-        this._boundsDirty = false;
-
-        return getGeometryBounds(this, 'aPosition', this._bounds);
+        throw new Error("STUB");
     }
 
     /** Unloads the geometry from the GPU. */
@@ -355,7 +276,7 @@ export class Geometry extends EventEmitter<{
 
         if (destroyBuffers)
         {
-            this.buffers.forEach((buffer) => buffer.destroy());
+            this.buffers.forEach((buffer) => { throw new Error("STUB"); });
         }
 
         this.unload();

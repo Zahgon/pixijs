@@ -18,11 +18,8 @@ export const detectBasis = {
     },
     test: async (): Promise<boolean> =>
     {
-        if (await isWebGPUSupported()) return true;
-        if (isWebGLSupported()) return true;
-
-        return false;
+        throw new Error("STUB");
     },
-    add: async (formats) => [...formats, 'basis'],
-    remove: async (formats) => formats.filter((f) => f !== 'basis'),
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 } as FormatDetectionParser;

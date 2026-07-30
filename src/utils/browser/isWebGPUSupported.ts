@@ -22,26 +22,7 @@ export async function isWebGPUSupported(options: GPURequestAdapterOptions = {}):
 
     _isWebGPUSupported = await (async (): Promise<boolean> =>
     {
-        const gpu = DOMAdapter.get().getNavigator().gpu;
-
-        if (!gpu)
-        {
-            return false;
-        }
-
-        try
-        {
-            const adapter = await gpu.requestAdapter(options) as GPUAdapter;
-
-            // TODO and one of these!
-            await adapter.requestDevice();
-
-            return true;
-        }
-        catch (_e)
-        {
-            return false;
-        }
+        throw new Error("STUB");
     })();
 
     return _isWebGPUSupported;

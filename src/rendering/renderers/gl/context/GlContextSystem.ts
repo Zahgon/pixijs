@@ -194,7 +194,7 @@ export class GlContextSystem implements System<ContextSystemOptions>
      */
     get isLost(): boolean
     {
-        return (!this.gl || this.gl.isContextLost());
+        throw new Error("STUB");
     }
 
     /**
@@ -203,8 +203,7 @@ export class GlContextSystem implements System<ContextSystemOptions>
      */
     protected contextChange(gl: WebGL2RenderingContext): void
     {
-        this.gl = gl;
-        this._renderer.gl = gl;
+        throw new Error("STUB");
     }
 
     public init(options: ContextSystemOptions): void
@@ -398,28 +397,13 @@ export class GlContextSystem implements System<ContextSystemOptions>
      */
     protected handleContextLost(event: WebGLContextEvent): void
     {
-        event.preventDefault();
-
-        // only restore if we purposefully nuked it
-        if (this._contextLossForced)
-        {
-            this._contextLossForced = false;
-            // Restore the context after this event has exited
-            setTimeout(() =>
-            {
-                if (this.gl.isContextLost())
-                {
-                    this.extensions.loseContext?.restoreContext();
-                }
-            }, 0);
-        }
+        throw new Error("STUB");
     }
 
     /** Handles a restored webgl context. */
     protected handleContextRestored(): void
     {
-        this.getExtensions(); // restore extensions state
-        this._renderer.runners.contextChange.emit(this.gl);
+        throw new Error("STUB");
     }
 
     public destroy(): void
@@ -446,8 +430,7 @@ export class GlContextSystem implements System<ContextSystemOptions>
      */
     public forceContextLoss(): void
     {
-        this.extensions.loseContext?.loseContext();
-        this._contextLossForced = true;
+        throw new Error("STUB");
     }
     /**
      * Validate context.

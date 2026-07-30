@@ -272,18 +272,7 @@ export class Ticker
 
         this._tick = (time: number): void =>
         {
-            this._requestId = null;
-
-            if (this.started)
-            {
-                // Invoke listeners now
-                this.update(time);
-                // Listener side effects may have modified ticker state.
-                if (this.started && this._requestId === null && this._head.next)
-                {
-                    this._requestId = requestAnimationFrame(this._tick);
-                }
-            }
+            throw new Error("STUB");
         };
     }
 
@@ -526,20 +515,7 @@ export class Ticker
      */
     get count(): number
     {
-        if (!this._head)
-        {
-            return 0;
-        }
-
-        let count = 0;
-        let current = this._head;
-
-        while ((current = current.next))
-        {
-            count++;
-        }
-
-        return count;
+        throw new Error("STUB");
     }
 
     /**
@@ -732,7 +708,7 @@ export class Ticker
      */
     get FPS(): number
     {
-        return 1000 / this.elapsedMS;
+        throw new Error("STUB");
     }
 
     /**
@@ -764,21 +740,12 @@ export class Ticker
      */
     get minFPS(): number
     {
-        return 1000 / this._maxElapsedMS;
+        throw new Error("STUB");
     }
 
     set minFPS(fps: number)
     {
-        // Must be at least 0, but below 1 / Ticker.targetFPMS
-        const minFPMS = Math.min(Math.max(0, fps) / 1000, Ticker.targetFPMS);
-
-        this._maxElapsedMS = 1 / minFPMS;
-
-        // If maxFPS is set (non-zero) and now lower than minFPS, push it up
-        if (this._minElapsedMS && fps > this.maxFPS)
-        {
-            this.maxFPS = fps;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -809,29 +776,12 @@ export class Ticker
      */
     get maxFPS(): number
     {
-        if (this._minElapsedMS)
-        {
-            return Math.round(1000 / this._minElapsedMS);
-        }
-
-        return 0;
+        throw new Error("STUB");
     }
 
     set maxFPS(fps: number)
     {
-        if (fps === 0)
-        {
-            this._minElapsedMS = 0;
-        }
-        else
-        {
-            if (fps < this.minFPS)
-            {
-                this.minFPS = fps;
-            }
-
-            this._minElapsedMS = 1 / (fps / 1000);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -879,15 +829,7 @@ export class Ticker
      */
     static get shared(): Ticker
     {
-        if (!Ticker._shared)
-        {
-            const shared = Ticker._shared = new Ticker();
-
-            shared.autoStart = true;
-            shared._protected = true;
-        }
-
-        return Ticker._shared;
+        throw new Error("STUB");
     }
 
     /**
@@ -902,14 +844,6 @@ export class Ticker
      */
     static get system(): Ticker
     {
-        if (!Ticker._system)
-        {
-            const system = Ticker._system = new Ticker();
-
-            system.autoStart = true;
-            system._protected = true;
-        }
-
-        return Ticker._system;
+        throw new Error("STUB");
     }
 }

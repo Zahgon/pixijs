@@ -189,40 +189,7 @@ export class RenderTarget
      */
     constructor(options: RenderTargetOptions | RenderTargetDescriptor = {})
     {
-        const descriptor = 'colorAttachments' in options ? options : this._normalizeOptions(options);
-
-        this.isRoot = descriptor.isRoot ?? false;
-        this.label = descriptor.label;
-        this.colorAttachments = descriptor.colorAttachments;
-        this.depthStencilAttachment = descriptor.depthStencilAttachment;
-
-        // an attachment implies the capabilities its format actually has — a depth-only
-        // format (e.g. 'depth24plus') must not report stencil support
-        if (this.depthStencilAttachment)
-        {
-            const format = this.depthStencilAttachment.texture.format;
-
-            this._depth ||= format.includes('depth');
-            this._stencil ||= format.includes('stencil');
-        }
-
-        if (this.colorAttachments.length === 0 && !this.depthStencilAttachment)
-        {
-            throw new Error('[RenderTarget] no color textures or depth textures were provided. '
-                + 'Provide a depthStencilTexture or set depth/stencil to true when using colorTextures: 0.');
-        }
-
-        if (this.colorAttachments.length > 0)
-        {
-            const colorSource = this.colorTexture;
-
-            this.resize(colorSource.width, colorSource.height, colorSource._resolution);
-        }
-
-        if (this.sizeSource)
-        {
-            this.sizeSource.on('resize', this.onSourceResize, this);
-        }
+        throw new Error("STUB");
     }
 
     private _normalizeOptions(options: RenderTargetOptions): RenderTargetDescriptor
@@ -256,11 +223,7 @@ export class RenderTarget
         {
             opts.colorTextures.forEach((texture) =>
             {
-                colorAttachments.push({
-                    texture: texture.source,
-                    loadOp: 'clear',
-                    storeOp: 'store',
-                });
+                throw new Error("STUB");
             });
         }
 
@@ -302,36 +265,31 @@ export class RenderTarget
 
     get size(): [number, number]
     {
-        const _size = this._size;
-
-        _size[0] = this.pixelWidth;
-        _size[1] = this.pixelHeight;
-
-        return _size as any as [number, number];
+        throw new Error("STUB");
     }
 
     get width(): number
     {
-        return this.sizeSource.width;
+        throw new Error("STUB");
     }
 
     get height(): number
     {
-        return this.sizeSource.height;
+        throw new Error("STUB");
     }
     get pixelWidth(): number
     {
-        return this.sizeSource.pixelWidth;
+        throw new Error("STUB");
     }
 
     get pixelHeight(): number
     {
-        return this.sizeSource.pixelHeight;
+        throw new Error("STUB");
     }
 
     get resolution(): number
     {
-        return this.sizeSource._resolution;
+        throw new Error("STUB");
     }
 
     private _colorTextures: TextureSource[] | null = null;
@@ -342,32 +300,30 @@ export class RenderTarget
      */
     get colorTextures(): TextureSource[]
     {
-        this._colorTextures ||= this.colorAttachments.map((a) => a.texture);
-
-        return this._colorTextures;
+        throw new Error("STUB");
     }
 
     /** The stencil and depth buffer will write to this texture in WebGPU. */
     get depthStencilTexture(): TextureSource | null
     {
-        return this.depthStencilAttachment?.texture ?? null;
+        throw new Error("STUB");
     }
 
     /** Whether this target provides a depth buffer — requested via options or implied by its attachment's format. */
     get depth(): boolean
     {
-        return this._depth;
+        throw new Error("STUB");
     }
 
     /** Whether this target provides a stencil buffer — requested via options or implied by its attachment's format. */
     get stencil(): boolean
     {
-        return this._stencil;
+        throw new Error("STUB");
     }
 
     get colorTexture(): TextureSource
     {
-        return this.colorAttachments[0]?.texture;
+        throw new Error("STUB");
     }
 
     /**
@@ -377,12 +333,12 @@ export class RenderTarget
      */
     get sizeSource(): TextureSource
     {
-        return this.colorAttachments[0]?.texture ?? this.depthStencilAttachment?.texture;
+        throw new Error("STUB");
     }
 
     protected onSourceResize(source: TextureSource)
     {
-        this.resize(source.width, source.height, source._resolution, true);
+        throw new Error("STUB");
     }
 
     /**
@@ -404,9 +360,7 @@ export class RenderTarget
 
         this.colorAttachments.forEach((colorAttachment, i) =>
         {
-            if (skipColorTexture && i === 0) return;
-
-            colorAttachment.texture.resize(width, height, resolution);
+            throw new Error("STUB");
         });
 
         if (this.depthStencilAttachment)
@@ -429,7 +383,7 @@ export class RenderTarget
         {
             this.colorAttachments.forEach((attachment) =>
             {
-                attachment.texture.destroy();
+                throw new Error("STUB");
             });
         }
 

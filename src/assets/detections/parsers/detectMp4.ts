@@ -13,7 +13,7 @@ export const detectMp4 = {
         type: ExtensionType.DetectionParser,
         priority: 0,
     },
-    test: async (): Promise<boolean> => testVideoFormat('video/mp4'),
-    add: async (formats) => [...formats, 'mp4', 'm4v'],
-    remove: async (formats) => formats.filter((f) => f !== 'mp4' && f !== 'm4v'),
+    test: async (): Promise<boolean> => { throw new Error("STUB"); },
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 } as FormatDetectionParser;

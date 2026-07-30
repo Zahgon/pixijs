@@ -318,7 +318,7 @@ export const effectsMixin: Partial<Container> = {
 
         this.effects.push(effect);
 
-        this.effects.sort((a, b) => a.priority - b.priority);
+        this.effects.sort((a, b) => { throw new Error("STUB"); });
 
         this._markStructureAsChanged();
 
@@ -345,28 +345,11 @@ export const effectsMixin: Partial<Container> = {
 
     set mask(value: Mask)
     {
-        const effect = this._maskEffect;
-
-        if (effect?.mask === value) return;
-
-        if (effect)
-        {
-            this.removeEffect(effect);
-
-            MaskEffectManager.returnMaskEffect(effect);
-
-            this._maskEffect = null;
-        }
-
-        if (value === null || value === undefined) return;
-
-        this._maskEffect = MaskEffectManager.getMaskEffect(value);
-
-        this.addEffect(this._maskEffect);
+        throw new Error("STUB");
     },
     get mask(): unknown
     {
-        return this._maskEffect?.mask;
+        throw new Error("STUB");
     },
 
     setMask(options: Partial<MaskOptionsAndMask>)
@@ -386,53 +369,20 @@ export const effectsMixin: Partial<Container> = {
 
     set filters(value: Filter | readonly Filter[] | null | undefined)
     {
-        if (!Array.isArray(value) && value) value = ([value] as Filter[]);
-
-        const effect = this._filterEffect ||= new FilterEffect();
-
-        // Ignore the Filter type
-        value = value as Filter[] | null | undefined;
-
-        const hasFilters = value?.length > 0;
-        const hadFilters = effect.filters?.length > 0;
-
-        const didChange = hasFilters !== hadFilters;
-
-        // Clone the filters array so we don't freeze the user-input
-        value = Array.isArray(value) ? value.slice(0) : value;
-
-        // Ensure filters are immutable via filters getter
-        effect.filters = Object.freeze(value);
-
-        if (didChange)
-        {
-            if (hasFilters)
-            {
-                this.addEffect(effect);
-            }
-            else
-            {
-                this.removeEffect(effect);
-
-                // sets the empty array...
-                effect.filters = value ?? null;
-            }
-        }
+        throw new Error("STUB");
     },
     get filters(): readonly Filter[]
     {
-        return this._filterEffect?.filters;
+        throw new Error("STUB");
     },
 
     set filterArea(value: Rectangle)
     {
-        this._filterEffect ||= new FilterEffect();
-
-        this._filterEffect.filterArea = value;
+        throw new Error("STUB");
     },
     get filterArea(): Rectangle
     {
-        return this._filterEffect?.filterArea;
+        throw new Error("STUB");
     },
 
 } as Container;

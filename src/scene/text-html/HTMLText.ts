@@ -196,34 +196,13 @@ export class HTMLText extends AbstractText<
     constructor(text?: TextString, options?: Partial<HTMLTextStyle>);
     constructor(...args: [HTMLTextOptions?] | [TextString, Partial<HTMLTextStyle>])
     {
-        const options = ensureTextOptions<HTMLTextOptions>(args, 'HtmlText');
-
-        super(options, HTMLTextStyle);
-
-        if (options.textureStyle)
-        {
-            this.textureStyle = options.textureStyle instanceof TextureStyle
-                ? options.textureStyle
-                : new TextureStyle(options.textureStyle);
-        }
-
-        this.autoGenerateMipmaps = options.autoGenerateMipmaps ?? TextureSource.defaultOptions.autoGenerateMipmaps;
+        throw new Error("STUB");
     }
 
     /** @private */
     protected updateBounds()
     {
-        const bounds = this._bounds;
-        const anchor = this._anchor;
-
-        const htmlMeasurement = measureHtmlText(this.text, this._style as HTMLTextStyle);
-
-        const { width, height } = htmlMeasurement;
-
-        bounds.minX = (-anchor._x * width);
-        bounds.maxX = bounds.minX + width;
-        bounds.minY = (-anchor._y * height);
-        bounds.maxY = bounds.minY + height;
+        throw new Error("STUB");
     }
 
     override get text(): string
@@ -273,18 +252,11 @@ export class HTMLText extends AbstractText<
      */
     private _sanitiseText(text: string): string
     {
-        return this._removeInvalidHtmlTags(text
-            .replace(/<br>/gi, '<br/>')
-            .replace(/<hr>/gi, '<hr/>')
-            .replace(/&nbsp;/gi, '&#160;'));
+        throw new Error("STUB");
     }
 
     private _removeInvalidHtmlTags(input: string): string
     {
-        // This regex finds "<" followed by anything except ">" until the next "<" or end-of-string
-        // i.e., it finds broken tags like "<br" or "<div id='x'" that never close
-        const brokenTagPattern = /<[^>]*?(?=<|$)/g;
-
-        return input.replace(brokenTagPattern, '');
+        throw new Error("STUB");
     }
 }

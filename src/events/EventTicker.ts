@@ -36,12 +36,12 @@ class EventsTickerClass
     /** Whether to pause the update checks or not. */
     get pauseUpdate(): boolean
     {
-        return this._pauseUpdate;
+        throw new Error("STUB");
     }
 
     set pauseUpdate(paused: boolean)
     {
-        this._pauseUpdate = paused;
+        throw new Error("STUB");
     }
 
     /** Adds the ticker listener. */
@@ -73,42 +73,13 @@ class EventsTickerClass
     /** Sets flag to not fire extra events when the user has already moved there mouse */
     public pointerMoved(): void
     {
-        this._didMove = true;
+        throw new Error("STUB");
     }
 
     /** Updates the state of interactive objects. */
     private _update(): void
     {
-        if (!this.domElement || this._pauseUpdate)
-        {
-            return;
-        }
-
-        // if the user move the mouse this check has already been done using the mouse move!
-        if (this._didMove)
-        {
-            this._didMove = false;
-
-            return;
-        }
-
-        // eslint-disable-next-line dot-notation
-        const rootPointerEvent = this.events['_rootPointerEvent'];
-
-        if (this.events.supportsTouchEvents && (rootPointerEvent as PointerEvent).pointerType === 'touch')
-        {
-            return;
-        }
-
-        globalThis.document.dispatchEvent(this.events.supportsPointerEvents ? new PointerEvent('pointermove', {
-            clientX: rootPointerEvent.clientX,
-            clientY: rootPointerEvent.clientY,
-            pointerType: rootPointerEvent.pointerType,
-            pointerId: rootPointerEvent.pointerId,
-        }) : new MouseEvent('mousemove', {
-            clientX: rootPointerEvent.clientX,
-            clientY: rootPointerEvent.clientY,
-        }));
+        throw new Error("STUB");
     }
 
     /**
@@ -120,16 +91,7 @@ class EventsTickerClass
      */
     private _tickerUpdate(ticker: Ticker): void
     {
-        this._deltaTime += ticker.deltaTime;
-
-        if (this._deltaTime < this.interactionFrequency)
-        {
-            return;
-        }
-
-        this._deltaTime = 0;
-
-        this._update();
+        throw new Error("STUB");
     }
 
     /** Destroys the event ticker. */

@@ -12,14 +12,6 @@ export function mapViewDimensionToGlTarget(
     gl: GlRenderingContext,
 ): Record<TextureSource['viewDimension'], number | null>
 {
-    return {
-        '2d': gl.TEXTURE_2D,
-        cube: gl.TEXTURE_CUBE_MAP,
-        '1d': null,
-        // WebGL2 only
-        '3d': (gl as any)?.TEXTURE_3D || null,
-        '2d-array': (gl as any)?.TEXTURE_2D_ARRAY || null,
-        'cube-array': (gl as any)?.TEXTURE_CUBE_MAP_ARRAY || null,
-    };
+    throw new Error("STUB");
 }
 

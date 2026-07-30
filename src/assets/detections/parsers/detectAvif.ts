@@ -13,10 +13,7 @@ export const detectAvif: FormatDetectionParser = {
         type: ExtensionType.DetectionParser,
         priority: 1,
     },
-    test: async (): Promise<boolean> => testImageFormat(
-        // eslint-disable-next-line max-len
-        'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK42A='
-    ),
-    add: async (formats) => [...formats, 'avif'],
-    remove: async (formats) => formats.filter((f) => f !== 'avif'),
+    test: async (): Promise<boolean> => { throw new Error("STUB"); },
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 };

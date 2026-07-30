@@ -150,7 +150,7 @@ export class SystemRunner
      */
     public get empty(): boolean
     {
-        return this.items.length === 0;
+        throw new Error("STUB");
     }
 
     /**
@@ -159,6 +159,6 @@ export class SystemRunner
      */
     public get name(): string
     {
-        return this._name;
+        throw new Error("STUB");
     }
 }

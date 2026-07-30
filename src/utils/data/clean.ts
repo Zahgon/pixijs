@@ -10,33 +10,7 @@
  */
 export function cleanHash<T>(hash: Record<string, T>): Record<string, T>
 {
-    let clean = false;
-
-    for (const i in hash)
-    {
-        // eslint-disable-next-line eqeqeq
-        if (hash[i] == undefined)
-        {
-            clean = true;
-            break;
-        }
-    }
-
-    if (!clean) return hash;
-
-    const cleanHash = Object.create(null);
-
-    for (const i in hash)
-    {
-        const value = hash[i];
-
-        if (value)
-        {
-            cleanHash[i] = value;
-        }
-    }
-
-    return cleanHash;
+    throw new Error("STUB");
 }
 
 /**
@@ -57,22 +31,5 @@ export function cleanHash<T>(hash: Record<string, T>): Record<string, T>
  */
 export function cleanArray<T>(arr: T[]): T[]
 {
-    let offset = 0;
-
-    for (let i = 0; i < arr.length; i++)
-    {
-        // eslint-disable-next-line eqeqeq
-        if (arr[i] == undefined)
-        {
-            offset++;
-        }
-        else
-        {
-            arr[i - offset] = arr[i];
-        }
-    }
-
-    arr.length -= offset;
-
-    return arr;
+    throw new Error("STUB");
 }

@@ -21,8 +21,6 @@ export class CanvasRenderTargetSystem extends RenderTargetSystem<CanvasRenderTar
 
     constructor(renderer: CanvasRenderer)
     {
-        super(renderer);
-
-        this.adaptor.init(renderer, this);
+        throw new Error("STUB");
     }
 }

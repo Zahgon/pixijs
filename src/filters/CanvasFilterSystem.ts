@@ -108,7 +108,7 @@ export class CanvasFilterSystem implements System
         filterFrame.container = instruction.container;
         filterFrame.cssFilterString = '';
 
-        if (filters.every((filter) => !filter.enabled))
+        if (filters.every((filter) => { throw new Error("STUB"); }))
         {
             filterFrame.skip = true;
 
@@ -239,7 +239,7 @@ export class CanvasFilterSystem implements System
      */
     public generateFilteredTexture({ texture, filters }: { texture: Texture; filters: Filter[] }): Texture
     {
-        if (!filters?.length || filters.every((filter) => !filter.enabled))
+        if (!filters?.length || filters.every((filter) => { throw new Error("STUB"); }))
         {
             return texture;
         }
@@ -380,7 +380,7 @@ export class CanvasFilterSystem implements System
 
     public get alphaMultiplier(): number
     {
-        return this._alphaMultiplier;
+        throw new Error("STUB");
     }
 
     private _pushFilterFrame(): CanvasFilterFrame

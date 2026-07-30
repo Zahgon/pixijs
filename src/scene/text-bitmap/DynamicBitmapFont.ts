@@ -67,77 +67,14 @@ export class DynamicBitmapFont extends AbstractBitmapFont<DynamicBitmapFont>
      */
     constructor(options: DynamicBitmapFontOptions)
     {
-        super();
-
-        const dynamicOptions = { ...DynamicBitmapFont.defaultOptions, ...options };
-
-        this._textureSize = dynamicOptions.textureSize;
-        this._mipmap = dynamicOptions.mipmap;
-
-        const style = dynamicOptions.style.clone();
-
-        if (dynamicOptions.overrideFill)
-        {
-            // assuming no shape fill..
-            style._fill.color = 0xffffff;
-            style._fill.alpha = 1;
-            style._fill.texture = Texture.WHITE;
-            style._fill.fill = null;
-        }
-
-        this.applyFillAsTint = dynamicOptions.overrideFill;
-
-        const requestedFontSize = style.fontSize;
-
-        // adjust font size to match the base measurement size
-        style.fontSize = this.baseMeasurementFontSize;
-
-        const font = fontStringFromTextStyle(style);
-
-        if (dynamicOptions.overrideSize)
-        {
-            if (style._stroke)
-            {
-                // we want the stroke to fit the size of the requested text, so we need to scale it
-                // accordingly (eg font size 20, with stroke 10 - stroke is 50% of size,
-                // as dynamic font is size 100, the stroke should be adjusted to 50 to make it look right)
-                style._stroke.width *= this.baseRenderedFontSize / requestedFontSize;
-            }
-            if (style.dropShadow)
-            {
-                // we want the drop shadow to fit the size of the requested text, so we need to scale it
-                // accordingly (eg font size 20, with drop shadow 10 - drop shadow is 50% of size,
-                // as dynamic font is size 100, the drop shadow should be adjusted to 50 to make it look right)
-                style.dropShadow.blur *= this.baseRenderedFontSize / requestedFontSize;
-                style.dropShadow.distance *= this.baseRenderedFontSize / requestedFontSize;
-            }
-        }
-        else
-        {
-            style.fontSize = this.baseRenderedFontSize = requestedFontSize;
-        }
-
-        this._style = style;
-        this._skipKerning = dynamicOptions.skipKerning ?? false;
-        this.resolution = dynamicOptions.resolution ?? 1;
-        this._padding = dynamicOptions.padding ?? 4;
-
-        if (dynamicOptions.textureStyle)
-        {
-            this._textureStyle = dynamicOptions.textureStyle instanceof TextureStyle
-                ? dynamicOptions.textureStyle
-                : new TextureStyle(dynamicOptions.textureStyle);
-        }
-
-        (this.fontMetrics as FontMetrics) = CanvasTextMetrics.measureFont(font);
-        (this.lineHeight as number) = style.lineHeight || this.fontMetrics.fontSize || style.fontSize;
+        throw new Error("STUB");
     }
 
     public ensureCharacters(chars: string): void
     {
         const charList = CanvasTextMetrics.graphemeSegmenter(chars)
-            .filter((char) => !this._currentChars.includes(char))
-            .filter((char, index, self) => self.indexOf(char) === index);
+            .filter((char) => { throw new Error("STUB"); })
+            .filter((char, index, self) => { throw new Error("STUB"); });
         // filter returns..
 
         if (!charList.length) return;
@@ -285,11 +222,7 @@ export class DynamicBitmapFont extends AbstractBitmapFont<DynamicBitmapFont>
      */
     public override get pageTextures(): DynamicBitmapFont['pages']
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'BitmapFont.pageTextures is deprecated, please use BitmapFont.pages instead.');
-        // #endif
-
-        return this.pages;
+        throw new Error("STUB");
     }
 
     private _applyKerning(newChars: string[], context: ICanvasRenderingContext2D, fontScale: number): void

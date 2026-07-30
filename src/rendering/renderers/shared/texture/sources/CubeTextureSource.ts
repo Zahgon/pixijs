@@ -72,61 +72,7 @@ export class CubeTextureSource extends TextureSource<CubeTextureFaces<TextureSou
 
     constructor(options: CubeTextureSourceOptions)
     {
-        const { faces, ...rest } = options;
-
-        // Validate faces are compatible (size/format/alpha/resolution).
-        CubeTextureSource._validateFaces(faces);
-
-        const first = faces.right;
-
-        // Derived settings from the face sources.
-        const derivedResolution = first.resolution;
-        const derivedFormat = first.format;
-        const derivedAlphaMode = first.alphaMode;
-
-        // #if _DEBUG
-        // CubeTextureSourceOptions omits these keys, but warn if someone still passes them at runtime.
-        const ignoredKeys = ([
-            'resolution',
-            'format',
-            'alphaMode',
-            'dimensions',
-            'viewDimension',
-        ] as const).filter((key) => (rest as any)[key] !== undefined);
-
-        if (ignoredKeys.length)
-        {
-            warn(
-                `[CubeTextureSource] Ignoring option(s) [${ignoredKeys.join(', ')}]; these are derived from face sources.`
-            );
-        }
-        // #endif
-
-        super({
-            ...rest,
-            resource: faces,
-            // Keep these aligned with the face sources so any code that reads width/height works.
-            width: first.width,
-            height: first.height,
-            dimensions: '2d',
-            viewDimension: 'cube',
-            arrayLayerCount: 6,
-            resolution: derivedResolution,
-            format: derivedFormat,
-            alphaMode: derivedAlphaMode,
-        });
-
-        this.faces = faces;
-
-        // Forward face updates so the cube gets re-uploaded when any face changes.
-        for (const key of Object.keys(faces) as (keyof CubeTextureFaces<TextureSource>)[])
-        {
-            const face = faces[key];
-
-            face.on('update', this._onFaceUpdate, this);
-            face.on('resize', this._onFaceResize, this);
-            face.on('unload', this._onFaceUpdate, this);
-        }
+        throw new Error("STUB");
     }
 
     public override destroy(): void
@@ -150,59 +96,17 @@ export class CubeTextureSource extends TextureSource<CubeTextureFaces<TextureSou
 
     private _onFaceUpdate()
     {
-        this.emit('update', this);
+        throw new Error("STUB");
     }
 
     private _onFaceResize(face: TextureSource)
     {
-        // Re-validate and resize the cube source to match the face.
-        CubeTextureSource._validateFaces(this.faces);
-
-        this.resize(face.width, face.height, face.resolution);
+        throw new Error("STUB");
     }
 
     private static _validateFaces(faces: CubeTextureFaces<TextureSource>): void
     {
-        if (!faces.right || !faces.left || !faces.top || !faces.bottom || !faces.front || !faces.back)
-        {
-            throw new Error('[CubeTextureSource] Requires { left, right, top, bottom, front, back } faces.');
-        }
-
-        const first = faces.right;
-        const expectedPixelWidth = first.pixelWidth;
-        const expectedPixelHeight = first.pixelHeight;
-        const expectedFormat = first.format;
-        const expectedAlphaMode = first.alphaMode;
-        const expectedResolution = first.resolution;
-
-        for (const key of Object.keys(faces) as (keyof CubeTextureFaces<TextureSource>)[])
-        {
-            const face = faces[key];
-
-            if (face.pixelWidth !== expectedPixelWidth || face.pixelHeight !== expectedPixelHeight)
-            {
-                throw new Error(`[CubeTextureSource] Face '${String(key)}' has a different size. All faces must match.`);
-            }
-
-            if (face.format !== expectedFormat)
-            {
-                throw new Error(`[CubeTextureSource] Face '${String(key)}' has a different format. All faces must match.`);
-            }
-
-            if (face.alphaMode !== expectedAlphaMode)
-            {
-                throw new Error(
-                    `[CubeTextureSource] Face '${String(key)}' has a different alphaMode. All faces must match.`
-                );
-            }
-
-            if (face.resolution !== expectedResolution)
-            {
-                throw new Error(
-                    `[CubeTextureSource] Face '${String(key)}' has a different resolution. All faces must match.`
-                );
-            }
-        }
+        throw new Error("STUB");
     }
 }
 

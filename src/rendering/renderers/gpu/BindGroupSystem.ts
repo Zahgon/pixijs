@@ -40,7 +40,7 @@ export class BindGroupSystem implements System
 
     protected contextChange(gpu: GPU): void
     {
-        this._gpu = gpu;
+        throw new Error("STUB");
     }
 
     public getBindGroup(bindGroup: BindGroup, program: GpuProgram, groupIndex: number): GPUBindGroup

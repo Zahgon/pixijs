@@ -19,7 +19,7 @@ function selfInstall()
         // override unsafeEval check, as we don't need to use it
         _unsafeEvalCheck()
         {
-            // Do nothing, don't throw error
+            throw new Error("STUB");
         },
     });
 
@@ -27,7 +27,7 @@ function selfInstall()
         // override unsafeEval check, as we don't need to use it
         _systemCheck()
         {
-            // Do nothing, don't throw error
+            throw new Error("STUB");
         },
     });
 

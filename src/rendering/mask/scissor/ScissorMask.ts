@@ -23,10 +23,7 @@ export class ScissorMask implements Effect
 
     constructor(mask: Container)
     {
-        this.mask = mask;
-
-        this.mask.renderable = false;
-        this.mask.measurable = false;
+        throw new Error("STUB");
     }
 
     public addBounds(bounds: Bounds, skipUpdateTransform?: boolean): void
@@ -41,10 +38,7 @@ export class ScissorMask implements Effect
 
     public containsPoint(point: Point, hitTestFn: (container: Container, point: Point) => boolean): boolean
     {
-        const mask = this.mask as any;
-
-        // if the point is in the mask, yay!
-        return hitTestFn(mask, point);
+        throw new Error("STUB");
     }
 
     public reset()

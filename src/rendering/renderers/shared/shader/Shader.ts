@@ -249,162 +249,7 @@ export class Shader extends EventEmitter<{'destroy': Shader}>
     constructor(options: ShaderWithGroups);
     constructor(options: ShaderDescriptor)
     {
-        super();
-
-        /* eslint-disable prefer-const */
-        let {
-            gpuProgram,
-            glProgram,
-            groups,
-            resources,
-            compatibleRenderers,
-            groupMap,
-            overrides,
-        } = options;
-        /* eslint-enable prefer-const */
-
-        this._overrides = overrides ? ShaderOverrides.from(overrides) : null;
-
-        this.gpuProgram = gpuProgram;
-        this.glProgram = glProgram;
-
-        if (compatibleRenderers === undefined)
-        {
-            compatibleRenderers = 0;
-
-            if (gpuProgram)compatibleRenderers |= RendererType.WEBGPU;
-            if (glProgram)compatibleRenderers |= RendererType.WEBGL;
-        }
-
-        this.compatibleRenderers = compatibleRenderers;
-
-        const nameHash: Record<string, GroupsData> = {};
-
-        if (groupMap)
-        {
-            for (const i in groupMap)
-            {
-                for (const j in groupMap[i])
-                {
-                    const uniformName = groupMap[i][j];
-
-                    nameHash[uniformName] = {
-                        group: i as unknown as number,
-                        binding: j as unknown as number,
-                        name: uniformName
-                    };
-                }
-            }
-        }
-
-        if (!resources && !groups)
-        {
-            resources = {};
-        }
-
-        if (resources && groups)
-        {
-            throw new Error('[Shader] Cannot have both resources and groups');
-        }
-        else if (!gpuProgram && groups && !groupMap)
-        {
-            throw new Error('[Shader] No group map or WebGPU shader provided - consider using resources instead.');
-        }
-        else if (gpuProgram && groups && !groupMap)
-        {
-            const groupData = gpuProgram.structsAndGroups.groups;
-
-            groupMap = {};
-
-            groupData.forEach((data) =>
-            {
-                groupMap[data.group] = groupMap[data.group] || {};
-                groupMap[data.group][data.binding] = data.name;
-
-                nameHash[data.name] = data;
-            });
-        }
-        else if (resources)
-        {
-            groups = {};
-            groupMap ||= {};
-
-            if (gpuProgram)
-            {
-                const groupData = gpuProgram.structsAndGroups.groups;
-
-                groupData.forEach((data) =>
-                {
-                    groupMap[data.group] = groupMap[data.group] || {};
-                    groupMap[data.group][data.binding] = data.name;
-
-                    nameHash[data.name] = data;
-                });
-            }
-
-            let bindTick = 0;
-
-            for (const i in resources)
-            {
-                if (nameHash[i]) continue;
-
-                // with no GL program to belong to, an unmatched resource is a genuine
-                // mistake (typo, or a leftover after editing the WGSL) — say so now,
-                // at construction, rather than silently skipping it at draw time
-                if (gpuProgram && !glProgram)
-                {
-                    // #if _DEBUG
-                    warn(`[Shader] the resource '${i}' matches no binding in the WGSL source — is the name correct?`);
-                    // #endif
-                }
-
-                // build out a dummy bind group..
-                if (!groups[99])
-                {
-                    groups[99] = new BindGroup();
-                    this._ownedBindGroups.push(groups[99]);
-                }
-                // Yes i know this is a little strange, but wil line up the shaders neatly
-                // basically we want to be driven by how webGPU does things.
-                // so making a fake group will work and not affect gpu as it means no gpu shader was provided..
-                nameHash[i] = { group: 99, binding: bindTick, name: i };
-
-                groupMap[99] = groupMap[99] || {};
-                groupMap[99][bindTick] = i;
-
-                bindTick++;
-            }
-
-            for (const i in resources)
-            {
-                const name = i;
-                let value = resources[i];
-
-                if (!(value.source) && !(value as BindResource)._resourceType)
-                {
-                    value = new UniformGroup(value);
-                }
-
-                const data = nameHash[name];
-
-                if (data)
-                {
-                    if (!groups[data.group])
-                    {
-                        groups[data.group] = new BindGroup();
-
-                        this._ownedBindGroups.push(groups[data.group]);
-                    }
-
-                    groups[data.group].setResource(value, data.binding);
-                }
-            }
-        }
-
-        this.groups = groups;
-        this._uniformBindMap = groupMap;
-
-        this.resources = this._buildResourceAccessor(groups, nameHash);
+        throw new Error("STUB");
     }
 
     /**
@@ -429,26 +274,7 @@ export class Shader extends EventEmitter<{'destroy': Shader}>
 
     private _buildResourceAccessor(groups: ShaderGroups, nameHash: Record<string, GroupsData>)
     {
-        const uniformsOut = {};
-
-        for (const i in nameHash)
-        {
-            const data = nameHash[i];
-
-            // add getter setter for uniforms
-            Object.defineProperty(uniformsOut, data.name, {
-                get()
-                {
-                    return groups[data.group].getResource(data.binding);
-                },
-                set(value)
-                {
-                    groups[data.group].setResource(value, data.binding);
-                }
-            });
-        }
-
-        return uniformsOut;
+        throw new Error("STUB");
     }
 
     /**
@@ -479,7 +305,7 @@ export class Shader extends EventEmitter<{'destroy': Shader}>
 
         this._ownedBindGroups.forEach((bindGroup) =>
         {
-            bindGroup.destroy();
+            throw new Error("STUB");
         });
 
         (this._ownedBindGroups as null) = null;

@@ -29,49 +29,7 @@ let colorTick = 0;
  */
 export function logScene(container: Container, depth = 0, data: {color?: string} = { color: '#000000' })
 {
-    if (container.renderGroup)
-    {
-        data.color = colors[colorTick++];
-    }
-
-    //    turn depth into number of spaces:
-    let spaces = '';
-
-    for (let i = 0; i < depth; i++)
-    {
-        spaces += '    ';
-    }
-
-    let label = container.label;
-
-    if (!label && container instanceof Sprite)
-    {
-        label = `sprite:${container.texture.label}`;
-    }
-
-    // eslint-disable-next-line max-len
-    let output = `%c ${spaces}|- ${label} (worldX:${container.worldTransform.tx}, relativeRenderX:${container.relativeGroupTransform.tx}, renderX:${container.groupTransform.tx}, localX:${container.x})`;
-
-    if (container.renderGroup)
-    {
-        output += ' (RenderGroup)';
-    }
-
-    if (container.filters)
-    {
-        output += '(*filters)';
-    }
-
-    console.log(output, `color:${data.color}; font-weight:bold;`);
-
-    depth++;
-
-    for (let i = 0; i < container.children.length; i++)
-    {
-        const child = container.children[i];
-
-        logScene(child, depth, { ...data });
-    }
+    throw new Error("STUB");
 }
 
 /**
@@ -87,24 +45,5 @@ export function logRenderGroupScene(
     data: {index: number, color?: string} = { index: 0, color: '#000000' }
 )
 {
-    // turn depth into number of spaces:
-    let spaces = '';
-
-    for (let i = 0; i < depth; i++)
-    {
-        spaces += '    ';
-    }
-
-    const output = `%c ${spaces}- ${data.index}: ${renderGroup.root.label} worldX:${renderGroup.worldTransform.tx}`;
-
-    console.log(output, `color:${data.color}; font-weight:bold;`);
-
-    depth++;
-
-    for (let i = 0; i < renderGroup.renderGroupChildren.length; i++)
-    {
-        const child = renderGroup.renderGroupChildren[i];
-
-        logRenderGroupScene(child, depth, { ...data, index: i });
-    }
+    throw new Error("STUB");
 }

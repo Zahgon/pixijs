@@ -26,42 +26,6 @@ export class SdfShader extends Shader
 {
     constructor(maxTextures: number)
     {
-        const uniforms = new UniformGroup({
-            uColor: { value: new Float32Array([1, 1, 1, 1]), type: 'vec4<f32>' },
-            uTransformMatrix: { value: new Matrix(), type: 'mat3x3<f32>' },
-            uDistance: { value: 4, type: 'f32' },
-            uRound: { value: 0, type: 'f32' },
-        });
-
-        gpuProgram ??= compileHighShaderGpuProgram({
-            name: 'sdf-shader',
-            bits: [
-                colorBit,
-                generateTextureBatchBit(maxTextures),
-                localUniformMSDFBit,
-                mSDFBit,
-                roundPixelsBit
-            ]
-        });
-
-        glProgram ??= compileHighShaderGlProgram({
-            name: 'sdf-shader',
-            bits: [
-                colorBitGl,
-                generateTextureBatchBitGl(maxTextures),
-                localUniformMSDFBitGl,
-                mSDFBitGl,
-                roundPixelsBitGl,
-            ]
-        });
-
-        super({
-            glProgram,
-            gpuProgram,
-            resources: {
-                localUniforms: uniforms,
-                batchSamplers: getBatchSamplersUniformGroup(maxTextures),
-            }
-        });
+        throw new Error("STUB");
     }
 }

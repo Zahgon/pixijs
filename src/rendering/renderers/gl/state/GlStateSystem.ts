@@ -87,61 +87,17 @@ export class GlStateSystem implements System
 
     constructor(renderer: WebGLRenderer)
     {
-        this.gl = null;
-
-        this.stateId = 0;
-        this.polygonOffset = 0;
-        this.blendMode = 'none';
-
-        this._blendEq = false;
-
-        // map functions for when we set state..
-        this.map = [];
-        this.map[BLEND] = this.setBlend;
-        this.map[OFFSET] = this.setOffset;
-        this.map[CULLING] = this.setCullFace;
-        this.map[DEPTH_TEST] = this.setDepthTest;
-        this.map[WINDING] = this.setFrontFace;
-        this.map[DEPTH_MASK] = this.setDepthMask;
-
-        this.checks = [];
-
-        this.defaultState = State.for2d();
-
-        // listen for when the renderTarget changes
-        // as rendering to textures means we need to invert the front face
-        renderer.renderTarget.onRenderTargetChange.add(this);
+        throw new Error("STUB");
     }
 
     protected onRenderTargetChange(renderTarget: RenderTarget)
     {
-        // Keep the winding inversion welded to the projection Y-flip: both resolve from the same toggle
-        // (see RenderTargetSystem.bind). `flipY` off → the historical `!isRoot`; `flipY` on inverts it,
-        // so the projection flip and the winding inversion flip together and back-face culling stays correct.
-        this._invertFrontFace = !renderTarget.isRoot !== !!renderTarget.flipY;
-
-        // mini optimization to avoid setting the front face if culling is disabled
-        if (this._cullFace)
-        {
-            // need to set the front face to the requested value as it matters because of the culling is active!
-            this.setFrontFace(this._frontFace);
-        }
-        else
-        {
-            // if culling is disabled, we need to set the front face dirty
-            this._frontFaceDirty = true;
-        }
+        throw new Error("STUB");
     }
 
     protected contextChange(gl: GlRenderingContext): void
     {
-        this.gl = gl;
-
-        this.blendModesMap = mapWebGLBlendModesToPixi(gl);
-
-        // Reset face culling variables
-
-        this.resetState();
+        throw new Error("STUB");
     }
 
     /**
@@ -189,17 +145,7 @@ export class GlStateSystem implements System
      */
     public forceState(state: State): void
     {
-        state ||= this.defaultState;
-        for (let i = 0; i < this.map.length; i++)
-        {
-            this.map[i].call(this, !!(state.data & (1 << i)));
-        }
-        for (let i = 0; i < this.checks.length; i++)
-        {
-            this.checks[i](this, state);
-        }
-
-        this.stateId = state.data;
+        throw new Error("STUB");
     }
 
     /**
@@ -208,9 +154,7 @@ export class GlStateSystem implements System
      */
     public setBlend(value: boolean): void
     {
-        this._updateCheck(GlStateSystem._checkBlendMode, value);
-
-        this.gl[value ? 'enable' : 'disable'](this.gl.BLEND);
+        throw new Error("STUB");
     }
 
     /**
@@ -219,9 +163,7 @@ export class GlStateSystem implements System
      */
     public setOffset(value: boolean): void
     {
-        this._updateCheck(GlStateSystem._checkPolygonOffset, value);
-
-        this.gl[value ? 'enable' : 'disable'](this.gl.POLYGON_OFFSET_FILL);
+        throw new Error("STUB");
     }
 
     /**
@@ -230,7 +172,7 @@ export class GlStateSystem implements System
      */
     public setDepthTest(value: boolean): void
     {
-        this.gl[value ? 'enable' : 'disable'](this.gl.DEPTH_TEST);
+        throw new Error("STUB");
     }
 
     /**
@@ -239,7 +181,7 @@ export class GlStateSystem implements System
      */
     public setDepthMask(value: boolean): void
     {
-        this.gl.depthMask(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -249,7 +191,7 @@ export class GlStateSystem implements System
      */
     public get depthMaskEnabled(): boolean
     {
-        return !!(this.stateId & (1 << DEPTH_MASK));
+        throw new Error("STUB");
     }
 
     /**
@@ -258,14 +200,7 @@ export class GlStateSystem implements System
      */
     public setCullFace(value: boolean): void
     {
-        this._cullFace = value;
-        this.gl[value ? 'enable' : 'disable'](this.gl.CULL_FACE);
-
-        if (this._cullFace && this._frontFaceDirty)
-        {
-            // need to set the front face to the requested value as it matters because of the culling is active!
-            this.setFrontFace(this._frontFace);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -274,16 +209,7 @@ export class GlStateSystem implements System
      */
     public setFrontFace(value: boolean): void
     {
-        this._frontFace = value;
-        this._frontFaceDirty = false;
-        // If invertFrontFace is true, we invert the face direction
-        const faceMode = this._invertFrontFace ? !value : value;
-
-        if (this._glFrontFace !== faceMode)
-        {
-            this._glFrontFace = faceMode;
-            this.gl.frontFace(this.gl[faceMode ? 'CW' : 'CCW']);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -335,27 +261,13 @@ export class GlStateSystem implements System
      */
     public setPolygonOffset(value: number, scale: number): void
     {
-        this.gl.polygonOffset(value, scale);
+        throw new Error("STUB");
     }
 
     /** Resets all the logic and disables the VAOs. */
     public resetState(): void
     {
-        this._glFrontFace = false;
-        this._frontFace = false;
-        this._cullFace = false;
-        this._frontFaceDirty = false;
-        this._invertFrontFace = false;
-
-        this.gl.frontFace(this.gl.CCW);
-        this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, false);
-
-        this.forceState(this.defaultState);
-
-        this._blendEq = true;
-        // setting to '' means the blend mode will be set as soon as we set the first blend mode when rendering!
-        this.blendMode = '' as BLEND_MODES;
-        this.setBlendMode('normal');
+        throw new Error("STUB");
     }
 
     /**
@@ -369,16 +281,7 @@ export class GlStateSystem implements System
      */
     private _updateCheck(func: (system: this, state: State) => void, value: boolean): void
     {
-        const index = this.checks.indexOf(func);
-
-        if (value && index === -1)
-        {
-            this.checks.push(func);
-        }
-        else if (!value && index !== -1)
-        {
-            this.checks.splice(index, 1);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -388,7 +291,7 @@ export class GlStateSystem implements System
      */
     private static _checkBlendMode(system: GlStateSystem, state: State): void
     {
-        system.setBlendMode(state.blendMode);
+        throw new Error("STUB");
     }
 
     /**
@@ -398,7 +301,7 @@ export class GlStateSystem implements System
      */
     private static _checkPolygonOffset(system: GlStateSystem, state: State): void
     {
-        system.setPolygonOffset(1, state.polygonOffset);
+        throw new Error("STUB");
     }
 
     /** @ignore */

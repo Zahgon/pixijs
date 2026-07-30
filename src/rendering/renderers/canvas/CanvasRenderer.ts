@@ -101,14 +101,6 @@ export class CanvasRenderer<T extends ICanvas = HTMLCanvasElement>
 {
     constructor()
     {
-        const systemConfig = {
-            name: 'canvas',
-            type: RendererType.CANVAS,
-            systems,
-            renderPipes,
-            renderPipeAdaptors,
-        };
-
-        super(systemConfig);
+        throw new Error("STUB");
     }
 }

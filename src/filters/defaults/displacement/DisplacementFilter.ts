@@ -111,68 +111,7 @@ export class DisplacementFilter extends Filter
     constructor(sprite: Sprite, scale?: number | PointData);
     constructor(...args: [Sprite | DisplacementFilterOptions] | [Sprite, (number | PointData)?])
     {
-        let options = args[0];
-
-        if (options instanceof Sprite)
-        {
-            // #if _DEBUG
-            if (args[1])
-            {
-                deprecation(v8_0_0, 'DisplacementFilter now uses options object instead of params. {sprite, scale}');
-            }
-            // #endif
-
-            options = { sprite: options, scale: args[1] };
-        }
-
-        const { sprite, scale: scaleOption, ...rest } = options;
-
-        let scale = scaleOption ?? 20;
-
-        // check if is a number or a point
-        if (typeof scale === 'number')
-        {
-            scale = new Point(scale, scale);
-        }
-
-        const filterUniforms = new UniformGroup({
-            uFilterMatrix: { value: new Matrix(), type: 'mat3x3<f32>' },
-            uScale: { value: scale, type: 'vec2<f32>' },
-            uRotation: { value: new Float32Array([0, 0, 0, 0]), type: 'mat2x2<f32>' },
-        });
-
-        const glProgram = GlProgram.from({
-            vertex,
-            fragment,
-            name: 'displacement-filter'
-        });
-
-        const gpuProgram = GpuProgram.from({
-            vertex: {
-                source,
-                entryPoint: 'mainVertex',
-            },
-            fragment: {
-                source,
-                entryPoint: 'mainFragment',
-            },
-        });
-
-        const textureSource = sprite.texture.source;
-
-        super({
-            ...rest,
-            gpuProgram,
-            glProgram,
-            resources: {
-                filterUniforms,
-                uMapTexture: textureSource,
-                uMapSampler: textureSource.style,
-            },
-        });
-
-        this._sprite = options.sprite;
-        this._sprite.renderable = false;
+        throw new Error("STUB");
     }
 
     /**

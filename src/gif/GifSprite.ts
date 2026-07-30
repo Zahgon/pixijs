@@ -397,54 +397,7 @@ class GifSprite extends Sprite
 
     constructor(...args: [GifSource] | [GifSpriteOptions])
     {
-        const options = args[0] instanceof GifSource ? { source: args[0] } : args[0];
-
-        // Get the options, apply defaults
-        const {
-            source,
-            fps,
-            loop,
-            animationSpeed,
-            autoPlay,
-            autoUpdate,
-            onComplete,
-            onFrameChange,
-            onLoop,
-            ...rest
-        } = Object.assign({},
-            GifSprite.defaultOptions,
-            options
-        );
-
-        super({ texture: Texture.EMPTY, ...rest });
-
-        // Handle rerenders
-        this.onRender = () => this._updateFrame();
-
-        this.texture = source.textures[0];
-
-        this.duration = source.frames[source.frames.length - 1].end;
-        this._source = source;
-        this._playing = false;
-        this._currentTime = 0;
-        this._isConnectedToTicker = false;
-        Object.assign(this, {
-            fps,
-            loop,
-            animationSpeed,
-            autoPlay,
-            autoUpdate,
-            onComplete,
-            onFrameChange,
-            onLoop,
-        });
-
-        // Draw the first frame
-        this.currentFrame = 0;
-        if (autoPlay)
-        {
-            this.play();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -570,13 +523,13 @@ class GifSprite extends Sprite
      */
     public get progress(): number
     {
-        return this._currentTime / this.duration;
+        throw new Error("STUB");
     }
 
     /** `true` if the current animation is playing */
     public get playing(): boolean
     {
-        return this._playing;
+        throw new Error("STUB");
     }
 
     /**
@@ -620,7 +573,7 @@ class GifSprite extends Sprite
         const localTime = currentTime % this.duration;
 
         const localFrame = this._source.frames.findIndex((frame) =>
-            frame.start <= localTime && frame.end > localTime);
+            { throw new Error("STUB"); });
 
         if (currentTime >= this.duration)
         {
@@ -648,16 +601,7 @@ class GifSprite extends Sprite
     /** Redraw the current frame, is necessary for the animation to work when */
     private _updateFrame(): void
     {
-        if (!this.dirty)
-        {
-            return;
-        }
-
-        // Update the current frame
-        this.texture = this._source.frames[this._currentFrame].texture;
-
-        // Mark as clean
-        this.dirty = false;
+        throw new Error("STUB");
     }
 
     /**
@@ -692,26 +636,12 @@ class GifSprite extends Sprite
      */
     get autoUpdate(): boolean
     {
-        return this._autoUpdate;
+        throw new Error("STUB");
     }
 
     set autoUpdate(value: boolean)
     {
-        if (value !== this._autoUpdate)
-        {
-            this._autoUpdate = value;
-
-            if (!this._autoUpdate && this._isConnectedToTicker)
-            {
-                Ticker.shared.remove(this.update, this);
-                this._isConnectedToTicker = false;
-            }
-            else if (this._autoUpdate && !this._isConnectedToTicker && this._playing)
-            {
-                Ticker.shared.add(this.update, this);
-                this._isConnectedToTicker = true;
-            }
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -744,12 +674,11 @@ class GifSprite extends Sprite
      */
     get currentFrame(): number
     {
-        return this._currentFrame;
+        throw new Error("STUB");
     }
     set currentFrame(value: number)
     {
-        this._updateFrameIndex(value);
-        this._currentTime = this._source.frames[value].start;
+        throw new Error("STUB");
     }
 
     /**
@@ -783,7 +712,7 @@ class GifSprite extends Sprite
      */
     get source(): GifSource
     {
-        return this._source;
+        throw new Error("STUB");
     }
 
     /**
@@ -818,7 +747,7 @@ class GifSprite extends Sprite
      */
     get totalFrames(): number
     {
-        return this._source.totalFrames;
+        throw new Error("STUB");
     }
 
     /**

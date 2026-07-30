@@ -29,7 +29,7 @@ export class CanvasTextureSystem implements System, CanvasGenerator
      */
     constructor(renderer: CanvasRenderer)
     {
-        void renderer;
+        throw new Error("STUB");
     }
 
     /** Initializes the system (no-op for canvas). */

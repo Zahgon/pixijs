@@ -166,15 +166,7 @@ export class SplitBitmapText extends AbstractSplitText<BitmapText>
 
     constructor(config: SplitBitmapTextOptions)
     {
-        const completeOptions: SplitBitmapTextOptions = {
-            ...SplitBitmapText.defaultOptions,
-            ...config,
-        };
-
-        completeOptions.style ??= {};
-        completeOptions.style.fill ??= 0xffffff;
-
-        super(completeOptions);
+        throw new Error("STUB");
     }
 
     /**

@@ -143,12 +143,7 @@ export class FederatedPointerEvent extends FederatedMouseEvent implements Pointe
      */
     public getCoalescedEvents(): PointerEvent[]
     {
-        if (this.type === 'pointermove' || this.type === 'mousemove' || this.type === 'touchmove')
-        {
-            return [this];
-        }
-
-        return [];
+        throw new Error("STUB");
     }
 
     /**
@@ -157,6 +152,6 @@ export class FederatedPointerEvent extends FederatedMouseEvent implements Pointe
      */
     public getPredictedEvents(): PointerEvent[]
     {
-        throw new Error('getPredictedEvents is not supported!');
+        throw new Error("STUB");
     }
 }

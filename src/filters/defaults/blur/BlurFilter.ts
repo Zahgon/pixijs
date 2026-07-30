@@ -181,40 +181,7 @@ export class BlurFilter extends Filter
     constructor(strength?: number, quality?: number, resolution?: number | null, kernelSize?: number);
     constructor(...args: [BlurFilterOptions?] | [number?, number?, number?, number?])
     {
-        let options = args[0] ?? {};
-
-        // if options is a number)
-        if (typeof options === 'number')
-        {
-            // #if _DEBUG
-            // eslint-disable-next-line max-len
-            deprecation(v8_0_0, 'BlurFilter constructor params are now options object. See params: { strength, quality, resolution, kernelSize }');
-            // #endif
-
-            options = { strength: options };
-
-            if (args[1] !== undefined)options.quality = args[1];
-            if (args[2] !== undefined)options.resolution = args[2] || 'inherit';
-            if (args[3] !== undefined)options.kernelSize = args[3];
-        }
-
-        options = { ...BlurFilterPass.defaultOptions, ...options };
-
-        const { strength, strengthX, strengthY, quality, ...rest } = options;
-
-        super({
-            ...rest,
-            compatibleRenderers: RendererType.BOTH,
-            resources: {}
-        });
-
-        this.blurXFilter = new BlurFilterPass({ horizontal: true, ...options });
-        this.blurYFilter = new BlurFilterPass({ horizontal: false, ...options });
-
-        this.quality = quality;
-        this.strengthX = strengthX ?? strength;
-        this.strengthY = strengthY ?? strength;
-        this.repeatEdgePixels = false;
+        throw new Error("STUB");
     }
 
     /**
@@ -260,14 +227,7 @@ export class BlurFilter extends Filter
 
     protected updatePadding(): void
     {
-        if (this._repeatEdgePixels)
-        {
-            this.padding = 0;
-        }
-        else
-        {
-            this.padding = Math.max(Math.abs(this.blurXFilter.blur), Math.abs(this.blurYFilter.blur)) * 2;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -288,18 +248,12 @@ export class BlurFilter extends Filter
      */
     get strength(): number
     {
-        if (this.strengthX !== this.strengthY)
-        {
-            throw new Error('BlurFilter\'s strengthX and strengthY are different');
-        }
-
-        return this.strengthX;
+        throw new Error("STUB");
     }
 
     set strength(value: number)
     {
-        this.blurXFilter.blur = this.blurYFilter.blur = value;
-        this.updatePadding();
+        throw new Error("STUB");
     }
 
     /**
@@ -318,12 +272,12 @@ export class BlurFilter extends Filter
      */
     get quality(): number
     {
-        return this.blurXFilter.quality;
+        throw new Error("STUB");
     }
 
     set quality(value: number)
     {
-        this.blurXFilter.quality = this.blurYFilter.quality = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -343,13 +297,12 @@ export class BlurFilter extends Filter
      */
     get strengthX(): number
     {
-        return this.blurXFilter.blur;
+        throw new Error("STUB");
     }
 
     set strengthX(value: number)
     {
-        this.blurXFilter.blur = value;
-        this.updatePadding();
+        throw new Error("STUB");
     }
 
     /**
@@ -369,13 +322,12 @@ export class BlurFilter extends Filter
      */
     get strengthY(): number
     {
-        return this.blurYFilter.blur;
+        throw new Error("STUB");
     }
 
     set strengthY(value: number)
     {
-        this.blurYFilter.blur = value;
-        this.updatePadding();
+        throw new Error("STUB");
     }
 
     /**
@@ -386,19 +338,12 @@ export class BlurFilter extends Filter
      */
     get blur(): number
     {
-        // #if _DEBUG
-        deprecation('8.3.0', 'BlurFilter.blur is deprecated, please use BlurFilter.strength instead.');
-        // #endif
-
-        return this.strength;
+        throw new Error("STUB");
     }
 
     set blur(value: number)
     {
-        // #if _DEBUG
-        deprecation('8.3.0', 'BlurFilter.blur is deprecated, please use BlurFilter.strength instead.');
-        // #endif
-        this.strength = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -409,19 +354,12 @@ export class BlurFilter extends Filter
      */
     get blurX(): number
     {
-        // #if _DEBUG
-        deprecation('8.3.0', 'BlurFilter.blurX is deprecated, please use BlurFilter.strengthX instead.');
-        // #endif
-
-        return this.strengthX;
+        throw new Error("STUB");
     }
 
     set blurX(value: number)
     {
-        // #if _DEBUG
-        deprecation('8.3.0', 'BlurFilter.blurX is deprecated, please use BlurFilter.strengthX instead.');
-        // #endif
-        this.strengthX = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -432,19 +370,12 @@ export class BlurFilter extends Filter
      */
     get blurY(): number
     {
-        // #if _DEBUG
-        deprecation('8.3.0', 'BlurFilter.blurY is deprecated, please use BlurFilter.strengthY instead.');
-        // #endif
-
-        return this.strengthY;
+        throw new Error("STUB");
     }
 
     set blurY(value: number)
     {
-        // #if _DEBUG
-        deprecation('8.3.0', 'BlurFilter.blurY is deprecated, please use BlurFilter.strengthY instead.');
-        // #endif
-        this.strengthY = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -453,12 +384,11 @@ export class BlurFilter extends Filter
      */
     get repeatEdgePixels(): boolean
     {
-        return this._repeatEdgePixels;
+        throw new Error("STUB");
     }
 
     set repeatEdgePixels(value: boolean)
     {
-        this._repeatEdgePixels = value;
-        this.updatePadding();
+        throw new Error("STUB");
     }
 }

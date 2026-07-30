@@ -157,56 +157,18 @@ export class GpuProgram
      */
     constructor(options: GpuProgramOptions)
     {
-        const { fragment, vertex, layout, gpuLayout, name } = options;
-
-        this.name = name;
-
-        this.fragment = fragment;
-        this.vertex = vertex;
-
-        // TODO this should be cached - or dealt with at a system level.
-        if (fragment.source === vertex.source)
-        {
-            const structsAndGroups = extractStructAndGroups(fragment.source);
-
-            this.structsAndGroups = structsAndGroups;
-        }
-        else
-        {
-            const vertexStructsAndGroups = extractStructAndGroups(vertex.source);
-            const fragmentStructsAndGroups = extractStructAndGroups(fragment.source);
-
-            this.structsAndGroups = removeStructAndGroupDuplicates(vertexStructsAndGroups, fragmentStructsAndGroups);
-        }
-
-        // todo layout
-        this.layout = layout ?? generateLayoutHash(this.structsAndGroups);
-
-        // struct properties!
-
-        this.gpuLayout = gpuLayout ?? generateGpuLayoutGroups(this.structsAndGroups);
-
-        this.autoAssignGlobalUniforms = !!(this.layout[0]?.globalUniforms !== undefined);
-        this.autoAssignLocalUniforms = !!(this.layout[1]?.localUniforms !== undefined);
-
-        this._generateProgramKey();
+        throw new Error("STUB");
     }
 
     // TODO maker this pure
     private _generateProgramKey()
     {
-        const { vertex, fragment } = this;
-
-        const bigKey = vertex.source + fragment.source + vertex.entryPoint + fragment.entryPoint;
-
-        this._layoutKey = createIdFromString(bigKey, 'program');
+        throw new Error("STUB");
     }
 
     get attributeData()
     {
-        this._attributeData ??= extractAttributesFromGpuProgram(this.vertex);
-
-        return this._attributeData;
+        throw new Error("STUB");
     }
     /** destroys the program */
     public destroy(): void

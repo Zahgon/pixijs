@@ -16,21 +16,7 @@ function getKTX2Worker(supportedTextures: TEXTURE_FORMATS[]): Worker
 
         ktxWorker.onmessage = (messageEvent) =>
         {
-            const { err, success, url, textureOptions } = messageEvent.data;
-
-            if (err)
-            {
-                errorHash[url](err);
-
-                return;
-            }
-
-            if (!success)
-            {
-                console.warn('Failed to load KTX texture', url);
-            }
-
-            urlHash[url](textureOptions);
+            throw new Error("STUB");
         };
 
         ktxWorker.postMessage({
@@ -58,9 +44,6 @@ export function loadKTX2onWorker(
 
     return new Promise((resolve, reject) =>
     {
-        urlHash[url] = resolve;
-        errorHash[url] = reject;
-
-        ktxWorker.postMessage({ type: 'load', url });
+        throw new Error("STUB");
     });
 }

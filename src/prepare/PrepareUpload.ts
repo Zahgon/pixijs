@@ -22,46 +22,27 @@ export abstract class PrepareUpload extends PrepareQueue
      */
     protected uploadQueueItem(item: PrepareQueueItem): void
     {
-        if (item instanceof TextureSource)
-        {
-            this.uploadTextureSource(item);
-        }
-        else if (item instanceof Text)
-        {
-            this.uploadText(item);
-        }
-        else if (item instanceof HTMLText)
-        {
-            this.uploadHTMLText(item);
-        }
-        else if (item instanceof BitmapText)
-        {
-            this.uploadBitmapText(item);
-        }
-        else if (item instanceof GraphicsContext)
-        {
-            this.uploadGraphicsContext(item);
-        }
+        throw new Error("STUB");
     }
 
     protected uploadTextureSource(textureSource: TextureSource): void
     {
-        this.renderer.texture.initSource(textureSource);
+        throw new Error("STUB");
     }
 
     protected uploadText(_text: Text): void
     {
-        this.renderer.renderPipes.text.initGpuText(_text);
+        throw new Error("STUB");
     }
 
     protected uploadBitmapText(_text: BitmapText): void
     {
-        this.renderer.renderPipes.bitmapText.initGpuText(_text);
+        throw new Error("STUB");
     }
 
     protected uploadHTMLText(_text: HTMLText): void
     {
-        this.renderer.renderPipes.htmlText.initGpuText(_text);
+        throw new Error("STUB");
     }
 
     /**
@@ -70,26 +51,6 @@ export abstract class PrepareUpload extends PrepareQueue
      */
     protected uploadGraphicsContext(graphicsContext: GraphicsContext): void
     {
-        this.renderer.graphicsContext.getGpuContext(graphicsContext);
-
-        const { instructions } = graphicsContext;
-
-        for (const instruction of instructions)
-        {
-            if (instruction.action === 'texture')
-            {
-                const { image } = (instruction as TextureInstruction).data;
-
-                this.uploadTextureSource(image.source);
-            }
-            else if (instruction.action === 'fill')
-            {
-                const { texture } = (instruction as FillInstruction).data.style;
-
-                this.uploadTextureSource(texture.source);
-            }
-        }
-
-        return null;
+        throw new Error("STUB");
     }
 }

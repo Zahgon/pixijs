@@ -89,10 +89,7 @@ export class MeshPipe implements RenderPipe<Mesh>, InstructionPipe<Mesh>
 
     constructor(renderer: Renderer, adaptor: MeshAdaptor)
     {
-        this.renderer = renderer;
-        this._adaptor = adaptor;
-
-        this._adaptor.init();
+        throw new Error("STUB");
     }
 
     public validateRenderable(mesh: Mesh): boolean

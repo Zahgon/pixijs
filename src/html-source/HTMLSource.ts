@@ -93,7 +93,7 @@ export interface HTMLSourceOptions extends TextureSourceOptions<Element>
 
 function isCanvas(resource: unknown): resource is HTMLCanvasElement
 {
-    return !!globalThis.HTMLCanvasElement && resource instanceof HTMLCanvasElement;
+    throw new Error("STUB");
 }
 
 /**
@@ -245,54 +245,7 @@ export class HTMLSource extends TextureSource<Element>
      */
     constructor(options: HTMLSourceOptions)
     {
-        options = { ...HTMLSource.defaultOptions, ...options };
-
-        if (!options.resource)
-        {
-            throw new Error('[HTMLSource] resource is required.');
-        }
-
-        super(options);
-
-        const canvas = options.canvas ?? this._inferCanvas(options.resource);
-
-        if (!canvas)
-        {
-            throw new Error(
-                // eslint-disable-next-line max-len
-                '[HTMLSource] Could not determine the owning canvas. Append the element to the canvas before constructing this source, or pass the `canvas` option.',
-            );
-        }
-
-        if (options.resource.parentElement !== canvas)
-        {
-            throw new Error(
-                // eslint-disable-next-line max-len
-                '[HTMLSource] resource must be a direct child of the owning canvas. Append the element to the canvas before constructing this source.',
-            );
-        }
-
-        this.canvas = canvas;
-        this._autoUpdate = options.autoUpdate !== false;
-        this._onPaintBound = this._onPaint.bind(this);
-
-        // Without requestPaint (or with auto-update off) there is no first paint to wait for.
-        this._isReady = !this._autoUpdate || !canvas.requestPaint;
-
-        if (options.autoLayout !== false)
-        {
-            canvas.setAttribute('layoutsubtree', '');
-        }
-
-        if (this._autoUpdate)
-        {
-            canvas.addEventListener('paint', this._onPaintBound);
-        }
-
-        if (options.autoRequestPaint !== false)
-        {
-            this.requestPaint();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -310,7 +263,7 @@ export class HTMLSource extends TextureSource<Element>
      */
     get isReady(): boolean
     {
-        return this._isReady;
+        throw new Error("STUB");
     }
 
     /**
@@ -363,31 +316,22 @@ export class HTMLSource extends TextureSource<Element>
     /** Width in real pixels (`offsetWidth`). Use {@link width} for CSS pixels. */
     public get resourceWidth(): number
     {
-        return (this.resource as HTMLElement).offsetWidth || 1;
+        throw new Error("STUB");
     }
 
     /** Height in real pixels (`offsetHeight`). Use {@link height} for CSS pixels. */
     public get resourceHeight(): number
     {
-        return (this.resource as HTMLElement).offsetHeight || 1;
+        throw new Error("STUB");
     }
 
     private _inferCanvas(resource: Element): HTMLSourceCanvas | null
     {
-        return isCanvas(resource.parentElement) ? (resource.parentElement as HTMLSourceCanvas) : null;
+        throw new Error("STUB");
     }
 
     private _onPaint(event: Event & { changedElements?: Element[] }): void
     {
-        const changedElements = event.changedElements;
-
-        // A paint event can batch unrelated elements; only update when ours actually changed.
-        if (changedElements?.length && !changedElements.includes(this.resource))
-        {
-            return;
-        }
-
-        this._isReady = true;
-        this.update();
+        throw new Error("STUB");
     }
 }

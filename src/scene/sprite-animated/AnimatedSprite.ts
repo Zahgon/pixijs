@@ -404,58 +404,7 @@ export class AnimatedSprite extends Sprite
 
     constructor(...args: [AnimatedSpriteOptions?] | [AnimatedSpriteFrames?] | [AnimatedSpriteFrames?, boolean?])
     {
-        let options = args[0] as AnimatedSpriteOptions;
-
-        if (Array.isArray(args[0]))
-        {
-            options = {
-                textures: args[0] as AnimatedSpriteFrames,
-                autoUpdate: args[1] as boolean,
-            };
-        }
-
-        const {
-            animationSpeed = 1,
-            autoPlay = false,
-            autoUpdate = true,
-            loop = true,
-            onComplete = null,
-            onFrameChange = null,
-            onLoop = null,
-            textures,
-            updateAnchor = false,
-            ...rest
-        } = options;
-        const [firstFrame] = textures;
-
-        super({
-            ...rest,
-            texture: firstFrame instanceof Texture ? firstFrame : firstFrame.texture,
-        });
-
-        this._textures = null;
-        this._durations = null;
-        this._autoUpdate = autoUpdate;
-        this._isConnectedToTicker = false;
-
-        this.animationSpeed = animationSpeed;
-        this.loop = loop;
-        this.updateAnchor = updateAnchor;
-        this.onComplete = onComplete;
-        this.onFrameChange = onFrameChange;
-        this.onLoop = onLoop;
-
-        this._currentTime = 0;
-
-        this._playing = false;
-        this._previousFrame = null;
-
-        this.textures = textures;
-
-        if (autoPlay)
-        {
-            this.play();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -602,8 +551,7 @@ export class AnimatedSprite extends Sprite
      */
     public gotoAndPlay(frameNumber: number): void
     {
-        this.currentFrame = frameNumber;
-        this.play();
+        throw new Error("STUB");
     }
 
     /**
@@ -770,11 +718,7 @@ export class AnimatedSprite extends Sprite
 
             this._textures.forEach((texture) =>
             {
-                // the current texture will be destroyed by the base sprite class
-                if (this.texture !== texture)
-                {
-                    texture.destroy(destroyTextureSource);
-                }
+                throw new Error("STUB");
             });
         }
         this._textures = [];
@@ -810,14 +754,7 @@ export class AnimatedSprite extends Sprite
      */
     public static fromFrames(frames: string[]): AnimatedSprite
     {
-        const textures = [];
-
-        for (let i = 0; i < frames.length; ++i)
-        {
-            textures.push(Texture.from(frames[i]));
-        }
-
-        return new AnimatedSprite(textures);
+        throw new Error("STUB");
     }
 
     /**
@@ -842,14 +779,7 @@ export class AnimatedSprite extends Sprite
      */
     public static fromImages(images: string[]): AnimatedSprite
     {
-        const textures = [];
-
-        for (let i = 0; i < images.length; ++i)
-        {
-            textures.push(Texture.from(images[i]));
-        }
-
-        return new AnimatedSprite(textures);
+        throw new Error("STUB");
     }
 
     /**
@@ -879,7 +809,7 @@ export class AnimatedSprite extends Sprite
      */
     get totalFrames(): number
     {
-        return this._textures.length;
+        throw new Error("STUB");
     }
 
     /**
@@ -910,30 +840,12 @@ export class AnimatedSprite extends Sprite
      */
     get textures(): AnimatedSpriteFrames
     {
-        return this._textures;
+        throw new Error("STUB");
     }
 
     set textures(value: AnimatedSpriteFrames)
     {
-        if (value[0] instanceof Texture)
-        {
-            this._textures = value as Texture[];
-            this._durations = null;
-        }
-        else
-        {
-            this._textures = [];
-            this._durations = [];
-
-            for (let i = 0; i < value.length; i++)
-            {
-                this._textures.push((value[i] as FrameObject).texture);
-                this._durations.push((value[i] as FrameObject).time);
-            }
-        }
-        this._previousFrame = null;
-        this.gotoAndStop(0);
-        this._updateTexture();
+        throw new Error("STUB");
     }
 
     /**
@@ -969,32 +881,12 @@ export class AnimatedSprite extends Sprite
      */
     get currentFrame(): number
     {
-        let currentFrame = Math.floor(this._currentTime) % this._textures.length;
-
-        if (currentFrame < 0)
-        {
-            currentFrame += this._textures.length;
-        }
-
-        return currentFrame;
+        throw new Error("STUB");
     }
 
     set currentFrame(value: number)
     {
-        if (value < 0 || value > this.totalFrames - 1)
-        {
-            throw new Error(`[AnimatedSprite]: Invalid frame index value ${value}, `
-                + `expected to be between 0 and totalFrames ${this.totalFrames}.`);
-        }
-
-        const previousFrame = this.currentFrame;
-
-        this._currentTime = value;
-
-        if (previousFrame !== this.currentFrame)
-        {
-            this._updateTexture();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -1018,7 +910,7 @@ export class AnimatedSprite extends Sprite
      */
     get playing(): boolean
     {
-        return this._playing;
+        throw new Error("STUB");
     }
 
     /**
@@ -1047,26 +939,12 @@ export class AnimatedSprite extends Sprite
      */
     get autoUpdate(): boolean
     {
-        return this._autoUpdate;
+        throw new Error("STUB");
     }
 
     set autoUpdate(value: boolean)
     {
-        if (value !== this._autoUpdate)
-        {
-            this._autoUpdate = value;
-
-            if (!this._autoUpdate && this._isConnectedToTicker)
-            {
-                Ticker.shared.remove(this.update, this);
-                this._isConnectedToTicker = false;
-            }
-            else if (this._autoUpdate && !this._isConnectedToTicker && this._playing)
-            {
-                Ticker.shared.add(this.update, this);
-                this._isConnectedToTicker = true;
-            }
-        }
+        throw new Error("STUB");
     }
 }
 

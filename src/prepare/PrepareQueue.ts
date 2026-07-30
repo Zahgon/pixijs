@@ -72,14 +72,7 @@ export abstract class PrepareQueue extends PrepareBase
         {
             container.textures.forEach((textureOrFrame) =>
             {
-                if ((textureOrFrame as Texture).source)
-                {
-                    queue.push((textureOrFrame as Texture).source);
-                }
-                else
-                {
-                    queue.push((textureOrFrame as FrameObject).texture.source);
-                }
+                throw new Error("STUB");
             });
         }
     }
@@ -90,26 +83,6 @@ export abstract class PrepareQueue extends PrepareBase
      */
     protected resolveGraphicsContextQueueItem(graphicsContext: GraphicsContext): PrepareQueueItem | null
     {
-        this.renderer.graphicsContext.getGpuContext(graphicsContext);
-
-        const { instructions } = graphicsContext;
-
-        for (const instruction of instructions)
-        {
-            if (instruction.action === 'texture')
-            {
-                const { image } = (instruction as TextureInstruction).data;
-
-                return image.source;
-            }
-            else if (instruction.action === 'fill')
-            {
-                const { texture } = (instruction as FillInstruction).data.style;
-
-                return texture.source;
-            }
-        }
-
-        return null;
+        throw new Error("STUB");
     }
 }

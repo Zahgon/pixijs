@@ -30,10 +30,7 @@ export class UboSystem implements System
 
     constructor(adaptor: UboAdaptor)
     {
-        this._adaptor = adaptor;
-
-        // Validation check that this environment support `new Function`
-        this._systemCheck();
+        throw new Error("STUB");
     }
 
     /**
@@ -43,11 +40,7 @@ export class UboSystem implements System
      */
     private _systemCheck(): void
     {
-        if (!unsafeEvalSupported())
-        {
-            throw new Error('Current environment does not allow unsafe-eval, '
-                 + 'please use pixi.js/unsafe-eval module to enable support.');
-        }
+        throw new Error("STUB");
     }
 
     public ensureUniformGroup(uniformGroup: UniformGroup): void
@@ -73,7 +66,7 @@ export class UboSystem implements System
 
         if (!uniformData)
         {
-            const elements = Object.keys(uniformGroup.uniformStructures).map((i) => uniformGroup.uniformStructures[i]);
+            const elements = Object.keys(uniformGroup.uniformStructures).map((i) => { throw new Error("STUB"); });
 
             const layout = this._adaptor.createUboElements(elements);
 

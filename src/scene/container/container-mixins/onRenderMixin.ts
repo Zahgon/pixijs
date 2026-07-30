@@ -46,30 +46,11 @@ export const onRenderMixin: Partial<Container> = {
 
     set onRender(func: (renderer: Renderer) => void)
     {
-        const renderGroup = this.renderGroup || this.parentRenderGroup;
-
-        if (!func)
-        {
-            if (this._onRender)
-            {
-                renderGroup?.removeOnRender(this);
-            }
-
-            this._onRender = null;
-
-            return;
-        }
-
-        if (!this._onRender)
-        {
-            renderGroup?.addOnRender(this);
-        }
-
-        this._onRender = func;
+        throw new Error("STUB");
     },
 
     get onRender(): (renderer: Renderer) => void
     {
-        return this._onRender;
+        throw new Error("STUB");
     }
 } as Container;

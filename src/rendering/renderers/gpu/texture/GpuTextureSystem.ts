@@ -98,37 +98,18 @@ export class GpuTextureSystem implements System, CanvasGenerator
     /**
      * @deprecated since 8.15.0
      */
-    public get managedTextures(): Readonly<TextureSource[]> { return Object.values(this._managedTextures.items); }
+    public get managedTextures(): Readonly<TextureSource[]> {
+        throw new Error("STUB");
+    }
 
     constructor(renderer: WebGPURenderer)
     {
-        this._renderer = renderer;
-        renderer.gc.addCollection(this, '_bindGroupHash', 'hash');
-
-        this._managedTextures = new GCManagedHash({
-            renderer,
-            type: 'resource',
-            onUnload: this.onSourceUnload.bind(this),
-            name: 'gpuTextureSource'
-        });
-
-        const baseUploaders = {
-            image: gpuUploadImageResource,
-            buffer: gpuUploadBufferImageResource,
-            video: gpuUploadVideoResource,
-            compressed: gpuUploadCompressedTextureResource,
-            ...GpuTextureSystem.uploadExtensions,
-        };
-
-        this._uploads = {
-            ...baseUploaders,
-            cube: createGpuUploadCubeTextureResource(baseUploaders),
-        };
+        throw new Error("STUB");
     }
 
     protected contextChange(gpu: GPU): void
     {
-        this._gpu = gpu;
+        throw new Error("STUB");
     }
 
     /**
@@ -244,29 +225,12 @@ export class GpuTextureSystem implements System, CanvasGenerator
 
     protected onSourceUnload(source: TextureSource): void
     {
-        source.off('update', this.onSourceUpdate, this);
-        source.off('resize', this.onSourceResize, this);
-        source.off('updateMipmaps', this.onUpdateMipmaps, this);
+        throw new Error("STUB");
     }
 
     protected onSourceResize(source: TextureSource): void
     {
-        source._gcLastUsed = this._renderer.gc.now;
-
-        const gpuData = source._gpuData[this._renderer.uid] as GPUTextureGpuData;
-        const gpuTexture = gpuData?.gpuTexture;
-
-        if (!gpuTexture)
-        {
-            this.initSource(source);
-        }
-        else if (gpuTexture.width !== source.pixelWidth || gpuTexture.height !== source.pixelHeight)
-        {
-            gpuData.destroy();
-            this._bindGroupHash[source.uid] = null;
-            source._gpuData[this._renderer.uid] = null;
-            this.initSource(source);
-        }
+        throw new Error("STUB");
     }
 
     private _initSampler(sampler: TextureStyle): GPUSampler

@@ -128,43 +128,13 @@ export class PerspectiveMesh extends Mesh<PerspectivePlaneGeometry>
      */
     constructor(options: PerspectivePlaneOptions)
     {
-        options = { ...PerspectiveMesh.defaultOptions, ...options };
-
-        const { texture, verticesX, verticesY, ...rest } = options;
-        const planeGeometry = new PerspectivePlaneGeometry(definedProps({
-            width: texture.width,
-            height: texture.height,
-            verticesX,
-            verticesY,
-        }));
-
-        super(definedProps({ ...rest, geometry: planeGeometry }));
-
-        this._texture = texture;
-
-        this.geometry.setCorners(
-            options.x0, options.y0,
-            options.x1, options.y1,
-            options.x2, options.y2,
-            options.x3, options.y3
-        );
+        throw new Error("STUB");
     }
 
     /** Update the geometry when the texture is updated */
     protected textureUpdated(): void
     {
-        const geometry: PerspectivePlaneGeometry = this.geometry as any;
-
-        if (!geometry) return;
-
-        const { width, height } = this.texture;
-
-        if (geometry.width !== width || geometry.height !== height)
-        {
-            geometry.width = width;
-            geometry.height = height;
-            geometry.updateProjection();
-        }
+        throw new Error("STUB");
     }
 
     set texture(value: Texture)
@@ -249,6 +219,6 @@ export class PerspectiveMesh extends Mesh<PerspectivePlaneGeometry>
      */
     public setCorners(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number)
     {
-        this.geometry.setCorners(x0, y0, x1, y1, x2, y2, x3, y3);
+        throw new Error("STUB");
     }
 }

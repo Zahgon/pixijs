@@ -1231,20 +1231,20 @@ export const FederatedContainer: IFederatedContainer = {
     onwheel:  null,
     get interactive()
     {
-        return this.eventMode === 'dynamic' || this.eventMode === 'static';
+        throw new Error("STUB");
     },
     set interactive(value: boolean)
     {
-        this.eventMode = value ? 'static' : 'passive';
+        throw new Error("STUB");
     },
     _internalEventMode: undefined,
     get eventMode()
     {
-        return this._internalEventMode ?? EventSystem.defaultEventMode;
+        throw new Error("STUB");
     },
     set eventMode(value)
     {
-        this._internalEventMode = value;
+        throw new Error("STUB");
     },
     isInteractive(): boolean
     {
@@ -1273,7 +1273,7 @@ export const FederatedContainer: IFederatedContainer = {
         {
             signal.addEventListener('abort', () =>
             {
-                emitter.off(type, listenerFn, context);
+                throw new Error("STUB");
             });
         }
 

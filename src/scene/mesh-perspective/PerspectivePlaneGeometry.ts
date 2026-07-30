@@ -51,11 +51,7 @@ export class PerspectivePlaneGeometry extends PlaneGeometry
      */
     constructor(options: PerspectivePlaneGeometryOptions)
     {
-        super(options);
-
-        const { width, height } = options;
-
-        this.corners = [0, 0, width, 0, width, height, 0, height];
+        throw new Error("STUB");
     }
 
     /**
@@ -72,44 +68,13 @@ export class PerspectivePlaneGeometry extends PlaneGeometry
      */
     public setCorners(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number)
     {
-        const corners = this.corners;
-
-        corners[0] = x0;
-        corners[1] = y0;
-        corners[2] = x1;
-        corners[3] = y1;
-        corners[4] = x2;
-        corners[5] = y2;
-        corners[6] = x3;
-        corners[7] = y3;
-
-        this.updateProjection();
+        throw new Error("STUB");
     }
 
     /** Update the projection matrix based on the corners */
     public updateProjection()
     {
-        const { width, height } = this;
-        const corners = this.corners;
-
-        const projectionMatrix = compute2DProjection(
-            this._projectionMatrix,
-            0, 0, // top-left source
-            corners[0], corners[1], // top-left dest
-            width, 0, // top-right source
-            corners[2], corners[3], // top-right dest
-            width, height, // bottom-right source
-            corners[4], corners[5], // bottom-right dest
-            0, height, // bottom-left source
-            corners[6], corners[7] // bottom-left dest
-        );
-
-        applyProjectiveTransformationToPlane(
-            width,
-            height,
-            this,
-            projectionMatrix
-        );
+        throw new Error("STUB");
     }
 }
 

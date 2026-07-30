@@ -106,33 +106,7 @@ export class GpuRenderTargetAdaptor implements RenderTargetAdaptor<GpuRenderTarg
         originDest: { x: number; y: number; },
     ): void
     {
-        const renderer = this._renderer;
-
-        // a copy cannot be recorded while a render pass holds the shared command encoder —
-        // close the pass first (no-op when none is open), matching the GL adaptor
-        this.finishRenderPass();
-
-        // depth is just a GPUTexture, so it copies straight into the destination's source
-        const srcDepth = source.depthStencilAttachment.texture;
-
-        const srcGpu = renderer.texture.getGpuSource(srcDepth);
-        const dstGpu = renderer.texture.getGpuSource(destination.source);
-
-        const standAlone = renderer.encoder.commandEncoder === null;
-        const commandEncoder = standAlone
-            ? renderer.gpu.device.createCommandEncoder()
-            : renderer.encoder.commandEncoder;
-
-        commandEncoder.copyTextureToTexture(
-            { texture: srcGpu, origin: originSrc },
-            { texture: dstGpu, origin: originDest },
-            { width: size.width, height: size.height },
-        );
-
-        if (standAlone)
-        {
-            renderer.gpu.device.queue.submit([commandEncoder.finish()]);
-        }
+        throw new Error("STUB");
     }
 
     public startRenderPass(
@@ -261,84 +235,7 @@ export class GpuRenderTargetAdaptor implements RenderTargetAdaptor<GpuRenderTarg
         const colorAttachments = renderTarget.colorAttachments.map(
             (colorAttachment, i) =>
             {
-                const colorTexture = colorAttachment.texture;
-                const context = (colorTexture instanceof CanvasSource) ? colorTexture._gpuContext : null;
-
-                let view: GPUTextureView;
-                let resolveTarget: GPUTextureView;
-
-                if (context)
-                {
-                    if (layer !== 0)
-                    {
-                        // eslint-disable-next-line max-len
-                        throw new Error('[RenderTargetSystem] Rendering to array layers is not supported for canvas targets.');
-                    }
-
-                    const currentTexture = context.getCurrentTexture();
-
-                    const canvasTextureView = currentTexture.createView(colorAttachment.viewDescriptor);
-
-                    view = canvasTextureView;
-                }
-                else
-                {
-                    view = this._renderer.texture.getTextureRenderTargetView(
-                        colorAttachment.texture,
-                        mipLevel,
-                        layer,
-                        colorAttachment.viewDescriptor
-                    );
-                }
-
-                let attachmentIsTransient = false;
-
-                if (gpuRenderTarget.msaaTextures[i])
-                {
-                    resolveTarget = view;
-                    view = this._renderer.texture.getTextureView(
-                        gpuRenderTarget.msaaTextures[i]
-                    );
-                    attachmentIsTransient = gpuRenderTarget.msaaTextures[i].transient;
-                }
-
-                let loadOp = colorAttachment.loadOp;
-
-                if (clear !== undefined)
-                {
-                    loadOp = (clear as CLEAR) & CLEAR.COLOR ? 'clear' : 'load';
-                }
-
-                clearValue ??= renderTargetSystem.defaultClearColor;
-
-                const storeOp = colorAttachment.storeOp ?? 'store';
-
-                const baseAttachment: GPURenderPassColorAttachment = {
-                    view,
-                    resolveTarget,
-                    // Only discard the MSAA buffer when it was created as transient — i.e. we know
-                    // no later pass will try to load it. Non-transient MSAA targets keep storeOp:'store'
-                    // so flows like filter pop-back (loadOp:'load' on the parent RT) keep working.
-                    storeOp: attachmentIsTransient ? 'discard' : storeOp,
-                    loadOp,
-                };
-
-                if (loadOp === 'clear')
-                {
-                    clearValue ??= (colorAttachment.clearValue as RgbaArray) ?? renderTargetSystem.defaultClearColor;
-                    baseAttachment.clearValue = clearValue;
-                }
-
-                for (const key in colorAttachment)
-                {
-                    if (key !== 'texture' && key !== 'viewDescriptor'
-                        && key !== 'clearValue' && key !== 'loadOp' && key !== 'storeOp')
-                    {
-                        (baseAttachment as any)[key] = (colorAttachment as any)[key];
-                    }
-                }
-
-                return baseAttachment;
+                throw new Error("STUB");
             }
         ) as GPURenderPassColorAttachment[];
 
@@ -486,68 +383,7 @@ export class GpuRenderTargetAdaptor implements RenderTargetAdaptor<GpuRenderTarg
         // is a canvas...
         renderTarget.colorAttachments.forEach((colorAttachment, i) =>
         {
-            const colorTexture = colorAttachment.texture;
-
-            if (colorTexture instanceof CanvasSource)
-            {
-                if (!colorTexture._gpuContext)
-                {
-                    const context = colorTexture.resource.getContext(
-                        'webgpu'
-                    ) as unknown as GPUCanvasContext;
-
-                    const alphaMode = colorTexture.transparent ? 'premultiplied' : 'opaque';
-                    const canvasFormat = getCanvasContextFormat(colorTexture.format);
-
-                    try
-                    {
-                        context.configure({
-                            device: this._renderer.gpu.device,
-                            usage: GPUTextureUsage.TEXTURE_BINDING
-                                | GPUTextureUsage.COPY_DST
-                                | GPUTextureUsage.RENDER_ATTACHMENT
-                                | GPUTextureUsage.COPY_SRC,
-                            format: canvasFormat,
-                            alphaMode,
-                            ...(canvasFormat === 'rgba16float'
-                                ? { toneMapping: { mode: 'extended' } }
-                                : {}),
-                        });
-                    }
-                    catch (e)
-                    {
-                        console.error(e);
-                    }
-
-                    colorTexture._gpuContext = context;
-                }
-
-                gpuRenderTarget.contexts[i] = colorTexture._gpuContext;
-            }
-
-            gpuRenderTarget.msaa = colorTexture.source.antialias;
-
-            if (colorTexture.antialias)
-            {
-                // The MSAA buffer inherits the colour TextureSource's `transient` flag.
-                // Pixi never auto-sets transient: filter pop-back, additive layering, and
-                // any flow that rebinds the parent target mid-frame would issue
-                // loadOp:'load' on the MSAA attachment, which is invalid when the texture
-                // is transient (and undefined-behaviour when its prior contents were
-                // discarded). The user opts in by passing `transient: true` on the
-                // RenderTexture's TextureSource only when they know their flow is
-                // single-pass.
-                const msaaTexture = new TextureSource({
-                    width: 0,
-                    height: 0,
-                    sampleCount: 4,
-                    transient: colorTexture.transient,
-                    arrayLayerCount: colorTexture.arrayLayerCount,
-                    format: colorTexture.format,
-                });
-
-                gpuRenderTarget.msaaTextures[i] = msaaTexture;
-            }
+            throw new Error("STUB");
         });
 
         if (gpuRenderTarget.msaa)
@@ -569,12 +405,12 @@ export class GpuRenderTargetAdaptor implements RenderTargetAdaptor<GpuRenderTarg
     {
         gpuRenderTarget.contexts.forEach((context) =>
         {
-            context.unconfigure();
+            throw new Error("STUB");
         });
 
         gpuRenderTarget.msaaTextures.forEach((texture) =>
         {
-            texture.destroy();
+            throw new Error("STUB");
         });
 
         gpuRenderTarget.msaaTextures.length = 0;
@@ -603,14 +439,7 @@ export class GpuRenderTargetAdaptor implements RenderTargetAdaptor<GpuRenderTarg
         {
             renderTarget.colorAttachments.forEach((colorAttachment, i) =>
             {
-                const colorTexture = colorAttachment.texture;
-                const msaaTexture = gpuRenderTarget.msaaTextures[i];
-
-                msaaTexture?.resize(
-                    colorTexture.width,
-                    colorTexture.height,
-                    colorTexture._resolution
-                );
+                throw new Error("STUB");
             });
         }
     }

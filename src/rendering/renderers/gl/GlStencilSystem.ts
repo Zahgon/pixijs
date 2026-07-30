@@ -60,66 +60,22 @@ export class GlStencilSystem implements System
 
     constructor(renderer: WebGLRenderer)
     {
-        renderer.renderTarget.onRenderTargetChange.add(this);
+        throw new Error("STUB");
     }
 
     protected contextChange(gl: WebGLRenderingContext)
     {
-        // TODO - this could be declared in a gl const
-        // we know the numbers don't tend to change!
-        this._gl = gl;
-
-        this._comparisonFuncMapping = {
-            always: gl.ALWAYS,
-            never: gl.NEVER,
-            equal: gl.EQUAL,
-            'not-equal': gl.NOTEQUAL,
-            less: gl.LESS,
-            'less-equal': gl.LEQUAL,
-            greater: gl.GREATER,
-            'greater-equal': gl.GEQUAL,
-        };
-
-        this._stencilOpsMapping = {
-            keep: gl.KEEP,
-            zero: gl.ZERO,
-            replace: gl.REPLACE,
-            invert: gl.INVERT,
-            'increment-clamp': gl.INCR,
-            'decrement-clamp': gl.DECR,
-            'increment-wrap': gl.INCR_WRAP,
-            'decrement-wrap': gl.DECR_WRAP,
-        };
-
-        this.resetState();
+        throw new Error("STUB");
     }
 
     protected onRenderTargetChange(renderTarget: RenderTarget)
     {
-        if (this._activeRenderTarget === renderTarget) return;
-
-        this._activeRenderTarget = renderTarget;
-
-        let stencilState = this._renderTargetStencilState[renderTarget.uid];
-
-        if (!stencilState)
-        {
-            stencilState = this._renderTargetStencilState[renderTarget.uid] = {
-                stencilMode: STENCIL_MODES.DISABLED,
-                stencilReference: 0,
-            };
-        }
-
-        // restore the current render targets stencil state..
-        this.setStencilMode(stencilState.stencilMode, stencilState.stencilReference);
+        throw new Error("STUB");
     }
 
     public resetState()
     {
-        // reset stencil cache
-        this._stencilCache.enabled = false;
-        this._stencilCache.stencilMode = STENCIL_MODES.NONE;
-        this._stencilCache.stencilReference = 0;
+        throw new Error("STUB");
     }
 
     public setStencilMode(stencilMode: STENCIL_MODES, stencilReference: number)

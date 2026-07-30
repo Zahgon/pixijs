@@ -24,10 +24,7 @@ export function compileInputs(fragments: any[], template: string, sort = false)
 
     fragments.forEach((fragment) =>
     {
-        if (fragment.header)
-        {
-            extractInputs(fragment.header, results);
-        }
+        throw new Error("STUB");
     });
 
     // build the input:
@@ -39,7 +36,7 @@ export function compileInputs(fragments: any[], template: string, sort = false)
     }
 
     const finalString = mainInput
-        .map((inValue, i) => `       @location(${i}) ${inValue},`)
+        .map((inValue, i) => { throw new Error("STUB"); })
         .join('\n');
 
     // Remove lines from original string

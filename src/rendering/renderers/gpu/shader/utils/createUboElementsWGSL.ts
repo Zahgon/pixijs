@@ -44,45 +44,6 @@ export const WGSL_ALIGN_SIZE_DATA: Record<UNIFORM_TYPES | string, {align: number
  */
 export function createUboElementsWGSL(uniformData: UniformData[]): UboLayout
 {
-    const uboElements: UboElement[] = uniformData.map((data: UniformData) =>
-        ({
-            data,
-            offset: 0,
-            size: 0,
-        }));
-
-    let offset = 0;
-
-    for (let i = 0; i < uboElements.length; i++)
-    {
-        const uboElement = uboElements[i];
-
-        let size = WGSL_ALIGN_SIZE_DATA[uboElement.data.type].size;
-        const align = WGSL_ALIGN_SIZE_DATA[uboElement.data.type].align;
-
-        if (!WGSL_ALIGN_SIZE_DATA[uboElement.data.type])
-        {
-            throw new Error(`[Pixi.js] WebGPU UniformBuffer: Unknown type ${uboElement.data.type}`);
-        }
-
-        if (uboElement.data.size > 1)
-        {
-            size = Math.max(size, align) * uboElement.data.size;
-        }
-
-        offset = Math.ceil((offset) / align) * align;
-
-        // TODO deal with Arrays
-        uboElement.size = size;
-
-        uboElement.offset = offset;
-
-        offset += size;
-    }
-
-    // must align to 16 bits!
-    offset = Math.ceil(offset / 16) * 16;
-
-    return { uboElements, size: offset };
+    throw new Error("STUB");
 }
 

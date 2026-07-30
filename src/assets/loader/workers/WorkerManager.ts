@@ -66,14 +66,7 @@ class WorkerManagerClass
 
         this._isImageBitmapSupported = new Promise((resolve) =>
         {
-            const { worker } = new CheckImageBitmapWorker();
-
-            worker.addEventListener('message', (event: MessageEvent<boolean>) =>
-            {
-                worker.terminate();
-                CheckImageBitmapWorker.revokeObjectURL();
-                resolve(event.data);
-            });
+            throw new Error("STUB");
         });
 
         return this._isImageBitmapSupported;
@@ -129,10 +122,7 @@ class WorkerManagerClass
 
             worker.addEventListener('message', (event: MessageEvent) =>
             {
-                this._complete(event.data);
-
-                this._returnWorker(event.target as Worker);
-                this._next();
+                throw new Error("STUB");
             });
         }
 
@@ -187,7 +177,7 @@ class WorkerManagerClass
 
         const promise = new Promise((resolve, reject) =>
         {
-            this._queue.push({ id, arguments: args, resolve, reject });
+            throw new Error("STUB");
         });
 
         this._next();
@@ -247,13 +237,13 @@ class WorkerManagerClass
     public reset(): void
     {
         // Terminate all workers
-        this._workerPool.forEach((worker) => worker.terminate());
+        this._workerPool.forEach((worker) => { throw new Error("STUB"); });
         this._workerPool.length = 0;
 
         // Reject pending promises
         Object.values(this._resolveHash).forEach(({ reject }) =>
         {
-            reject?.(new Error('WorkerManager has been reset before completion'));
+            throw new Error("STUB");
         });
         this._resolveHash = {};
         this._queue.length = 0;

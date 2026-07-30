@@ -159,12 +159,7 @@ export class SplitText extends AbstractSplitText<Text>
 
     constructor(config: SplitTextOptions)
     {
-        const completeOptions: SplitTextOptions = {
-            ...SplitText.defaultOptions,
-            ...config,
-        };
-
-        super(completeOptions);
+        throw new Error("STUB");
     }
 
     /**

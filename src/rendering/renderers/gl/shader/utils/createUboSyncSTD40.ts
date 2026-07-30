@@ -12,9 +12,5 @@ export function createUboSyncFunctionSTD40(
     uboElements: UboElement[],
 ): UniformsSyncCallback
 {
-    return compileBufferSync(
-        uboElements,
-        uboSyncFunctionsSTD40,
-        generateArraySyncSTD40,
-    );
+    throw new Error("STUB");
 }

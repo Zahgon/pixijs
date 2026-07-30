@@ -145,18 +145,7 @@ export class GlBackBufferSystem implements System<GlBackBufferOptions>
      */
     protected renderStart(options: RenderOptions)
     {
-        const renderTarget = this._renderer.renderTarget.getRenderTarget(options.target);
-
-        this._useBackBufferThisRender = this.useBackBuffer && !!renderTarget.isRoot;
-
-        if (this._useBackBufferThisRender)
-        {
-            const renderTarget = this._renderer.renderTarget.getRenderTarget(options.target);
-
-            this._targetTexture = renderTarget.colorTexture;
-
-            options.target = this._getBackBufferTexture(renderTarget.colorTexture);
-        }
+        throw new Error("STUB");
     }
 
     protected renderEnd()
@@ -185,23 +174,7 @@ export class GlBackBufferSystem implements System<GlBackBufferOptions>
 
     private _getBackBufferTexture(targetSourceTexture: TextureSource)
     {
-        this._backBufferTexture = this._backBufferTexture || new Texture({
-            source: new TextureSource({
-                width: targetSourceTexture.width,
-                height: targetSourceTexture.height,
-                resolution: targetSourceTexture._resolution,
-                antialias: this._antialias,
-            }),
-        });
-
-        // this will not resize if its the same size already! No extra check required
-        this._backBufferTexture.source.resize(
-            targetSourceTexture.width,
-            targetSourceTexture.height,
-            targetSourceTexture._resolution,
-        );
-
-        return this._backBufferTexture;
+        throw new Error("STUB");
     }
 
     /** destroys the back buffer */

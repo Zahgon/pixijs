@@ -14,7 +14,7 @@ export const detectDefaults = {
         type: ExtensionType.DetectionParser,
         priority: -1,
     },
-    test: (): Promise<boolean> => Promise.resolve(true),
-    add: async (formats) => [...formats, ...imageFormats],
-    remove: async (formats) => formats.filter((f) => !imageFormats.includes(f)),
+    test: (): Promise<boolean> => { throw new Error("STUB"); },
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 } as FormatDetectionParser;

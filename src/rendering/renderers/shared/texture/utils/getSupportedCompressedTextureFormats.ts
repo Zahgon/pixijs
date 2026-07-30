@@ -14,27 +14,7 @@ export async function getSupportedCompressedTextureFormats(): Promise<TEXTURE_FO
 
     supportedCompressedTextureFormats = await (async (): Promise<TEXTURE_FORMATS[]> =>
     {
-        // find only overlapping ones..
-        const _isWebGPUSupported = await isWebGPUSupported();
-        const _isWebGLSupported = isWebGLSupported();
-
-        if (_isWebGPUSupported && _isWebGLSupported)
-        {
-            const gpuTextureFormats = await getSupportedGPUCompressedTextureFormats();
-            const glTextureFormats = getSupportedGlCompressedTextureFormats();
-
-            return gpuTextureFormats.filter((format) => glTextureFormats.includes(format));
-        }
-        else if (_isWebGPUSupported)
-        {
-            return await getSupportedGPUCompressedTextureFormats();
-        }
-        else if (_isWebGLSupported)
-        {
-            return getSupportedGlCompressedTextureFormats();
-        }
-
-        return [];
+        throw new Error("STUB");
     })();
 
     return supportedCompressedTextureFormats;

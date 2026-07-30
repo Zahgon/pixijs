@@ -35,31 +35,7 @@ export class GlGraphicsAdaptor implements GraphicsAdaptor
 
     public contextChange(renderer: Renderer): void
     {
-        const uniforms = new UniformGroup({
-            uColor: { value: new Float32Array([1, 1, 1, 1]), type: 'vec4<f32>' },
-            uTransformMatrix: { value: new Matrix(), type: 'mat3x3<f32>' },
-            uRound: { value: 0, type: 'f32' },
-        });
-
-        const maxTextures = renderer.limits.maxBatchableTextures;
-
-        const glProgram = compileHighShaderGlProgram({
-            name: 'graphics',
-            bits: [
-                colorBitGl,
-                generateTextureBatchBitGl(maxTextures),
-                localUniformBitGl,
-                roundPixelsBitGl,
-            ]
-        });
-
-        this.shader = new Shader({
-            glProgram,
-            resources: {
-                localUniforms: uniforms,
-                batchSamplers: getBatchSamplersUniformGroup(maxTextures),
-            }
-        });
+        throw new Error("STUB");
     }
 
     public execute(graphicsPipe: GraphicsPipeLike, renderable: Graphics): void

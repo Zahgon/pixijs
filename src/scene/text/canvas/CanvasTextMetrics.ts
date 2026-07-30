@@ -153,27 +153,7 @@ export class CanvasTextMetrics
      */
     public static graphemeSegmenter: (s: string) => string[] = (() =>
     {
-        if (typeof (Intl as IIntl)?.Segmenter === 'function')
-        {
-            const segmenter = new (Intl as IIntl).Segmenter();
-
-            return (s: string) =>
-            {
-                const segments = segmenter.segment(s);
-                const result = [];
-
-                let i = 0;
-
-                for (const segment of segments)
-                {
-                    result[i++] = (segment.segment);
-                }
-
-                return result;
-            };
-        }
-
-        return (s: string) => [...s];
+        throw new Error("STUB");
     })();
 
     public static _experimentalLetterSpacingSupported?: boolean;
@@ -188,18 +168,7 @@ export class CanvasTextMetrics
      */
     public static get experimentalLetterSpacingSupported(): boolean
     {
-        let result = CanvasTextMetrics._experimentalLetterSpacingSupported;
-
-        if (result === undefined)
-        {
-            const proto = DOMAdapter.get().getCanvasRenderingContext2D().prototype;
-
-            result
-                = CanvasTextMetrics._experimentalLetterSpacingSupported
-                = 'letterSpacing' in proto || 'textLetterSpacing' in proto;
-        }
-
-        return result;
+        throw new Error("STUB");
     }
 
     /**
@@ -257,24 +226,7 @@ export class CanvasTextMetrics
         },
     )
     {
-        this.text = text;
-        this.style = style;
-        this.width = width;
-        this.height = height;
-        this.lines = lines;
-        this.lineWidths = lineWidths;
-        this.lineHeight = lineHeight;
-        this.maxLineWidth = maxLineWidth;
-        this.fontProperties = fontProperties;
-
-        if (taggedData)
-        {
-            this.runsByLine = taggedData.runsByLine;
-            this.lineAscents = taggedData.lineAscents;
-            this.lineDescents = taggedData.lineDescents;
-            this.lineHeights = taggedData.lineHeights;
-            this.hasDropShadow = taggedData.hasDropShadow;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -480,7 +432,7 @@ export class CanvasTextMetrics
         context: ICanvasRenderingContext2D
     ): number
     {
-        return CanvasTextMetrics._measureTextCore(text, letterSpacing, context).metricWidth;
+        throw new Error("STUB");
     }
 
     /**
@@ -586,7 +538,7 @@ export class CanvasTextMetrics
      */
     public static canBreakWords(_token: string, breakWords: boolean): boolean
     {
-        return breakWords;
+        throw new Error("STUB");
     }
 
     /**
@@ -606,7 +558,7 @@ export class CanvasTextMetrics
     public static canBreakChars(_char: string, _nextChar: string, _token: string, _index: number,
         _breakWords: boolean): boolean
     {
-        return true;
+        throw new Error("STUB");
     }
 
     /**
@@ -621,7 +573,7 @@ export class CanvasTextMetrics
      */
     public static wordWrapSplit(token: string): string[]
     {
-        return CanvasTextMetrics.graphemeSegmenter(token);
+        throw new Error("STUB");
     }
 
     /**
@@ -662,14 +614,7 @@ export class CanvasTextMetrics
      */
     public static clearMetrics(font = ''): void
     {
-        if (font)
-        {
-            delete CanvasTextMetrics._fonts[font];
-        }
-        else
-        {
-            CanvasTextMetrics._fonts = {};
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -679,34 +624,7 @@ export class CanvasTextMetrics
      */
     public static get _canvas(): ICanvas
     {
-        if (!CanvasTextMetrics.__canvas)
-        {
-            let canvas: ICanvas;
-
-            try
-            {
-                // OffscreenCanvas2D measureText can be up to 40% faster.
-                const c = new OffscreenCanvas(0, 0);
-                const context = c.getContext('2d', contextSettings);
-
-                if (context?.measureText)
-                {
-                    CanvasTextMetrics.__canvas = c as ICanvas;
-
-                    return c as ICanvas;
-                }
-
-                canvas = DOMAdapter.get().createCanvas();
-            }
-            catch (_cx)
-            {
-                canvas = DOMAdapter.get().createCanvas();
-            }
-            canvas.width = canvas.height = 10;
-            CanvasTextMetrics.__canvas = canvas;
-        }
-
-        return CanvasTextMetrics.__canvas;
+        throw new Error("STUB");
     }
 
     /**
@@ -715,11 +633,6 @@ export class CanvasTextMetrics
      */
     public static get _context(): ICanvasRenderingContext2D
     {
-        if (!CanvasTextMetrics.__context)
-        {
-            CanvasTextMetrics.__context = CanvasTextMetrics._canvas.getContext('2d', contextSettings);
-        }
-
-        return CanvasTextMetrics.__context;
+        throw new Error("STUB");
     }
 }

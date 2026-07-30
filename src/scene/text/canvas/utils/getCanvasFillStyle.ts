@@ -120,16 +120,7 @@ export function getCanvasFillStyle(
 
                 fillGradient.colorStops.forEach((stop) =>
                 {
-                    // Convert to global space
-                    let globalStop = start + (stop.offset * ratio);
-
-                    globalStop = Math.max(0, Math.min(1, globalStop));
-
-                    gradient.addColorStop(
-                        // fix to 5 decimal places to avoid floating point precision issues
-                        Math.floor(globalStop * PRECISION) / PRECISION,
-                        Color.shared.setValue(stop.color).toHex()
-                    );
+                    throw new Error("STUB");
                 });
             }
         }
@@ -138,7 +129,7 @@ export function getCanvasFillStyle(
             // Standard global space gradient handling
             fillGradient.colorStops.forEach((stop) =>
             {
-                gradient.addColorStop(stop.offset, Color.shared.setValue(stop.color).toHex());
+                throw new Error("STUB");
             });
         }
 

@@ -218,12 +218,7 @@ export class Application<R extends Renderer = Renderer>
 
     constructor(...args: [Partial<ApplicationOptions>] | [])
     {
-        // #if _DEBUG
-        if (args[0] !== undefined)
-        {
-            deprecation(v8_0_0, 'Application constructor options are deprecated, please use Application.init() instead.');
-        }
-        // #endif
+        throw new Error("STUB");
     }
 
     /**
@@ -256,7 +251,7 @@ export class Application<R extends Renderer = Renderer>
         // install plugins here
         Application._plugins.forEach((plugin) =>
         {
-            plugin.init.call(this, options);
+            throw new Error("STUB");
         });
     }
 
@@ -322,11 +317,7 @@ export class Application<R extends Renderer = Renderer>
      */
     get view(): R['canvas']
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Application.view is deprecated, please use Application.canvas instead.');
-        // #endif
-
-        return this.renderer.canvas as R['canvas'];
+        throw new Error("STUB");
     }
 
     /**
@@ -354,7 +345,7 @@ export class Application<R extends Renderer = Renderer>
      */
     get screen(): Rectangle
     {
-        return this.renderer.screen;
+        throw new Error("STUB");
     }
 
     /**
@@ -364,7 +355,7 @@ export class Application<R extends Renderer = Renderer>
      */
     get domContainerRoot()
     {
-        return this.renderer.renderPipes.dom?._domElement;
+        throw new Error("STUB");
     }
 
     /**
@@ -418,7 +409,7 @@ export class Application<R extends Renderer = Renderer>
         plugins.reverse();
         plugins.forEach((plugin) =>
         {
-            plugin.destroy.call(this);
+            throw new Error("STUB");
         });
 
         this.stage.destroy(options);

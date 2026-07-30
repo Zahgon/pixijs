@@ -36,33 +36,23 @@ export class TextureView extends EventEmitter<{
      */
     constructor(source: TextureSource, viewDescriptor: GPUTextureViewDescriptor)
     {
-        super();
-
-        this.source = source;
-        this.viewDescriptor = viewDescriptor;
-
-        this._onChange = this._onChange.bind(this);
-        this._onDestroy = this._onDestroy.bind(this);
-
-        // Proxy the source's change event so BindGroups know when to update
-        this.source.on('change', this._onChange);
-        this.source.on('destroy', this._onDestroy);
+        throw new Error("STUB");
     }
 
     private _onChange(): void
     {
-        this.emit('change', this);
+        throw new Error("STUB");
     }
 
     private _onDestroy(): void
     {
-        this.destroy();
+        throw new Error("STUB");
     }
 
     /** Returns whether the underlying source is destroyed. */
     get destroyed(): boolean
     {
-        return this.source.destroyed;
+        throw new Error("STUB");
     }
 
     /** Destroys the view and cleans up event listeners. */

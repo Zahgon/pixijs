@@ -77,8 +77,8 @@ export function compileHighShaderGl({
 
 function compileInputsAndOutputs(template: HighShaderTemplate, bits: HighShaderBit[])
 {
-    const vertexFragments = bits.map((shaderBit) => shaderBit.vertex).filter((v) => !!v);
-    const fragmentFragments = bits.map((shaderBit) => shaderBit.fragment).filter((v) => !!v);
+    const vertexFragments = bits.map((shaderBit) => { throw new Error("STUB"); }).filter((v) => { throw new Error("STUB"); });
+    const fragmentFragments = bits.map((shaderBit) => { throw new Error("STUB"); }).filter((v) => { throw new Error("STUB"); });
 
     // WebGPU compile inputs and outputs..
     let compiledVertex = compileInputs(vertexFragments, template.vertex, true);
@@ -98,14 +98,9 @@ function generateCacheId(template: HighShaderTemplate, bits: HighShaderBit[]): s
     return bits
         .map((highFragment) =>
         {
-            if (!bitCacheMap.has(highFragment))
-            {
-                bitCacheMap.set(highFragment, CACHE_UID++);
-            }
-
-            return bitCacheMap.get(highFragment);
+            throw new Error("STUB");
         })
-        .sort((a, b) => a - b)
+        .sort((a, b) => { throw new Error("STUB"); })
         .join('-') + template.vertex + template.fragment;
 }
 
@@ -116,8 +111,7 @@ function compileBits(vertex: string, fragment: string, bits: HighShaderBit[])
 
     bits.forEach((shaderBit) =>
     {
-        addBits(shaderBit.vertex, vertexParts, shaderBit.name);
-        addBits(shaderBit.fragment, fragmentParts, shaderBit.name);
+        throw new Error("STUB");
     });
 
     return {

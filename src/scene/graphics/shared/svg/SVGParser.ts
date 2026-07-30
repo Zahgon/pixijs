@@ -152,12 +152,9 @@ function renderChildren(svg: SVGElement, session: Session, fillStyle: FillStyle,
 
             if (shouldProcessHoles)
             {
-                const subpathsWithArea = subpaths.map((subpath) => ({
-                    path: subpath,
-                    area: calculatePathArea(subpath)
-                }));
+                const subpathsWithArea = subpaths.map((subpath) => { throw new Error("STUB"); });
 
-                subpathsWithArea.sort((a, b) => b.area - a.area);
+                subpathsWithArea.sort((a, b) => { throw new Error("STUB"); });
 
                 // For complex cases, prefer multiple holes approach
                 const useMultipleHolesApproach = subpaths.length > 3 || !checkForNestedPattern(subpathsWithArea);
@@ -283,7 +280,7 @@ function renderChildren(svg: SVGElement, session: Session, fillStyle: FillStyle,
 
         case 'polygon':
             pointsString = svg.getAttribute('points') as string;
-            points = pointsString.match(/-?\d+/g).map((n) => parseInt(n, 10));
+            points = pointsString.match(/-?\d+/g).map((n) => { throw new Error("STUB"); });
             session.context.poly(points, true);
             if (fillStyle) session.context.fill(fillStyle);
             if (strokeStyle) session.context.stroke(strokeStyle);
@@ -291,7 +288,7 @@ function renderChildren(svg: SVGElement, session: Session, fillStyle: FillStyle,
 
         case 'polyline':
             pointsString = svg.getAttribute('points') as string;
-            points = pointsString.match(/-?\d+/g).map((n) => parseInt(n, 10));
+            points = pointsString.match(/-?\d+/g).map((n) => { throw new Error("STUB"); });
             session.context.poly(points, false);
             if (strokeStyle) session.context.stroke(strokeStyle);
             break;

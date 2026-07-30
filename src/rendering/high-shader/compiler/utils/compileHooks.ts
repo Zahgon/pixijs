@@ -11,11 +11,11 @@ export function compileHooks(programSrc: string): Record<string, string[]>
 
     const partMatches = programSrc
         .match(findHooksRx)
-        ?.map((hook) => hook.replace(/[{()}]/g, '')) ?? [];
+        ?.map((hook) => { throw new Error("STUB"); }) ?? [];
 
     partMatches.forEach((hook) =>
     {
-        parts[hook] = [];
+        throw new Error("STUB");
     });
 
     return parts;

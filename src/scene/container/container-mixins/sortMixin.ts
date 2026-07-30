@@ -86,16 +86,12 @@ export const sortMixin: Partial<Container> = {
 
     get zIndex()
     {
-        return this._zIndex;
+        throw new Error("STUB");
     },
 
     set zIndex(value: number)
     {
-        if (this._zIndex === value) return;
-
-        this._zIndex = value;
-
-        this.depthOfChildModified();
+        throw new Error("STUB");
     },
 
     depthOfChildModified()

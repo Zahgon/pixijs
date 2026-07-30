@@ -46,7 +46,7 @@ export class GlUniformGroupSystem implements System
 
     protected contextChange(gl: GlRenderingContext): void
     {
-        this.gl = gl;
+        throw new Error("STUB");
     }
 
     /**

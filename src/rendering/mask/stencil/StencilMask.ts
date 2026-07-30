@@ -27,10 +27,7 @@ export class StencilMask implements Effect, PoolItem
 
     constructor(options: {mask: Container})
     {
-        if (options?.mask)
-        {
-            this.init(options.mask);
-        }
+        throw new Error("STUB");
     }
 
     public init(mask: Container): void
@@ -60,10 +57,7 @@ export class StencilMask implements Effect, PoolItem
 
     public containsPoint(point: Point, hitTestFn: (container: Container, point: Point) => boolean): boolean
     {
-        const mask = this.mask as any;
-
-        // if the point is in the mask, yay!
-        return hitTestFn(mask, point);
+        throw new Error("STUB");
     }
 
     public destroy(): void

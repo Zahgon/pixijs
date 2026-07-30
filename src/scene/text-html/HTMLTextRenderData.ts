@@ -21,19 +21,7 @@ export class HTMLTextRenderData
 
     constructor()
     {
-        const { foreignObject, svgRoot, styleElement, domElement } = this;
-        // Arbitrary max size
-
-        foreignObject.setAttribute('width', '10000');
-        foreignObject.setAttribute('height', '10000');
-        foreignObject.style.overflow = 'hidden';
-
-        svgRoot.appendChild(foreignObject);
-
-        foreignObject.appendChild(styleElement);
-        foreignObject.appendChild(domElement);
-
-        this.image = DOMAdapter.get().createImage();
+        throw new Error("STUB");
     }
 
     public destroy(): void

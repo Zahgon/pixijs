@@ -32,9 +32,7 @@ export class PoolGroupClass
      */
     public prepopulate<T extends PoolItem>(Class: PoolItemConstructor<T>, total: number): void
     {
-        const classPool = this.getPool(Class);
-
-        classPool.prepopulate(total);
+        throw new Error("STUB");
     }
 
     /**
@@ -81,28 +79,13 @@ export class PoolGroupClass
     /** gets the usage stats of each pool in the system */
     public stats(): Record<string, {free: number; used: number; size: number}>
     {
-        const stats = {} as Record<string, {free: number; used: number; size: number}>;
-
-        this._poolsByClass.forEach((pool) =>
-        {
-            // TODO: maybe we should allow the name to be set when `createEntity` is called
-            const name = stats[pool._classType.name]
-                ? pool._classType.name + (pool._classType as any).ID : pool._classType.name;
-
-            stats[name] = {
-                free: pool.totalFree,
-                used: pool.totalUsed,
-                size: pool.totalSize,
-            };
-        });
-
-        return stats;
+        throw new Error("STUB");
     }
 
     /** Clears all pools in the group. This will reset all pools and free their resources. */
     public clear(): void
     {
-        this._poolsByClass.forEach((pool) => pool.clear());
+        this._poolsByClass.forEach((pool) => { throw new Error("STUB"); });
         this._poolsByClass.clear();
     }
 }

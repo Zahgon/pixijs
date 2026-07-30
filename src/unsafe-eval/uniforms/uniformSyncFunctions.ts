@@ -12,167 +12,79 @@ export type UniformUploadFunction = (name: string, cu: any, cv: any, v: any, ud:
 export const uniformSingleParserFunctions: Record<UNIFORM_TYPES | string, UniformUploadFunction> = {
     f32(name: string, cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv !== v)
-        {
-            cu.value = v;
-            gl.uniform1f(ud[name].location, v);
-        }
+        throw new Error("STUB");
     },
     'vec2<f32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            gl.uniform2f(ud[name].location, v[0], v[1]);
-        }
+        throw new Error("STUB");
     },
     'vec3<f32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            gl.uniform3f(ud[name].location, v[0], v[1], v[2]);
-        }
+        throw new Error("STUB");
     },
     'vec4<f32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2] || cv[3] !== v[3])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            cv[3] = v[3];
-            gl.uniform4f(ud[name].location, v[0], v[1], v[2], v[3]);
-        }
+        throw new Error("STUB");
     },
     i32(name: string, cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv !== v)
-        {
-            cu.value = v;
-            gl.uniform1i(ud[name].location, v);
-        }
+        throw new Error("STUB");
     },
     'vec2<i32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            gl.uniform2i(ud[name].location, v[0], v[1]);
-        }
+        throw new Error("STUB");
     },
     'vec3<i32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            gl.uniform3i(ud[name].location, v[0], v[1], v[2]);
-        }
+        throw new Error("STUB");
     },
     'vec4<i32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2] || cv[3] !== v[3])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            cv[3] = v[3];
-            gl.uniform4i(ud[name].location, v[0], v[1], v[2], v[3]);
-        }
+        throw new Error("STUB");
     },
     u32(name: string, cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv !== v)
-        {
-            cu.value = v;
-            gl.uniform1ui(ud[name].location, v);
-        }
+        throw new Error("STUB");
     },
     'vec2<u32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            gl.uniform2ui(ud[name].location, v[0], v[1]);
-        }
+        throw new Error("STUB");
     },
     'vec3<u32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            gl.uniform3ui(ud[name].location, v[0], v[1], v[2]);
-        }
+        throw new Error("STUB");
     },
     'vec4<u32>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2] || cv[3] !== v[3])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            cv[3] = v[3];
-            gl.uniform4ui(ud[name].location, v[0], v[1], v[2], v[3]);
-        }
+        throw new Error("STUB");
     },
     bool(name: string, cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv !== v)
-        {
-            cu.value = v;
-            gl.uniform1i(ud[name].location, v);
-        }
+        throw new Error("STUB");
     },
     'vec2<bool>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            gl.uniform2i(ud[name].location, v[0], v[1]);
-        }
+        throw new Error("STUB");
     },
     'vec3<bool>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            gl.uniform3i(ud[name].location, v[0], v[1], v[2]);
-        }
+        throw new Error("STUB");
     },
     'vec4<bool>'(name: string, _cu: any, cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        if (cv[0] !== v[0] || cv[1] !== v[1] || cv[2] !== v[2] || cv[3] !== v[3])
-        {
-            cv[0] = v[0];
-            cv[1] = v[1];
-            cv[2] = v[2];
-            cv[3] = v[3];
-            gl.uniform4i(ud[name].location, v[0], v[1], v[2], v[3]);
-        }
+        throw new Error("STUB");
     },
     'mat2x2<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniformMatrix2fv(ud[name].location, false, v);
+        throw new Error("STUB");
     },
     'mat3x3<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniformMatrix3fv(ud[name].location, false, v);
+        throw new Error("STUB");
     },
     'mat4x4<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniformMatrix4fv(ud[name].location, false, v);
+        throw new Error("STUB");
     },
 };
 
@@ -180,79 +92,79 @@ export const uniformSingleParserFunctions: Record<UNIFORM_TYPES | string, Unifor
 export const uniformArrayParserFunctions: Record<UNIFORM_TYPES | string, UniformUploadFunction> = {
     f32(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform1fv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec2<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform2fv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec3<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform3fv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec4<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform4fv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'mat2x2<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniformMatrix2fv(ud[name].location, false, v);
+        throw new Error("STUB");
     },
     'mat3x3<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniformMatrix3fv(ud[name].location, false, v);
+        throw new Error("STUB");
     },
     'mat4x4<f32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniformMatrix4fv(ud[name].location, false, v);
+        throw new Error("STUB");
     },
     i32(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform1iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec2<i32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform2iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec3<i32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform3iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec4<i32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform4iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     u32(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform1iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec2<u32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform2iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec3<u32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform3iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec4<u32>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform4iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     bool(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform1iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec2<bool>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform2iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec3<bool>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform3iv(ud[name].location, v);
+        throw new Error("STUB");
     },
     'vec4<bool>'(name: string, _cu: any, _cv: any, v: any, ud: any, _uv: any, gl: any): void
     {
-        gl.uniform4iv(ud[name].location, v);
+        throw new Error("STUB");
     },
 };
 
@@ -261,55 +173,22 @@ export const uniformArrayParserFunctions: Record<UNIFORM_TYPES | string, Uniform
 export const uniformParserFunctions: UniformUploadFunction[] = [
     (name: string, _cu: any, _cv: any, _v: any, ud: any, uv: any, gl: any): void =>
     {
-        gl.uniformMatrix3fv(ud[name].location, false, uv[name].toArray(true));
+        throw new Error("STUB");
     },
     (name: string, _cu: any, cv: any, v: any, ud: any, uv: any, gl: any): void =>
     {
-        cv = ud[name].value;
-        v = uv[name];
-        if (cv[0] !== v.x || cv[1] !== v.y || cv[2] !== v.width || cv[3] !== v.height)
-        {
-            cv[0] = v.x;
-            cv[1] = v.y;
-            cv[2] = v.width;
-            cv[3] = v.height;
-            gl.uniform4f(ud[name].location, v.x, v.y, v.width, v.height);
-        }
+        throw new Error("STUB");
     },
     (name: string, _cu: any, cv: any, v: any, ud: any, uv: any, gl: any): void =>
     {
-        cv = ud[name].value;
-        v = uv[name];
-        if (cv[0] !== v.x || cv[1] !== v.y)
-        {
-            cv[0] = v.x;
-            cv[1] = v.y;
-            gl.uniform2f(ud[name].location, v.x, v.y);
-        }
+        throw new Error("STUB");
     },
     (name: string, _cu: any, cv: any, v: any, ud: any, uv: any, gl: any): void =>
     {
-        cv = ud[name].value;
-        v = uv[name];
-        if (cv[0] !== v.red || cv[1] !== v.green || cv[2] !== v.blue || cv[3] !== v.alpha)
-        {
-            cv[0] = v.red;
-            cv[1] = v.green;
-            cv[2] = v.blue;
-            cv[3] = v.alpha;
-            gl.uniform4f(ud[name].location, v.red, v.green, v.blue, v.alpha);
-        }
+        throw new Error("STUB");
     },
     (name: string, _cu: any, cv: any, v: any, ud: any, uv: any, gl: any): void =>
     {
-        cv = ud[name].value;
-        v = uv[name];
-        if (cv[0] !== v.red || cv[1] !== v.green || cv[2] !== v.blue)
-        {
-            cv[0] = v.red;
-            cv[1] = v.green;
-            cv[2] = v.blue;
-            gl.uniform3f(ud[name].location, v.red, v.green, v.blue);
-        }
+        throw new Error("STUB");
     },
 ];

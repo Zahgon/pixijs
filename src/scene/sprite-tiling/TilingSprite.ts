@@ -310,15 +310,12 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     public get uvRespectAnchor(): boolean
     {
-        deprecation(v8_0_0, 'uvRespectAnchor is deprecated, please use applyAnchorToTexture instead');
-
-        return this.applyAnchorToTexture;
+        throw new Error("STUB");
     }
     /** @advanced */
     public set uvRespectAnchor(value: boolean)
     {
-        deprecation(v8_0_0, 'uvRespectAnchor is deprecated, please use applyAnchorToTexture instead');
-        this.applyAnchorToTexture = value;
+        throw new Error("STUB");
     }
 
     /** @internal */
@@ -339,73 +336,7 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
     constructor(texture: Texture, width: number, height: number);
     constructor(...args: [(Texture | TilingSpriteOptions)?] | [Texture, number, number])
     {
-        let options = args[0] || {};
-
-        if (options instanceof Texture)
-        {
-            options = { texture: options };
-        }
-
-        if (args.length > 1)
-        {
-            // #if _DEBUG
-            deprecation(v8_0_0, 'use new TilingSprite({ texture, width:100, height:100 }) instead');
-            // #endif
-
-            options.width = args[1];
-            options.height = args[2];
-        }
-
-        options = { ...TilingSprite.defaultOptions, ...options };
-
-        const {
-            texture,
-            anchor,
-            tilePosition,
-            tileScale,
-            tileRotation,
-            width,
-            height,
-            applyAnchorToTexture,
-            roundPixels,
-            ...rest
-        } = options ?? {};
-
-        super({
-
-            label: 'TilingSprite',
-            ...rest
-        });
-
-        this.allowChildren = false;
-
-        this._anchor = new ObservablePoint(
-            {
-                _onUpdate: () =>
-                {
-                    this.onViewUpdate();
-                }
-            },
-        );
-
-        this.applyAnchorToTexture = applyAnchorToTexture;
-
-        this.texture = texture;
-        this._width = width ?? texture.width;
-        this._height = height ?? texture.height;
-
-        this._tileTransform = new Transform({
-            observer: {
-                _onUpdate: () => this.onViewUpdate(),
-            }
-        });
-
-        if (anchor) this.anchor = anchor;
-        this.tilePosition = tilePosition;
-        this.tileScale = tileScale;
-        this.tileRotation = tileRotation;
-
-        this.roundPixels = roundPixels ?? false;
+        throw new Error("STUB");
     }
 
     /**
@@ -417,13 +348,13 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     get clampMargin()
     {
-        return this._texture.textureMatrix.clampMargin;
+        throw new Error("STUB");
     }
 
     /** @advanced */
     set clampMargin(value: number)
     {
-        this._texture.textureMatrix.clampMargin = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -461,12 +392,12 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     get anchor(): ObservablePoint
     {
-        return this._anchor;
+        throw new Error("STUB");
     }
 
     set anchor(value: PointData | number)
     {
-        typeof value === 'number' ? this._anchor.set(value) : this._anchor.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -481,12 +412,12 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     get tilePosition(): ObservablePoint
     {
-        return this._tileTransform.position;
+        throw new Error("STUB");
     }
 
     set tilePosition(value: PointData)
     {
-        this._tileTransform.position.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -501,17 +432,17 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     get tileScale(): ObservablePoint
     {
-        return this._tileTransform.scale;
+        throw new Error("STUB");
     }
 
     set tileScale(value: PointData | number)
     {
-        typeof value === 'number' ? this._tileTransform.scale.set(value) : this._tileTransform.scale.copyFrom(value);
+        throw new Error("STUB");
     }
 
     set tileRotation(value)
     {
-        this._tileTransform.rotation = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -526,7 +457,7 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     get tileRotation()
     {
-        return this._tileTransform.rotation;
+        throw new Error("STUB");
     }
 
     /**
@@ -559,7 +490,7 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     get tileTransform()
     {
-        return this._tileTransform;
+        throw new Error("STUB");
     }
 
     set texture(value: Texture)
@@ -617,19 +548,17 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     override set width(value: number)
     {
-        this._width = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     override get width()
     {
-        return this._width;
+        throw new Error("STUB");
     }
 
     override set height(value: number)
     {
-        this._height = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -656,7 +585,7 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     override get height()
     {
-        return this._height;
+        throw new Error("STUB");
     }
 
     /**
@@ -683,16 +612,7 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     public override setSize(value: number | Optional<Size, 'height'>, height?: number): void
     {
-        if (typeof value === 'object')
-        {
-            height = value.height ?? value.width;
-            value = value.width;
-        }
-
-        this._width = value;
-        this._height = height ?? value;
-
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -716,28 +636,13 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     public override getSize(out?: Size): Size
     {
-        out ||= {} as Size;
-        out.width = this._width;
-        out.height = this._height;
-
-        return out;
+        throw new Error("STUB");
     }
 
     /** @private */
     protected override updateBounds()
     {
-        const bounds = this._bounds;
-
-        const anchor = this._anchor;
-
-        const width = this._width;
-        const height = this._height;
-
-        bounds.minX = -anchor._x * width;
-        bounds.maxX = bounds.minX + width;
-
-        bounds.minY = -anchor._y * height;
-        bounds.maxY = bounds.minY + height;
+        throw new Error("STUB");
     }
 
     /**
@@ -768,19 +673,7 @@ export class TilingSprite extends ViewContainer<TilingSpriteGpuData> implements 
      */
     public override containsPoint(point: PointData)
     {
-        const width = this._width;
-        const height = this._height;
-        const x1 = -width * this._anchor._x;
-        let y1 = 0;
-
-        if (point.x >= x1 && point.x <= x1 + width)
-        {
-            y1 = -height * this._anchor._y;
-
-            if (point.y >= y1 && point.y <= y1 + height) return true;
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**

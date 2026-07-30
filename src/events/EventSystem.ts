@@ -285,7 +285,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     public static get defaultEventMode()
     {
-        return this._defaultEventMode;
+        throw new Error("STUB");
     }
 
     /**
@@ -437,39 +437,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     constructor(renderer: Renderer)
     {
-        this.renderer = renderer;
-        this.rootBoundary = new EventBoundary(null);
-        EventsTicker.init(this);
-
-        this.autoPreventDefault = true;
-        this._eventsAdded = false;
-
-        this._rootPointerEvent = new FederatedPointerEvent(null);
-        this._rootWheelEvent = new FederatedWheelEvent(null);
-
-        this.cursorStyles = {
-            default: 'inherit',
-            pointer: 'pointer',
-        };
-
-        this.features = new Proxy({ ...EventSystem.defaultEventFeatures }, {
-            set: (target, key, value) =>
-            {
-                if (key === 'globalMove')
-                {
-                    this.rootBoundary.enableGlobalMoveEvents = value;
-                }
-                target[key as keyof EventSystemFeatures] = value;
-
-                return true;
-            }
-        });
-
-        this._onPointerDown = this._onPointerDown.bind(this);
-        this._onPointerMove = this._onPointerMove.bind(this);
-        this._onPointerUp = this._onPointerUp.bind(this);
-        this._onPointerOverOut = this._onPointerOverOut.bind(this);
-        this.onWheel = this.onWheel.bind(this);
+        throw new Error("STUB");
     }
 
     /**
@@ -493,7 +461,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     public resolutionChange(resolution: number): void
     {
-        this.resolution = resolution;
+        throw new Error("STUB");
     }
 
     /** Destroys all event listeners and detaches the renderer. */
@@ -538,55 +506,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     public setCursor(mode: string): void
     {
-        mode ||= 'default';
-        let applyStyles = true;
-
-        // offscreen canvas does not support setting styles, but cursor modes can be functions,
-        // in order to handle pixi rendered cursors, so we can't bail
-        if (globalThis.OffscreenCanvas && this.domElement instanceof OffscreenCanvas)
-        {
-            applyStyles = false;
-        }
-        // if the mode didn't actually change, bail early
-        if (this._currentCursor === mode)
-        {
-            return;
-        }
-        this._currentCursor = mode;
-        const style = this.cursorStyles[mode];
-
-        // only do things if there is a cursor style for it
-        if (style)
-        {
-            switch (typeof style)
-            {
-                case 'string':
-                    // string styles are handled as cursor CSS
-                    if (applyStyles)
-                    {
-                        this.domElement.style.cursor = style;
-                    }
-                    break;
-                case 'function':
-                    // functions are just called, and passed the cursor mode
-                    style(mode);
-                    break;
-                case 'object':
-                    // if it is an object, assume that it is a dictionary of CSS styles,
-                    // apply it to the interactionDOMElement
-                    if (applyStyles)
-                    {
-                        Object.assign(this.domElement.style, style);
-                    }
-                    break;
-            }
-        }
-        else if (applyStyles && typeof mode === 'string' && !Object.prototype.hasOwnProperty.call(this.cursorStyles, mode))
-        {
-            // if it mode is a string (not a Symbol) and cursorStyles doesn't have any entry
-            // for the mode, then assume that the dev wants it to be CSS for the cursor.
-            this.domElement.style.cursor = mode;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -614,7 +534,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     public get pointer(): Readonly<FederatedPointerEvent>
     {
-        return this._rootPointerEvent;
+        throw new Error("STUB");
     }
 
     /**
@@ -623,38 +543,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _onPointerDown(nativeEvent: MouseEvent | PointerEvent | TouchEvent): void
     {
-        if (!this.features.click) return;
-        this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-
-        const events = this._normalizeToPointerData(nativeEvent);
-
-        /*
-         * No need to prevent default on natural pointer events, as there are no side effects
-         * Normalized events, however, may have the double mousedown/touchstart issue on the native android browser,
-         * so still need to be prevented.
-         */
-
-        // Guaranteed that there will be at least one event in events, and all events must have the same pointer type
-
-        if (this.autoPreventDefault && (events[0] as any).isNormalized)
-        {
-            const cancelable = nativeEvent.cancelable || !('cancelable' in nativeEvent);
-
-            if (cancelable)
-            {
-                nativeEvent.preventDefault();
-            }
-        }
-
-        for (let i = 0, j = events.length; i < j; i++)
-        {
-            const nativeEvent = events[i];
-            const federatedEvent = this._bootstrapEvent(this._rootPointerEvent, nativeEvent);
-
-            this.rootBoundary.mapEvent(federatedEvent);
-        }
-
-        this.setCursor(this.rootBoundary.cursor);
+        throw new Error("STUB");
     }
 
     /**
@@ -663,21 +552,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _onPointerMove(nativeEvent: MouseEvent | PointerEvent | TouchEvent): void
     {
-        if (!this.features.move) return;
-        this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-
-        EventsTicker.pointerMoved();
-
-        const normalizedEvents = this._normalizeToPointerData(nativeEvent);
-
-        for (let i = 0, j = normalizedEvents.length; i < j; i++)
-        {
-            const event = this._bootstrapEvent(this._rootPointerEvent, normalizedEvents[i]);
-
-            this.rootBoundary.mapEvent(event);
-        }
-
-        this.setCursor(this.rootBoundary.cursor);
+        throw new Error("STUB");
     }
 
     /**
@@ -686,30 +561,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _onPointerUp(nativeEvent: MouseEvent | PointerEvent | TouchEvent): void
     {
-        if (!this.features.click) return;
-        this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-
-        let target = nativeEvent.target;
-
-        // if in shadow DOM use composedPath to access target
-        if (nativeEvent.composedPath && nativeEvent.composedPath().length > 0)
-        {
-            target = nativeEvent.composedPath()[0];
-        }
-
-        const outside = target !== this.domElement ? 'outside' : '';
-        const normalizedEvents = this._normalizeToPointerData(nativeEvent);
-
-        for (let i = 0, j = normalizedEvents.length; i < j; i++)
-        {
-            const event = this._bootstrapEvent(this._rootPointerEvent, normalizedEvents[i]);
-
-            event.type += outside;
-
-            this.rootBoundary.mapEvent(event);
-        }
-
-        this.setCursor(this.rootBoundary.cursor);
+        throw new Error("STUB");
     }
 
     /**
@@ -718,19 +570,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _onPointerOverOut(nativeEvent: MouseEvent | PointerEvent | TouchEvent): void
     {
-        if (!this.features.click) return;
-        this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-
-        const normalizedEvents = this._normalizeToPointerData(nativeEvent);
-
-        for (let i = 0, j = normalizedEvents.length; i < j; i++)
-        {
-            const event = this._bootstrapEvent(this._rootPointerEvent, normalizedEvents[i]);
-
-            this.rootBoundary.mapEvent(event);
-        }
-
-        this.setCursor(this.rootBoundary.cursor);
+        throw new Error("STUB");
     }
 
     /**
@@ -739,11 +579,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     protected onWheel(nativeEvent: WheelEvent): void
     {
-        if (!this.features.wheel) return;
-        const wheelEvent = this.normalizeWheelEvent(nativeEvent);
-
-        this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-        this.rootBoundary.mapEvent(wheelEvent);
+        throw new Error("STUB");
     }
 
     /**
@@ -938,21 +774,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     public mapPositionToPoint(point: PointData, x: number, y: number): void
     {
-        const rect = this.domElement.isConnected
-            ? this.domElement.getBoundingClientRect()
-            : {
-                x: 0,
-                y: 0,
-                width: (this.domElement as any).width,
-                height: (this.domElement as any).height,
-                left: 0,
-                top: 0
-            };
-
-        const resolutionMultiplier = 1.0 / this.resolution;
-
-        point.x = ((x - rect.left) * ((this.domElement as any).width / rect.width)) * resolutionMultiplier;
-        point.y = ((y - rect.top) * ((this.domElement as any).height / rect.height)) * resolutionMultiplier;
+        throw new Error("STUB");
     }
 
     /**
@@ -963,78 +785,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _normalizeToPointerData(event: TouchEvent | MouseEvent | PointerEvent): PointerEvent[]
     {
-        const normalizedEvents = [];
-
-        if (this.supportsTouchEvents && event instanceof TouchEvent)
-        {
-            for (let i = 0, li = event.changedTouches.length; i < li; i++)
-            {
-                const touch = event.changedTouches[i] as PixiTouch;
-
-                if (typeof touch.button === 'undefined') touch.button = 0;
-                if (typeof touch.buttons === 'undefined') touch.buttons = 1;
-                if (typeof touch.isPrimary === 'undefined')
-                {
-                    touch.isPrimary = event.touches.length === 1 && event.type === 'touchstart';
-                }
-                if (typeof touch.width === 'undefined') touch.width = touch.radiusX || 1;
-                if (typeof touch.height === 'undefined') touch.height = touch.radiusY || 1;
-                if (typeof touch.tiltX === 'undefined') touch.tiltX = 0;
-                if (typeof touch.tiltY === 'undefined') touch.tiltY = 0;
-                if (typeof touch.pointerType === 'undefined') touch.pointerType = 'touch';
-                if (typeof touch.pointerId === 'undefined') touch.pointerId = touch.identifier || 0;
-                if (typeof touch.pressure === 'undefined') touch.pressure = touch.force || 0.5;
-                if (typeof touch.twist === 'undefined') touch.twist = 0;
-                if (typeof touch.tangentialPressure === 'undefined') touch.tangentialPressure = 0;
-                // TODO: Remove these, as layerX/Y is not a standard, is deprecated, has uneven
-                // support, and the fill ins are not quite the same
-                // offsetX/Y might be okay, but is not the same as clientX/Y when the canvas's top
-                // left is not 0,0 on the page
-                if (typeof touch.layerX === 'undefined') touch.layerX = touch.offsetX = touch.clientX;
-                if (typeof touch.layerY === 'undefined') touch.layerY = touch.offsetY = touch.clientY;
-
-                // mark the touch as normalized, just so that we know we did it
-                touch.isNormalized = true;
-                touch.type = event.type;
-
-                // Copy modifier keys from the TouchEvent to the touch object
-                // These properties exist on TouchEvent, not on individual Touch objects
-                touch.altKey ??= event.altKey;
-                touch.ctrlKey ??= event.ctrlKey;
-                touch.metaKey ??= event.metaKey;
-                touch.shiftKey ??= event.shiftKey;
-
-                normalizedEvents.push(touch);
-            }
-        }
-        // apparently PointerEvent subclasses MouseEvent, so yay
-        else if (!globalThis.MouseEvent
-            || (event instanceof MouseEvent && (!this.supportsPointerEvents || !(event instanceof globalThis.PointerEvent))))
-        {
-            const tempEvent = event as PixiPointerEvent;
-
-            if (typeof tempEvent.isPrimary === 'undefined') tempEvent.isPrimary = true;
-            if (typeof tempEvent.width === 'undefined') tempEvent.width = 1;
-            if (typeof tempEvent.height === 'undefined') tempEvent.height = 1;
-            if (typeof tempEvent.tiltX === 'undefined') tempEvent.tiltX = 0;
-            if (typeof tempEvent.tiltY === 'undefined') tempEvent.tiltY = 0;
-            if (typeof tempEvent.pointerType === 'undefined') tempEvent.pointerType = 'mouse';
-            if (typeof tempEvent.pointerId === 'undefined') tempEvent.pointerId = MOUSE_POINTER_ID;
-            if (typeof tempEvent.pressure === 'undefined') tempEvent.pressure = 0.5;
-            if (typeof tempEvent.twist === 'undefined') tempEvent.twist = 0;
-            if (typeof tempEvent.tangentialPressure === 'undefined') tempEvent.tangentialPressure = 0;
-
-            // mark the mouse event as normalized, just so that we know we did it
-            tempEvent.isNormalized = true;
-
-            normalizedEvents.push(tempEvent);
-        }
-        else
-        {
-            normalizedEvents.push(event);
-        }
-
-        return normalizedEvents as PointerEvent[];
+        throw new Error("STUB");
     }
 
     /**
@@ -1047,30 +798,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     protected normalizeWheelEvent(nativeEvent: WheelEvent): FederatedWheelEvent
     {
-        const event = this._rootWheelEvent;
-
-        this._transferMouseData(event, nativeEvent);
-
-        // When WheelEvent is triggered by scrolling with mouse wheel, reading WheelEvent.deltaMode
-        // before deltaX/deltaY/deltaZ on Firefox will result in WheelEvent.DOM_DELTA_LINE (1),
-        // while reading WheelEvent.deltaMode after deltaX/deltaY/deltaZ on Firefox or reading
-        // in any order on other browsers will result in WheelEvent.DOM_DELTA_PIXEL (0).
-        // Therefore, we need to read WheelEvent.deltaMode after deltaX/deltaY/deltaZ in order to
-        // make its behavior more consistent across browsers.
-        // @see https://github.com/pixijs/pixijs/issues/8970
-        event.deltaX = nativeEvent.deltaX;
-        event.deltaY = nativeEvent.deltaY;
-        event.deltaZ = nativeEvent.deltaZ;
-        event.deltaMode = nativeEvent.deltaMode;
-
-        this.mapPositionToPoint(event.screen, nativeEvent.clientX, nativeEvent.clientY);
-        event.global.copyFrom(event.screen);
-        event.offset.copyFrom(event.screen);
-
-        event.nativeEvent = nativeEvent;
-        event.type = nativeEvent.type;
-
-        return event;
+        throw new Error("STUB");
     }
 
     /**
@@ -1080,40 +808,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _bootstrapEvent(event: FederatedPointerEvent, nativeEvent: PointerEvent): FederatedPointerEvent
     {
-        event.originalEvent = null;
-        event.nativeEvent = nativeEvent;
-
-        event.pointerId = nativeEvent.pointerId;
-        event.width = nativeEvent.width;
-        event.height = nativeEvent.height;
-        event.isPrimary = nativeEvent.isPrimary;
-        event.pointerType = nativeEvent.pointerType;
-        event.pressure = nativeEvent.pressure;
-        event.tangentialPressure = nativeEvent.tangentialPressure;
-        event.tiltX = nativeEvent.tiltX;
-        event.tiltY = nativeEvent.tiltY;
-        event.twist = nativeEvent.twist;
-        this._transferMouseData(event, nativeEvent);
-
-        this.mapPositionToPoint(event.screen, nativeEvent.clientX, nativeEvent.clientY);
-        event.global.copyFrom(event.screen);// global = screen for top-level
-        event.offset.copyFrom(event.screen);// EventBoundary recalculates using its rootTarget
-
-        event.isTrusted = nativeEvent.isTrusted;
-        if (event.type === 'pointerleave')
-        {
-            event.type = 'pointerout';
-        }
-        if (event.type.startsWith('mouse'))
-        {
-            event.type = event.type.replace('mouse', 'pointer');
-        }
-        if (event.type.startsWith('touch'))
-        {
-            event.type = TOUCH_TO_POINTER[event.type] || event.type;
-        }
-
-        return event;
+        throw new Error("STUB");
     }
 
     /**
@@ -1123,24 +818,7 @@ export class EventSystem implements System<EventSystemOptions>
      */
     private _transferMouseData(event: FederatedMouseEvent, nativeEvent: MouseEvent): void
     {
-        event.isTrusted = nativeEvent.isTrusted;
-        event.srcElement = nativeEvent.srcElement;
-        event.timeStamp = performance.now();
-        event.type = nativeEvent.type;
-
-        event.altKey = nativeEvent.altKey;
-        event.button = nativeEvent.button;
-        event.buttons = nativeEvent.buttons;
-        event.client.x = nativeEvent.clientX;
-        event.client.y = nativeEvent.clientY;
-        event.ctrlKey = nativeEvent.ctrlKey;
-        event.metaKey = nativeEvent.metaKey;
-        event.movement.x = nativeEvent.movementX;
-        event.movement.y = nativeEvent.movementY;
-        event.page.x = nativeEvent.pageX;
-        event.page.y = nativeEvent.pageY;
-        event.relatedTarget = null;
-        event.shiftKey = nativeEvent.shiftKey;
+        throw new Error("STUB");
     }
 }
 

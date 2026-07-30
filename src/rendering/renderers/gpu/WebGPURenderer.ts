@@ -161,14 +161,6 @@ export class WebGPURenderer<T extends ICanvas = HTMLCanvasElement>
 
     constructor()
     {
-        const systemConfig = {
-            name: 'webgpu',
-            type: RendererType.WEBGPU,
-            systems,
-            renderPipes,
-            renderPipeAdaptors,
-        };
-
-        super(systemConfig);
+        throw new Error("STUB");
     }
 }

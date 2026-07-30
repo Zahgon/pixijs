@@ -14,20 +14,10 @@ export const cacheTextureArray: CacheParser<Texture[]> = {
         name: 'cacheTextureArray',
     },
 
-    test: (asset: any[]) => Array.isArray(asset) && asset.every((t) => t instanceof Texture),
+    test: (asset: any[]) => { throw new Error("STUB"); },
 
     getCacheableAssets: (keys: string[], asset: Texture[]) =>
     {
-        const out: Record<string, Texture> = {};
-
-        keys.forEach((key: string) =>
-        {
-            asset.forEach((item: Texture, i: number) =>
-            {
-                out[key + (i === 0 ? '' : i + 1)] = item;
-            });
-        });
-
-        return out;
+        throw new Error("STUB");
     }
 };

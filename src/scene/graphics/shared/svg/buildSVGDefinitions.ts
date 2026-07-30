@@ -20,17 +20,7 @@ export class SVGDefsCollector
      */
     public addStyle(style: ConvertedFillStyle): string | null
     {
-        if (!(style.fill instanceof FillGradient)) return null;
-
-        const id = `pixi-grad-${this._nextId++}`;
-
-        this._gradients.push({
-            id,
-            gradient: style.fill,
-            textureSpace: style.textureSpace ?? 'local',
-        });
-
-        return `url(#${id})`;
+        throw new Error("STUB");
     }
 
     /** Renders the collected definitions as an SVG `<defs>` string. */
@@ -90,9 +80,7 @@ function buildColorStops(colorStops: { offset: number, color: any }[]): string
     return colorStops
         .map((stop) =>
         {
-            const hex = Color.shared.setValue(stop.color).toHex();
-
-            return `<stop offset="${stop.offset}" stop-color="${hex}"/>`;
+            throw new Error("STUB");
         })
         .join('');
 }

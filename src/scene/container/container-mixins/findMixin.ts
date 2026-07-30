@@ -86,24 +86,16 @@ export const findMixin: Partial<Container> = {
 
     get name(): string
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Container.name property has been removed, use Container.label instead');
-        // #endif
-
-        return this.label;
+        throw new Error("STUB");
     },
     set name(value: string)
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'Container.name property has been removed, use Container.label instead');
-        // #endif
-
-        this.label = value;
+        throw new Error("STUB");
     },
 
     getChildByName(name: string, deep = false): Container | null
     {
-        return this.getChildByLabel(name, deep);
+        throw new Error("STUB");
     },
 
     getChildByLabel(label: string | RegExp, deep = false): Container | null

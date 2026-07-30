@@ -158,12 +158,7 @@ export class Matrix
      */
     public fromArray(array: number[]): void
     {
-        this.a = array[0];
-        this.b = array[1];
-        this.c = array[3];
-        this.d = array[4];
-        this.tx = array[2];
-        this.ty = array[5];
+        throw new Error("STUB");
     }
 
     /**
@@ -967,7 +962,7 @@ export class Matrix
      */
     static get IDENTITY(): Readonly<Matrix>
     {
-        return identityMatrix.identity();
+        throw new Error("STUB");
     }
 
     /**
@@ -997,7 +992,7 @@ export class Matrix
      */
     static get shared(): Matrix
     {
-        return tempMatrix.identity();
+        throw new Error("STUB");
     }
 }
 

@@ -172,24 +172,7 @@ export class MeshSimple extends Mesh
      */
     constructor(options: SimpleMeshOptions)
     {
-        const { texture, vertices, uvs, indices, topology, ...rest } = options;
-        const geometry = new MeshGeometry(definedProps({
-            positions: vertices,
-            uvs,
-            indices,
-            topology
-        }));
-
-        // geometry.getBuffer('aPosition').static = false;
-
-        super(definedProps({
-            ...rest,
-            texture,
-            geometry,
-        }));
-
-        this.autoUpdate = true;
-        this.onRender = this._render;
+        throw new Error("STUB");
     }
 
     /**
@@ -221,18 +204,15 @@ export class MeshSimple extends Mesh
      */
     get vertices(): TypedArray
     {
-        return this.geometry.getBuffer('aPosition').data;
+        throw new Error("STUB");
     }
     set vertices(value: TypedArray)
     {
-        this.geometry.getBuffer('aPosition').data = value;
+        throw new Error("STUB");
     }
 
     private _render(): void
     {
-        if (this.autoUpdate)
-        {
-            this.geometry.getBuffer('aPosition').update();
-        }
+        throw new Error("STUB");
     }
 }

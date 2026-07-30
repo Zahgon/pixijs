@@ -518,11 +518,7 @@ export class ExtractSystem implements System
      */
     public async image(options: ExtractImageOptions | Container | Texture): Promise<ImageLike>
     {
-        const image = DOMAdapter.get().createImage();
-
-        image.src = await this.base64(options);
-
-        return image;
+        throw new Error("STUB");
     }
 
     /**
@@ -559,56 +555,7 @@ export class ExtractSystem implements System
      */
     public async base64(options: ExtractImageOptions | Container | Texture): Promise<string>
     {
-        options = this._normalizeOptions<ExtractImageOptions>(
-            options,
-            ExtractSystem.defaultImageOptions
-        );
-
-        const { format, quality } = options;
-
-        const canvas = this.canvas(options);
-
-        if (canvas.toBlob !== undefined)
-        {
-            return new Promise<string>((resolve, reject) =>
-            {
-                canvas.toBlob!((blob) =>
-                {
-                    if (!blob)
-                    {
-                        reject(new Error('ICanvas.toBlob failed!'));
-
-                        return;
-                    }
-
-                    const reader = new FileReader();
-
-                    reader.onload = () => resolve(reader.result as string);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(blob);
-                }, imageTypes[format], quality);
-            });
-        }
-        if (canvas.toDataURL !== undefined)
-        {
-            return canvas.toDataURL(imageTypes[format], quality);
-        }
-        if (canvas.convertToBlob !== undefined)
-        {
-            const blob = await canvas.convertToBlob({ type: imageTypes[format], quality });
-
-            return new Promise<string>((resolve, reject) =>
-            {
-                const reader = new FileReader();
-
-                reader.onload = () => resolve(reader.result as string);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-        }
-
-        throw new Error('Extract.base64() requires ICanvas.toDataURL, ICanvas.toBlob, '
-            + 'or ICanvas.convertToBlob to be implemented');
+        throw new Error("STUB");
     }
 
     /**
@@ -705,24 +652,7 @@ export class ExtractSystem implements System
      */
     public pixels(options: ExtractOptions | Container | Texture): GetPixelsOutput
     {
-        options = this._normalizeOptions(options);
-
-        const target = options.target;
-
-        const renderer = this._renderer;
-        const texture = target instanceof Texture
-            ? target
-            : renderer.textureGenerator.generateTexture(options as GenerateTextureOptions);
-
-        const pixelInfo = renderer.texture.getPixels(texture);
-
-        if (target instanceof Container)
-        {
-            // destroy generated texture
-            texture.destroy(true);
-        }
-
-        return pixelInfo;
+        throw new Error("STUB");
     }
 
     /**
@@ -823,19 +753,7 @@ export class ExtractSystem implements System
      */
     public download(options: ExtractDownloadOptions | Container | Texture)
     {
-        /* eslint-disable no-restricted-globals */
-        options = this._normalizeOptions<ExtractDownloadOptions>(options);
-
-        const canvas = this.canvas(options);
-
-        const link = document.createElement('a');
-
-        link.download = options.filename ?? 'image.png';
-        link.href = canvas.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        /* eslint-enable no-restricted-globals */
+        throw new Error("STUB");
     }
 
     /**

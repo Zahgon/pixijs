@@ -60,7 +60,7 @@ export function extractAttributesFromGlProgram(
 
     if (sortAttributes)
     {
-        keys.sort((a, b) => (a > b) ? 1 : -1); // eslint-disable-line no-confusing-arrow
+        keys.sort((a, b) => { throw new Error("STUB"); }); // eslint-disable-line no-confusing-arrow
 
         for (let i = 0; i < keys.length; i++)
         {

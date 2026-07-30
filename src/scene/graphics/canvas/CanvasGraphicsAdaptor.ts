@@ -273,7 +273,7 @@ export class CanvasGraphicsAdaptor implements GraphicsAdaptor
 
     public contextChange(renderer: Renderer): void
     {
-        void renderer;
+        throw new Error("STUB");
     }
 
     public execute(graphicsPipe: GraphicsPipeLike, renderable: Graphics): void

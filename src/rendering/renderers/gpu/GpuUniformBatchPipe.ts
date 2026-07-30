@@ -34,23 +34,7 @@ export class GpuUniformBatchPipe
 
     constructor(renderer: WebGPURenderer)
     {
-        this._renderer = renderer;
-
-        this._batchBuffer = new UboBatch({ minUniformOffsetAlignment });
-
-        const totalBuffers = (256 / minUniformOffsetAlignment);
-
-        for (let i = 0; i < totalBuffers; i++)
-        {
-            let usage = BufferUsage.UNIFORM | BufferUsage.COPY_DST;
-
-            if (i === 0) usage |= BufferUsage.COPY_SRC;
-
-            this._buffers.push(new Buffer({
-                data: this._batchBuffer.data,
-                usage
-            }));
-        }
+        throw new Error("STUB");
     }
 
     public renderEnd()
@@ -99,18 +83,12 @@ export class GpuUniformBatchPipe
 
     public getArrayBindGroup(data: Float32Array): BindGroup
     {
-        const offset = this._batchBuffer.addGroup(data);
-
-        return this._getBindGroup(offset / minUniformOffsetAlignment);
+        throw new Error("STUB");
     }
 
     public getArrayBufferResource(data: Float32Array): BufferResource
     {
-        const offset = this._batchBuffer.addGroup(data);
-
-        const index = offset / minUniformOffsetAlignment;
-
-        return this._getBufferResource(index);
+        throw new Error("STUB");
     }
 
     private _getBufferResource(index: number): BufferResource

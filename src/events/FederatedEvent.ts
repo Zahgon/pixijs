@@ -214,19 +214,27 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
     public layer: Point = new Point();
 
     /** @readonly */
-    get layerX(): number { return this.layer.x; }
+    get layerX(): number {
+        throw new Error("STUB");
+    }
 
     /** @readonly */
-    get layerY(): number { return this.layer.y; }
+    get layerY(): number {
+        throw new Error("STUB");
+    }
 
     /** The coordinates of the event relative to the DOM document. This is a non-standard property. */
     public page: Point = new Point();
 
     /** @readonly */
-    get pageX(): number { return this.page.x; }
+    get pageX(): number {
+        throw new Error("STUB");
+    }
 
     /** @readonly */
-    get pageY(): number { return this.page.y; }
+    get pageY(): number {
+        throw new Error("STUB");
+    }
 
     /**
      * @param manager - The event boundary which manages this event. Propagation can only occur
@@ -243,7 +251,7 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
      */
     get data(): this
     {
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -272,7 +280,7 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
      */
     public initEvent(_type: string, _bubbles?: boolean, _cancelable?: boolean): void
     {
-        throw new Error('initEvent() is a legacy DOM API. It is not implemented in the Federated Events API.');
+        throw new Error("STUB");
     }
 
     /**
@@ -288,7 +296,7 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
     public initUIEvent(_typeArg: string, _bubblesArg?: boolean, _cancelableArg?: boolean, _viewArg?: Window | null,
         _detailArg?: number): void
     {
-        throw new Error('initUIEvent() is a legacy DOM API. It is not implemented in the Federated Events API.');
+        throw new Error("STUB");
     }
 
     /**
@@ -310,12 +318,7 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
      */
     public preventDefault(): void
     {
-        if (this.nativeEvent instanceof Event && this.nativeEvent.cancelable)
-        {
-            this.nativeEvent.preventDefault();
-        }
-
-        this.defaultPrevented = true;
+        throw new Error("STUB");
     }
 
     /**
@@ -339,7 +342,7 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
      */
     public stopImmediatePropagation(): void
     {
-        this.propagationImmediatelyStopped = true;
+        throw new Error("STUB");
     }
 
     /**
@@ -367,7 +370,7 @@ export class FederatedEvent<N extends UIEvent | PixiTouch = UIEvent | PixiTouch>
      */
     public stopPropagation(): void
     {
-        this.propagationStopped = true;
+        throw new Error("STUB");
     }
 
     /**

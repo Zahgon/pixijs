@@ -68,62 +68,24 @@ const deprecationState: DeprecationOptions = {
  */
 export const deprecation: DeprecationFn = ((version: string, message: string, ignoreDepth: number = 3) =>
 {
-    // Suppress if is in quiet mode and ignore duplicate
-    if (deprecationState.quiet || warnings.has(message)) return;
-
-    /* eslint-disable no-console */
-    let stack = new Error().stack;
-
-    const deprecationMessage = `${message}\nDeprecated since v${version}`;
-    const useGroup = typeof console.groupCollapsed === 'function' && !deprecationState.noColor;
-
-    // Handle IE < 10 and Safari < 6
-    if (typeof stack === 'undefined')
-    {
-        console.warn('PixiJS Deprecation Warning: ', deprecationMessage);
-    }
-    else
-    {
-        // chop off the stack trace which includes PixiJS internal calls
-        stack = stack.split('\n').splice(ignoreDepth).join('\n');
-
-        if (useGroup)
-        {
-            console.groupCollapsed(
-                '%cPixiJS Deprecation Warning: %c%s',
-                'color:#614108;background:#fffbe6',
-                'font-weight:normal;color:#614108;background:#fffbe6',
-                deprecationMessage
-            );
-            console.warn(stack);
-            console.groupEnd();
-        }
-        else
-        {
-            console.warn('PixiJS Deprecation Warning: ', deprecationMessage);
-            console.warn(stack);
-        }
-    }
-    /* eslint-enable no-console */
-
-    warnings.add(message);
+    throw new Error("STUB");
 }) as DeprecationFn;
 
 Object.defineProperties(deprecation, {
     quiet: {
-        get: () => deprecationState.quiet,
+        get: () => { throw new Error("STUB"); },
         set: (value: boolean) =>
         {
-            deprecationState.quiet = value;
+            throw new Error("STUB");
         },
         enumerable: true,
         configurable: false
     },
     noColor: {
-        get: () => deprecationState.noColor,
+        get: () => { throw new Error("STUB"); },
         set: (value: boolean) =>
         {
-            deprecationState.noColor = value;
+            throw new Error("STUB");
         },
         enumerable: true,
         configurable: false

@@ -847,183 +847,129 @@ export class TextStyle extends EventEmitter<{
 
     constructor(style: Partial<TextStyleOptions> = {})
     {
-        super();
-
-        convertV7Tov8Style(style);
-
-        // When style is a TextStyle instance, use its toObject() values instead of the spread
-        // which copies proxy objects bound to the wrong instance.
-        const isTextStyle = style instanceof TextStyle;
-        const existingStyle = style as TextStyle;
-
-        if (isTextStyle)
-        {
-            style = existingStyle._toObject();
-        }
-
-        const fullStyle = { ...TextStyle.defaultTextStyle, ...style };
-
-        for (const key in fullStyle)
-        {
-            const thisKey = key as keyof typeof this;
-
-            this[thisKey] = fullStyle[key as keyof TextStyleOptions] as any;
-        }
-
-        // Initialize tagStyles separately (not in defaultTextStyle to avoid shared reference)
-        this._tagStyles = style.tagStyles ?? undefined;
-
-        this.update();
-        this._tick = 0;
+        throw new Error("STUB");
     }
 
     /**
      * Alignment for multiline text, does not affect single line text.
      * @type {'left'|'center'|'right'|'justify'}
      */
-    get align(): TextStyleAlign { return this._align; }
+    get align(): TextStyleAlign {
+        throw new Error("STUB");
+    }
 
     set align(value: TextStyleAlign)
     {
-        if (this._align === value) return;
-
-        this._align = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** Indicates if lines can be wrapped within words, it needs wordWrap to be set to true. */
-    get breakWords(): boolean { return this._breakWords; }
+    get breakWords(): boolean {
+        throw new Error("STUB");
+    }
 
     set breakWords(value: boolean)
     {
-        if (this._breakWords === value) return;
-
-        this._breakWords = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** Set a drop shadow for the text. */
-    get dropShadow(): TextDropShadow { return this._dropShadow; }
+    get dropShadow(): TextDropShadow {
+        throw new Error("STUB");
+    }
 
     set dropShadow(value: boolean | TextDropShadow)
     {
-        if (this._dropShadow === value) return;
-
-        if (value !== null && typeof value === 'object')
-        {
-            this._dropShadow = this._createProxy({ ...TextStyle.defaultDropShadow, ...value });
-        }
-        else
-        {
-            this._dropShadow = value ? this._createProxy({ ...TextStyle.defaultDropShadow }) : null;
-        }
-
-        this.update();
+        throw new Error("STUB");
     }
 
     /** The font family, can be a single font name, or a list of names where the first is the preferred font. */
-    get fontFamily(): string | string[] { return this._fontFamily; }
+    get fontFamily(): string | string[] {
+        throw new Error("STUB");
+    }
 
     set fontFamily(value: string | string[])
     {
-        if (this._fontFamily === value) return;
-
-        this._fontFamily = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** The font size (as a number it converts to px, but as a string, equivalents are '26px','20pt','160%' or '1.6em') */
-    get fontSize(): number { return this._fontSize; }
+    get fontSize(): number {
+        throw new Error("STUB");
+    }
 
     set fontSize(value: string | number)
     {
-        if (this._fontSize === value) return;
-
-        if (typeof value === 'string')
-        {
-            // eg '34px' to number
-            this._fontSize = parseInt(value as string, 10);
-        }
-        else
-        {
-            this._fontSize = value as number;
-        }
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
      * The font style.
      * @type {'normal'|'italic'|'oblique'}
      */
-    get fontStyle(): TextStyleFontStyle { return this._fontStyle; }
+    get fontStyle(): TextStyleFontStyle {
+        throw new Error("STUB");
+    }
 
     set fontStyle(value: TextStyleFontStyle)
     {
-        if (this._fontStyle === value) return;
-
-        this._fontStyle = value.toLowerCase() as TextStyleFontStyle;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
      * The font variant.
      * @type {'normal'|'small-caps'}
      */
-    get fontVariant(): TextStyleFontVariant { return this._fontVariant; }
+    get fontVariant(): TextStyleFontVariant {
+        throw new Error("STUB");
+    }
 
     set fontVariant(value: TextStyleFontVariant)
     {
-        if (this._fontVariant === value) return;
-
-        this._fontVariant = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
      * The font weight.
      * @type {'normal'|'bold'|'bolder'|'lighter'|'100'|'200'|'300'|'400'|'500'|'600'|'700'|'800'|'900'}
      */
-    get fontWeight(): TextStyleFontWeight { return this._fontWeight; }
+    get fontWeight(): TextStyleFontWeight {
+        throw new Error("STUB");
+    }
 
     set fontWeight(value: TextStyleFontWeight)
     {
-        if (this._fontWeight === value) return;
-
-        this._fontWeight = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** The space between lines. */
-    get leading(): number { return this._leading; }
+    get leading(): number {
+        throw new Error("STUB");
+    }
 
     set leading(value: number)
     {
-        if (this._leading === value) return;
-
-        this._leading = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** The amount of spacing between letters, default is 0. */
-    get letterSpacing(): number { return this._letterSpacing; }
+    get letterSpacing(): number {
+        throw new Error("STUB");
+    }
 
     set letterSpacing(value: number)
     {
-        if (this._letterSpacing === value) return;
-
-        this._letterSpacing = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** The line height, a number that represents the vertical space that a letter uses. */
-    get lineHeight(): number { return this._lineHeight; }
+    get lineHeight(): number {
+        throw new Error("STUB");
+    }
 
     set lineHeight(value: number)
     {
-        if (this._lineHeight === value) return;
-
-        this._lineHeight = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
@@ -1031,14 +977,13 @@ export class TextStyle extends EventEmitter<{
      * by adding padding to all sides of the text.
      * > [!NOTE] This will NOT affect the positioning or bounds of the text.
      */
-    get padding(): number { return this._padding; }
+    get padding(): number {
+        throw new Error("STUB");
+    }
 
     set padding(value: number)
     {
-        if (this._padding === value) return;
-
-        this._padding = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
@@ -1047,14 +992,13 @@ export class TextStyle extends EventEmitter<{
      * compared to applying the filter directly to the text object (which would be applied at run time).
      * @default null
      */
-    get filters(): readonly Filter[] { return this._filters; }
+    get filters(): readonly Filter[] {
+        throw new Error("STUB");
+    }
 
     set filters(value: Filter[])
     {
-        if (this._filters === value) return;
-
-        this._filters = Object.freeze(value);
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
@@ -1063,28 +1007,26 @@ export class TextStyle extends EventEmitter<{
      * > This is a costly operation as it requires scanning pixel alpha values.
      * > Avoid using `trim: true` for dynamic text, as it could significantly impact performance.
      */
-    get trim(): boolean { return this._trim; }
+    get trim(): boolean {
+        throw new Error("STUB");
+    }
 
     set trim(value: boolean)
     {
-        if (this._trim === value) return;
-
-        this._trim = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
      * The baseline of the text that is rendered.
      * @type {'alphabetic'|'top'|'hanging'|'middle'|'ideographic'|'bottom'}
      */
-    get textBaseline(): TextStyleTextBaseline { return this._textBaseline; }
+    get textBaseline(): TextStyleTextBaseline {
+        throw new Error("STUB");
+    }
 
     set textBaseline(value: TextStyleTextBaseline)
     {
-        if (this._textBaseline === value) return;
-
-        this._textBaseline = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
@@ -1098,14 +1040,13 @@ export class TextStyle extends EventEmitter<{
      * 'pre-line'   | Preserve      |   Collapse
      * @type {'normal'|'pre'|'pre-line'}
      */
-    get whiteSpace(): TextStyleWhiteSpace { return this._whiteSpace; }
+    get whiteSpace(): TextStyleWhiteSpace {
+        throw new Error("STUB");
+    }
 
     set whiteSpace(value: TextStyleWhiteSpace)
     {
-        if (this._whiteSpace === value) return;
-
-        this._whiteSpace = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /** Indicates if word wrap should be used. */
@@ -1120,14 +1061,13 @@ export class TextStyle extends EventEmitter<{
     }
 
     /** The width at which text will wrap, it needs wordWrap to be set to true. */
-    get wordWrapWidth(): number { return this._wordWrapWidth; }
+    get wordWrapWidth(): number {
+        throw new Error("STUB");
+    }
 
     set wordWrapWidth(value: number)
     {
-        if (this._wordWrapWidth === value) return;
-
-        this._wordWrapWidth = value;
-        this.update();
+        throw new Error("STUB");
     }
 
     /**
@@ -1170,10 +1110,7 @@ export class TextStyle extends EventEmitter<{
         {
             this._originalFill = this._createProxy({ ...GraphicsContext.defaultFillStyle, ...value }, () =>
             {
-                this._fill = toFillStyle(
-                    { ...this._originalFill as FillStyle },
-                    GraphicsContext.defaultFillStyle
-                );
+                throw new Error("STUB");
             });
         }
 
@@ -1200,10 +1137,7 @@ export class TextStyle extends EventEmitter<{
         {
             this._originalStroke = this._createProxy({ ...GraphicsContext.defaultStrokeStyle, ...value }, () =>
             {
-                this._stroke = toStrokeStyle(
-                    { ...this._originalStroke as StrokeStyle },
-                    GraphicsContext.defaultStrokeStyle
-                );
+                throw new Error("STUB");
             });
         }
 
@@ -1233,15 +1167,12 @@ export class TextStyle extends EventEmitter<{
      */
     public get tagStyles(): Record<string, TextStyleOptions> | undefined
     {
-        return this._tagStyles;
+        throw new Error("STUB");
     }
 
     public set tagStyles(value: Record<string, TextStyleOptions> | undefined)
     {
-        if (this._tagStyles === value) return;
-
-        this._tagStyles = value ?? undefined;
-        this.update();
+        throw new Error("STUB");
     }
 
     public update()
@@ -1287,7 +1218,7 @@ export class TextStyle extends EventEmitter<{
      */
     public get styleKey(): string
     {
-        return `${this.uid}-${this._tick}`;
+        throw new Error("STUB");
     }
 
     /**
@@ -1297,12 +1228,7 @@ export class TextStyle extends EventEmitter<{
      */
     public get _fontString(): string
     {
-        if (this._cachedFontString === null)
-        {
-            this._cachedFontString = fontStringFromTextStyle(this);
-        }
-
-        return this._cachedFontString;
+        throw new Error("STUB");
     }
 
     /**
@@ -1426,123 +1352,17 @@ export class TextStyle extends EventEmitter<{
 
     private _createProxy<T extends object>(value: T, cb?: (property: string, newValue: any) => void): T
     {
-        return new Proxy<T>(value, {
-            set: (target, property, newValue) =>
-            {
-                if (target[property as keyof T] === newValue) return true;
-
-                target[property as keyof T] = newValue;
-                cb?.(property as string, newValue);
-                this.update();
-
-                return true;
-            }
-        });
+        throw new Error("STUB");
     }
 
     private _isFillStyle(value: FillInput): value is FillStyle
     {
-        return ((value ?? null) !== null
-            && !(Color.isColorLike(value) || value instanceof FillGradient || value instanceof FillPattern));
+        throw new Error("STUB");
     }
 }
 
 function convertV7Tov8Style(style: TextStyleOptions)
 {
-    const oldStyle = style as TextStyleOptions & {
-        dropShadowAlpha?: number;
-        dropShadowAngle?: number;
-        dropShadowBlur?: number;
-        dropShadowColor?: number;
-        dropShadowDistance?: number;
-        fillGradientStops?: number[];
-        strokeThickness?: number;
-    };
-
-    if (typeof oldStyle.dropShadow === 'boolean' && oldStyle.dropShadow)
-    {
-        const defaults = TextStyle.defaultDropShadow;
-
-        style.dropShadow = {
-            alpha: oldStyle.dropShadowAlpha ?? defaults.alpha,
-            angle: oldStyle.dropShadowAngle ?? defaults.angle,
-            blur: oldStyle.dropShadowBlur ?? defaults.blur,
-            color: oldStyle.dropShadowColor ?? defaults.color,
-            distance: oldStyle.dropShadowDistance ?? defaults.distance
-        };
-    }
-
-    if (oldStyle.strokeThickness !== undefined)
-    {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'strokeThickness is now a part of stroke');
-        // #endif
-
-        const color = oldStyle.stroke;
-        let obj: FillStyle = {};
-
-        // handles stroke: 0x0, stroke: { r: 0, g: 0, b: 0, a: 0 } stroke: new Color(0x0)
-        if (Color.isColorLike(color as ColorSource))
-        {
-            obj.color = color as ColorSource;
-        }
-        // handles stroke: new FillGradient()
-        else if (color instanceof FillGradient || color instanceof FillPattern)
-        {
-            obj.fill = color as FillGradient | FillPattern;
-        }
-        // handles stroke: { color: 0x0 } or stroke: { fill: new FillGradient() }
-        else if (Object.hasOwnProperty.call(color, 'color') || Object.hasOwnProperty.call(color, 'fill'))
-        {
-            obj = color as FillStyle;
-        }
-        else
-        {
-            throw new Error('Invalid stroke value.');
-        }
-
-        style.stroke = {
-            ...obj,
-            width: oldStyle.strokeThickness
-        };
-    }
-
-    if (Array.isArray(oldStyle.fillGradientStops))
-    {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'gradient fill is now a fill pattern: `new FillGradient(...)`');
-        // #endif
-
-        if (!Array.isArray(oldStyle.fill) || oldStyle.fill.length === 0)
-        {
-            throw new Error('Invalid fill value. Expected an array of colors for gradient fill.');
-        }
-
-        if (oldStyle.fill.length !== oldStyle.fillGradientStops.length)
-        {
-            // #if _DEBUG
-            warn('The number of fill colors must match the number of fill gradient stops.');
-            // #endif
-        }
-
-        const gradientFill = new FillGradient({
-            start: { x: 0, y: 0 },
-            end: { x: 0, y: 1 },
-            textureSpace: 'local'
-        });
-
-        const fillGradientStops = oldStyle.fillGradientStops.slice();
-        const fills: number[] = oldStyle.fill
-            .map((color: ColorSource) => Color.shared.setValue(color).toNumber());
-
-        fillGradientStops.forEach((stop, index) =>
-        {
-            gradientFill.addColorStop(stop, fills[index]);
-        });
-
-        style.fill = {
-            fill: gradientFill
-        };
-    }
+    throw new Error("STUB");
 }
 

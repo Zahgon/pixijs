@@ -186,45 +186,7 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     constructor(options: SpriteOptions | Texture = Texture.EMPTY)
     {
-        if (options instanceof Texture)
-        {
-            options = { texture: options };
-        }
-
-        // split out
-        const { texture = Texture.EMPTY, anchor, roundPixels, width, height, ...rest } = options;
-
-        super({
-            label: 'Sprite',
-            ...rest
-        });
-
-        this._anchor = new ObservablePoint(
-            {
-                _onUpdate: () =>
-                {
-                    this.onViewUpdate();
-                }
-            },
-        );
-
-        if (anchor)
-        {
-            this.anchor = anchor;
-        }
-        else if (texture.defaultAnchor)
-        {
-            this.anchor = texture.defaultAnchor;
-        }
-
-        this.texture = texture;
-
-        this.allowChildren = false;
-        this.roundPixels = roundPixels ?? false;
-
-        // needs to be set after the container has initiated
-        if (width !== undefined) this.width = width;
-        if (height !== undefined) this.height = height;
+        throw new Error("STUB");
     }
 
     set texture(value: Texture)
@@ -298,9 +260,7 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     get visualBounds()
     {
-        updateQuadBounds(this._visualBounds, this._anchor, this._texture);
-
-        return this._visualBounds;
+        throw new Error("STUB");
     }
 
     /**
@@ -309,28 +269,13 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     get sourceBounds()
     {
-        // #if _DEBUG
-        deprecation('8.6.1', 'Sprite.sourceBounds is deprecated, use visualBounds instead.');
-        // #endif
-
-        return this.visualBounds;
+        throw new Error("STUB");
     }
 
     /** @private */
     protected updateBounds()
     {
-        const anchor = this._anchor;
-        const texture = this._texture;
-
-        const bounds = this._bounds;
-
-        const { width, height } = texture.orig;
-
-        bounds.minX = -anchor._x * width;
-        bounds.maxX = bounds.minX + width;
-
-        bounds.minY = -anchor._y * height;
-        bounds.maxY = bounds.minY + height;
+        throw new Error("STUB");
     }
 
     /**
@@ -396,12 +341,12 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     get anchor(): ObservablePoint
     {
-        return this._anchor;
+        throw new Error("STUB");
     }
 
     set anchor(value: PointData | number)
     {
-        typeof value === 'number' ? this._anchor.set(value) : this._anchor.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -426,13 +371,12 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     override get width(): number
     {
-        return Math.abs(this.scale.x) * this._texture.orig.width;
+        throw new Error("STUB");
     }
 
     override set width(value: number)
     {
-        this._setWidth(value, this._texture.orig.width);
-        this._width = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -457,13 +401,12 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     override get height(): number
     {
-        return Math.abs(this.scale.y) * this._texture.orig.height;
+        throw new Error("STUB");
     }
 
     override set height(value: number)
     {
-        this._setHeight(value, this._texture.orig.height);
-        this._height = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -488,11 +431,7 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     public override getSize(out?: Size): Size
     {
-        out ||= {} as Size;
-        out.width = Math.abs(this.scale.x) * this._texture.orig.width;
-        out.height = Math.abs(this.scale.y) * this._texture.orig.height;
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -527,17 +466,6 @@ export class Sprite extends ViewContainer<BatchableSprite>
      */
     public override setSize(value: number | Optional<Size, 'height'>, height?: number)
     {
-        if (typeof value === 'object')
-        {
-            height = value.height ?? value.width;
-            value = value.width;
-        }
-        else
-        {
-            height ??= value;
-        }
-
-        value !== undefined && this._setWidth(value, this._texture.orig.width);
-        height !== undefined && this._setHeight(height, this._texture.orig.height);
+        throw new Error("STUB");
     }
 }

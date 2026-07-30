@@ -198,15 +198,7 @@ export class Circle implements ShapePrimitive
      */
     public strokeContains(x: number, y: number, width: number, alignment: number = 0.5): boolean
     {
-        if (this.radius === 0) return false;
-
-        const dx = (this.x - x);
-        const dy = (this.y - y);
-        const radius = this.radius;
-        const outerWidth = (1 - alignment) * width;
-        const distance = Math.sqrt((dx * dx) + (dy * dy));
-
-        return (distance <= radius + outerWidth && distance > radius - (width - outerWidth));
+        throw new Error("STUB");
     }
 
     /**

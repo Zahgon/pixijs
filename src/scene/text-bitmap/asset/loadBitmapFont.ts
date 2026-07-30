@@ -26,15 +26,14 @@ export const bitmapFontCachePlugin = {
         name: 'cacheBitmapFont',
     },
     test: (asset: BitmapFont) =>
-        !!asset?.pages && !!asset?.chars && typeof asset?.fontFamily === 'string' && asset.fontFamily !== '',
+        { throw new Error("STUB"); },
     getCacheableAssets(keys: string[], asset: BitmapFont)
     {
         const out: Record<string, BitmapFont> = {};
 
         keys.forEach((key) =>
         {
-            out[key] = asset;
-            out[`${key}-bitmap`] = asset;
+            throw new Error("STUB");
         });
 
         out[`${asset.fontFamily}-bitmap`] = asset;
@@ -105,7 +104,7 @@ export const loadBitmapFont = {
             loader.load<Texture>(textureUrls),
             import('../BitmapFont'),
         ]);
-        const textures = textureUrls.map((url) => loadedTextures[url.src]);
+        const textures = textureUrls.map((url) => { throw new Error("STUB"); });
 
         const bitmapFont = new BitmapFont({
             data: bitmapFontData,
@@ -124,7 +123,7 @@ export const loadBitmapFont = {
 
     async unload(bitmapFont: BitmapFont, _resolvedAsset, loader): Promise<void>
     {
-        await Promise.all(bitmapFont.pages.map((page) => loader.unload(page.texture.source._sourceOrigin)));
+        await Promise.all(bitmapFont.pages.map((page) => { throw new Error("STUB"); }));
 
         bitmapFont.destroy();
     }

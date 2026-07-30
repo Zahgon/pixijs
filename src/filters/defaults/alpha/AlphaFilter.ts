@@ -71,39 +71,7 @@ export class AlphaFilter extends Filter
 
     constructor(options?: AlphaFilterOptions)
     {
-        options = { ...AlphaFilter.defaultOptions, ...options };
-
-        const gpuProgram = GpuProgram.from({
-            vertex: {
-                source,
-                entryPoint: 'mainVertex',
-            },
-            fragment: {
-                source,
-                entryPoint: 'mainFragment',
-            },
-        });
-
-        const glProgram = GlProgram.from({
-            vertex,
-            fragment,
-            name: 'alpha-filter'
-        });
-
-        const { alpha, ...rest } = options;
-
-        const alphaUniforms = new UniformGroup({
-            uAlpha: { value: alpha, type: 'f32' },
-        });
-
-        super({
-            ...rest,
-            gpuProgram,
-            glProgram,
-            resources: {
-                alphaUniforms
-            },
-        });
+        throw new Error("STUB");
     }
 
     /**
@@ -123,6 +91,10 @@ export class AlphaFilter extends Filter
      * - 1 = fully opaque
      * - Values are clamped between 0 and 1
      */
-    get alpha(): number { return this.resources.alphaUniforms.uniforms.uAlpha; }
-    set alpha(value: number) { this.resources.alphaUniforms.uniforms.uAlpha = value; }
+    get alpha(): number {
+        throw new Error("STUB");
+    }
+    set alpha(value: number) {
+        throw new Error("STUB");
+    }
 }

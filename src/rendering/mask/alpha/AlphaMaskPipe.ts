@@ -41,12 +41,12 @@ class AlphaMaskEffect extends FilterEffect implements PoolItem
 
     get sprite(): Sprite
     {
-        return (this.filters[0] as MaskFilter).sprite;
+        throw new Error("STUB");
     }
 
     set sprite(value: Sprite)
     {
-        (this.filters[0] as MaskFilter).sprite = value;
+        throw new Error("STUB");
     }
 
     get inverse(): boolean
@@ -61,12 +61,12 @@ class AlphaMaskEffect extends FilterEffect implements PoolItem
 
     get channel(): MaskChannel
     {
-        return (this.filters[0] as MaskFilter).channel;
+        throw new Error("STUB");
     }
 
     set channel(value: MaskChannel)
     {
-        (this.filters[0] as MaskFilter).channel = value;
+        throw new Error("STUB");
     }
 
     public init: () => void;

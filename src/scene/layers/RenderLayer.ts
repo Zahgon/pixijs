@@ -198,7 +198,7 @@ export class RenderLayer extends Container
          * @param b - Second container to compare
          * @returns Negative if a should render before b, positive if b should render before a
          */
-        sortFunction: (a, b) => a.zIndex - b.zIndex,
+        sortFunction: (a, b) => { throw new Error("STUB"); },
     };
 
     /** Function used to sort layer children if sortableChildren is true */
@@ -274,12 +274,7 @@ export class RenderLayer extends Container
      */
     constructor(options: RenderLayerOptions = {})
     {
-        options = { ...RenderLayer.defaultOptions, ...options };
-
-        super();
-
-        this.sortableChildren = options.sortableChildren;
-        this.sortFunction = options.sortFunction;
+        throw new Error("STUB");
     }
 
     /**
@@ -316,30 +311,7 @@ export class RenderLayer extends Container
      */
     public attach<U extends Container[]>(...children: U): U[0]
     {
-        for (let i = 0; i < children.length; i++)
-        {
-            const child = children[i];
-
-            if (child.parentRenderLayer)
-            {
-                if (child.parentRenderLayer === this) continue;
-
-                child.parentRenderLayer.detach(child);
-            }
-
-            this.renderLayerChildren.push(child);
-
-            child.parentRenderLayer = this;
-
-            const renderGroup = this.renderGroup || this.parentRenderGroup;
-
-            if (renderGroup)
-            {
-                renderGroup.structureDidChange = true;
-            }
-        }
-
-        return children[0];
+        throw new Error("STUB");
     }
 
     /**
@@ -431,14 +403,7 @@ export class RenderLayer extends Container
      */
     public detachAll()
     {
-        const layerChildren = this.renderLayerChildren;
-
-        for (let i = 0; i < layerChildren.length; i++)
-        {
-            layerChildren[i].parentRenderLayer = null;
-        }
-
-        this.renderLayerChildren.length = 0;
+        throw new Error("STUB");
     }
 
     /**
@@ -593,9 +558,7 @@ export class RenderLayer extends Container
      */
     public override removeChildAt(_index: number): never
     {
-        throw new Error(
-            'RenderLayer.removeChildAt() is not available',
-        );
+        throw new Error("STUB");
     }
     /**
      * This method is not available in RenderLayer.
@@ -665,9 +628,7 @@ export class RenderLayer extends Container
      */
     public override swapChildren<U extends Container>(_child: U, _child2: U): never
     {
-        throw new Error(
-            'RenderLayer.swapChildren() is not available',
-        );
+        throw new Error("STUB");
     }
 
     /**
@@ -680,7 +641,7 @@ export class RenderLayer extends Container
      */
     public override reparentChild(..._child: Container[]): never
     {
-        throw new Error('RenderLayer.reparentChild() is not available with the render layer');
+        throw new Error("STUB");
     }
 
     /**

@@ -298,37 +298,7 @@ export class FillGradient implements CanvasGradient
     );
     constructor(...args: [GradientOptions] | [number?, number?, number?, number?, TextureSpace?, number?])
     {
-        let options = ensureGradientOptions(args);
-
-        const defaults = options.type === 'radial' ? FillGradient.defaultRadialOptions : FillGradient.defaultLinearOptions;
-
-        options = { ...defaults, ...definedProps(options) };
-
-        this._textureSize = options.textureSize;
-        this._wrapMode = options.wrapMode;
-
-        if (options.type === 'radial')
-        {
-            this.center = options.center;
-            this.outerCenter = options.outerCenter ?? this.center;
-            this.innerRadius = options.innerRadius;
-            this.outerRadius = options.outerRadius;
-            this.scale = options.scale;
-            this.rotation = options.rotation;
-        }
-        else
-        {
-            this.start = options.start;
-            this.end = options.end;
-        }
-
-        this.textureSpace = options.textureSpace;
-
-        this.type = options.type;
-        options.colorStops.forEach((stop) =>
-        {
-            this.addColorStop(stop.offset, stop.color);
-        });
+        throw new Error("STUB");
     }
 
     /**
@@ -544,7 +514,7 @@ export class FillGradient implements CanvasGradient
      */
     public get styleKey(): string
     {
-        return `fill-gradient-${this.uid}-${this._tick}`;
+        throw new Error("STUB");
     }
 }
 
@@ -587,23 +557,5 @@ function ensureGradientOptions(
     args: any[],
 ): GradientOptions
 {
-    let options = (args[0] ?? {}) as GradientOptions;
-
-    // @deprecated
-    if (typeof options === 'number' || args[1])
-    {
-        // #if _DEBUG
-        deprecation('8.5.2', `use options object instead`);
-        // #endif
-
-        options = {
-            type: 'linear',
-            start: { x: args[0], y: args[1] },
-            end: { x: args[2], y: args[3] },
-            textureSpace: args[4] as 'global' | 'local',
-            textureSize: args[5] ?? FillGradient.defaultLinearOptions.textureSize
-        };
-    }
-
-    return options;
+    throw new Error("STUB");
 }

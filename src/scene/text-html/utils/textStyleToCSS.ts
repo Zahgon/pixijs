@@ -12,36 +12,7 @@ import type { ConvertedStrokeStyle } from '../../graphics/shared/FillTypes';
  */
 export function textStyleToCSS(style: HTMLTextStyle): string
 {
-    const stroke = style._stroke;
-    const fill = style._fill;
-
-    const color = Color.shared.setValue(fill.color).setAlpha(fill.alpha ?? 1).toHexa();
-    const cssStyleString = [
-        `color: ${color}`,
-        `font-size: ${(style.fontSize as number)}px`,
-        `font-family: ${style.fontFamily}`,
-        `font-weight: ${style.fontWeight}`,
-        `font-style: ${style.fontStyle}`,
-        `font-variant: ${style.fontVariant}`,
-        `letter-spacing: ${style.letterSpacing}px`,
-        `text-align: ${style.align}`,
-        `padding: ${style.padding}px`,
-        `white-space: ${(style.whiteSpace === 'pre' && style.wordWrap) ? 'pre-wrap' : style.whiteSpace}`,
-        ...style.lineHeight ? [`line-height: ${style.lineHeight}px`] : [],
-        ...style.wordWrap ? [
-            `word-break: ${style.breakWords ? 'break-word' : 'normal'}`,
-            `max-width: ${style.wordWrapWidth}px`
-        ] : [],
-        ...stroke ? [strokeToCSS(stroke)] : [],
-        ...style.dropShadow ? [dropShadowToCSS(style.dropShadow)] : [],
-        ...style.cssOverrides,
-    ].join(';');
-
-    const cssStyles = [`div { ${cssStyleString} }`];
-
-    tagStyleToCSS(style.tagStyles, cssStyles);
-
-    return cssStyles.join(' ');
+    throw new Error("STUB");
 }
 
 function dropShadowToCSS(dropShadowStyle: TextStyle['dropShadow']): string
@@ -63,15 +34,7 @@ function dropShadowToCSS(dropShadowStyle: TextStyle['dropShadow']): string
 
 function strokeToCSS(stroke: ConvertedStrokeStyle): string
 {
-    const color = Color.shared.setValue(stroke.color).setAlpha(stroke.alpha ?? 1).toHexa();
-
-    return [
-        `-webkit-text-stroke-width: ${stroke.width}px`,
-        `-webkit-text-stroke-color: ${color}`,
-        `text-stroke-width: ${stroke.width}px`,
-        `text-stroke-color: ${color}`,
-        'paint-order: stroke',
-    ].join(';');
+    throw new Error("STUB");
 }
 
 /** Converts the tag styles into CSS. */
@@ -91,45 +54,16 @@ const templates = {
 
 /** Converts the tag styles into CSS if modifications are required */
 const transform = {
-    fill: (value: string) => `color: ${Color.shared.setValue(value).toHexa()}`,
-    breakWords: (value: string) => `word-break: ${value ? 'break-all' : 'normal'}`,
+    fill: (value: string) => { throw new Error("STUB"); },
+    breakWords: (value: string) => { throw new Error("STUB"); },
     stroke: strokeToCSS,
     dropShadow: (value: boolean | Partial<TextDropShadow>) =>
     {
-        if (value === true)
-        {
-            return dropShadowToCSS(TextStyle.defaultDropShadow);
-        }
-
-        if (value && typeof value === 'object')
-        {
-            return dropShadowToCSS({ ...TextStyle.defaultDropShadow, ...value });
-        }
-
-        return '';
+        throw new Error("STUB");
     }
 };
 
 function tagStyleToCSS(tagStyles: Record<string, HTMLTextStyleOptions>, out: string[])
 {
-    for (const i in tagStyles)
-    {
-        const tagStyle = tagStyles[i];
-        const cssTagStyle = [];
-
-        for (const j in tagStyle)
-        {
-            if (transform[j as keyof typeof transform])
-            {
-                cssTagStyle.push(transform[j as keyof typeof transform](tagStyle[j as keyof HTMLTextStyleOptions] as any));
-            }
-            else if (templates[j as keyof typeof templates])
-            {
-                // eslint-disable-next-line max-len
-                cssTagStyle.push(templates[j as keyof typeof templates].replace('{{VALUE}}', tagStyle[j as keyof HTMLTextStyleOptions] as any));
-            }
-        }
-
-        out.push(`${i} { ${cssTagStyle.join(';')} }`);
-    }
+    throw new Error("STUB");
 }

@@ -42,22 +42,7 @@ export class DOMPipe implements RenderPipe<DOMContainer>
      */
     constructor(renderer: Renderer)
     {
-        this._renderer = renderer;
-
-        // Add this DOMPipe to the postrender runner of the renderer
-        // we want to dom elements are calculated after all things have been rendered
-        this._renderer.runners.postrender.add(this);
-
-        // add DOMPipe to init runners
-        this._renderer.runners.init.add(this);
-
-        // Create a main DOM element to contain other DOM elements
-        this._domElement = document.createElement('div');
-        this._domElement.style.position = 'absolute';
-        this._domElement.style.top = '0';
-        this._domElement.style.left = '0';
-        this._domElement.style.pointerEvents = 'none';
-        this._domElement.style.zIndex = '1000';
+        throw new Error("STUB");
     }
 
     /** Initializes the DOMPipe, setting up the main DOM element and adding it to the document body. */
@@ -105,48 +90,7 @@ export class DOMPipe implements RenderPipe<DOMContainer>
     /** Handles the post-rendering process, ensuring DOM elements are correctly positioned and visible. */
     public postrender(): void
     {
-        const attachedDomElements = this._attachedDomElements;
-
-        if (attachedDomElements.length === 0)
-        {
-            this._domElement.remove();
-
-            return;
-        }
-
-        // Ensure the main DOM element is attached to the same parent as the canvas
-        this._canvasObserver.ensureAttached();
-
-        for (let i = 0; i < attachedDomElements.length; i++)
-        {
-            const domContainer = attachedDomElements[i];
-            const element = domContainer.element;
-
-            if (!domContainer.parent || domContainer.globalDisplayStatus < 0b111)
-            {
-                element?.remove();
-                attachedDomElements.splice(i, 1);
-                i--;
-            }
-            else
-            {
-                if (!this._domElement.contains(element))
-                {
-                    element.style.position = 'absolute';
-                    element.style.pointerEvents = 'auto';
-                    this._domElement.appendChild(element);
-                }
-
-                const wt = domContainer.worldTransform;
-                const anchor = domContainer._anchor;
-                const ax = domContainer.width * anchor.x;
-                const ay = domContainer.height * anchor.y;
-
-                element.style.transformOrigin = `${ax}px ${ay}px`;
-                element.style.transform = `matrix(${wt.a}, ${wt.b}, ${wt.c}, ${wt.d}, ${wt.tx - ax}, ${wt.ty - ay})`;
-                element.style.opacity = domContainer.groupAlpha.toString();
-            }
-        }
+        throw new Error("STUB");
     }
 
     /** Destroys the DOMPipe, removing all attached DOM elements and cleaning up resources. */

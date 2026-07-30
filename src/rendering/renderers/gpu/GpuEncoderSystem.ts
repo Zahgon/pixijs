@@ -72,24 +72,12 @@ export class GpuEncoderSystem implements System
 
     constructor(renderer: WebGPURenderer)
     {
-        this._renderer = renderer;
-
-        for (let i = 0; i < 16; i++)
-        {
-            this._boundBindGroup[i] = { bindGroup: null, program: null, key: null };
-        }
+        throw new Error("STUB");
     }
 
     public renderStart(): void
     {
-        this.commandFinished = new Promise((resolve) =>
-        {
-            this._resolveCommandFinished = resolve;
-        });
-
-        // generate a render pass description..
-        // create an encoder..
-        this.commandEncoder = this._renderer.gpu.device.createCommandEncoder();
+        throw new Error("STUB");
     }
 
     public beginRenderPass(gpuRenderTarget: GpuRenderTarget)
@@ -124,21 +112,7 @@ export class GpuEncoderSystem implements System
      */
     public beginBundle(): void
     {
-        // While a bundle is recording, renderPassEncoder is swapped to the bundle encoder and no
-        // longer matches the real pass. Equal references therefore mean no bundle is active.
-        if (this._passEncoder !== this.renderPassEncoder)
-        {
-            throw new Error('Cannot begin a new render bundle while one is already being recorded.');
-        }
-
-        this._clearCache();
-
-        const descriptor = this._renderer.pipeline.getBundleDescriptor();
-
-        // A bundle encoder exposes the same render/bind command API as the pass, so it stands in as
-        // the write target while recording. The real pass stays in _passEncoder and is restored by
-        // endBundle.
-        this.renderPassEncoder = this._gpu.device.createRenderBundleEncoder(descriptor);
+        throw new Error("STUB");
     }
 
     /**
@@ -147,21 +121,7 @@ export class GpuEncoderSystem implements System
      */
     public endBundle(): GPURenderBundle
     {
-        const encoder = this.renderPassEncoder;
-
-        // `finish` only exists on a bundle encoder, so it both narrows the type for the call below
-        // and guards against endBundle being called without an active bundle.
-        if (!encoder || !('finish' in encoder))
-        {
-            throw new Error('endBundle called without an active render bundle.');
-        }
-
-        const bundle = encoder.finish();
-
-        this.renderPassEncoder = this._passEncoder;
-        this._clearCache();
-
-        return bundle;
+        throw new Error("STUB");
     }
 
     /**
@@ -171,8 +131,7 @@ export class GpuEncoderSystem implements System
      */
     public executeBundle(bundle: GPURenderBundle): void
     {
-        this._clearCache();
-        this._passEncoder.executeBundles([bundle]);
+        throw new Error("STUB");
     }
 
     public setViewport(viewport: Rectangle): void
@@ -393,20 +352,7 @@ export class GpuEncoderSystem implements System
         indirectOffset: number;
     })
     {
-        const { geometry, shader, state, topology, skipSync, indirectBuffer, indirectOffset } = options;
-
-        this.setPipelineFromGeometryProgramAndState(geometry, shader.gpuProgram, state, topology, shader._overrides);
-        this.setGeometry(geometry, shader.gpuProgram);
-        this._setShaderBindGroups(shader, skipSync);
-
-        if (geometry.indexBuffer)
-        {
-            this.renderPassEncoder.drawIndexedIndirect(indirectBuffer, indirectOffset);
-        }
-        else
-        {
-            this.renderPassEncoder.drawIndirect(indirectBuffer, indirectOffset);
-        }
+        throw new Error("STUB");
     }
 
     public finishRenderPass()
@@ -421,13 +367,7 @@ export class GpuEncoderSystem implements System
 
     public postrender()
     {
-        this.finishRenderPass();
-
-        this._gpu.device.queue.submit([this.commandEncoder.finish()]);
-
-        this._resolveCommandFinished();
-
-        this.commandEncoder = null;
+        throw new Error("STUB");
     }
 
     private _clearCache()
@@ -460,6 +400,6 @@ export class GpuEncoderSystem implements System
 
     protected contextChange(gpu: GPU): void
     {
-        this._gpu = gpu;
+        throw new Error("STUB");
     }
 }

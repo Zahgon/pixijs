@@ -244,29 +244,7 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
 
     constructor(config: AbstractSplitTextOptions)
     {
-        const {
-            text,
-            style,
-            autoSplit,
-            lineAnchor,
-            wordAnchor,
-            charAnchor,
-            ...options
-        } = config;
-
-        super(options);
-        this.chars = [];
-        this.words = [];
-        this.lines = [];
-
-        this._originalText = text;
-        this._autoSplit = autoSplit;
-        this._lineAnchor = lineAnchor;
-        this._wordAnchor = wordAnchor;
-        this._charAnchor = charAnchor;
-
-        // setting the style will segment the text if autoSplit is true
-        this.style = style;
+        throw new Error("STUB");
     }
 
     protected abstract splitFn(): TextSplitOutput<T>;
@@ -332,7 +310,7 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
     set text(value: string)
     {
         this._originalText = value;
-        this.lines.forEach((line) => line.destroy({ children: true }));
+        this.lines.forEach((line) => { throw new Error("STUB"); });
         this.lines.length = 0;
         this.words.length = 0;
         this.chars.length = 0;
@@ -347,29 +325,7 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
         property: '_lineAnchor' | '_wordAnchor' | '_charAnchor',
     ): void
     {
-        let originPoint: PointData;
-
-        if (typeof value === 'number')
-        {
-            originPoint = { x: value, y: value };
-        }
-        else
-        {
-            originPoint = { x: value.x, y: value.y };
-        }
-
-        elements.forEach((element) =>
-        {
-            const localBounds = element.getLocalBounds();
-
-            // Calculate origin position relative to the bounds
-            const originX = localBounds.minX + (localBounds.width * originPoint.x);
-            const originY = localBounds.minY + (localBounds.height * originPoint.y);
-
-            element.origin.set(originX, originY);
-        });
-
-        this[property] = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -392,11 +348,11 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
      */
     get lineAnchor(): number | PointData
     {
-        return this._lineAnchor;
+        throw new Error("STUB");
     }
     set lineAnchor(value: number | PointData)
     {
-        this._setOrigin(value, this.lines, '_lineAnchor');
+        throw new Error("STUB");
     }
 
     /**
@@ -419,11 +375,11 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
      */
     get wordAnchor(): number | PointData
     {
-        return this._wordAnchor;
+        throw new Error("STUB");
     }
     set wordAnchor(value: number | PointData)
     {
-        this._setOrigin(value, this.words, '_wordAnchor');
+        throw new Error("STUB");
     }
 
     /**
@@ -456,16 +412,16 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
      */
     get charAnchor(): number | PointData
     {
-        return this._charAnchor;
+        throw new Error("STUB");
     }
     set charAnchor(value: number | PointData)
     {
-        this._setOrigin(value, this.chars, '_charAnchor');
+        throw new Error("STUB");
     }
 
     get style(): TextStyle
     {
-        return this._style;
+        throw new Error("STUB");
     }
 
     /**
@@ -498,11 +454,7 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
      */
     set style(style: TextStyle | Partial<TextStyle> | TextStyleOptions)
     {
-        style ||= {};
-
-        this._style = new TextStyle(style);
-
-        this.styleChanged();
+        throw new Error("STUB");
     }
 
     /**
@@ -516,26 +468,12 @@ export abstract class AbstractSplitText<T extends SplitableTextObject> extends C
      */
     public styleChanged(): void
     {
-        // tidy up word/line containers, characters can be reused
-        this.words.forEach((word) => word.destroy());
-        this.words.length = 0;
-
-        this.lines.forEach((line) => line.destroy());
-        this.lines.length = 0;
-
-        this._canReuseChars = true;
-
-        this.onTextUpdate();
+        throw new Error("STUB");
     }
 
     protected onTextUpdate(): void
     {
-        this._dirty = true;
-
-        if (this._autoSplit)
-        {
-            this.split();
-        }
+        throw new Error("STUB");
     }
 
     /**

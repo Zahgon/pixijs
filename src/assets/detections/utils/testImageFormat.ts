@@ -11,18 +11,7 @@ export async function testImageFormat(imageData: string): Promise<boolean>
     {
         return new Promise<boolean>((resolve) =>
         {
-            // eslint-disable-next-line no-restricted-globals
-            const image = new Image();
-
-            image.onload = () =>
-            {
-                resolve(true);
-            };
-            image.onerror = () =>
-            {
-                resolve(false);
-            };
-            image.src = imageData;
+            throw new Error("STUB");
         });
     }
 

@@ -109,41 +109,29 @@ export class BackgroundSystem implements System<BackgroundSystemOptions>
     /** The background color to fill if not transparent */
     get color(): Color
     {
-        return this._backgroundColor;
+        throw new Error("STUB");
     }
 
     set color(value: ColorSource)
     {
-        // #if _DEBUG
-
-        const incoming = Color.shared.setValue(value);
-
-        if (incoming.alpha < 1 && this._backgroundColor.alpha === 1)
-        {
-            warn(
-                'Cannot set a transparent background on an opaque canvas. '
-                + 'To enable transparency, set backgroundAlpha < 1 when initializing your Application.'
-            );
-        }
-        // #endif
-        this._backgroundColor.setValue(value);
+        throw new Error("STUB");
     }
 
     /** The background color alpha. Setting this to 0 will make the canvas transparent. */
     get alpha(): number
     {
-        return this._backgroundColor.alpha;
+        throw new Error("STUB");
     }
 
     set alpha(value: number)
     {
-        this._backgroundColor.setAlpha(value);
+        throw new Error("STUB");
     }
 
     /** The background color as an [R, G, B, A] array. */
     get colorRgba(): RgbaArray
     {
-        return this._backgroundColor.toArray() as RgbaArray;
+        throw new Error("STUB");
     }
 
     /**

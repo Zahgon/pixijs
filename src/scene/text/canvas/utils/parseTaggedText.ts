@@ -205,12 +205,5 @@ export function parseTaggedText(text: string, style: TextStyle): TextStyleRun[]
  */
 export function getPlainText(text: string, style: TextStyle): string
 {
-    if (!hasTagStyles(style) || !hasTagMarkup(text))
-    {
-        return text;
-    }
-
-    const runs = parseTaggedText(text, style);
-
-    return runs.map((run) => run.text).join('');
+    throw new Error("STUB");
 }

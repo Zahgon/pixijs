@@ -74,22 +74,30 @@ MouseEvent | PointerEvent | PixiTouch
     public client: Point = new Point();
 
     /** @readonly */
-    public get clientX(): number { return this.client.x; }
+    public get clientX(): number {
+        throw new Error("STUB");
+    }
 
     /** @readonly */
-    public get clientY(): number { return this.client.y; }
+    public get clientY(): number {
+        throw new Error("STUB");
+    }
 
     /**
      * Alias for {@link FederatedMouseEvent.clientX this.clientX}.
      * @readonly
      */
-    get x(): number { return this.clientX; }
+    get x(): number {
+        throw new Error("STUB");
+    }
 
     /**
      * Alias for {@link FederatedMouseEvent.clientY this.clientY}.
      * @readonly
      */
-    get y(): number { return this.clientY; }
+    get y(): number {
+        throw new Error("STUB");
+    }
 
     /** This is the number of clicks that occurs in 200ms/click of each other. */
     public detail: number;
@@ -98,28 +106,40 @@ MouseEvent | PointerEvent | PixiTouch
     public movement: Point = new Point();
 
     /** @readonly */
-    get movementX(): number { return this.movement.x; }
+    get movementX(): number {
+        throw new Error("STUB");
+    }
 
     /** @readonly */
-    get movementY(): number { return this.movement.y; }
+    get movementY(): number {
+        throw new Error("STUB");
+    }
 
     /** The offset of the pointer coordinates w.r.t. target Container in world space. This is not supported at the moment. */
     public offset: Point = new Point();
 
     /** @readonly */
-    get offsetX(): number { return this.offset.x; }
+    get offsetX(): number {
+        throw new Error("STUB");
+    }
 
     /** @readonly */
-    get offsetY(): number { return this.offset.y; }
+    get offsetY(): number {
+        throw new Error("STUB");
+    }
 
     /** The pointer coordinates in world space. */
     public global: Point = new Point();
 
     /** @readonly */
-    get globalX(): number { return this.global.x; }
+    get globalX(): number {
+        throw new Error("STUB");
+    }
 
     /** @readonly */
-    get globalY(): number { return this.global.y; }
+    get globalY(): number {
+        throw new Error("STUB");
+    }
 
     /**
      * The pointer coordinates in the renderer's {@link AbstractRenderer.screen screen}. This has slightly
@@ -131,13 +151,17 @@ MouseEvent | PointerEvent | PixiTouch
      * The pointer coordinates in the renderer's screen. Alias for `screen.x`.
      * @readonly
      */
-    get screenX(): number { return this.screen.x; }
+    get screenX(): number {
+        throw new Error("STUB");
+    }
 
     /**
      * The pointer coordinates in the renderer's screen. Alias for `screen.y`.
      * @readonly
      */
-    get screenY(): number { return this.screen.y; }
+    get screenY(): number {
+        throw new Error("STUB");
+    }
 
     /**
      * Converts global coordinates into container-local coordinates.
@@ -169,7 +193,7 @@ MouseEvent | PointerEvent | PixiTouch
      */
     public getLocalPosition<P extends PointData = Point>(container: Container, point?: P, globalPos?: PointData): P
     {
-        return container.worldTransform.applyInverse<P>(globalPos || this.global, point);
+        throw new Error("STUB");
     }
 
     /**
@@ -178,7 +202,7 @@ MouseEvent | PointerEvent | PixiTouch
      */
     public getModifierState(key: string): boolean
     {
-        return 'getModifierState' in this.nativeEvent && this.nativeEvent.getModifierState(key);
+        throw new Error("STUB");
     }
 
     /**
@@ -220,6 +244,6 @@ MouseEvent | PointerEvent | PixiTouch
         _relatedTargetArg: EventTarget
     ): void
     {
-        throw new Error('Method not implemented.');
+        throw new Error("STUB");
     }
 }

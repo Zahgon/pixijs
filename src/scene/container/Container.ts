@@ -954,13 +954,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     set _didChangeId(value: number)
     {
-        this._didViewChangeTick = (value >> 12) & 0xFFF; // Extract the upper 12 bits
-        this._didContainerChangeTick = value & 0xFFF; // Extract the lower 12 bits
+        throw new Error("STUB");
     }
     /** @ignore */
     get _didChangeId(): number
     {
-        return (this._didContainerChangeTick & 0xfff) | ((this._didViewChangeTick & 0xfff) << 12);
+        throw new Error("STUB");
     }
 
     /**
@@ -971,17 +970,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
 
     constructor(options: ContainerOptions<C> = {})
     {
-        super();
-
-        this.effects = [];
-        assignWithIgnore(this, options, {
-            children: true,
-            parent: true,
-            effects: true,
-        });
-
-        options.children?.forEach((child) => this.addChild(child));
-        options.parent?.addChild(this);
+        throw new Error("STUB");
     }
 
     /**
@@ -1168,16 +1157,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
 
     set isRenderGroup(value: boolean)
     {
-        if (!!this.renderGroup === value) return;
-
-        if (value)
-        {
-            this.enableRenderGroup();
-        }
-        else
-        {
-            this.disableRenderGroup();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -1187,7 +1167,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get isRenderGroup(): boolean
     {
-        return !!this.renderGroup;
+        throw new Error("STUB");
     }
 
     /**
@@ -1258,18 +1238,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get worldTransform()
     {
-        this._worldTransform ||= new Matrix();
-
-        if (this.renderGroup)
-        {
-            this._worldTransform.copyFrom(this.renderGroup.worldTransform);
-        }
-        else if (this.parentRenderGroup)
-        {
-            this._worldTransform.appendFrom(this.relativeGroupTransform, this.parentRenderGroup.worldTransform);
-        }
-
-        return this._worldTransform;
+        throw new Error("STUB");
     }
 
     /**
@@ -1284,12 +1253,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get x(): number
     {
-        return this._position.x;
+        throw new Error("STUB");
     }
 
     set x(value: number)
     {
-        this._position.x = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -1304,12 +1273,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get y(): number
     {
-        return this._position.y;
+        throw new Error("STUB");
     }
 
     set y(value: number)
     {
-        this._position.y = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -1326,12 +1295,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get position(): ObservablePoint
     {
-        return this._position;
+        throw new Error("STUB");
     }
 
     set position(value: PointData)
     {
-        this._position.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -1359,16 +1328,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get rotation(): number
     {
-        return this._rotation;
+        throw new Error("STUB");
     }
 
     set rotation(value: number)
     {
-        if (this._rotation !== value)
-        {
-            this._rotation = value;
-            this._onUpdate(this._skew);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -1395,12 +1360,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get angle(): number
     {
-        return this.rotation * RAD_TO_DEG;
+        throw new Error("STUB");
     }
 
     set angle(value: number)
     {
-        this.rotation = value * DEG_TO_RAD;
+        throw new Error("STUB");
     }
 
     /**
@@ -1418,30 +1383,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get pivot(): ObservablePoint
     {
-        if (this._pivot === defaultPivot)
-        {
-            this._pivot = new ObservablePoint(this, 0, 0);
-        }
-
-        return this._pivot;
+        throw new Error("STUB");
     }
 
     set pivot(value: PointData | number)
     {
-        if (this._pivot === defaultPivot)
-        {
-            this._pivot = new ObservablePoint(this, 0, 0);
-
-            // #if _DEBUG
-            if (this._origin !== defaultOrigin)
-            {
-                // eslint-disable-next-line max-len
-                warn(`Setting both a pivot and origin on a Container is not recommended. This can lead to unexpected behavior if not handled carefully.`);
-            }
-            // #endif
-        }
-
-        typeof value === 'number' ? this._pivot.set(value) : this._pivot.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -1475,22 +1422,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get skew(): ObservablePoint
     {
-        if (this._skew === defaultSkew)
-        {
-            this._skew = new ObservablePoint(this, 0, 0);
-        }
-
-        return this._skew;
+        throw new Error("STUB");
     }
 
     set skew(value: PointData)
     {
-        if (this._skew === defaultSkew)
-        {
-            this._skew = new ObservablePoint(this, 0, 0);
-        }
-
-        this._skew.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -1549,30 +1486,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get origin(): ObservablePoint
     {
-        if (this._origin === defaultOrigin)
-        {
-            this._origin = new ObservablePoint(this, 0, 0);
-        }
-
-        return this._origin;
+        throw new Error("STUB");
     }
 
     set origin(value: PointData | number)
     {
-        if (this._origin === defaultOrigin)
-        {
-            this._origin = new ObservablePoint(this, 0, 0);
-
-            // #if _DEBUG
-            if (this._pivot !== defaultPivot)
-            {
-                // eslint-disable-next-line max-len
-                warn(`Setting both a pivot and origin on a Container is not recommended. This can lead to unexpected behavior if not handled carefully.`);
-            }
-            // #endif
-        }
-
-        typeof value === 'number' ? this._origin.set(value) : this._origin.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -1590,14 +1509,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get width(): number
     {
-        return Math.abs(this.scale.x * this.getLocalBounds().width);
+        throw new Error("STUB");
     }
 
     set width(value: number)
     {
-        const localWidth = this.getLocalBounds().width;
-
-        this._setWidth(value, localWidth);
+        throw new Error("STUB");
     }
 
     /**
@@ -1615,14 +1532,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get height(): number
     {
-        return Math.abs(this.scale.y * this.getLocalBounds().height);
+        throw new Error("STUB");
     }
 
     set height(value: number)
     {
-        const localHeight = this.getLocalBounds().height;
-
-        this._setHeight(value, localHeight);
+        throw new Error("STUB");
     }
 
     /**
@@ -1644,17 +1559,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     public getSize(out?: Size): Size
     {
-        if (!out)
-        {
-            out = {} as Size;
-        }
-
-        const bounds = this.getLocalBounds();
-
-        out.width = Math.abs(this.scale.x * bounds.width);
-        out.height = Math.abs(this.scale.y * bounds.height);
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -1673,20 +1578,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     public setSize(value: number | Optional<Size, 'height'>, height?: number)
     {
-        const size = this.getLocalBounds();
-
-        if (typeof value === 'object')
-        {
-            height = value.height ?? value.width;
-            value = value.width;
-        }
-        else
-        {
-            height ??= value;
-        }
-
-        value !== undefined && this._setWidth(value, size.width);
-        height !== undefined && this._setHeight(height, size.height);
+        throw new Error("STUB");
     }
 
     /** Called when the skew or the rotation changes. */
@@ -1744,29 +1636,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     public updateTransform(opts: Partial<UpdateTransformOptions>): this
     {
-        this.position.set(
-            typeof opts.x === 'number' ? opts.x : this.position.x,
-            typeof opts.y === 'number' ? opts.y : this.position.y
-        );
-        this.scale.set(
-            typeof opts.scaleX === 'number' ? opts.scaleX : this.scale.x,
-            typeof opts.scaleY === 'number' ? opts.scaleY : this.scale.y
-        );
-        this.rotation = typeof opts.rotation === 'number' ? opts.rotation : this.rotation;
-        this.skew.set(
-            typeof opts.skewX === 'number' ? opts.skewX : this.skew.x,
-            typeof opts.skewY === 'number' ? opts.skewY : this.skew.y
-        );
-        this.pivot.set(
-            typeof opts.pivotX === 'number' ? opts.pivotX : this.pivot.x,
-            typeof opts.pivotY === 'number' ? opts.pivotY : this.pivot.y
-        );
-        this.origin.set(
-            typeof opts.originX === 'number' ? opts.originX : this.origin.x,
-            typeof opts.originY === 'number' ? opts.originY : this.origin.y
-        );
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -1843,13 +1713,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
 
     set alpha(value: number)
     {
-        if (value === this.localAlpha) return;
-
-        this.localAlpha = value;
-
-        this._updateFlags |= UPDATE_COLOR;
-
-        this._onUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -1873,21 +1737,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get alpha(): number
     {
-        return this.localAlpha;
+        throw new Error("STUB");
     }
 
     set tint(value: ColorSource)
     {
-        const tempColor = Color.shared.setValue(value ?? 0xFFFFFF);
-        const bgr = tempColor.toBgrNumber();
-
-        if (bgr === this.localColor) return;
-
-        this.localColor = bgr;
-
-        this._updateFlags |= UPDATE_COLOR;
-
-        this._onUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -1912,25 +1767,14 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get tint(): number
     {
-        // convert bgr to rgb..
-        return bgr2rgb(this.localColor);
+        throw new Error("STUB");
     }
 
     // / //////////////// blend related stuff
 
     set blendMode(value: BLEND_MODES)
     {
-        if (this.localBlendMode === value) return;
-        if (this.parentRenderGroup)
-        {
-            this.parentRenderGroup.structureDidChange = true;
-        }
-
-        this._updateFlags |= UPDATE_BLEND;
-
-        this.localBlendMode = value;
-
-        this._onUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -1954,7 +1798,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get blendMode(): BLEND_MODES
     {
-        return this.localBlendMode;
+        throw new Error("STUB");
     }
 
     // / ///////// VISIBILITY / RENDERABLE /////////////////
@@ -1974,50 +1818,24 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get visible()
     {
-        return !!(this.localDisplayStatus & 0b010);
+        throw new Error("STUB");
     }
 
     set visible(value: boolean)
     {
-        const valueNumber = value ? 0b010 : 0;
-
-        if ((this.localDisplayStatus & 0b010) === valueNumber) return;
-
-        if (this.parentRenderGroup)
-        {
-            this.parentRenderGroup.structureDidChange = true;
-        }
-
-        this._updateFlags |= UPDATE_VISIBLE;
-
-        this.localDisplayStatus ^= 0b010;
-
-        this._onUpdate();
-        this.emit('visibleChanged', value);
+        throw new Error("STUB");
     }
 
     /** @ignore */
     get culled()
     {
-        return !(this.localDisplayStatus & 0b100);
+        throw new Error("STUB");
     }
 
     /** @ignore */
     set culled(value: boolean)
     {
-        const valueNumber = value ? 0 : 0b100;
-
-        if ((this.localDisplayStatus & 0b100) === valueNumber) return;
-
-        if (this.parentRenderGroup)
-        {
-            this.parentRenderGroup.structureDidChange = true;
-        }
-
-        this._updateFlags |= UPDATE_VISIBLE;
-        this.localDisplayStatus ^= 0b100;
-
-        this._onUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -2036,24 +1854,12 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get renderable()
     {
-        return !!(this.localDisplayStatus & 0b001);
+        throw new Error("STUB");
     }
 
     set renderable(value: boolean)
     {
-        const valueNumber = value ? 0b001 : 0;
-
-        if ((this.localDisplayStatus & 0b001) === valueNumber) return;
-
-        this._updateFlags |= UPDATE_VISIBLE;
-        this.localDisplayStatus ^= 0b001;
-
-        if (this.parentRenderGroup)
-        {
-            this.parentRenderGroup.structureDidChange = true;
-        }
-
-        this._onUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -2062,7 +1868,7 @@ export class Container<C extends ContainerChild = ContainerChild> extends EventE
      */
     get isRenderable(): boolean
     {
-        return (this.localDisplayStatus === 0b111 && this.groupAlpha > 0);
+        throw new Error("STUB");
     }
 
     /**

@@ -26,15 +26,12 @@ export class CanvasGraphicsPipe implements RenderPipe<Graphics>
 
     constructor(renderer: Renderer, adaptor: GraphicsAdaptor)
     {
-        this.renderer = renderer;
-        this._adaptor = adaptor;
-        this.renderer.runners.contextChange.add(this);
-        this._managedGraphics = new GCManagedHash({ renderer, type: 'renderable', priority: -1, name: 'graphics' });
+        throw new Error("STUB");
     }
 
     public contextChange(): void
     {
-        this._adaptor.contextChange(this.renderer);
+        throw new Error("STUB");
     }
 
     public validateRenderable(_graphics: Graphics): boolean

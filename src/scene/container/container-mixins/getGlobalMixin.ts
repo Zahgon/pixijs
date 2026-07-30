@@ -86,31 +86,7 @@ export interface GetGlobalMixin
 export const getGlobalMixin: Partial<Container> = {
     getGlobalAlpha(skipUpdate?: boolean): number
     {
-        if (skipUpdate)
-        {
-            if (this.renderGroup)
-            {
-                return this.renderGroup.worldAlpha;
-            }
-
-            if (this.parentRenderGroup)
-            {
-                return this.parentRenderGroup.worldAlpha * this.alpha;
-            }
-
-            return this.alpha;
-        }
-
-        let alpha = this.alpha;
-        let current = this.parent;
-
-        while (current)
-        {
-            alpha *= current.alpha;
-            current = current.parent;
-        }
-
-        return alpha;
+        throw new Error("STUB");
     },
     getGlobalTransform(matrix = new Matrix(), skipUpdate?: boolean): Matrix
     {
@@ -130,33 +106,7 @@ export const getGlobalMixin: Partial<Container> = {
     },
     getGlobalTint(skipUpdate?: boolean): number
     {
-        if (skipUpdate)
-        {
-            if (this.renderGroup)
-            {
-                return bgr2rgb(this.renderGroup.worldColor);
-            }
-
-            if (this.parentRenderGroup)
-            {
-                return bgr2rgb(
-                    multiplyColors(this.localColor, this.parentRenderGroup.worldColor)
-                );
-            }
-
-            return this.tint;
-        }
-
-        let color = this.localColor;
-        let parent = this.parent;
-
-        while (parent)
-        {
-            color = multiplyColors(color, parent.localColor);
-            parent = parent.parent;
-        }
-
-        return bgr2rgb(color);
+        throw new Error("STUB");
     }
 
 } as Container;

@@ -118,56 +118,17 @@ export class ResizePlugin
 
         this.queueResize = (): void =>
         {
-            if (!this._resizeTo)
-            {
-                return;
-            }
-
-            this._cancelResize();
-
-            // // Throttle resize events per raf
-            this._resizeId = requestAnimationFrame(() => this.resize());
+            throw new Error("STUB");
         };
 
         this._cancelResize = (): void =>
         {
-            if (this._resizeId)
-            {
-                cancelAnimationFrame(this._resizeId);
-                this._resizeId = null;
-            }
+            throw new Error("STUB");
         };
 
         this.resize = (): void =>
         {
-            if (!this._resizeTo)
-            {
-                return;
-            }
-
-            // clear queue resize
-            this._cancelResize();
-
-            let width: number;
-            let height: number;
-
-            // Resize to the window
-            if (this._resizeTo === globalThis.window)
-            {
-                width = globalThis.innerWidth;
-                height = globalThis.innerHeight;
-            }
-            // Resize to other HTML entities
-            else
-            {
-                const { clientWidth, clientHeight } = this._resizeTo as HTMLElement;
-
-                width = clientWidth;
-                height = clientHeight;
-            }
-
-            this.renderer.resize(width, height);
-            this.render();
+            throw new Error("STUB");
         };
 
         // On resize

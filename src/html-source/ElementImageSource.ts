@@ -142,14 +142,7 @@ export class ElementImageSource extends TextureSource<ElementImage>
      */
     constructor(options: ElementImageSourceOptions)
     {
-        if (!options.resource)
-        {
-            throw new Error('[ElementImageSource] resource is required.');
-        }
-
-        super(options);
-
-        this._autoClose = options.autoClose === true;
+        throw new Error("STUB");
     }
 
     /**
@@ -163,7 +156,7 @@ export class ElementImageSource extends TextureSource<ElementImage>
      */
     public get resourceWidth(): number
     {
-        return Math.ceil(this.resource.width);
+        throw new Error("STUB");
     }
 
     /**
@@ -177,7 +170,7 @@ export class ElementImageSource extends TextureSource<ElementImage>
      */
     public get resourceHeight(): number
     {
-        return Math.ceil(this.resource.height);
+        throw new Error("STUB");
     }
 
     /**

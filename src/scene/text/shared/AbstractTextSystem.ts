@@ -170,12 +170,7 @@ export abstract class AbstractTextSystem implements System
      */
     public renderTextToCanvas(): void
     {
-        // #if _DEBUG
-        deprecation(
-            '8.10.0',
-            'CanvasTextSystem.renderTextToCanvas: no longer supported, use CanvasTextSystem.getTexture instead'
-        );
-        // #endif
+        throw new Error("STUB");
     }
 
     /**
@@ -247,7 +242,7 @@ export abstract class AbstractTextSystem implements System
      */
     public getReferenceCount(textKey: string)
     {
-        return this._activeTextures[textKey]?.usageCount ?? 0;
+        throw new Error("STUB");
     }
 
     private _increaseReferenceCount(textKey: string)

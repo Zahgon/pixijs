@@ -38,7 +38,7 @@ export class GlBatchAdaptor implements BatcherAdaptor
 
     public contextChange(): void
     {
-        this._didUploadHash = {};
+        throw new Error("STUB");
     }
 
     public start(batchPipe: BatcherPipe, geometry: Geometry, shader: Shader): void

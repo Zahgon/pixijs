@@ -85,7 +85,7 @@ export function getFontFamilyName(url: string): string
     // Upper case first character of each word
     const nameTokens = nameWithSpaces.toLowerCase()
         .split(' ')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+        .map((word) => { throw new Error("STUB"); });
 
     let valid = nameTokens.length > 0;
 
@@ -164,7 +164,7 @@ export const loadWebFont = {
         {
             const fontFaces: FontFace[] = [];
             const name = options.data?.family ?? getFontFamilyName(url);
-            const weights = options.data?.weights?.filter((weight) => validWeights.includes(weight)) ?? ['normal'];
+            const weights = options.data?.weights?.filter((weight) => { throw new Error("STUB"); }) ?? ['normal'];
             const data = options.data ?? {};
 
             for (let i = 0; i < weights.length; i++)
@@ -216,21 +216,21 @@ export const loadWebFont = {
         const cached = Cache.get<FontFaceCache>(`${fontFamily}-and-url`);
 
         // find the entry that contains the font faces we want to remove
-        const entry = cached.entries.find((f) => f.faces.some((t) => fonts.indexOf(t) !== -1));
+        const entry = cached.entries.find((f) => { throw new Error("STUB"); });
 
         // remove the font faces from the cache
-        entry.faces = entry.faces.filter((f) => fonts.indexOf(f) === -1);
+        entry.faces = entry.faces.filter((f) => { throw new Error("STUB"); });
 
         // if faces are empty, remove the entry
         if (entry.faces.length === 0)
         {
-            cached.entries = cached.entries.filter((f) => f !== entry);
+            cached.entries = cached.entries.filter((f) => { throw new Error("STUB"); });
         }
 
         // finally remove the font faces from the FontFaceSet
         fonts.forEach((t) =>
         {
-            DOMAdapter.get().getFontFaceSet().delete(t);
+            throw new Error("STUB");
         });
 
         // Clean up cache if no entries remain

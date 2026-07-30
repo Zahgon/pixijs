@@ -186,69 +186,34 @@ export class Buffer extends EventEmitter<{
      */
     constructor(options: BufferOptions)
     {
-        let { data, size } = options;
-        const { usage, label, shrinkToFit } = options;
-
-        super();
-
-        if (data instanceof Array)
-        {
-            data = new Float32Array(data as number[]);
-        }
-
-        this._data = data as TypedArray;
-
-        size ??= (data as TypedArray)?.byteLength;
-
-        const mappedAtCreation = !!data;
-
-        this.descriptor = {
-            size,
-            usage,
-            mappedAtCreation,
-            label,
-        };
-
-        this.shrinkToFit = shrinkToFit ?? true;
+        throw new Error("STUB");
     }
 
     /** the data in the buffer */
     get data()
     {
-        return this._data;
+        throw new Error("STUB");
     }
 
     set data(value: TypedArray)
     {
-        this.setDataWithSize(value, value.length, true);
+        throw new Error("STUB");
     }
 
     get dataInt32()
     {
-        if (!this._dataInt32)
-        {
-            this._dataInt32 = new Int32Array((this.data as any).buffer);
-        }
-
-        return this._dataInt32;
+        throw new Error("STUB");
     }
 
     /** whether the buffer is static or not */
     get static()
     {
-        return !!(this.descriptor.usage & BufferUsage.STATIC);
+        throw new Error("STUB");
     }
 
     set static(value: boolean)
     {
-        if (value)
-        {
-            this.descriptor.usage |= BufferUsage.STATIC;
-        }
-        else
-        {
-            this.descriptor.usage &= ~BufferUsage.STATIC;
-        }
+        throw new Error("STUB");
     }
 
     /**

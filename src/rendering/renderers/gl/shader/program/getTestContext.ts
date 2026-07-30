@@ -11,12 +11,5 @@ let context: GlRenderingContext;
  */
 export function getTestContext(): GlRenderingContext
 {
-    if (!context || context?.isContextLost())
-    {
-        const canvas = DOMAdapter.get().createCanvas();
-
-        context = canvas.getContext('webgl', {}) as GlRenderingContext;
-    }
-
-    return context;
+    throw new Error("STUB");
 }

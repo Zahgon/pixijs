@@ -214,17 +214,17 @@ export class GlobalUniformSystem implements System
 
     get bindGroup(): BindGroup
     {
-        return this._currentGlobalUniformData.bindGroup;
+        throw new Error("STUB");
     }
 
     get globalUniformData()
     {
-        return this._currentGlobalUniformData;
+        throw new Error("STUB");
     }
 
     get uniformGroup()
     {
-        return this._currentGlobalUniformData.bindGroup.resources[0] as UniformGroup;
+        throw new Error("STUB");
     }
 
     private _createUniforms(): GlobalUniformGroup

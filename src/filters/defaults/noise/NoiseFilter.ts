@@ -106,41 +106,7 @@ export class NoiseFilter extends Filter
      */
     constructor(options: NoiseFilterOptions = {})
     {
-        options = { ...NoiseFilter.defaultOptions, ...options };
-
-        const gpuProgram = GpuProgram.from({
-            vertex: {
-                source,
-                entryPoint: 'mainVertex',
-            },
-            fragment: {
-                source,
-                entryPoint: 'mainFragment',
-            },
-        });
-
-        const glProgram = GlProgram.from({
-            vertex,
-            fragment,
-            name: 'noise-filter'
-        });
-
-        const { noise, seed, ...rest } = options;
-
-        super({
-            ...rest,
-            gpuProgram,
-            glProgram,
-            resources: {
-                noiseUniforms: new UniformGroup({
-                    uNoise: { value: 1, type: 'f32' },
-                    uSeed: { value: 1, type: 'f32' },
-                })
-            },
-        });
-
-        this.noise = noise;
-        this.seed = seed ?? Math.random();
+        throw new Error("STUB");
     }
 
     /**
@@ -164,12 +130,12 @@ export class NoiseFilter extends Filter
      */
     get noise(): number
     {
-        return this.resources.noiseUniforms.uniforms.uNoise;
+        throw new Error("STUB");
     }
 
     set noise(value: number)
     {
-        this.resources.noiseUniforms.uniforms.uNoise = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -193,11 +159,11 @@ export class NoiseFilter extends Filter
      */
     get seed(): number
     {
-        return this.resources.noiseUniforms.uniforms.uSeed;
+        throw new Error("STUB");
     }
 
     set seed(value: number)
     {
-        this.resources.noiseUniforms.uniforms.uSeed = value;
+        throw new Error("STUB");
     }
 }

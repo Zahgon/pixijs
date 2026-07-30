@@ -23,15 +23,7 @@ export class ShaderOverrides
      */
     constructor(data: Record<string, number>)
     {
-        // Copy the data to ensure immutability
-        this.data = { ...data };
-
-        const key = Object.keys(data)
-            .sort()
-            .map((k) => `${k}:${data[k]}`)
-            .join('|');
-
-        this.id = createIdFromString(key, 'shader-overrides');
+        throw new Error("STUB");
     }
 
     /**

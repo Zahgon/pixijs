@@ -43,19 +43,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
     public contextChange(): void
     {
-        this._clearColorCache = [0, 0, 0, 0];
-        this._viewPortCache = new Rectangle();
-        this._boundFramebuffer = undefined;
-
-        // Pre-compute draw buffers arrays for all possible MRT configurations
-        const gl = this._renderer.gl;
-
-        this._drawBuffersCache = [];
-
-        for (let i = 1; i <= 16; i++)
-        {
-            this._drawBuffersCache[i] = Array.from({ length: i }, (_, j) => gl.COLOR_ATTACHMENT0 + j);
-        }
+        throw new Error("STUB");
     }
 
     public copyToTexture(
@@ -98,30 +86,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
         originDest: { x: number; y: number; },
     ): void
     {
-        const renderTargetSystem = this._renderTargetSystem;
-        const gl = this._renderer.gl;
-
-        this.finishRenderPass(source);
-
-        // blitFramebuffer moves depth between framebuffers, so the destination texture is
-        // resolved to its (depth-only) render target to provide one to blit into
-        const destinationRenderTarget = renderTargetSystem.getRenderTarget(destination);
-
-        const srcGl = renderTargetSystem.getGpuRenderTarget(source);
-        const dstGl = renderTargetSystem.getGpuRenderTarget(destinationRenderTarget);
-
-        gl.bindFramebuffer(gl.READ_FRAMEBUFFER, srcGl.framebuffer);
-        gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, dstGl.framebuffer);
-        // READ/DRAW were bound independently, leaving the unified FRAMEBUFFER state ambiguous
-        this._boundFramebuffer = undefined;
-
-        // Depth blits must use NEAREST, so the source sub-rect must match the destination
-        // sub-rect in size (no scaling). We copy `size` pixels from originSrc to originDest.
-        gl.blitFramebuffer(
-            originSrc.x, originSrc.y, originSrc.x + size.width, originSrc.y + size.height,
-            originDest.x, originDest.y, originDest.x + size.width, originDest.y + size.height,
-            gl.DEPTH_BUFFER_BIT, gl.NEAREST,
-        );
+        throw new Error("STUB");
     }
 
     public startRenderPass(
@@ -160,7 +125,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
         renderTarget.colorAttachments.forEach((attachment) =>
         {
-            this._renderer.texture.unbind(attachment.texture);
+            throw new Error("STUB");
         });
 
         const gl = this._renderer.gl;
@@ -178,58 +143,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
         {
             renderTarget.colorAttachments.forEach((attachment, i) =>
             {
-                const colorTexture = attachment.texture;
-                const glSource = this._renderer.texture.getGlSource(colorTexture);
-
-                if (glSource.target === gl.TEXTURE_2D)
-                {
-                    if (layer !== 0)
-                    {
-                        throw new Error('[RenderTargetSystem] layer must be 0 when rendering to 2D textures in WebGL.');
-                    }
-
-                    gl.framebufferTexture2D(
-                        gl.FRAMEBUFFER,
-                        gl.COLOR_ATTACHMENT0 + i,
-                        gl.TEXTURE_2D,
-                        glSource.texture,
-                        mipLevel
-                    );
-                }
-                else if (glSource.target === (gl as any).TEXTURE_2D_ARRAY)
-                {
-                    if (this._renderer.context.webGLVersion < 2)
-                    {
-                        throw new Error('[RenderTargetSystem] Rendering to 2D array textures requires WebGL2.');
-                    }
-
-                    gl.framebufferTextureLayer(
-                        gl.FRAMEBUFFER,
-                        gl.COLOR_ATTACHMENT0 + i,
-                        glSource.texture,
-                        mipLevel,
-                        layer
-                    );
-                }
-                else if (glSource.target === gl.TEXTURE_CUBE_MAP)
-                {
-                    if (layer < 0 || layer > 5)
-                    {
-                        throw new Error('[RenderTargetSystem] Cube map layer must be between 0 and 5.');
-                    }
-
-                    gl.framebufferTexture2D(
-                        gl.FRAMEBUFFER,
-                        gl.COLOR_ATTACHMENT0 + i,
-                        gl.TEXTURE_CUBE_MAP_POSITIVE_X + layer,
-                        glSource.texture,
-                        mipLevel
-                    );
-                }
-                else
-                {
-                    throw new Error('[RenderTargetSystem] Unsupported texture target for render-to-layer in WebGL.');
-                }
+                throw new Error("STUB");
             });
 
             gpuRenderTarget._attachedMipLevel = mipLevel;
@@ -382,7 +296,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
         gpuRenderTarget.msaaRenderBuffer.forEach((renderBuffer) =>
         {
-            gl.deleteRenderbuffer(renderBuffer);
+            throw new Error("STUB");
         });
 
         gpuRenderTarget.msaaRenderBuffer = null;
@@ -494,66 +408,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
         colorAttachments.forEach((colorAttachment, i) =>
         {
-            const source = colorAttachment.texture;
-
-            if (source.antialias)
-            {
-                if (renderer.context.supports.msaa)
-                {
-                    glRenderTarget.msaa = true;
-                }
-                else
-                {
-                    warn('[RenderTexture] Antialiasing on textures is not supported in WebGL1');
-                }
-            }
-
-            // TODO bindSource could return the glTexture
-            renderer.texture.bindSource(source, 0);
-            const glSource = renderer.texture.getGlSource(source);
-
-            const glTexture = glSource.texture;
-
-            // Initial attachment is mip 0, layer 0.
-            if (glSource.target === gl.TEXTURE_2D)
-            {
-                gl.framebufferTexture2D(
-                    gl.FRAMEBUFFER,
-                    gl.COLOR_ATTACHMENT0 + i,
-                    gl.TEXTURE_2D,
-                    glTexture,
-                    0
-                );
-            }
-            else if (glSource.target === gl.TEXTURE_2D_ARRAY)
-            {
-                if (renderer.context.webGLVersion < 2)
-                {
-                    throw new Error('[RenderTargetSystem] TEXTURE_2D_ARRAY requires WebGL2.');
-                }
-
-                gl.framebufferTextureLayer(
-                    gl.FRAMEBUFFER,
-                    gl.COLOR_ATTACHMENT0 + i,
-                    glTexture,
-                    0,
-                    0
-                );
-            }
-            else if (glSource.target === gl.TEXTURE_CUBE_MAP)
-            {
-                gl.framebufferTexture2D(
-                    gl.FRAMEBUFFER,
-                    gl.COLOR_ATTACHMENT0 + i,
-                    gl.TEXTURE_CUBE_MAP_POSITIVE_X,
-                    glTexture,
-                    0
-                );
-            }
-            else
-            {
-                throw new Error('[RenderTargetSystem] Unsupported texture target for framebuffer attachment.');
-            }
+            throw new Error("STUB");
         });
 
         if (glRenderTarget.msaa)
@@ -566,9 +421,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
             renderTarget.colorAttachments.forEach((_, i) =>
             {
-                const msaaRenderBuffer = gl.createRenderbuffer();
-
-                glRenderTarget.msaaRenderBuffer[i] = msaaRenderBuffer;
+                throw new Error("STUB");
             });
         }
         else
@@ -611,10 +464,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
         renderTarget.colorAttachments.forEach((colorAttachment, i) =>
         {
-            // no need to resize the first texture..
-            if (i === 0) return;
-
-            colorAttachment.texture.resize(source.width, source.height, source._resolution);
+            throw new Error("STUB");
         });
 
         if (glRenderTarget.msaa)
@@ -628,34 +478,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
             renderTarget.colorAttachments.forEach((colorAttachment, i) =>
             {
-                const source = colorAttachment.texture;
-
-                renderer.texture.bindSource(source, 0);
-                const glSource = renderer.texture.getGlSource(source);
-
-                const glInternalFormat = glSource.internalFormat;
-
-                const msaaRenderBuffer = glRenderTarget.msaaRenderBuffer[i];
-
-                gl.bindRenderbuffer(
-                    gl.RENDERBUFFER,
-                    msaaRenderBuffer
-                );
-
-                gl.renderbufferStorageMultisample(
-                    gl.RENDERBUFFER,
-                    4,
-                    glInternalFormat,
-                    source.pixelWidth,
-                    source.pixelHeight
-                );
-
-                gl.framebufferRenderbuffer(
-                    gl.FRAMEBUFFER,
-                    gl.COLOR_ATTACHMENT0 + i,
-                    gl.RENDERBUFFER,
-                    msaaRenderBuffer
-                );
+                throw new Error("STUB");
             });
         }
     }
@@ -783,32 +606,12 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
 
     public prerender(renderTarget: RenderTarget)
     {
-        if (renderTarget.colorAttachments.length === 0) return;
-
-        const resource = renderTarget.colorAttachments[0].texture.resource;
-
-        if (this._renderer.context.multiView && CanvasSource.test(resource))
-        {
-            this._renderer.context.ensureCanvasSize(resource);
-        }
+        throw new Error("STUB");
     }
 
     public postrender(renderTarget: RenderTarget)
     {
-        if (!this._renderer.context.multiView || renderTarget.colorAttachments.length === 0) return;
-
-        const colorTexture = renderTarget.colorAttachments[0].texture;
-
-        if (CanvasSource.test(colorTexture.resource))
-        {
-            const contextCanvas = this._renderer.context.canvas;
-            const canvasSource = colorTexture as unknown as CanvasSource;
-
-            canvasSource.context2D.drawImage(
-                contextCanvas as CanvasImageSource,
-                0, canvasSource.pixelHeight - contextCanvas.height
-            );
-        }
+        throw new Error("STUB");
     }
 
     private _setDrawBuffers(renderTarget: RenderTarget, gl: GlRenderingContext): void
@@ -843,9 +646,7 @@ export class GlRenderTargetAdaptor implements RenderTargetAdaptor<GlRenderTarget
      */
     public resetState(): void
     {
-        this._boundFramebuffer = undefined;
-        this._viewPortCache = new Rectangle();
-        this._clearColorCache = [0, 0, 0, 0];
+        throw new Error("STUB");
     }
 
     /**

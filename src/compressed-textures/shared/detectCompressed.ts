@@ -22,27 +22,15 @@ export const detectCompressed = {
     },
     test: async (): Promise<boolean> =>
     {
-        if (await isWebGPUSupported()) return true;
-        if (isWebGLSupported()) return true;
-
-        return false;
+        throw new Error("STUB");
     },
     add: async (formats: string[]): Promise<string[]> =>
     {
-        const supportedCompressedTextureFormats = await getSupportedCompressedTextureFormats();
-
-        compressedTextureExtensions = extractExtensionsForCompressedTextureFormats(supportedCompressedTextureFormats);
-
-        return [...compressedTextureExtensions, ...formats];
+        throw new Error("STUB");
     },
     remove: async (formats: string[]): Promise<string[]> =>
     {
-        if (compressedTextureExtensions)
-        {
-            return formats.filter((f) => !(f in compressedTextureExtensions));
-        }
-
-        return formats;
+        throw new Error("STUB");
     },
 } as FormatDetectionParser;
 
@@ -54,31 +42,13 @@ function extractExtensionsForCompressedTextureFormats(formats: TEXTURE_FORMATS[]
 
     formats.forEach((format) =>
     {
-        const extension = format.split('-')[0];
-
-        if (extension && !dupeMap[extension])
-        {
-            dupeMap[extension] = true;
-            extensions.push(extension);
-        }
+        throw new Error("STUB");
     });
 
     // sort extensions by priority
     extensions.sort((a, b) =>
     {
-        const aIndex = validFormats.indexOf(a);
-        const bIndex = validFormats.indexOf(b);
-
-        if (aIndex === -1)
-        {
-            return 1;
-        }
-        if (bIndex === -1)
-        {
-            return -1;
-        }
-
-        return aIndex - bIndex;
+        throw new Error("STUB");
     });
 
     return extensions;

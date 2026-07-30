@@ -295,17 +295,7 @@ export class Particle implements IParticle
 
     constructor(options: Texture | ParticleOptions)
     {
-        if (options instanceof Texture)
-        {
-            this.texture = options;
-            assignWithIgnore(this, Particle.defaultOptions, {});
-        }
-        else
-        {
-            const combined = { ...Particle.defaultOptions, ...options };
-
-            assignWithIgnore(this, combined, {});
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -341,14 +331,12 @@ export class Particle implements IParticle
      */
     get alpha(): number
     {
-        return this._alpha;
+        throw new Error("STUB");
     }
 
     set alpha(value: number)
     {
-        this._alpha = Math.min(Math.max(value, 0), 1);
-
-        this._updateColor();
+        throw new Error("STUB");
     }
 
     /**
@@ -386,19 +374,16 @@ export class Particle implements IParticle
      */
     get tint(): number
     {
-        return bgr2rgb(this._tint);
+        throw new Error("STUB");
     }
 
     set tint(value: ColorSource)
     {
-        this._tint = Color.shared.setValue(value ?? 0xFFFFFF).toBgrNumber();
-
-        this._updateColor();
+        throw new Error("STUB");
     }
 
     private _updateColor()
     {
-        // combine alpha and tint
-        this.color = this._tint + (((this._alpha * 255) | 0) << 24);
+        throw new Error("STUB");
     }
 }

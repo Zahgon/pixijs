@@ -39,14 +39,7 @@ async function getBasis(): Promise<BasisTextureConstructor>
 
         basisPromise = new Promise((resolve) =>
         {
-            BASIS({
-                locateFile: (_file) =>
-                    absoluteWasmUrl
-            }).then((module) =>
-            {
-                module.initializeBasis();
-                resolve(module.BasisFile);
-            });
+            throw new Error("STUB");
         });
     }
 
@@ -102,7 +95,7 @@ async function init(
     if (wasmUrl)settings.wasmUrl = wasmUrl;
 
     basisTranscodedTextureFormat = preferredTranscodedFormat
-        .filter((format) => supportedTextures.includes(format))[0] as TEXTURE_FORMATS;
+        .filter((format) => { throw new Error("STUB"); })[0] as TEXTURE_FORMATS;
 
     basisTranscoderFormat = gpuFormatToBasisTranscoderFormat(basisTranscodedTextureFormat);
 
@@ -112,40 +105,16 @@ async function init(
 const messageHandlers = {
     init: async (data: { wasmUrl: string, jsUrl: string, supportedTextures: TEXTURE_FORMATS[]}) =>
     {
-        const { jsUrl, wasmUrl, supportedTextures } = data;
-
-        await init(jsUrl, wasmUrl, supportedTextures);
+        throw new Error("STUB");
     },
     load: async (data: {url: string}) =>
     {
-        // eslint-disable-next-line no-useless-catch
-        try
-        {
-            const textureOptions = await load(data.url) as TextureSourceOptions<Uint8Array[]>;
-
-            return {
-                type: 'load',
-                url: data.url,
-                success: true,
-                textureOptions,
-                transferables: textureOptions.resource?.map((arr) => arr.buffer)
-            };
-        }
-        catch (e)
-        {
-            throw e;
-        }
+        throw new Error("STUB");
     }
 
 };
 
 self.onmessage = (async (messageEvent) =>
 {
-    const message = messageEvent.data;
-    const response = await messageHandlers[message.type as 'load' | 'init'](message as any);
-
-    if (response)
-    {
-        (self as any).postMessage(response, response.transferables);
-    }
+    throw new Error("STUB");
 });

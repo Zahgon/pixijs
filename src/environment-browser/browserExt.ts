@@ -11,9 +11,9 @@ export const browserExt = {
         name: 'browser',
         priority: -1,
     },
-    test: () => true,
+    test: () => { throw new Error("STUB"); },
     load: async () =>
     {
-        await import('./browserAll');
+        throw new Error("STUB");
     },
 };

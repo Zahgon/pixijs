@@ -39,7 +39,7 @@ export class GraphicsGpuData implements GPUData
     {
         this.batches.forEach((batch) =>
         {
-            BigPool.return(batch as PoolItem);
+            throw new Error("STUB");
         });
 
         this.batches.length = 0;
@@ -66,15 +66,12 @@ export class GraphicsPipe implements RenderPipe<Graphics>
 
     constructor(renderer: Renderer, adaptor: GraphicsAdaptor)
     {
-        this.renderer = renderer;
-        this._adaptor = adaptor;
-        this.renderer.runners.contextChange.add(this);
-        this._managedGraphics = new GCManagedHash({ renderer, type: 'renderable', priority: -1, name: 'graphics' });
+        throw new Error("STUB");
     }
 
     public contextChange(): void
     {
-        this._adaptor.contextChange(this.renderer);
+        throw new Error("STUB");
     }
 
     public validateRenderable(graphics: Graphics): boolean
@@ -219,15 +216,7 @@ export class GraphicsPipe implements RenderPipe<Graphics>
 
         gpuData.batches = gpuContext.batches.map((batch) =>
         {
-            const batchClone = BigPool.get(BatchableGraphics);
-
-            batch.copyTo(batchClone);
-
-            batchClone.renderable = graphics;
-
-            batchClone.roundPixels = roundPixels;
-
-            return batchClone;
+            throw new Error("STUB");
         });
     }
 

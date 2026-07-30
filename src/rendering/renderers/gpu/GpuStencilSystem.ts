@@ -31,26 +31,12 @@ export class GpuStencilSystem implements System
 
     constructor(renderer: WebGPURenderer)
     {
-        this._renderer = renderer;
-
-        renderer.renderTarget.onRenderTargetChange.add(this);
+        throw new Error("STUB");
     }
 
     protected onRenderTargetChange(renderTarget: RenderTarget)
     {
-        let stencilState = this._renderTargetStencilState[renderTarget.uid];
-
-        if (!stencilState)
-        {
-            stencilState = this._renderTargetStencilState[renderTarget.uid] = {
-                stencilMode: STENCIL_MODES.DISABLED,
-                stencilReference: 0,
-            };
-        }
-
-        this._activeRenderTarget = renderTarget;
-
-        this.setStencilMode(stencilState.stencilMode, stencilState.stencilReference);
+        throw new Error("STUB");
     }
 
     public setStencilMode(stencilMode: STENCIL_MODES, stencilReference: number)

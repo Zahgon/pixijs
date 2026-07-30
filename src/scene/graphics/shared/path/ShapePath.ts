@@ -130,13 +130,7 @@ export class ShapePath
      */
     public arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): this
     {
-        this._ensurePoly();
-
-        const points = this._currentPoly.points;
-
-        buildArcTo(points, x1, y1, x2, y2, radius);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -157,23 +151,7 @@ export class ShapePath
         x: number, y: number
     ): this
     {
-        const points = this._currentPoly.points;
-
-        // this needs to work on both canvas and GPU backends so might want to move this to the Graphics2D path..
-        buildArcToSvg(
-            points,
-            this._currentPoly.lastX,
-            this._currentPoly.lastY,
-            x,
-            y,
-            rx,
-            ry,
-            xAxisRotation,
-            largeArcFlag,
-            sweepFlag,
-        );
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -195,21 +173,7 @@ export class ShapePath
         smoothness?: number
     ): this
     {
-        this._ensurePoly();
-
-        const currentPoly = this._currentPoly;
-
-        // ensure distance from last point to first control point is not too small
-
-        // TODO - make this a plugin that people can override..
-        buildAdaptiveBezier(
-            this._currentPoly.points,
-            currentPoly.lastX, currentPoly.lastY,
-            cp1x, cp1y, cp2x, cp2y, x, y,
-            smoothness,
-        );
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -355,9 +319,7 @@ export class ShapePath
      */
     public circle(x: number, y: number, radius: number, transform?: Matrix): this
     {
-        this.drawShape(new Circle(x, y, radius), transform);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -391,24 +353,7 @@ export class ShapePath
      */
     public regularPoly(x: number, y: number, radius: number, sides: number, rotation = 0, transform?: Matrix): this
     {
-        sides = Math.max(sides | 0, 3);
-        const startAngle = (-1 * Math.PI / 2) + rotation;
-        const delta = (Math.PI * 2) / sides;
-        const polygon = [];
-
-        for (let i = 0; i < sides; i++)
-        {
-            const angle = startAngle - (i * delta);
-
-            polygon.push(
-                x + (radius * Math.cos(angle)),
-                y + (radius * Math.sin(angle))
-            );
-        }
-
-        this.poly(polygon, true, transform);
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -431,45 +376,7 @@ export class ShapePath
         smoothness?: number,
     ): this
     {
-        sides = Math.max((sides | 0), 3);
-
-        if (corner <= 0)
-        {
-            return this.regularPoly(x, y, radius, sides, rotation);
-        }
-
-        const sideLength = (radius * Math.sin(Math.PI / sides)) - 0.001;
-
-        corner = Math.min(corner, sideLength);
-
-        const startAngle = (-1 * Math.PI / 2) + rotation;
-        const delta = (Math.PI * 2) / sides;
-        const internalAngle = ((sides - 2) * Math.PI) / sides / 2;
-
-        for (let i = 0; i < sides; i++)
-        {
-            const angle = (i * delta) + startAngle;
-            const x0 = x + (radius * Math.cos(angle));
-            const y0 = y + (radius * Math.sin(angle));
-            const a1 = angle + (Math.PI) + internalAngle;
-            const a2 = angle - (Math.PI) - internalAngle;
-            const x1 = x0 + (corner * Math.cos(a1));
-            const y1 = y0 + (corner * Math.sin(a1));
-            const x3 = x0 + (corner * Math.cos(a2));
-            const y3 = y0 + (corner * Math.sin(a2));
-
-            if (i === 0)
-            {
-                this.moveTo(x1, y1);
-            }
-            else
-            {
-                this.lineTo(x1, y1);
-            }
-            this.quadraticCurveTo(x0, y0, x3, y3, smoothness);
-        }
-
-        return this.closePath();
+        throw new Error("STUB");
     }
 
     /**
@@ -487,21 +394,7 @@ export class ShapePath
      */
     public roundShape(points: RoundedPoint[], radius: number, useQuadratic = false, smoothness?: number): this
     {
-        if (points.length < 3)
-        {
-            return this;
-        }
-
-        if (useQuadratic)
-        {
-            roundedShapeQuadraticCurve(this, points, radius, smoothness);
-        }
-        else
-        {
-            roundedShapeArc(this, points, radius);
-        }
-
-        return this.closePath();
+        throw new Error("STUB");
     }
 
     /**
@@ -515,28 +408,7 @@ export class ShapePath
      */
     public filletRect(x: number, y: number, width: number, height: number, fillet: number): this
     {
-        if (fillet === 0)
-        {
-            return this.rect(x, y, width, height);
-        }
-
-        const maxFillet = Math.min(width, height) / 2;
-        const inset = Math.min(maxFillet, Math.max(-maxFillet, fillet));
-        const right = x + width;
-        const bottom = y + height;
-        const dir = inset < 0 ? -inset : 0;
-        const size = Math.abs(inset);
-
-        return this
-            .moveTo(x, y + size)
-            .arcTo(x + dir, y + dir, x + size, y, size)
-            .lineTo(right - size, y)
-            .arcTo(right - dir, y + dir, right, y + size, size)
-            .lineTo(right, bottom - size)
-            .arcTo(right - dir, bottom - dir, x + width - size, bottom, size)
-            .lineTo(x + size, bottom)
-            .arcTo(x + dir, bottom - dir, x, bottom - size, size)
-            .closePath();
+        throw new Error("STUB");
     }
 
     /**
@@ -550,35 +422,7 @@ export class ShapePath
      */
     public chamferRect(x: number, y: number, width: number, height: number, chamfer: number, transform?: Matrix): this
     {
-        if (chamfer <= 0)
-        {
-            return this.rect(x, y, width, height);
-        }
-
-        const inset = Math.min(chamfer, Math.min(width, height) / 2);
-        const right = x + width;
-        const bottom = y + height;
-        const points = [
-            x + inset, y,
-            right - inset, y,
-            right, y + inset,
-            right, bottom - inset,
-            right - inset, bottom,
-            x + inset, bottom,
-            x, bottom - inset,
-            x, y + inset,
-        ];
-
-        // Remove overlapping points
-        for (let i = points.length - 1; i >= 2; i -= 2)
-        {
-            if (points[i] === points[i - 2] && points[i - 1] === points[i - 3])
-            {
-                points.splice(i - 1, 2);
-            }
-        }
-
-        return this.poly(points, true, transform);
+        throw new Error("STUB");
     }
 
     /**
@@ -725,47 +569,12 @@ export class ShapePath
     /** Builds the path. */
     public buildPath()
     {
-        const path = this._graphicsPath2D;
-
-        this.shapePrimitives.length = 0;
-        this._currentPoly = null;
-
-        for (let i = 0; i < path.instructions.length; i++)
-        {
-            const instruction = path.instructions[i];
-
-            // Sorry TS! this is the best we could do...
-            this[instruction.action](...(instruction.data as [never, never, never, never, never, never, never]));
-        }
-
-        this.finish();
+        throw new Error("STUB");
     }
 
     /** Gets the bounds of the path. */
     get bounds(): Bounds
     {
-        const bounds = this._bounds;
-
-        bounds.clear();
-
-        const shapePrimitives = this.shapePrimitives;
-
-        for (let i = 0; i < shapePrimitives.length; i++)
-        {
-            const shapePrimitive = shapePrimitives[i];
-
-            const boundsRect = shapePrimitive.shape.getBounds(tempRectangle);
-
-            if (shapePrimitive.transform)
-            {
-                bounds.addRect(boundsRect, shapePrimitive.transform);
-            }
-            else
-            {
-                bounds.addRect(boundsRect);
-            }
-        }
-
-        return bounds;
+        throw new Error("STUB");
     }
 }

@@ -22,14 +22,12 @@ export class GlRenderTargetSystem extends RenderTargetSystem<GlRenderTarget>
 
     constructor(renderer: WebGLRenderer)
     {
-        super(renderer);
-
-        this.adaptor.init(renderer, this);
+        throw new Error("STUB");
     }
 
     /** Called via the renderer's `resetState` runner when mixing Pixi with external GL code. */
     public resetState(): void
     {
-        this.adaptor.resetState();
+        throw new Error("STUB");
     }
 }

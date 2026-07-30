@@ -77,19 +77,7 @@ export class RopeGeometry extends MeshGeometry
      */
     constructor(options: RopeGeometryOptions)
     {
-        const { width, points, textureScale } = { ...RopeGeometry.defaultOptions, ...options };
-
-        super({
-            positions: new Float32Array(points.length * 4),
-            uvs: new Float32Array(points.length * 4),
-            indices: new Uint32Array((points.length - 1) * 6),
-        });
-
-        this.points = points;
-        this._width = width;
-        this.textureScale = textureScale;
-
-        this._build();
+        throw new Error("STUB");
     }
 
     /**
@@ -98,7 +86,7 @@ export class RopeGeometry extends MeshGeometry
      */
     get width(): number
     {
-        return this._width;
+        throw new Error("STUB");
     }
 
     /** Refreshes Rope indices and uvs */

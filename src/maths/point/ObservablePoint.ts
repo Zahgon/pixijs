@@ -260,16 +260,12 @@ export class ObservablePoint implements PointLike
      */
     get x(): number
     {
-        return this._x;
+        throw new Error("STUB");
     }
 
     set x(value: number)
     {
-        if (this._x !== value)
-        {
-            this._x = value;
-            this._observer._onUpdate(this);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -288,15 +284,11 @@ export class ObservablePoint implements PointLike
      */
     get y(): number
     {
-        return this._y;
+        throw new Error("STUB");
     }
 
     set y(value: number)
     {
-        if (this._y !== value)
-        {
-            this._y = value;
-            this._observer._onUpdate(this);
-        }
+        throw new Error("STUB");
     }
 }

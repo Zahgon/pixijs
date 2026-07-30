@@ -87,22 +87,7 @@ export class NineSliceGeometry extends PlaneGeometry
 
     constructor(options: NineSliceGeometryOptions = {})
     {
-        options = { ...NineSliceGeometry.defaultOptions, ...options };
-
-        super({
-            width: options.width,
-            height: options.height,
-            verticesX: 4,
-            verticesY: 4,
-        });
-
-        // Initialise trim fields before update() so updateUvs() has valid values
-        this._trimX = 0;
-        this._trimY = 0;
-        this._trimWidth = options.originalWidth ?? NineSliceGeometry.defaultOptions.originalWidth;
-        this._trimHeight = options.originalHeight ?? NineSliceGeometry.defaultOptions.originalHeight;
-
-        this.update(options);
+        throw new Error("STUB");
     }
 
     /**

@@ -37,10 +37,7 @@ export class MaskEffectManagerClass
 
         this._effectClasses.forEach((test) =>
         {
-            this.add({
-                test: test.test,
-                maskClass: test
-            });
+            throw new Error("STUB");
         });
     }
 

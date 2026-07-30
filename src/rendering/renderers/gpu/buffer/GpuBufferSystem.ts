@@ -60,7 +60,7 @@ export class GpuBufferSystem implements System
 
     protected contextChange(gpu: GPU): void
     {
-        this._gpu = gpu;
+        throw new Error("STUB");
     }
 
     public getGPUBuffer(buffer: Buffer): GPUBuffer
@@ -98,13 +98,12 @@ export class GpuBufferSystem implements System
     /** dispose all WebGL resources of all managed buffers */
     public destroyAll(): void
     {
-        this._managedBuffers.removeAll();
+        throw new Error("STUB");
     }
 
     protected onBufferUnload(buffer: Buffer): void
     {
-        buffer.off('update', this.updateBuffer, this);
-        buffer.off('change', this.onBufferChange, this);
+        throw new Error("STUB");
     }
 
     public createGPUBuffer(buffer: Buffer): GPUBuffer
@@ -139,9 +138,7 @@ export class GpuBufferSystem implements System
 
     protected onBufferChange(buffer: Buffer)
     {
-        this._managedBuffers.remove(buffer);
-        buffer._updateID = 0;
-        this.createGPUBuffer(buffer);
+        throw new Error("STUB");
     }
 
     public destroy(): void

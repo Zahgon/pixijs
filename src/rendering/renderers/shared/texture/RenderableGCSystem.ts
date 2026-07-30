@@ -132,11 +132,7 @@ export class RenderableGCSystem implements System<RenderableGCSystemOptions>
      */
     get enabled(): boolean
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'RenderableGCSystem.enabled is deprecated, please use the GCSystem.enabled instead.');
-        // #endif
-
-        return this._renderer.gc.enabled;
+        throw new Error("STUB");
     }
 
     /**
@@ -146,10 +142,7 @@ export class RenderableGCSystem implements System<RenderableGCSystemOptions>
      */
     set enabled(value: boolean)
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'RenderableGCSystem.enabled is deprecated, please use the GCSystem.enabled instead.');
-        // #endif
-        this._renderer.gc.enabled = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -159,11 +152,7 @@ export class RenderableGCSystem implements System<RenderableGCSystemOptions>
      */
     public addManagedHash<T>(context: T, hash: string): void
     {
-        // #if _DEBUG
-        // eslint-disable-next-line max-len
-        deprecation('8.15.0', 'RenderableGCSystem.addManagedHash is deprecated, please use the GCSystem.addCollection instead.');
-        // #endif
-        this._renderer.gc.addCollection(context, hash, 'hash');
+        throw new Error("STUB");
     }
 
     /**
@@ -173,11 +162,7 @@ export class RenderableGCSystem implements System<RenderableGCSystemOptions>
      */
     public addManagedArray<T>(context: T, hash: string): void
     {
-        // #if _DEBUG
-        // eslint-disable-next-line max-len
-        deprecation('8.15.0', 'RenderableGCSystem.addManagedArray is deprecated, please use the GCSystem.addCollection instead.');
-        // #endif
-        this._renderer.gc.addCollection(context, hash, 'array');
+        throw new Error("STUB");
     }
 
     /**
@@ -199,10 +184,7 @@ export class RenderableGCSystem implements System<RenderableGCSystemOptions>
      */
     public run(): void
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'RenderableGCSystem.run is deprecated, please use the GCSystem instead.');
-        // #endif
-        this._renderer.gc.run();
+        throw new Error("STUB");
     }
 
     /** Cleans up the garbage collection system. Disables GC and removes all tracked resources. */

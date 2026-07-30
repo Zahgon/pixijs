@@ -88,13 +88,7 @@ export abstract class ViewContainer<GPU_DATA extends GPUData = any> extends Cont
      */
     public get bounds()
     {
-        if (!this._boundsDirty) return this._bounds;
-
-        this.updateBounds();
-
-        this._boundsDirty = false;
-
-        return this._bounds;
+        throw new Error("STUB");
     }
 
     /** @private */
@@ -111,12 +105,12 @@ export abstract class ViewContainer<GPU_DATA extends GPUData = any> extends Cont
      */
     get roundPixels()
     {
-        return !!this._roundPixels;
+        throw new Error("STUB");
     }
 
     set roundPixels(value: boolean)
     {
-        this._roundPixels = value ? 1 : 0;
+        throw new Error("STUB");
     }
 
     constructor(options: ViewContainerOptions)
@@ -142,13 +136,7 @@ export abstract class ViewContainer<GPU_DATA extends GPUData = any> extends Cont
      */
     public containsPoint(point: PointData)
     {
-        const bounds = this.bounds;
-        const { x, y } = point;
-
-        return (x >= bounds.minX
-            && x <= bounds.maxX
-            && y >= bounds.minY
-            && y <= bounds.maxY);
+        throw new Error("STUB");
     }
 
     /** @private */

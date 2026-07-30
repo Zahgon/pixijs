@@ -118,11 +118,11 @@ export class ViewSystem implements System<ViewSystemOptions, TypeOrBool<ViewSyst
      */
     public get autoDensity(): boolean
     {
-        return this.texture.source.autoDensity;
+        throw new Error("STUB");
     }
     public set autoDensity(value: boolean)
     {
-        this.texture.source.autoDensity = value;
+        throw new Error("STUB");
     }
 
     /** Whether to enable anti-aliasing. This may affect performance. */
@@ -140,16 +140,12 @@ export class ViewSystem implements System<ViewSystemOptions, TypeOrBool<ViewSyst
     /** The resolution / device pixel ratio of the renderer. */
     get resolution(): number
     {
-        return this.texture.source._resolution;
+        throw new Error("STUB");
     }
 
     set resolution(value: number)
     {
-        this.texture.source.resize(
-            this.texture.source.width,
-            this.texture.source.height,
-            value
-        );
+        throw new Error("STUB");
     }
 
     /**

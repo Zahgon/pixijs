@@ -36,7 +36,7 @@ export class GpuShaderSystem
 
     protected contextChange(gpu: GPU): void
     {
-        this._gpu = gpu;
+        throw new Error("STUB");
     }
 
     public getProgramData(program: GpuProgram)
@@ -48,7 +48,7 @@ export class GpuShaderSystem
     {
         const device = this._gpu.device;
 
-        const bindGroups = program.gpuLayout.map((group) => device.createBindGroupLayout({ entries: group }));
+        const bindGroups = program.gpuLayout.map((group) => { throw new Error("STUB"); });
 
         const pipelineLayoutDesc = { bindGroupLayouts: bindGroups };
 

@@ -269,37 +269,7 @@ export abstract class AbstractText<
         styleClass: new (options: TEXT_STYLE_OPTIONS) => TEXT_STYLE
     )
     {
-        const { text, resolution, style, anchor, width, height, roundPixels, ...rest } = options;
-
-        super({
-            ...rest
-        });
-
-        this._styleClass = styleClass;
-
-        this.text = text ?? '';
-
-        this.style = style;
-
-        this.resolution = resolution ?? null;
-
-        this.allowChildren = false;
-
-        this._anchor = new ObservablePoint(
-            {
-                _onUpdate: () =>
-                {
-                    this.onViewUpdate();
-                },
-            },
-        );
-
-        if (anchor) this.anchor = anchor;
-        this.roundPixels = roundPixels ?? false;
-
-        // needs to be set after the container has initiated
-        if (width !== undefined) this.width = width;
-        if (height !== undefined) this.height = height;
+        throw new Error("STUB");
     }
 
     /**
@@ -329,12 +299,12 @@ export abstract class AbstractText<
      */
     get anchor(): ObservablePoint
     {
-        return this._anchor;
+        throw new Error("STUB");
     }
 
     set anchor(value: PointData | number)
     {
-        typeof value === 'number' ? this._anchor.set(value) : this._anchor.copyFrom(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -399,19 +369,17 @@ export abstract class AbstractText<
      */
     set resolution(value: number)
     {
-        this._autoResolution = value === null;
-        this._resolution = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     get resolution(): number
     {
-        return this._resolution;
+        throw new Error("STUB");
     }
 
     get style(): TEXT_STYLE
     {
-        return this._style;
+        throw new Error("STUB");
     }
 
     /**
@@ -461,21 +429,7 @@ export abstract class AbstractText<
      */
     set style(style: TEXT_STYLE | Partial<TEXT_STYLE> | TEXT_STYLE_OPTIONS)
     {
-        style ||= {};
-
-        this._style?.off('update', this.onViewUpdate, this);
-
-        if (style instanceof this._styleClass)
-        {
-            this._style = style as TEXT_STYLE;
-        }
-        else
-        {
-            this._style = new this._styleClass(style as TEXT_STYLE_OPTIONS);
-        }
-
-        this._style.on('update', this.onViewUpdate, this);
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     /**
@@ -492,12 +446,12 @@ export abstract class AbstractText<
      */
     override get width(): number
     {
-        return Math.abs(this.scale.x) * this.bounds.width;
+        throw new Error("STUB");
     }
 
     override set width(value: number)
     {
-        this._setWidth(value, this.bounds.width);
+        throw new Error("STUB");
     }
 
     /**
@@ -514,12 +468,12 @@ export abstract class AbstractText<
      */
     override get height(): number
     {
-        return Math.abs(this.scale.y) * this.bounds.height;
+        throw new Error("STUB");
     }
 
     override set height(value: number)
     {
-        this._setHeight(value, this.bounds.height);
+        throw new Error("STUB");
     }
 
     /**
@@ -547,11 +501,7 @@ export abstract class AbstractText<
      */
     public override getSize(out?: Size): Size
     {
-        out ||= {} as Size;
-        out.width = Math.abs(this.scale.x) * this.bounds.width;
-        out.height = Math.abs(this.scale.y) * this.bounds.height;
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -582,18 +532,7 @@ export abstract class AbstractText<
      */
     public override setSize(value: number | Optional<Size, 'height'>, height?: number)
     {
-        if (typeof value === 'object')
-        {
-            height = value.height ?? value.width;
-            value = value.width;
-        }
-        else
-        {
-            height ??= value;
-        }
-
-        value !== undefined && this._setWidth(value, this.bounds.width);
-        height !== undefined && this._setHeight(height, this.bounds.height);
+        throw new Error("STUB");
     }
 
     /**
@@ -612,20 +551,7 @@ export abstract class AbstractText<
      */
     public override containsPoint(point: PointData)
     {
-        const width = this.bounds.width;
-        const height = this.bounds.height;
-
-        const x1 = -width * this.anchor.x;
-        let y1 = 0;
-
-        if (point.x >= x1 && point.x <= x1 + width)
-        {
-            y1 = -height * this.anchor.y;
-
-            if (point.y >= y1 && point.y <= y1 + height) return true;
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /** @internal */
@@ -669,7 +595,7 @@ export abstract class AbstractText<
      */
     public get styleKey(): string
     {
-        return `${this._text}:${this._style.styleKey}:${this._resolution}`;
+        throw new Error("STUB");
     }
 }
 
@@ -698,20 +624,5 @@ export function ensureTextOptions<
     name: string
 ): TEXT_OPTIONS
 {
-    let options = (args[0] ?? {}) as TEXT_OPTIONS;
-
-    // @deprecated
-    if (typeof options === 'string' || args[1])
-    {
-        // #if _DEBUG
-        deprecation(v8_0_0, `use new ${name}({ text: "hi!", style }) instead`);
-        // #endif
-
-        options = {
-            text: options,
-            style: args[1],
-        } as unknown as TEXT_OPTIONS;
-    }
-
-    return options;
+    throw new Error("STUB");
 }

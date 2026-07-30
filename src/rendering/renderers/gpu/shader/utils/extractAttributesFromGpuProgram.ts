@@ -46,24 +46,7 @@ const LOCATION_REGEX = /@location\((\d+)\)\s+([a-zA-Z0-9_]+)\s*:\s*([a-zA-Z0-9_<
  */
 function parseLocations(str: string, results: Record<string, ExtractedAttributeData>): void
 {
-    let match;
-
-    while ((match = LOCATION_REGEX.exec(str)) !== null)
-    {
-        const format = WGSL_TO_VERTEX_TYPES[match[3] as VertexFormat] ?? 'float32';
-
-        results[match[2]] = {
-            location: parseInt(match[1], 10),
-            format,
-            stride: getAttributeInfoFromFormat(format).stride,
-            offset: 0,
-            instance: false,
-            start: 0,
-        };
-    }
-
-    // Reset regex state for reuse
-    LOCATION_REGEX.lastIndex = 0;
+    throw new Error("STUB");
 }
 
 /**
@@ -73,9 +56,7 @@ function parseLocations(str: string, results: Record<string, ExtractedAttributeD
  */
 function stripComments(source: string): string
 {
-    return source
-        .replace(/\/\/.*$/gm, '') // Remove line comments
-        .replace(/\/\*[\s\S]*?\*\//g, ''); // Remove block comments
+    throw new Error("STUB");
 }
 
 /**
@@ -93,53 +74,5 @@ export function extractAttributesFromGpuProgram(
     { source, entryPoint }: ProgramSource
 ): Record<string, ExtractedAttributeData>
 {
-    const results: Record<string, ExtractedAttributeData> = {};
-
-    // Strip comments to avoid false matches
-    const cleanSource = stripComments(source);
-
-    // Step 1: Find the start of the vertex function (include '(' to avoid prefix matches)
-    const mainVertStart = cleanSource.indexOf(`fn ${entryPoint}(`);
-
-    if (mainVertStart === -1)
-    {
-        return results;
-    }
-
-    // Step 2: Find the index of the next '->' after the start of the function
-    const arrowFunctionStart = cleanSource.indexOf('->', mainVertStart);
-
-    if (arrowFunctionStart === -1)
-    {
-        return results;
-    }
-
-    const functionArgsSubstring = cleanSource.substring(mainVertStart, arrowFunctionStart);
-
-    // Step 3: Try parsing inline @location decorators first
-    parseLocations(functionArgsSubstring, results);
-
-    // Step 4: If no inline locations found, check for struct-based input
-    if (Object.keys(results).length === 0)
-    {
-        // Match first parameter type: (input: VertexInput, ...) or (data: MyStruct)
-        const structMatch = functionArgsSubstring.match(/\(\s*\w+\s*:\s*(\w+)/);
-
-        if (structMatch)
-        {
-            const structName = structMatch[1];
-
-            // Find the struct definition in the source
-            const structRegex = new RegExp(`struct\\s+${structName}\\s*\\{([^}]+)\\}`, 's');
-            const structBody = cleanSource.match(structRegex);
-
-            if (structBody)
-            {
-                // Parse @location from struct body
-                parseLocations(structBody[1], results);
-            }
-        }
-    }
-
-    return results;
+    throw new Error("STUB");
 }

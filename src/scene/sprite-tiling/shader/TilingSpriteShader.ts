@@ -24,46 +24,7 @@ export class TilingSpriteShader extends Shader
 {
     constructor()
     {
-        gpuProgram ??= compileHighShaderGpuProgram({
-            name: 'tiling-sprite-shader',
-            bits: [
-                localUniformBit,
-                tilingBit,
-                roundPixelsBit,
-            ],
-        });
-
-        glProgram ??= compileHighShaderGlProgram({
-            name: 'tiling-sprite-shader',
-            bits: [
-                localUniformBitGl,
-                tilingBitGl,
-                roundPixelsBitGl,
-            ]
-        });
-
-        const tilingUniforms = new UniformGroup({
-            uMapCoord: { value: new Matrix(), type: 'mat3x3<f32>' },
-            uClampFrame: { value: new Float32Array([0, 0, 1, 1]), type: 'vec4<f32>' },
-            uClampOffset: { value: new Float32Array([0, 0]), type: 'vec2<f32>' },
-            uTextureTransform: { value: new Matrix(), type: 'mat3x3<f32>' },
-            uSizeAnchor: { value: new Float32Array([100, 100, 0.5, 0.5]), type: 'vec4<f32>' },
-        });
-
-        super({
-            glProgram,
-            gpuProgram,
-            resources: {
-                localUniforms: new UniformGroup({
-                    uTransformMatrix: { value: new Matrix(), type: 'mat3x3<f32>' },
-                    uColor: { value: new Float32Array([1, 1, 1, 1]), type: 'vec4<f32>' },
-                    uRound: { value: 0, type: 'f32' },
-                }),
-                tilingUniforms,
-                uTexture: Texture.EMPTY.source,
-                uSampler: Texture.EMPTY.source.style,
-            }
-        });
+        throw new Error("STUB");
     }
 
     public updateUniforms(

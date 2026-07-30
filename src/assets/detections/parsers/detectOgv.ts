@@ -13,7 +13,7 @@ export const detectOgv = {
         type: ExtensionType.DetectionParser,
         priority: 0,
     },
-    test: async (): Promise<boolean> => testVideoFormat('video/ogg'),
-    add: async (formats) => [...formats, 'ogv'],
-    remove: async (formats) => formats.filter((f) => f !== 'ogv'),
+    test: async (): Promise<boolean> => { throw new Error("STUB"); },
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 } as FormatDetectionParser;

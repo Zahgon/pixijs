@@ -115,24 +115,7 @@ export class Polygon implements ShapePrimitive
      */
     constructor(...points: (PointData[] | number[])[] | PointData[] | number[])
     {
-        let flat = Array.isArray(points[0]) ? points[0] : points;
-
-        // if this is an array of points, convert it to a flat array of numbers
-        if (typeof flat[0] !== 'number')
-        {
-            const p: number[] = [];
-
-            for (let i = 0, il = flat.length; i < il; i++)
-            {
-                p.push((flat[i] as PointData).x, (flat[i] as PointData).y);
-            }
-
-            flat = p;
-        }
-
-        this.points = flat as number[];
-
-        this.closePath = true;
+        throw new Error("STUB");
     }
 
     /**
@@ -160,21 +143,7 @@ export class Polygon implements ShapePrimitive
      */
     public isClockwise(): boolean
     {
-        let area = 0;
-        const points = this.points;
-        const length = points.length;
-
-        for (let i = 0; i < length; i += 2)
-        {
-            const x1 = points[i];
-            const y1 = points[i + 1];
-            const x2 = points[(i + 2) % length];
-            const y2 = points[(i + 3) % length];
-
-            area += (x2 - x1) * (y2 + y1);
-        }
-
-        return area < 0;
+        throw new Error("STUB");
     }
 
     /**
@@ -315,31 +284,7 @@ export class Polygon implements ShapePrimitive
      */
     public strokeContains(x: number, y: number, strokeWidth: number, alignment = 0.5): boolean
     {
-        const strokeWidthSquared = strokeWidth * strokeWidth;
-        const rightWidthSquared = strokeWidthSquared * (1 - alignment);
-        const leftWidthSquared = strokeWidthSquared - rightWidthSquared;
-
-        const { points } = this;
-        const iterationLength = points.length - (this.closePath ? 0 : 2);
-
-        for (let i = 0; i < iterationLength; i += 2)
-        {
-            const x1 = points[i];
-            const y1 = points[i + 1];
-            const x2 = points[(i + 2) % points.length];
-            const y2 = points[(i + 3) % points.length];
-
-            const distanceSquared = squaredDistanceToLineSegment(x, y, x1, y1, x2, y2);
-
-            const sign = Math.sign(((x2 - x1) * (y - y1)) - ((y2 - y1) * (x - x1)));
-
-            if (distanceSquared <= (sign < 0 ? leftWidthSquared : rightWidthSquared))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**
@@ -441,7 +386,7 @@ export class Polygon implements ShapePrimitive
     {
         return `[pixi.js/math:Polygon`
             + `closeStroke=${this.closePath}`
-            + `points=${this.points.reduce((pointsDesc, currentPoint) => `${pointsDesc}, ${currentPoint}`, '')}]`;
+            + `points=${this.points.reduce((pointsDesc, currentPoint) => { throw new Error("STUB"); }, '')}]`;
     }
     // #endif
 
@@ -460,7 +405,7 @@ export class Polygon implements ShapePrimitive
      */
     get lastX(): number
     {
-        return this.points[this.points.length - 2];
+        throw new Error("STUB");
     }
 
     /**
@@ -478,7 +423,7 @@ export class Polygon implements ShapePrimitive
      */
     get lastY(): number
     {
-        return this.points[this.points.length - 1];
+        throw new Error("STUB");
     }
 
     /**
@@ -488,11 +433,7 @@ export class Polygon implements ShapePrimitive
      */
     get x(): number
     {
-        // #if _DEBUG
-        deprecation('8.11.0', 'Polygon.lastX is deprecated, please use Polygon.lastX instead.');
-        // #endif
-
-        return this.points[this.points.length - 2];
+        throw new Error("STUB");
     }
 
     /**
@@ -502,11 +443,7 @@ export class Polygon implements ShapePrimitive
      */
     get y(): number
     {
-        // #if _DEBUG
-        deprecation('8.11.0', 'Polygon.y is deprecated, please use Polygon.lastY instead.');
-        // #endif
-
-        return this.points[this.points.length - 1];
+        throw new Error("STUB");
     }
     /**
      * Get the first X coordinate of the polygon.
@@ -523,7 +460,7 @@ export class Polygon implements ShapePrimitive
      */
     get startX(): number
     {
-        return this.points[0];
+        throw new Error("STUB");
     }
 
     /**
@@ -541,7 +478,7 @@ export class Polygon implements ShapePrimitive
      */
     get startY(): number
     {
-        return this.points[1];
+        throw new Error("STUB");
     }
 }
 

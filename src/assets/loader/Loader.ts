@@ -159,11 +159,7 @@ export class Loader
     public parsers = new Proxy(this._parsers, {
         set: (target, key, value) =>
         {
-            this._parsersValidated = false;
-
-            target[key as any as number] = value;
-
-            return true;
+            throw new Error("STUB");
         }
     });
 
@@ -192,80 +188,7 @@ export class Loader
 
         result.promise = (async () =>
         {
-            let asset = null;
-
-            let parser: LoaderParser = null;
-
-            // first check to see if the user has specified a parser
-            if (data.parser || data.loadParser)
-            {
-                // they have? lovely, lets use it
-                parser = this._parserHash[data.parser || data.loadParser];
-
-                // #if _DEBUG
-                if (data.loadParser)
-                {
-                    warn(
-                        `[Assets] "loadParser" is deprecated, use "parser" instead for ${url}`
-                    );
-                }
-                // #endif
-
-                if (!parser)
-                {
-                    // #if _DEBUG
-                    warn(
-                        `[Assets] specified load parser "${data.parser || data.loadParser}" not found while loading ${url}`
-                    );
-                    // #endif
-                }
-            }
-
-            // no parser specified, so lets try and find one using the tests
-            if (!parser)
-            {
-                for (let i = 0; i < this.parsers.length; i++)
-                {
-                    const parserX = this.parsers[i];
-
-                    if (parserX.load && parserX.test?.(url, data, this))
-                    {
-                        parser = parserX;
-                        break;
-                    }
-                }
-
-                if (!parser)
-                {
-                    // #if _DEBUG
-                    // eslint-disable-next-line max-len
-                    warn(`[Assets] ${url} could not be loaded as we don't know how to parse it, ensure the correct parser has been added`);
-                    // #endif
-
-                    return null;
-                }
-            }
-
-            asset = await parser.load(url, data, this);
-            result.parser = parser;
-
-            for (let i = 0; i < this.parsers.length; i++)
-            {
-                const parser = this.parsers[i];
-
-                if (parser.parse)
-                {
-                    if (parser.parse && await parser.testParse?.(asset, data, this))
-                    {
-                        // transform the asset..
-                        asset = await parser.parse(asset, data, this) || asset;
-
-                        result.parser = parser;
-                    }
-                }
-            }
-
-            return asset;
+            throw new Error("STUB");
         })();
 
         return result;
@@ -316,24 +239,13 @@ export class Loader
 
         const singleAsset = isSingleItem(assetsToLoadIn);
 
-        const assetsToLoad = convertToList<ResolvedAsset>(assetsToLoadIn, (item) => ({
-            alias: [item],
-            src: item,
-            data: {}
-        }));
+        const assetsToLoad = convertToList<ResolvedAsset>(assetsToLoadIn, (item) => { throw new Error("STUB"); });
 
-        const total = assetsToLoad.reduce((sum, asset) => sum + (asset.progressSize || 1), 0);
+        const total = assetsToLoad.reduce((sum, asset) => { throw new Error("STUB"); }, 0);
 
         const promises: Promise<void>[] = assetsToLoad.map(async (asset: ResolvedAsset) =>
         {
-            const url = path.toAbsolute(asset.src);
-
-            if (assets[asset.src]) return;
-
-            await this._loadAssetWithRetry(url, asset, { onProgress, onError, strategy, retryCount, retryDelay }, assets);
-
-            count += (asset.progressSize || 1);
-            if (onProgress) onProgress(count / total);
+            throw new Error("STUB");
         });
 
         await Promise.all(promises);
@@ -357,25 +269,11 @@ export class Loader
         assetsToUnloadIn: string | string[] | ResolvedAsset | ResolvedAsset[],
     ): Promise<void>
     {
-        const assetsToUnload = convertToList<ResolvedAsset>(assetsToUnloadIn, (item) => ({
-            alias: [item],
-            src: item,
-        }));
+        const assetsToUnload = convertToList<ResolvedAsset>(assetsToUnloadIn, (item) => { throw new Error("STUB"); });
 
         const promises: Promise<void>[] = assetsToUnload.map(async (asset: ResolvedAsset) =>
         {
-            const url = path.toAbsolute(asset.src);
-
-            const loadPromise = this.promiseCache[url];
-
-            if (loadPromise)
-            {
-                const loadedAsset = await loadPromise.promise;
-
-                delete this.promiseCache[url];
-
-                await loadPromise.parser?.unload?.(loadedAsset, asset, this);
-            }
+            throw new Error("STUB");
         });
 
         await Promise.all(promises);
@@ -387,27 +285,10 @@ export class Loader
         this._parsersValidated = true;
 
         this._parserHash = this._parsers
-            .filter((parser) => parser.name || parser.id)
+            .filter((parser) => { throw new Error("STUB"); })
             .reduce((hash, parser) =>
             {
-                if (!parser.name && !parser.id)
-                {
-                    // #if _DEBUG
-                    warn(`[Assets] parser should have an id`);
-                    // #endif
-                }
-                else if (hash[parser.name] || hash[parser.id])
-                {
-                    // #if _DEBUG
-                    warn(`[Assets] parser id conflict "${parser.id}"`);
-                    // #endif
-                }
-
-                // add both name and id to the hash
-                hash[parser.name] = parser;
-                if (parser.id) hash[parser.id] = parser;
-
-                return hash;
+                throw new Error("STUB");
             }, {} as Record<string, LoaderParser>);
     }
 
@@ -420,7 +301,7 @@ export class Loader
     {
         let attempt = 0;
         const { onError, strategy, retryCount, retryDelay } = options;
-        const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+        const wait = (ms: number) => new Promise((r) => { throw new Error("STUB"); });
 
         while (true)
         {

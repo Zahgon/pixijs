@@ -46,9 +46,7 @@ export function extractFontFamilies(text: string, style: HTMLTextStyle): string[
     {
         matches.forEach((match) =>
         {
-            const fontFamily = match.split(':')[1].trim();
-
-            addFontFamily(fontFamily);
+            throw new Error("STUB");
         });
     }
 

@@ -327,26 +327,25 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
 
     constructor(renderer: Renderer)
     {
-        this._renderer = renderer;
-        renderer.gc.addCollection(this, '_gpuRenderTargetHash', 'hash');
+        throw new Error("STUB");
     }
 
     /** the current active render surface that the render target is created from */
     public get renderSurface(): RenderSurface
     {
-        return this._bindState.target;
+        throw new Error("STUB");
     }
 
     /** the current mip level being rendered to (for texture subresources) */
     public get mipLevel(): number
     {
-        return this._bindState.mipLevel;
+        throw new Error("STUB");
     }
 
     /** the current array layer being rendered to (for array-backed targets) */
     public get layer(): number
     {
-        return this._bindState.layer;
+        throw new Error("STUB");
     }
 
     /** called when dev wants to finish a render pass */
@@ -362,21 +361,12 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
      */
     public renderStart(options: BindOptions): void
     {
-        // TODO no need to reset this - use optimised index instead
-        this._renderTargetStack.length = 0;
-
-        this.push(options);
-
-        this.rootViewPort.copyFrom(this.viewport);
-        this.rootRenderTarget = this.renderTarget;
-        this.renderingToScreen = isRenderingToScreen(this.rootRenderTarget);
-
-        this.adaptor.prerender?.(this.rootRenderTarget);
+        throw new Error("STUB");
     }
 
     public postrender()
     {
-        this.adaptor.postrender?.(this.rootRenderTarget);
+        throw new Error("STUB");
     }
 
     /**
@@ -623,39 +613,7 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
      */
     public getBindState(out?: BindOptions): BindOptions
     {
-        if (!this.renderTarget)
-        {
-            throw new Error('[RenderTargetSystem] getBindState is only valid while a render surface is bound');
-        }
-
-        const bindState = this._bindState;
-
-        out ??= {} as BindOptions;
-
-        out.target = bindState.target;
-        // pinned to NONE so replaying the capture never clears the restored target
-        out.clear = CLEAR.NONE;
-        out.clearColor = undefined;
-
-        if (!bindState.frame)
-        {
-            out.frame = undefined;
-        }
-        else if (out.frame)
-        {
-            // reuse the out object's own rect in place
-            out.frame.copyFrom(bindState.frame);
-        }
-        else
-        {
-            out.frame = bindState.frame.clone();
-        }
-
-        out.mipLevel = bindState.mipLevel;
-        out.layer = bindState.layer;
-        out.flipY = !!bindState.flipY;
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -681,13 +639,7 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
      */
     public get frontFaceInverted(): boolean
     {
-        const renderTarget = this.renderTarget;
-
-        if (!renderTarget) return false;
-
-        const glInherentFlip = this._renderer.type === RendererType.WEBGL && !renderTarget.isRoot;
-
-        return !!renderTarget.flipY !== glInherentFlip;
+        throw new Error("STUB");
     }
 
     public clear(
@@ -717,7 +669,7 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
 
     protected contextChange(): void
     {
-        this._gpuRenderTargetHash = Object.create(null);
+        throw new Error("STUB");
     }
 
     /**
@@ -952,66 +904,7 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
         originDest: { x: number; y: number; } = { x: 0, y: 0 },
     ): void
     {
-        // a depth texture source is copied from its render target's depth attachment
-        const sourceRenderTarget = this.getRenderTarget(source);
-
-        if (!sourceRenderTarget.depthStencilAttachment)
-        {
-            warn('[RenderTargetSystem] copyDepthTexture: the source render target has no depth attachment to copy from');
-
-            return;
-        }
-
-        const destSource = destination.source;
-
-        if (!destSource.format.includes('depth') && !destSource.format.includes('stencil'))
-        {
-            warn('[RenderTargetSystem] copyDepthTexture: the destination texture must have a depth/stencil format '
-                + `(got '${destSource.format}')`);
-
-            return;
-        }
-
-        // clamp into locals — callers often reuse their rect objects across frames,
-        // so the arguments must never be mutated
-        let srcX = originSrc.x;
-        let srcY = originSrc.y;
-        let destX = originDest.x;
-        let destY = originDest.y;
-        let width = size.width;
-        let height = size.height;
-
-        // fit to the source bounds
-        if (srcX < 0)
-        {
-            width += srcX;
-            destX -= srcX;
-            srcX = 0;
-        }
-
-        if (srcY < 0)
-        {
-            height += srcY;
-            destY -= srcY;
-            srcY = 0;
-        }
-
-        width = Math.min(width, sourceRenderTarget.pixelWidth - srcX);
-        height = Math.min(height, sourceRenderTarget.pixelHeight - srcY);
-
-        // fit to the destination bounds too — WebGPU validates the copy against them
-        // (GL silently clips), and an oversized copy would discard the whole frame
-        width = Math.min(width, destSource.pixelWidth - destX);
-        height = Math.min(height, destSource.pixelHeight - destY);
-
-        if (width <= 0 || height <= 0) return;
-
-        this.adaptor.copyDepthTexture(
-            sourceRenderTarget, destination,
-            { x: srcX, y: srcY },
-            { width, height },
-            { x: destX, y: destY },
-        );
+        throw new Error("STUB");
     }
 
     /**
@@ -1046,10 +939,7 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
 
         this._renderSurfaceToRenderTargetHash.forEach((renderTarget, key) =>
         {
-            if (renderTarget !== key)
-            {
-                this._releaseRenderTarget(key as TextureSource, renderTarget);
-            }
+            throw new Error("STUB");
         });
 
         this._renderSurfaceToRenderTargetHash.clear();
@@ -1095,9 +985,7 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
 
     private _onRenderSurfaceDestroy(renderSurface: TextureSource): void
     {
-        const renderTarget = this._renderSurfaceToRenderTargetHash.get(renderSurface);
-
-        if (renderTarget) this._releaseRenderTarget(renderSurface, renderTarget);
+        throw new Error("STUB");
     }
 
     /**
@@ -1130,7 +1018,6 @@ export class RenderTargetSystem<RENDER_TARGET extends RendererRenderTarget> impl
 
     public resetState(): void
     {
-        this.renderTarget = null;
-        this._bindState.target = null;
+        throw new Error("STUB");
     }
 }

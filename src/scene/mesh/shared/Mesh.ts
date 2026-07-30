@@ -114,56 +114,13 @@ export class Mesh<
     constructor(geometry: GEOMETRY, shader: SHADER, state?: State, drawMode?: Topology);
     constructor(...args: [MeshOptions<GEOMETRY, SHADER>] | [GEOMETRY, SHADER, State?, Topology?])
     {
-        let options = args[0];
-
-        if (options instanceof Geometry)
-        {
-            // #if _DEBUG
-            deprecation(v8_0_0, 'Mesh: use new Mesh({ geometry, shader }) instead');
-            // #endif
-
-            options = {
-                geometry: options,
-                shader: args[1],
-            } as MeshOptions<GEOMETRY, SHADER>;
-
-            if (args[3])
-            {
-                // #if _DEBUG
-                deprecation(v8_0_0, 'Mesh: drawMode argument has been removed, use geometry.topology instead');
-                // #endif
-
-                options.geometry.topology = args[3];
-            }
-        }
-
-        const { geometry, shader, texture, roundPixels, state, ...rest } = options;
-
-        super({
-            label: 'Mesh',
-            ...rest
-        });
-
-        this.allowChildren = false;
-
-        this.shader = shader ?? null;
-        this.texture = texture ?? (shader as unknown as TextureShader)?.texture ?? Texture.WHITE;
-        this.state = state ?? State.for2d();
-
-        this._geometry = geometry;
-        this._geometry.on('update', this.onViewUpdate, this);
-
-        this.roundPixels = roundPixels ?? false;
+        throw new Error("STUB");
     }
 
     /** Alias for {@link Mesh#shader}. */
     get material()
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'mesh.material property has been removed, use mesh.shader instead');
-        // #endif
-
-        return this._shader;
+        throw new Error("STUB");
     }
 
     /**
@@ -172,15 +129,12 @@ export class Mesh<
      */
     set shader(value: SHADER | null)
     {
-        if (this._shader === value) return;
-
-        this._shader = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     get shader(): SHADER | null
     {
-        return this._shader;
+        throw new Error("STUB");
     }
 
     /**
@@ -190,18 +144,12 @@ export class Mesh<
      */
     set geometry(value: GEOMETRY)
     {
-        if (this._geometry === value) return;
-
-        this._geometry?.off('update', this.onViewUpdate, this);
-        value.on('update', this.onViewUpdate, this);
-
-        this._geometry = value;
-        this.onViewUpdate();
+        throw new Error("STUB");
     }
 
     get geometry()
     {
-        return this._geometry;
+        throw new Error("STUB");
     }
 
     /** The texture that the Mesh uses. Null for non-MeshMaterial shaders */
@@ -232,23 +180,7 @@ export class Mesh<
 
     get batched()
     {
-        if (this._shader) return false;
-
-        // The state must be compatible with the batcher pipe.
-        // It isn't compatible if depth test or culling is enabled.
-        if ((this.state.data & 0b001100) !== 0) return false;
-
-        if (this._geometry instanceof MeshGeometry)
-        {
-            if (this._geometry.batchMode === 'auto')
-            {
-                return this._geometry.positions.length / 2 <= 100;
-            }
-
-            return this._geometry.batchMode === 'batch';
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**
@@ -257,7 +189,7 @@ export class Mesh<
      */
     override get bounds()
     {
-        return this._geometry.bounds;
+        throw new Error("STUB");
     }
 
     /**
@@ -266,7 +198,7 @@ export class Mesh<
      */
     protected updateBounds()
     {
-        this._bounds = this._geometry.bounds;
+        throw new Error("STUB");
     }
 
     /**
@@ -275,65 +207,7 @@ export class Mesh<
      */
     public override containsPoint(point: PointData)
     {
-        const { x, y } = point;
-
-        if (!this.bounds.containsPoint(x, y)) return false;
-
-        const vertices = this.geometry.getBuffer('aPosition').data;
-
-        const step = this.geometry.topology === 'triangle-strip' ? 3 : 1;
-
-        if (this.geometry.getIndex())
-        {
-            const indices = this.geometry.getIndex().data;
-            const len = indices.length;
-
-            for (let i = 0; i + 2 < len; i += step)
-            {
-                const ind0 = indices[i] * 2;
-                const ind1 = indices[i + 1] * 2;
-                const ind2 = indices[i + 2] * 2;
-
-                if (pointInTriangle(
-                    x, y,
-                    vertices[ind0],
-                    vertices[ind0 + 1],
-                    vertices[ind1],
-                    vertices[ind1 + 1],
-                    vertices[ind2],
-                    vertices[ind2 + 1],
-                ))
-                {
-                    return true;
-                }
-            }
-        }
-        else
-        {
-            const len = vertices.length / 2; // Each vertex has 2 coordinates, x and y
-
-            for (let i = 0; i + 2 < len; i += step)
-            {
-                const ind0 = i * 2;
-                const ind1 = (i + 1) * 2;
-                const ind2 = (i + 2) * 2;
-
-                if (pointInTriangle(
-                    x, y,
-                    vertices[ind0],
-                    vertices[ind0 + 1],
-                    vertices[ind1],
-                    vertices[ind1 + 1],
-                    vertices[ind2],
-                    vertices[ind2 + 1],
-                ))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**

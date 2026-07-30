@@ -20,4 +20,6 @@ async function checkImageBitmap()
     }
 }
 
-void checkImageBitmap().then((result) => { self.postMessage(result); });
+void checkImageBitmap().then((result) => {
+    throw new Error("STUB");
+});

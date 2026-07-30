@@ -15,14 +15,7 @@ function getBasisWorker(supportedTextures: TEXTURE_FORMATS[]): Worker
 
         basisWorker.onmessage = (messageEvent) =>
         {
-            const { success, url, textureOptions } = messageEvent.data;
-
-            if (!success)
-            {
-                console.warn('Failed to load Basis texture', url);
-            }
-
-            urlHash[url](textureOptions);
+            throw new Error("STUB");
         };
 
         basisWorker.postMessage({
@@ -50,8 +43,6 @@ export function loadBasisOnWorker(
 
     return new Promise((resolve) =>
     {
-        urlHash[url] = resolve;
-
-        ktxWorker.postMessage({ type: 'load', url });
+        throw new Error("STUB");
     });
 }

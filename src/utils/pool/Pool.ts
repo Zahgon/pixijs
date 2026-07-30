@@ -20,12 +20,7 @@ export class Pool<T extends PoolItem, I = Parameters<NonNullable<T['init']>>[0]>
      */
     constructor(ClassType: PoolItemConstructor<T>, initialSize?: number)
     {
-        this._classType = ClassType;
-
-        if (initialSize)
-        {
-            this.prepopulate(initialSize);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -34,12 +29,7 @@ export class Pool<T extends PoolItem, I = Parameters<NonNullable<T['init']>>[0]>
      */
     public prepopulate(total: number): void
     {
-        for (let i = 0; i < total; i++)
-        {
-            this._pool[this._index++] = new this._classType();
-        }
-
-        this._count += total;
+        throw new Error("STUB");
     }
 
     /**
@@ -84,7 +74,7 @@ export class Pool<T extends PoolItem, I = Parameters<NonNullable<T['init']>>[0]>
      */
     get totalSize(): number
     {
-        return this._count;
+        throw new Error("STUB");
     }
 
     /**
@@ -93,7 +83,7 @@ export class Pool<T extends PoolItem, I = Parameters<NonNullable<T['init']>>[0]>
      */
     get totalFree(): number
     {
-        return this._index;
+        throw new Error("STUB");
     }
 
     /**
@@ -102,7 +92,7 @@ export class Pool<T extends PoolItem, I = Parameters<NonNullable<T['init']>>[0]>
      */
     get totalUsed(): number
     {
-        return this._count - this._index;
+        throw new Error("STUB");
     }
 
     /** clears the pool */

@@ -13,18 +13,5 @@ let maxTexturesPerBatchCache: number | null = null;
  */
 export function getMaxTexturesPerBatch(): number
 {
-    if (maxTexturesPerBatchCache) return maxTexturesPerBatchCache;
-
-    const gl = getTestContext();
-
-    // step 1: first check max textures the GPU can handle.
-    maxTexturesPerBatchCache = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
-
-    // step 2: check the maximum number of if statements the shader can have too..
-    maxTexturesPerBatchCache = checkMaxIfStatementsInShader(
-        maxTexturesPerBatchCache, gl);
-
-    gl.getExtension('WEBGL_lose_context')?.loseContext();
-
-    return maxTexturesPerBatchCache;
+    throw new Error("STUB");
 }

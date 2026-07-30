@@ -78,7 +78,7 @@ class CacheClass
         {
             keys.forEach((key) =>
             {
-                cacheableMap.set(key, value);
+                throw new Error("STUB");
             });
         }
 
@@ -92,21 +92,12 @@ class CacheClass
         // this is so we can remove them later..
         keys.forEach((key) =>
         {
-            this._cacheMap.set(key, cachedAssets as any);
+            throw new Error("STUB");
         });
 
         cacheKeys.forEach((key) =>
         {
-            const val = cacheableAssets ? cacheableAssets[key] : value;
-
-            if (this._cache.has(key) && this._cache.get(key) !== val)
-            {
-                // #if _DEBUG
-                warn('[Cache] already has key:', key);
-                // #endif
-            }
-
-            this._cache.set(key, cacheableMap.get(key));
+            throw new Error("STUB");
         });
     }
 
@@ -133,12 +124,12 @@ class CacheClass
 
         cacheKeys.forEach((key) =>
         {
-            this._cache.delete(key);
+            throw new Error("STUB");
         });
 
         cacheMap.keys.forEach((key: string) =>
         {
-            this._cacheMap.delete(key);
+            throw new Error("STUB");
         });
     }
 
@@ -148,7 +139,7 @@ class CacheClass
      */
     public get parsers(): CacheParser[]
     {
-        return this._parsers;
+        throw new Error("STUB");
     }
 }
 

@@ -149,50 +149,7 @@ export class UniformGroup<UNIFORMS extends { [key: string]: UniformData } = any>
      */
     constructor(uniformStructures: UNIFORMS, options?: UniformGroupOptions)
     {
-        options = { ...UniformGroup.defaultOptions, ...options };
-
-        this.uniformStructures = uniformStructures;
-
-        const uniforms = {} as ExtractUniformObject<UNIFORMS>;
-
-        for (const i in uniformStructures)
-        {
-            const uniformData = uniformStructures[i] as UniformData;
-
-            uniformData.name = i;
-            uniformData.size = uniformData.size ?? 1;
-
-            if (!UNIFORM_TYPES_MAP[uniformData.type])
-            {
-                const arrayMatch = uniformData.type.match(/^array<(\w+(?:<\w+>)?),\s*(\d+)>$/);
-
-                if (arrayMatch)
-                {
-                    const [, innerType, size] = arrayMatch;
-
-                    throw new Error(
-                        `Uniform type ${uniformData.type} is not supported. Use type: '${innerType}', size: ${size} instead.`
-                    );
-                }
-
-                // eslint-disable-next-line max-len
-                throw new Error(`Uniform type ${uniformData.type} is not supported. Supported uniform types are: ${UNIFORM_TYPES_VALUES.join(', ')}`);
-            }
-
-            uniformData.value ??= getDefaultUniformValue(uniformData.type, uniformData.size);
-
-            uniforms[i] = uniformData.value as ExtractUniformObject<UNIFORMS>[keyof UNIFORMS];
-        }
-
-        this.uniforms = uniforms;
-
-        this._dirtyId = 1;
-        this.ubo = options.ubo;
-        this.isStatic = options.isStatic;
-
-        this._signature = createIdFromString(Object.keys(uniforms).map(
-            (i) => `${i}-${(uniformStructures[i as keyof typeof uniformStructures] as UniformData).type}`
-        ).join('-'), 'uniform-group');
+        throw new Error("STUB");
     }
 
     /** Call this if you want the uniform groups data to be uploaded to the GPU only useful if `isStatic` is true. */

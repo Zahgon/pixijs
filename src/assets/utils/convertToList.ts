@@ -22,11 +22,6 @@ export const convertToList = <T>(
 
     return (input as (string | T)[]).map((item): T =>
     {
-        if (typeof item === 'string' || forceTransform)
-        {
-            return transform(item as string);
-        }
-
-        return item as T;
+        throw new Error("STUB");
     });
 };

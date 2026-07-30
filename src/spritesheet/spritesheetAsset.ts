@@ -39,12 +39,12 @@ function getCacheableAssets(keys: string[], asset: Spritesheet, ignoreMultiPack:
 
     keys.forEach((key: string) =>
     {
-        out[key] = asset;
+        throw new Error("STUB");
     });
 
     Object.keys(asset.textures).forEach((key) =>
     {
-        out[`${asset.cachePrefix}${key}`] = asset.textures[key];
+        throw new Error("STUB");
     });
 
     if (!ignoreMultiPack)
@@ -53,9 +53,7 @@ function getCacheableAssets(keys: string[], asset: Spritesheet, ignoreMultiPack:
 
         asset.linkedSheets.forEach((item: Spritesheet, i) =>
         {
-            const out2 = getCacheableAssets([`${basePath}/${asset.data.meta.related_multi_packs[i]}`], item, true);
-
-            Object.assign(out, out2);
+            throw new Error("STUB");
         });
     }
 
@@ -85,8 +83,8 @@ export const spritesheetAsset = {
     extension: ExtensionType.Asset,
     /** Handle the caching of the related Spritesheet Textures */
     cache: {
-        test: (asset: Spritesheet) => asset instanceof Spritesheet,
-        getCacheableAssets: (keys: string[], asset: Spritesheet) => getCacheableAssets(keys, asset, false),
+        test: (asset: Spritesheet) => { throw new Error("STUB"); },
+        getCacheableAssets: (keys: string[], asset: Spritesheet) => { throw new Error("STUB"); },
     },
     /** Resolve the resolution of the asset. */
     resolver: {
@@ -96,22 +94,11 @@ export const spritesheetAsset = {
         },
         test: (value: string): boolean =>
         {
-            const tempURL = value.split('?')[0];
-            const split = tempURL.split('.');
-            const extension = split.pop();
-            const format = split.pop();
-
-            return extension === 'json' && validImages.includes(format);
+            throw new Error("STUB");
         },
         parse: (value: string) =>
         {
-            const split = value.split('.');
-
-            return {
-                resolution: parseFloat(Resolver.RETINA_PREFIX.exec(value)?.[1] ?? '1'),
-                format: split[split.length - 2],
-                src: value,
-            };
+            throw new Error("STUB");
         },
     },
     /**
@@ -224,7 +211,7 @@ export const spritesheetAsset = {
                 spritesheet.linkedSheets = res;
                 res.forEach((item) =>
                 {
-                    item.linkedSheets = [spritesheet].concat(spritesheet.linkedSheets.filter((sp) => (sp !== item)));
+                    throw new Error("STUB");
                 });
             }
 

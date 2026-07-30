@@ -30,12 +30,7 @@ export class GCManagedHash<T extends GCable & { uid: number } & Pick<EventEmitte
 
     constructor(options: GCManagedHashOptions<T>)
     {
-        const { renderer, type, onUnload, priority, name } = options;
-
-        this._renderer = renderer;
-        renderer.gc.addResourceHash(this, 'items', type, priority ?? 0);
-        this._onUnload = onUnload;
-        this.name = name;
+        throw new Error("STUB");
     }
 
     /**
@@ -70,7 +65,7 @@ export class GCManagedHash<T extends GCable & { uid: number } & Pick<EventEmitte
 
     public removeAll(...args: unknown[]): void
     {
-        Object.values(this.items).forEach((item) => item && this.remove(item, ...args));
+        Object.values(this.items).forEach((item) => { throw new Error("STUB"); });
     }
 
     public destroy(...args: unknown[]): void

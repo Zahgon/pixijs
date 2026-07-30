@@ -220,26 +220,7 @@ export class Bounds
      */
     get rectangle(): Rectangle
     {
-        if (!this._rectangle)
-        {
-            this._rectangle = new Rectangle();
-        }
-
-        const rectangle = this._rectangle;
-
-        if (this.minX > this.maxX || this.minY > this.maxY)
-        {
-            rectangle.x = 0;
-            rectangle.y = 0;
-            rectangle.width = 0;
-            rectangle.height = 0;
-        }
-        else
-        {
-            rectangle.copyFromBounds(this);
-        }
-
-        return rectangle;
+        throw new Error("STUB");
     }
 
     /**
@@ -515,13 +496,7 @@ export class Bounds
      */
     public fit(rect: Rectangle): this
     {
-        if (this.minX < rect.left) this.minX = rect.left;
-        if (this.maxX > rect.right) this.maxX = rect.right;
-
-        if (this.minY < rect.top) this.minY = rect.top;
-        if (this.maxY > rect.bottom) this.maxY = rect.bottom;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -681,14 +656,11 @@ export class Bounds
      */
     get x(): number
     {
-        return this.minX;
+        throw new Error("STUB");
     }
     set x(value: number)
     {
-        const width = this.maxX - this.minX;
-
-        this.minX = value;
-        this.maxX = value + width;
+        throw new Error("STUB");
     }
 
     /**
@@ -710,15 +682,12 @@ export class Bounds
      */
     get y(): number
     {
-        return this.minY;
+        throw new Error("STUB");
     }
 
     set y(value: number)
     {
-        const height = this.maxY - this.minY;
-
-        this.minY = value;
-        this.maxY = value + height;
+        throw new Error("STUB");
     }
 
     /**
@@ -736,12 +705,12 @@ export class Bounds
      */
     get width(): number
     {
-        return this.maxX - this.minX;
+        throw new Error("STUB");
     }
 
     set width(value: number)
     {
-        this.maxX = this.minX + value;
+        throw new Error("STUB");
     }
 
     /**
@@ -759,12 +728,12 @@ export class Bounds
      */
     get height(): number
     {
-        return this.maxY - this.minY;
+        throw new Error("STUB");
     }
 
     set height(value: number)
     {
-        this.maxY = this.minY + value;
+        throw new Error("STUB");
     }
 
     /**
@@ -780,7 +749,7 @@ export class Bounds
      */
     get left(): number
     {
-        return this.minX;
+        throw new Error("STUB");
     }
 
     /**
@@ -796,7 +765,7 @@ export class Bounds
      */
     get right(): number
     {
-        return this.maxX;
+        throw new Error("STUB");
     }
 
     /**
@@ -812,7 +781,7 @@ export class Bounds
      */
     get top(): number
     {
-        return this.minY;
+        throw new Error("STUB");
     }
 
     /**
@@ -828,7 +797,7 @@ export class Bounds
      */
     get bottom(): number
     {
-        return this.maxY;
+        throw new Error("STUB");
     }
 
     /**
@@ -850,7 +819,7 @@ export class Bounds
      */
     get isPositive(): boolean
     {
-        return (this.maxX - this.minX > 0) && (this.maxY - this.minY > 0);
+        throw new Error("STUB");
     }
 
     /**
@@ -871,7 +840,7 @@ export class Bounds
      */
     get isValid(): boolean
     {
-        return (this.minX + this.minY !== Infinity);
+        throw new Error("STUB");
     }
 
     /**
@@ -907,38 +876,7 @@ export class Bounds
      */
     public addVertexData(vertexData: Float32Array, beginOffset: number, endOffset: number, matrix?: Matrix): void
     {
-        let minX = this.minX;
-        let minY = this.minY;
-        let maxX = this.maxX;
-        let maxY = this.maxY;
-
-        matrix ||= this.matrix;
-
-        const a = matrix.a;
-        const b = matrix.b;
-        const c = matrix.c;
-        const d = matrix.d;
-        const tx = matrix.tx;
-        const ty = matrix.ty;
-
-        for (let i = beginOffset; i < endOffset; i += 2)
-        {
-            const localX = vertexData[i];
-            const localY = vertexData[i + 1];
-
-            const x = (a * localX) + (c * localY) + tx;
-            const y = (b * localX) + (d * localY) + ty;
-
-            minX = x < minX ? x : minX;
-            minY = y < minY ? y : minY;
-            maxX = x > maxX ? x : maxX;
-            maxY = y > maxY ? y : maxY;
-        }
-
-        this.minX = minX;
-        this.minY = minY;
-        this.maxX = maxX;
-        this.maxY = maxY;
+        throw new Error("STUB");
     }
 
     /**
@@ -963,12 +901,7 @@ export class Bounds
      */
     public containsPoint(x: number, y: number): boolean
     {
-        if (this.minX <= x && this.minY <= y && this.maxX >= x && this.maxY >= y)
-        {
-            return true;
-        }
-
-        return false;
+        throw new Error("STUB");
     }
 
     /**

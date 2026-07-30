@@ -60,10 +60,7 @@ export class BatcherPipe implements InstructionPipe<Batch>, BatchPipe
 
     constructor(renderer: Renderer, adaptor: BatcherAdaptor)
     {
-        this.renderer = renderer;
-        this._adaptor = adaptor;
-
-        this._adaptor.init?.(this);
+        throw new Error("STUB");
     }
 
     public buildStart(instructionSet: InstructionSet)

@@ -500,7 +500,7 @@ export function wordWrapTaggedLines(
                     const wordGroupTokens = getWordGroupTokens(i);
 
                     flushBuildingRun();
-                    result.push(wordGroupTokens.map((t) => ({ text: t.token, style: t.style })));
+                    result.push(wordGroupTokens.map((t) => { throw new Error("STUB"); }));
                     canPrependSpaces = false;
 
                     // Skip all the tokens we just processed

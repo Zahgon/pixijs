@@ -169,7 +169,7 @@ export class GCSystem implements System<GCSystemOptions>
      */
     get enabled(): boolean
     {
-        return !!this._handler;
+        throw new Error("STUB");
     }
 
     /**
@@ -179,46 +179,7 @@ export class GCSystem implements System<GCSystemOptions>
      */
     set enabled(value: boolean)
     {
-        if (this.enabled === value) return;
-
-        if (value)
-        {
-            this._handler = this._renderer.scheduler.repeat(
-                () =>
-                {
-                    this._ready = true;
-                },
-                this._frequency,
-                false
-            );
-            // Schedule periodic hash table cleanup
-            this._collectionsHandler = this._renderer.scheduler.repeat(
-                () =>
-                {
-                    for (const hash of this._managedCollections)
-                    {
-                        const { context, collection, type } = hash;
-
-                        if (type === 'hash')
-                        {
-                            context[collection] = cleanHash(context[collection]);
-                        }
-                        else
-                        {
-                            context[collection] = cleanArray(context[collection]);
-                        }
-                    }
-                },
-                this._frequency
-            );
-        }
-        else
-        {
-            this._renderer.scheduler.cancel(this._handler);
-            this._renderer.scheduler.cancel(this._collectionsHandler);
-            this._handler = 0;
-            this._collectionsHandler = 0;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -228,19 +189,13 @@ export class GCSystem implements System<GCSystemOptions>
      */
     protected prerender({ container }: RenderOptions): void
     {
-        this.now = performance.now();
-        container.renderGroup.gcTick = this._renderer.tick++;
-
-        this._updateInstructionGCTick(container.renderGroup, container.renderGroup.gcTick);
+        throw new Error("STUB");
     }
 
     /** Performs garbage collection after rendering. */
     protected postrender(): void
     {
-        if (!this._ready || !this.enabled) return;
-
-        this.run();
-        this._ready = false;
+        throw new Error("STUB");
     }
 
     /**
@@ -250,13 +205,7 @@ export class GCSystem implements System<GCSystemOptions>
      */
     private _updateInstructionGCTick(renderGroup: RenderGroup, gcTick: number): void
     {
-        renderGroup.instructionSet.gcTick = gcTick;
-        renderGroup.gcTick = gcTick;
-
-        for (const child of renderGroup.renderGroupChildren)
-        {
-            this._updateInstructionGCTick(child, gcTick);
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -267,11 +216,7 @@ export class GCSystem implements System<GCSystemOptions>
      */
     public addCollection(context: any, collection: string, type: 'hash' | 'array'): void
     {
-        this._managedCollections.push({
-            context,
-            collection,
-            type,
-        });
+        throw new Error("STUB");
     }
 
     /**
@@ -310,25 +255,7 @@ export class GCSystem implements System<GCSystemOptions>
      */
     public removeResource(resource: GCable): void
     {
-        const gcData = resource._gcData;
-
-        if (!gcData) return;
-
-        const index = gcData.index;
-        const last = this._managedResources.length - 1;
-
-        // Swap with last element for O(1) removal
-        if (index !== last)
-        {
-            const lastResource = this._managedResources[last];
-
-            this._managedResources[index] = lastResource;
-            lastResource._gcData.index = index;
-        }
-
-        this._managedResources.length--;
-        resource._gcData = null;
-        resource._gcLastUsed = -1;
+        throw new Error("STUB");
     }
 
     /**
@@ -341,14 +268,7 @@ export class GCSystem implements System<GCSystemOptions>
      */
     public addResourceHash(context: any, hash: string, type: GCData['type'], priority: number = 0): void
     {
-        this._managedResourceHashes.push({
-            context,
-            hash,
-            type,
-            priority,
-        });
-
-        this._managedResourceHashes.sort((a, b) => a.priority - b.priority);
+        throw new Error("STUB");
     }
 
     /**
@@ -357,67 +277,17 @@ export class GCSystem implements System<GCSystemOptions>
      */
     public run(): void
     {
-        const now = performance.now();
-        const managedResourceHashes = this._managedResourceHashes;
-
-        for (const hashEntry of managedResourceHashes)
-        {
-            this.runOnHash(hashEntry, now);
-        }
-
-        let writeIndex = 0;
-
-        for (let i = 0; i < this._managedResources.length; i++)
-        {
-            const resource = this._managedResources[i];
-
-            writeIndex = this.runOnResource(resource, now, writeIndex);
-        }
-
-        this._managedResources.length = writeIndex;
+        throw new Error("STUB");
     }
 
     protected updateRenderableGCTick(renderable: Renderable & GCable, now: number): void
     {
-        const renderGroup = renderable.renderGroup ?? renderable.parentRenderGroup;
-        const currentTick = renderGroup?.instructionSet?.gcTick ?? -1;
-
-        // Update last used time if the renderable's group was rendered this tick
-        if ((renderGroup?.gcTick ?? 0) === currentTick)
-        {
-            renderable._gcLastUsed = now;
-            renderable._onTouch?.(now);
-        }
+        throw new Error("STUB");
     }
 
     protected runOnResource(resource: GCableEventEmitter, now: number, writeIndex: number): number
     {
-        const gcData = resource._gcData;
-
-        // special case for renderables as we do not check every frame if they are being used
-        if (gcData.type === 'renderable')
-        {
-            this.updateRenderableGCTick(resource as Renderable, now);
-        }
-
-        const isRecentlyUsed = now - resource._gcLastUsed < this.maxUnusedTime;
-
-        if (isRecentlyUsed || !resource.autoGarbageCollect)
-        {
-            this._managedResources[writeIndex] = resource;
-            gcData.index = writeIndex;
-            writeIndex++;
-        }
-        else
-        {
-            // Call the cleanup function
-            resource.unload();
-            resource._gcData = null;
-            resource._gcLastUsed = -1;
-            resource.off('unload', this.removeResource, this);
-        }
-
-        return writeIndex;
+        throw new Error("STUB");
     }
 
     /**
@@ -428,104 +298,12 @@ export class GCSystem implements System<GCSystemOptions>
      */
     private _createHashClone(hashValue: Record<string, GCable>, stopKey: string): Record<string, GCable>
     {
-        const hashClone: Record<string, GCable> = Object.create(null);
-
-        for (const k in hashValue)
-        {
-            if (k === stopKey) break;
-            if (hashValue[k] !== null) hashClone[k] = hashValue[k];
-        }
-
-        return hashClone;
+        throw new Error("STUB");
     }
 
     protected runOnHash(hashEntry: GCResourceHashEntry, now: number): void
     {
-        const { context, hash, type } = hashEntry;
-
-        const hashValue = context[hash] as Record<string, GCable>;
-        let hashClone: Record<string, GCable> | null = null;
-        let nullCount = 0;
-
-        for (const key in hashValue)
-        {
-            const resource = hashValue[key];
-
-            // check if the value is null
-            if (resource === null)
-            {
-                nullCount++;
-
-                // Lazily create the clone to clean up null entries when threshold is reached
-                if (nullCount === 10000 && !hashClone)
-                {
-                    hashClone = this._createHashClone(hashValue, key);
-                }
-
-                continue;
-            }
-
-            // If no GC data, then the resource has been added since the last garbage collection
-            if (resource._gcLastUsed === -1)
-            {
-                resource._gcLastUsed = now;
-                resource._onTouch?.(now);
-
-                if (hashClone) hashClone[key] = resource;
-
-                continue;
-            }
-
-            // special case for renderables as we do not check every frame if they are being used
-            if (type === 'renderable')
-            {
-                this.updateRenderableGCTick(resource as Renderable, now);
-            }
-
-            const isRecentlyUsed = now - resource._gcLastUsed < this.maxUnusedTime;
-
-            if (!isRecentlyUsed && resource.autoGarbageCollect)
-            {
-                if (type === 'renderable')
-                {
-                    const res = resource as Renderable;
-                    const renderGroup = res.renderGroup ?? res.parentRenderGroup;
-
-                    if (renderGroup) renderGroup.structureDidChange = true;
-                }
-
-                // Call the cleanup function
-                resource.unload();
-                resource._gcData = null;
-                resource._gcLastUsed = -1;
-
-                // Lazily create the clone only when we need to remove something
-                if (!hashClone)
-                {
-                    // we can set the value to null here to avoid having to create a new hash object
-                    // only when it crosses the 10000 threshold do we need to create a new hash object
-                    if (nullCount + 1 !== 10000)
-                    {
-                        hashValue[key] = null;
-                        nullCount++;
-                    }
-                    else
-                    {
-                        hashClone = this._createHashClone(hashValue, key);
-                    }
-                }
-            }
-            else if (hashClone)
-            {
-                hashClone[key] = resource;
-            }
-        }
-
-        // Only replace the hash if something was removed
-        if (hashClone)
-        {
-            context[hash] = hashClone;
-        }
+        throw new Error("STUB");
     }
 
     /** Cleans up the garbage collection system. Disables GC and removes all tracked resources. */
@@ -535,7 +313,7 @@ export class GCSystem implements System<GCSystemOptions>
 
         this._managedResources.forEach((resource) =>
         {
-            resource.off('unload', this.removeResource, this);
+            throw new Error("STUB");
         });
         this._managedResources.length = 0;
         this._managedResourceHashes.length = 0;

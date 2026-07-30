@@ -103,14 +103,7 @@ export class GpuDeviceSystem implements System<GpuContextOptions>
         this._initPromise = (options.gpu ? Promise.resolve(options.gpu) : this._createDeviceAndAdaptor(options))
             .then((gpu) =>
             {
-                this.gpu = gpu;
-
-                this.extensions = {
-                    transientAttachment:
-                        typeof (GPUTextureUsage as { TRANSIENT_ATTACHMENT?: number }).TRANSIENT_ATTACHMENT === 'number',
-                };
-
-                this._renderer.runners.contextChange.emit(this.gpu);
+                throw new Error("STUB");
             });
 
         return this._initPromise;
@@ -122,7 +115,7 @@ export class GpuDeviceSystem implements System<GpuContextOptions>
      */
     protected contextChange(gpu: GPU): void
     {
-        this._renderer.gpu = gpu;
+        throw new Error("STUB");
     }
 
     /**
@@ -150,7 +143,7 @@ export class GpuDeviceSystem implements System<GpuContextOptions>
             'texture-compression-astc',
             'texture-compression-etc2',
             'indirect-first-instance',
-        ].filter((feature) => adapter.features.has(feature)) as GPUFeatureName[];
+        ].filter((feature) => { throw new Error("STUB"); }) as GPUFeatureName[];
 
         const device = await adapter.requestDevice({
             requiredFeatures,

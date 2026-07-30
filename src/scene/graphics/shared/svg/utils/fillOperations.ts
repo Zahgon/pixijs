@@ -16,7 +16,7 @@ export function checkForNestedPattern(subpathsWithArea: Array<{path: string, are
         return true;
     }
 
-    const areas = subpathsWithArea.map((s) => s.area).sort((a, b) => b - a);
+    const areas = subpathsWithArea.map((s) => { throw new Error("STUB"); }).sort((a, b) => { throw new Error("STUB"); });
 
     const [largestArea, secondArea] = areas;
     const smallestArea = areas[areas.length - 1];
@@ -45,12 +45,5 @@ export function checkForNestedPattern(subpathsWithArea: Array<{path: string, are
  */
 export function getFillInstructionData(context: GraphicsContext, index: number = 0)
 {
-    const instruction = context.instructions[index];
-
-    if (!instruction || instruction.action !== 'fill')
-    {
-        throw new Error(`Expected fill instruction at index ${index}, got ${instruction?.action || 'undefined'}`);
-    }
-
-    return (instruction as FillInstruction).data;
+    throw new Error("STUB");
 }

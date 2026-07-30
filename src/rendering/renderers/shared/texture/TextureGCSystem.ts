@@ -88,20 +88,21 @@ export class TextureGCSystem implements System<TextureGCSystemOptions>
      * @readonly
      * @deprecated since 8.15.0
      */
-    public get count() { return this._renderer.tick; }
+    public get count() {
+        throw new Error("STUB");
+    }
 
     /**
      * Frame count since last garbage collection.
      * @readonly
      * @deprecated since 8.15.0
      */
-    public get checkCount() { return this._checkCount; }
+    public get checkCount() {
+        throw new Error("STUB");
+    }
     public set checkCount(value: number)
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'TextureGCSystem.run is deprecated, please use the GCSystem instead.');
-        // #endif
-        this._checkCount = value;
+        throw new Error("STUB");
     }
     private _checkCount: number;
 
@@ -110,13 +111,12 @@ export class TextureGCSystem implements System<TextureGCSystemOptions>
      * @see TextureGCSystem.defaultMaxIdle
      * @deprecated since 8.15.0
      */
-    public get maxIdle() { return (this._renderer.gc.maxUnusedTime / 1000) * 60; }
+    public get maxIdle() {
+        throw new Error("STUB");
+    }
     public set maxIdle(value: number)
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'TextureGCSystem.run is deprecated, please use the GCSystem instead.');
-        // #endif
-        this._renderer.gc.maxUnusedTime = (value / 60) * 1000;
+        throw new Error("STUB");
     }
 
     /**
@@ -125,12 +125,12 @@ export class TextureGCSystem implements System<TextureGCSystemOptions>
      * @deprecated since 8.15.0
      */
     // eslint-disable-next-line dot-notation
-    public get checkCountMax() { return Math.floor(this._renderer.gc['_frequency'] / 1000); }
+    public get checkCountMax() {
+        throw new Error("STUB");
+    }
     public set checkCountMax(_value: number)
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'TextureGCSystem.run is deprecated, please use the GCSystem instead.');
-        // #endif
+        throw new Error("STUB");
     }
 
     /**
@@ -138,13 +138,12 @@ export class TextureGCSystem implements System<TextureGCSystemOptions>
      * @see TextureGCSystem.defaultMode
      * @deprecated since 8.15.0
      */
-    public get active() { return this._renderer.gc.enabled; }
+    public get active() {
+        throw new Error("STUB");
+    }
     public set active(value: boolean)
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'TextureGCSystem.run is deprecated, please use the GCSystem instead.');
-        // #endif
-        this._renderer.gc.enabled = value;
+        throw new Error("STUB");
     }
 
     private _renderer: Renderer;
@@ -173,10 +172,7 @@ export class TextureGCSystem implements System<TextureGCSystemOptions>
      */
     public run(): void
     {
-        // #if _DEBUG
-        deprecation('8.15.0', 'TextureGCSystem.run is deprecated, please use the GCSystem instead.');
-        // #endif
-        this._renderer.gc.run();
+        throw new Error("STUB");
     }
 
     public destroy(): void

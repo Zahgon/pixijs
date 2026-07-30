@@ -30,9 +30,7 @@ export const UNIFORM_TYPES_VALUES = [
  */
 export const UNIFORM_TYPES_MAP = UNIFORM_TYPES_VALUES.reduce((acc, type) =>
 {
-    acc[type] = true;
-
-    return acc;
+    throw new Error("STUB");
 }, {} as Record<UNIFORM_TYPES, boolean>);
 
 /** @internal */

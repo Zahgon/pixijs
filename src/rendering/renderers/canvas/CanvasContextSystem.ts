@@ -85,7 +85,7 @@ export class CanvasContextSystem implements System
 
     protected resolutionChange(resolution: number): void
     {
-        this.activeResolution = resolution;
+        throw new Error("STUB");
     }
 
     /** Initializes the root context and smoothing flag selection. */

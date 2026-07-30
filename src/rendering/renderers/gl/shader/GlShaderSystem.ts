@@ -57,15 +57,7 @@ export class GlShaderSystem
 
     protected contextChange(gl: GlRenderingContext): void
     {
-        this._gl = gl;
-
-        this._programDataHash = Object.create(null);
-        /**
-         * these need to also be cleared as internally some uniforms are set as an optimisation as the sync
-         * function is generated. Specifically the texture ints.
-         */
-        this._shaderSyncFunctions = Object.create(null);
-        this._activeProgram = null;
+        throw new Error("STUB");
     }
 
     /**
@@ -112,48 +104,7 @@ export class GlShaderSystem
      */
     public bindUniformBlock(uniformGroup: UniformGroup | BufferResource, name: string, index = 0): void
     {
-        const bufferSystem = this._renderer.buffer;
-        const programData = this._getProgramData(this._activeProgram);
-
-        const isBufferResource = (uniformGroup as BufferResource)._bufferResource;
-
-        if (!isBufferResource)
-        {
-            this._renderer.ubo.updateUniformGroup(uniformGroup as UniformGroup);
-        }
-
-        const buffer = uniformGroup.buffer;
-
-        const glBuffer = bufferSystem.updateBuffer(buffer);
-
-        const boundLocation = bufferSystem.freeLocationForBufferBase(glBuffer);
-
-        if (isBufferResource)
-        {
-            const { offset, size } = (uniformGroup as BufferResource);
-
-            // trivial case of buffer resource, can be cached
-            if (offset === 0 && size === buffer.data.byteLength)
-            {
-                bufferSystem.bindBufferBase(glBuffer, boundLocation);
-            }
-            else
-            {
-                bufferSystem.bindBufferRange(glBuffer, boundLocation, offset);
-            }
-        }
-        else if (bufferSystem.getLastBindBaseLocation(glBuffer) !== boundLocation)
-        {
-            // confirmation that buffer isn't there yet
-            bufferSystem.bindBufferBase(glBuffer, boundLocation);
-        }
-
-        const uniformBlockIndex = this._activeProgram._uniformBlockData[name].index;
-
-        if (programData.uniformBlockBindings[index] === boundLocation) return;
-        programData.uniformBlockBindings[index] = boundLocation;
-
-        this._renderer.gl.uniformBlockBinding(programData.program, uniformBlockIndex, boundLocation);
+        throw new Error("STUB");
     }
 
     private _setProgram(program: GlProgram)
@@ -214,6 +165,6 @@ export class GlShaderSystem
 
     public resetState(): void
     {
-        this._activeProgram = null;
+        throw new Error("STUB");
     }
 }

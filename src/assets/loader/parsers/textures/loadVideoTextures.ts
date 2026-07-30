@@ -48,28 +48,7 @@ export function preloadVideo(element: HTMLVideoElement): Promise<void>
 {
     return new Promise((resolve, reject) =>
     {
-        element.addEventListener('canplaythrough', loaded);
-        element.addEventListener('error', error);
-
-        element.load();
-
-        function loaded(): void
-        {
-            cleanup();
-            resolve();
-        }
-
-        function error(err: ErrorEvent): void
-        {
-            cleanup();
-            reject(err);
-        }
-
-        function cleanup(): void
-        {
-            element.removeEventListener('canplaythrough', loaded);
-            element.removeEventListener('error', error);
-        }
+        throw new Error("STUB");
     });
 }
 
@@ -210,9 +189,7 @@ export const loadVideoTextures = {
 
         Object.keys(attributeMap).forEach((key) =>
         {
-            const value = attributeMap[key as keyof typeof attributeMap];
-
-            if (value !== undefined) videoElement.setAttribute(key, value);
+            throw new Error("STUB");
         });
 
         if (options.muted === true)
@@ -254,42 +231,7 @@ export const loadVideoTextures = {
         // uploaded to the GPU. Our textures are kind of dumb now, and don't want to handle resizing right now.
         return new Promise((resolve, reject) =>
         {
-            if (options.preload && !options.autoPlay)
-            {
-                videoElement.load();
-            }
-
-            videoElement.addEventListener('canplay', onCanPlay);
-            videoElement.addEventListener('error', onError);
-            sourceElement.addEventListener('error', onError);
-            videoElement.appendChild(sourceElement);
-
-            async function onCanPlay()
-            {
-                const base = new VideoSource({ ...options, resource: videoElement });
-
-                cleanup();
-
-                if (asset.data.preload)
-                {
-                    await preloadVideo(videoElement);
-                }
-
-                resolve(createTexture(base, loader, url));
-            }
-
-            function onError(event: Event | ErrorEvent)
-            {
-                cleanup();
-                reject(event);
-            }
-
-            function cleanup()
-            {
-                videoElement.removeEventListener('canplay', onCanPlay);
-                videoElement.removeEventListener('error', onError);
-                sourceElement.removeEventListener('error', onError);
-            }
+            throw new Error("STUB");
         });
     },
 

@@ -261,16 +261,7 @@ export class AbstractRenderer<
      */
     constructor(config: RendererConfig)
     {
-        super();
-        this.type = config.type;
-        this.name = config.name;
-        this.config = config;
-
-        const combinedRunners = [...defaultRunners, ...(this.config.runners ?? [])];
-
-        this._addRunners(...combinedRunners);
-        // Validation check that this environment support `new Function`
-        this._unsafeEvalCheck();
+        throw new Error("STUB");
     }
 
     /**
@@ -425,13 +416,12 @@ export class AbstractRenderer<
     /** The resolution / device pixel ratio of the renderer. */
     get resolution(): number
     {
-        return this.view.resolution;
+        throw new Error("STUB");
     }
 
     set resolution(value: number)
     {
-        this.view.resolution = value;
-        this.runners.resolutionChange.emit(value);
+        throw new Error("STUB");
     }
 
     /**
@@ -442,7 +432,7 @@ export class AbstractRenderer<
      */
     get width(): number
     {
-        return this.view.texture.frame.width;
+        throw new Error("STUB");
     }
 
     /**
@@ -451,7 +441,7 @@ export class AbstractRenderer<
      */
     get height(): number
     {
-        return this.view.texture.frame.height;
+        throw new Error("STUB");
     }
 
     // NOTE: this was `view` in v7
@@ -470,7 +460,7 @@ export class AbstractRenderer<
      */
     get lastObjectRendered(): Container
     {
-        return this._lastObjectRendered;
+        throw new Error("STUB");
     }
 
     /**
@@ -480,9 +470,7 @@ export class AbstractRenderer<
      */
     get renderingToScreen(): boolean
     {
-        const renderer = this as unknown as Renderer;
-
-        return renderer.renderTarget.renderingToScreen;
+        throw new Error("STUB");
     }
 
     /**
@@ -492,7 +480,7 @@ export class AbstractRenderer<
      */
     get screen(): Rectangle
     {
-        return this.view.screen;
+        throw new Error("STUB");
     }
 
     /**
@@ -501,10 +489,7 @@ export class AbstractRenderer<
      */
     private _addRunners(...runnerIds: string[]): void
     {
-        runnerIds.forEach((runnerId) =>
-        {
-            this.runners[runnerId] = new SystemRunner(runnerId);
-        });
+        throw new Error("STUB");
     }
 
     private _addSystems(systems: RendererConfig['systems']): void
@@ -553,25 +538,12 @@ export class AbstractRenderer<
     {
         const adaptors = pipeAdaptors.reduce((acc, adaptor) =>
         {
-            acc[adaptor.name] = adaptor.value;
-
-            return acc;
+            throw new Error("STUB");
         }, {} as Record<string, any>);
 
         pipes.forEach((pipe) =>
         {
-            const PipeClass = pipe.value;
-            const name = pipe.name;
-
-            const Adaptor = adaptors[name];
-
-            // sorry typescript..
-            (this.renderPipes as any)[name] = new PipeClass(
-                this as unknown as Renderer,
-                Adaptor ? new Adaptor() : null
-            );
-
-            this.runners.destroy.add((this.renderPipes as any)[name]);
+            throw new Error("STUB");
         });
     }
 
@@ -588,7 +560,7 @@ export class AbstractRenderer<
         // destroy all runners
         Object.values(this.runners).forEach((runner) =>
         {
-            runner.destroy();
+            throw new Error("STUB");
         });
 
         this._systemsHash = null;
@@ -615,7 +587,7 @@ export class AbstractRenderer<
      */
     get roundPixels(): boolean
     {
-        return !!this._roundPixels;
+        throw new Error("STUB");
     }
 
     /**
@@ -626,11 +598,7 @@ export class AbstractRenderer<
      */
     public _unsafeEvalCheck(): void
     {
-        if (!unsafeEvalSupported())
-        {
-            throw new Error('Current environment does not allow unsafe-eval, '
-               + 'please use pixi.js/unsafe-eval module to enable support.');
-        }
+        throw new Error("STUB");
     }
     /**
      * Resets the rendering state of the renderer.
@@ -656,6 +624,6 @@ export class AbstractRenderer<
      */
     public resetState(): void
     {
-        this.runners.resetState.emit();
+        throw new Error("STUB");
     }
 }

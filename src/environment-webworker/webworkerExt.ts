@@ -11,9 +11,9 @@ export const webworkerExt = {
         name: 'webworker',
         priority: 0,
     },
-    test: () => typeof self !== 'undefined' && self.WorkerGlobalScope !== undefined,
+    test: () => { throw new Error("STUB"); },
     load: async () =>
     {
-        await import('./webworkerAll');
+        throw new Error("STUB");
     },
 };

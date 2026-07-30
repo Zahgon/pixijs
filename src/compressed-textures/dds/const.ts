@@ -179,10 +179,7 @@ export enum D3D10_RESOURCE_DIMENSION
 
 function fourCCToInt32(value: string)
 {
-    return value.charCodeAt(0)
-        + (value.charCodeAt(1) << 8)
-        + (value.charCodeAt(2) << 16)
-        + (value.charCodeAt(3) << 24);
+    throw new Error("STUB");
 }
 
 /**

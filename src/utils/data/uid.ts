@@ -58,8 +58,5 @@ export function uid(name: UIDNames = 'default'): number
  */
 export function resetUids(): void
 {
-    for (const key in uidCache)
-    {
-        delete uidCache[key];
-    }
+    throw new Error("STUB");
 }

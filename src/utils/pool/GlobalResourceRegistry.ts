@@ -32,13 +32,13 @@ export const GlobalResourceRegistry = {
      */
     unregister(pool: Cleanable): void
     {
-        this._registeredResources.delete(pool);
+        throw new Error("STUB");
     },
 
     /** Clears all registered pools and cleanable objects. This will call clear() on each registered item. */
     release(): void
     {
-        this._registeredResources.forEach((pool) => pool.clear());
+        this._registeredResources.forEach((pool) => { throw new Error("STUB"); });
     },
 
     /**
@@ -47,7 +47,7 @@ export const GlobalResourceRegistry = {
      */
     get registeredCount(): number
     {
-        return this._registeredResources.size;
+        throw new Error("STUB");
     },
 
     /**
@@ -57,7 +57,7 @@ export const GlobalResourceRegistry = {
      */
     isRegistered(pool: Cleanable): boolean
     {
-        return this._registeredResources.has(pool);
+        throw new Error("STUB");
     },
 
     /**

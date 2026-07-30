@@ -30,27 +30,12 @@ export class HTMLTextPipe implements RenderPipe<HTMLText>
 
     constructor(renderer: Renderer)
     {
-        this._renderer = renderer;
-        renderer.runners.resolutionChange.add(this);
-        this._managedTexts = new GCManagedHash({
-            renderer,
-            type: 'renderable',
-            onUnload: this.onTextUnload.bind(this),
-            name: 'htmlText'
-        });
+        throw new Error("STUB");
     }
 
     protected resolutionChange()
     {
-        for (const key in this._managedTexts.items)
-        {
-            const text = this._managedTexts.items[key];
-
-            if (text?._autoResolution)
-            {
-                text.onViewUpdate();
-            }
-        }
+        throw new Error("STUB");
     }
 
     public validateRenderable(htmlText: HTMLText): boolean
@@ -80,7 +65,7 @@ export class HTMLTextPipe implements RenderPipe<HTMLText>
                 // If the text has changed, we need to update the GPU text
                 this._updateGpuText(htmlText).catch((e) =>
                 {
-                    console.error(e);
+                    throw new Error("STUB");
                 });
             }
 
@@ -124,8 +109,7 @@ export class HTMLTextPipe implements RenderPipe<HTMLText>
             // Release old texture after new one is generated.
             texturePromise = texturePromise.finally(() =>
             {
-                this._renderer.htmlText.decreaseReferenceCount(batchableHTMLText.currentKey);
-                this._renderer.htmlText.returnTexturePromise(oldTexturePromise);
+                throw new Error("STUB");
             });
         }
 
@@ -173,15 +157,7 @@ export class HTMLTextPipe implements RenderPipe<HTMLText>
 
     protected onTextUnload(text: HTMLText)
     {
-        const gpuData = text._gpuData[this._renderer.uid];
-
-        if (!gpuData) return;
-
-        const { htmlText } = this._renderer;
-
-        htmlText.getReferenceCount(gpuData.currentKey) === null
-            ? htmlText.returnTexturePromise(gpuData.texturePromise)
-            : htmlText.decreaseReferenceCount(gpuData.currentKey);
+        throw new Error("STUB");
     }
 
     public destroy()

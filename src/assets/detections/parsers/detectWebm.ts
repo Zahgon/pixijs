@@ -13,7 +13,7 @@ export const detectWebm = {
         type: ExtensionType.DetectionParser,
         priority: 0,
     },
-    test: async (): Promise<boolean> => testVideoFormat('video/webm'),
-    add: async (formats) => [...formats, 'webm'],
-    remove: async (formats) => formats.filter((f) => f !== 'webm'),
+    test: async (): Promise<boolean> => { throw new Error("STUB"); },
+    add: async (formats) => { throw new Error("STUB"); },
+    remove: async (formats) => { throw new Error("STUB"); },
 } as FormatDetectionParser;

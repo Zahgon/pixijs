@@ -22,32 +22,6 @@ export class DefaultShader extends Shader
 
     constructor(maxTextures: number)
     {
-        const glProgram = compileHighShaderGlProgram({
-            name: 'batch',
-            bits: [
-                colorBitGl,
-                generateTextureBatchBitGl(maxTextures),
-                roundPixelsBitGl,
-            ]
-        });
-
-        const gpuProgram = compileHighShaderGpuProgram({
-            name: 'batch',
-            bits: [
-                colorBit,
-                generateTextureBatchBit(maxTextures),
-                roundPixelsBit,
-            ]
-        });
-
-        super({
-            glProgram,
-            gpuProgram,
-            resources: {
-                batchSamplers: getBatchSamplersUniformGroup(maxTextures),
-            }
-        });
-
-        this.maxTextures = maxTextures;
+        throw new Error("STUB");
     }
 }

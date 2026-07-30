@@ -315,14 +315,7 @@ export class AssetsClass
 
     constructor()
     {
-        this.resolver = new Resolver();
-        this.loader = new Loader();
-        this.cache = Cache;
-
-        this._backgroundLoader = new BackgroundLoader(this.loader);
-        this._backgroundLoader.active = true;
-
-        this.reset();
+        throw new Error("STUB");
     }
 
     /**
@@ -593,22 +586,7 @@ export class AssetsClass
         const urlArray: string[] = convertToList<UnresolvedAsset | string>(urls)
             .map((url) =>
             {
-                if (typeof url !== 'string')
-                {
-                    const aliases = this.resolver.getAlias(url);
-
-                    if (aliases.some((alias) => !this.resolver.hasKey(alias)))
-                    {
-                        this.add(url);
-                    }
-
-                    return Array.isArray(aliases) ? aliases[0] : aliases;
-                }
-
-                // if it hasn't been added, add it now
-                if (!this.resolver.hasKey(url)) this.add({ alias: url, src: url });
-
-                return url;
+                throw new Error("STUB");
             }) as string[];
 
         // check cache first...
@@ -752,55 +730,7 @@ export class AssetsClass
      */
     public async loadBundle(bundleIds: ArrayOr<string>, onProgress?: ProgressCallback): Promise<any>
     {
-        if (!this._initialized)
-        {
-            await this.init();
-        }
-
-        let singleAsset = false;
-
-        if (typeof bundleIds === 'string')
-        {
-            singleAsset = true;
-            bundleIds = [bundleIds];
-        }
-
-        const resolveResults = this.resolver.resolveBundle(bundleIds);
-
-        const out: Record<string, Record<string, any>> = {};
-
-        const keys = Object.keys(resolveResults);
-        let total = 0;
-        const counts: number[] = [];
-        const _onProgress = () =>
-        {
-            onProgress?.(counts.reduce((a, b) => a + b, 0) / total);
-        };
-        const promises = keys.map((bundleId, i) =>
-        {
-            const resolveResult = resolveResults[bundleId];
-            const values = Object.values(resolveResult);
-            const totalAssetsToLoad = [...new Set(values.flat())] as ResolvedAsset[];
-
-            const progressSize = totalAssetsToLoad.reduce((sum, asset) => sum + (asset.progressSize || 1), 0);
-
-            counts.push(0);
-            total += progressSize;
-
-            return this._mapLoadToResolve(resolveResult, (e) =>
-            {
-                counts[i] = e * progressSize;
-                _onProgress();
-            })
-                .then((resolveResult) =>
-                {
-                    out[bundleId] = resolveResult;
-                });
-        });
-
-        await Promise.all(promises);
-
-        return singleAsset ? out[bundleIds[0]] : out;
+        throw new Error("STUB");
     }
 
     /**
@@ -838,19 +768,7 @@ export class AssetsClass
      */
     public async backgroundLoad(urls: ArrayOr<string>): Promise<void>
     {
-        if (!this._initialized)
-        {
-            await this.init();
-        }
-
-        if (typeof urls === 'string')
-        {
-            urls = [urls];
-        }
-
-        const resolveResults = this.resolver.resolve(urls);
-
-        this._backgroundLoader.add(Object.values(resolveResults));
+        throw new Error("STUB");
     }
 
     /**
@@ -920,22 +838,7 @@ export class AssetsClass
      */
     public async backgroundLoadBundle(bundleIds: ArrayOr<string>): Promise<void>
     {
-        if (!this._initialized)
-        {
-            await this.init();
-        }
-
-        if (typeof bundleIds === 'string')
-        {
-            bundleIds = [bundleIds];
-        }
-
-        const resolveResults = this.resolver.resolveBundle(bundleIds);
-
-        Object.values(resolveResults).forEach((resolveResult) =>
-        {
-            this._backgroundLoader.add(Object.values(resolveResult));
-        });
+        throw new Error("STUB");
     }
 
     /**
@@ -1043,21 +946,7 @@ export class AssetsClass
 
         resolveArray.forEach((resolveResult) =>
         {
-            const asset = loadedAssets[resolveResult.src];
-
-            const keys = [resolveResult.src];
-
-            if (resolveResult.alias)
-            {
-                keys.push(...resolveResult.alias);
-            }
-
-            keys.forEach((key) =>
-            {
-                out[key] = asset;
-            });
-
-            Cache.set(keys, asset);
+            throw new Error("STUB");
         });
 
         return out;
@@ -1105,7 +994,7 @@ export class AssetsClass
 
         const urlArray = convertToList<string | ResolvedAsset>(urls)
             .map((url) =>
-                ((typeof url !== 'string') ? url.src : url));
+                { throw new Error("STUB"); });
 
         // check cache first...
         const resolveResults = this.resolver.resolve(urlArray);
@@ -1154,19 +1043,7 @@ export class AssetsClass
      */
     public async unloadBundle(bundleIds: ArrayOr<string>): Promise<void>
     {
-        if (!this._initialized)
-        {
-            await this.init();
-        }
-
-        bundleIds = convertToList<string>(bundleIds);
-
-        const resolveResults = this.resolver.resolveBundle(bundleIds);
-
-        const promises = Object.keys(resolveResults).map((bundleId) =>
-            this._unloadFromResolved(resolveResults[bundleId]));
-
-        await Promise.all(promises);
+        throw new Error("STUB");
     }
 
     private async _unloadFromResolved(resolveResult: ResolvedAsset | Record<string, ResolvedAsset>)
@@ -1175,7 +1052,7 @@ export class AssetsClass
 
         resolveArray.forEach((resolveResult) =>
         {
-            Cache.remove(resolveResult.src);
+            throw new Error("STUB");
         });
 
         await this.loader.unload(resolveArray);
@@ -1219,7 +1096,7 @@ export class AssetsClass
         }
 
         // remove any duplicates
-        formats = formats.filter((format, index) => formats.indexOf(format) === index);
+        formats = formats.filter((format, index) => { throw new Error("STUB"); });
 
         return formats;
     }
@@ -1230,7 +1107,7 @@ export class AssetsClass
      */
     public get detections(): FormatDetectionParser[]
     {
-        return this._detections;
+        throw new Error("STUB");
     }
 
     /**
@@ -1259,14 +1136,7 @@ export class AssetsClass
         // and set the values
         this.loader.parsers.forEach((parser) =>
         {
-            if (!parser.config) return;
-
-            (Object.keys(parser.config) as (keyof AssetsPreferences)[])
-                .filter((key) => key in preferences)
-                .forEach((key) =>
-                {
-                    parser.config[key] = preferences[key];
-                });
+            throw new Error("STUB");
         });
     }
 }
@@ -1409,21 +1279,8 @@ type AssetType = keyof typeof assetKeyMap;
 // these are handled in the Assets.ts file
 extensions.handle(ExtensionType.Asset, (extension) =>
 {
-    const ref = extension.ref as AssetExtension;
-
-    Object.entries(assetKeyMap)
-        .filter(([key]) => !!ref[key as AssetType])
-        .forEach(([key, type]) => extensions.add(Object.assign(
-            ref[key as AssetType],
-            // Allow the function to optionally define it's own
-            // ExtensionMetadata, the use cases here is priority for LoaderParsers
-            { extension: ref[key as AssetType].extension ?? type },
-        )));
+    throw new Error("STUB");
 }, (extension) =>
 {
-    const ref = extension.ref as AssetExtension;
-
-    Object.keys(assetKeyMap)
-        .filter((key) => !!ref[key as AssetType])
-        .forEach((key) => extensions.remove(ref[key as AssetType]));
+    throw new Error("STUB");
 });

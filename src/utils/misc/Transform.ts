@@ -179,21 +179,7 @@ export class Transform
      */
     get matrix(): Matrix
     {
-        const lt = this._matrix;
-
-        if (!this.dirty) return lt;
-
-        lt.a = this._cx * this.scale.x;
-        lt.b = this._sx * this.scale.x;
-        lt.c = this._cy * this.scale.y;
-        lt.d = this._sy * this.scale.y;
-
-        lt.tx = this.position.x - ((this.pivot.x * lt.a) + (this.pivot.y * lt.c));
-        lt.ty = this.position.y - ((this.pivot.x * lt.b) + (this.pivot.y * lt.d));
-
-        this.dirty = false;
-
-        return lt;
+        throw new Error("STUB");
     }
     /**
      * Called when a value changes.
@@ -281,15 +267,11 @@ export class Transform
      */
     get rotation(): number
     {
-        return this._rotation;
+        throw new Error("STUB");
     }
 
     set rotation(value: number)
     {
-        if (this._rotation !== value)
-        {
-            this._rotation = value;
-            this._onUpdate(this.skew);
-        }
+        throw new Error("STUB");
     }
 }

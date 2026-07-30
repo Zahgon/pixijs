@@ -46,7 +46,7 @@ export type TextureResourceOrOptions =
  */
 export function autoDetectSource(options: TextureResourceOrOptions = {}): TextureSource
 {
-    return textureSourceFrom(options);
+    throw new Error("STUB");
 }
 
 /**
@@ -55,21 +55,7 @@ export function autoDetectSource(options: TextureResourceOrOptions = {}): Textur
  */
 function textureSourceFrom(options: TextureResourceOrOptions = {}): TextureSource
 {
-    const hasResource = options && (options as TextureSourceOptions).resource;
-    const res = hasResource ? (options as TextureSourceOptions).resource : options;
-    const opts = hasResource ? options as TextureSourceOptions : { resource: options } as TextureSourceOptions;
-
-    for (let i = 0; i < sources.length; i++)
-    {
-        const Source = sources[i];
-
-        if (Source.test(res))
-        {
-            return new Source(opts);
-        }
-    }
-
-    throw new Error(`Could not find a source type for resource: ${opts.resource}`);
+    throw new Error("STUB");
 }
 
 /**
@@ -82,31 +68,7 @@ export function resourceToTexture(
     skipCache = false
 ): Texture
 {
-    const hasResource = options && (options as TextureSourceOptions).resource;
-    const resource = hasResource ? (options as TextureSourceOptions).resource : options;
-    const opts = hasResource ? options as TextureSourceOptions : { resource: options } as TextureSourceOptions;
-
-    if (!skipCache && Cache.has(resource))
-    {
-        return Cache.get(resource);
-    }
-
-    const texture = new Texture({ source: textureSourceFrom(opts) });
-
-    texture.on('destroy', () =>
-    {
-        if (Cache.has(resource))
-        {
-            Cache.remove(resource);
-        }
-    });
-
-    if (!skipCache)
-    {
-        Cache.set(resource, texture);
-    }
-
-    return texture;
+    throw new Error("STUB");
 }
 
 /**
@@ -120,17 +82,7 @@ export function resourceToTexture(
  */
 export function textureFrom(id: TextureSourceLike, skipCache = false): Texture
 {
-    if (typeof id === 'string')
-    {
-        return Cache.get(id);
-    }
-    else if (id instanceof TextureSource)
-    {
-        return new Texture({ source: id });
-    }
-
-    // return a auto generated texture from resource
-    return resourceToTexture(id, skipCache);
+    throw new Error("STUB");
 }
 
 Texture.from = textureFrom;

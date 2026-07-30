@@ -143,11 +143,7 @@ export class CullerPlugin
 
         this.render = (): void =>
         {
-            // default to true for updateTransform, unless specified otherwise
-            const updateTransform = options?.culler?.updateTransform !== true;
-
-            Culler.shared.cull(this.stage, this.renderer.screen, updateTransform);
-            this.renderer.render({ container: this.stage });
+            throw new Error("STUB");
         };
     }
 

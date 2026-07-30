@@ -230,11 +230,7 @@ export class Color
      */
     constructor(value: ColorSource = 0xffffff)
     {
-        this._value = null;
-        this._components = new Float32Array(4);
-        this._components.fill(1);
-        this._int = 0xffffff;
-        this.value = value;
+        throw new Error("STUB");
     }
 
     /**
@@ -250,7 +246,7 @@ export class Color
      */
     get red(): number
     {
-        return this._components[0];
+        throw new Error("STUB");
     }
 
     /**
@@ -266,7 +262,7 @@ export class Color
      */
     get green(): number
     {
-        return this._components[1];
+        throw new Error("STUB");
     }
 
     /**
@@ -282,7 +278,7 @@ export class Color
      */
     get blue(): number
     {
-        return this._components[2];
+        throw new Error("STUB");
     }
 
     /**
@@ -298,7 +294,7 @@ export class Color
      */
     get alpha(): number
     {
-        return this._components[3];
+        throw new Error("STUB");
     }
 
     /**
@@ -380,26 +376,11 @@ export class Color
      */
     set value(value: ColorSource | null)
     {
-        // Support copying from other Color objects
-        if (value instanceof Color)
-        {
-            this._value = this._cloneSource(value._value);
-            this._int = value._int;
-            this._components.set(value._components);
-        }
-        else if (value === null)
-        {
-            throw new Error('Cannot set Color#value to null');
-        }
-        else if (this._value === null || !this._isSourceEqual(this._value, value))
-        {
-            this._value = this._cloneSource(value);
-            this._normalize(this._value);
-        }
+        throw new Error("STUB");
     }
     get value(): Exclude<ColorSource, Color> | null
     {
-        return this._value;
+        throw new Error("STUB");
     }
 
     /**
@@ -408,20 +389,7 @@ export class Color
      */
     private _cloneSource(value: Exclude<ColorSource, Color> | null): Exclude<ColorSource, Color> | null
     {
-        if (typeof value === 'string' || typeof value === 'number' || value instanceof Number || value === null)
-        {
-            return value;
-        }
-        else if (Array.isArray(value) || ArrayBuffer.isView(value))
-        {
-            return value.slice(0);
-        }
-        else if (typeof value === 'object' && value !== null)
-        {
-            return { ...value };
-        }
-
-        return value;
+        throw new Error("STUB");
     }
 
     /**
@@ -432,48 +400,7 @@ export class Color
      */
     private _isSourceEqual(value1: Exclude<ColorSource, Color>, value2: Exclude<ColorSource, Color>): boolean
     {
-        const type1 = typeof value1;
-        const type2 = typeof value2;
-
-        // Mismatched types
-        if (type1 !== type2)
-        {
-            return false;
-        }
-        // Handle numbers/strings and things that extend Number
-        // important to do the instanceof Number first, as this is "object" type
-        else if (type1 === 'number' || type1 === 'string' || value1 instanceof Number)
-        {
-            return value1 === value2;
-        }
-        // Handle Arrays and TypedArrays
-        else if (
-            (Array.isArray(value1) && Array.isArray(value2))
-            || (ArrayBuffer.isView(value1) && ArrayBuffer.isView(value2))
-        )
-        {
-            if (value1.length !== value2.length)
-            {
-                return false;
-            }
-
-            return value1.every((v, i) => v === value2[i]);
-        }
-        // Handle Objects
-        else if (value1 !== null && value2 !== null)
-        {
-            const keys1 = Object.keys(value1) as (keyof typeof value1)[];
-            const keys2 = Object.keys(value2) as (keyof typeof value2)[];
-
-            if (keys1.length !== keys2.length)
-            {
-                return false;
-            }
-
-            return keys1.every((key) => value1[key] === value2[key]);
-        }
-
-        return value1 === value2;
+        throw new Error("STUB");
     }
 
     /**
@@ -493,9 +420,7 @@ export class Color
      */
     public toRgba(): RgbaColor
     {
-        const [r, g, b, a] = this._components;
-
-        return { r, g, b, a };
+        throw new Error("STUB");
     }
 
     /**
@@ -517,9 +442,7 @@ export class Color
      */
     public toRgb(): RgbColor
     {
-        const [r, g, b] = this._components;
-
-        return { r, g, b };
+        throw new Error("STUB");
     }
 
     /**
@@ -541,9 +464,7 @@ export class Color
      */
     public toRgbaString(): string
     {
-        const [r, g, b] = this.toUint8RgbArray();
-
-        return `rgba(${r},${g},${b},${this.alpha})`;
+        throw new Error("STUB");
     }
 
     /**
@@ -572,20 +493,7 @@ export class Color
      */
     public toUint8RgbArray<T extends number[] | Uint8Array | Uint8ClampedArray = number[]>(out?: T): T
     {
-        const [r, g, b] = this._components;
-
-        if (!this._arrayRgb)
-        {
-            this._arrayRgb = [];
-        }
-
-        out ||= this._arrayRgb as T;
-
-        out[0] = Math.round(r * 255);
-        out[1] = Math.round(g * 255);
-        out[2] = Math.round(b * 255);
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -651,19 +559,7 @@ export class Color
      */
     public toRgbArray<T extends number[] | Float32Array = number[]>(out?: T): T
     {
-        if (!this._arrayRgb)
-        {
-            this._arrayRgb = [];
-        }
-
-        out ||= this._arrayRgb as T;
-        const [r, g, b] = this._components;
-
-        out[0] = r;
-        out[1] = g;
-        out[2] = b;
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**
@@ -705,9 +601,7 @@ export class Color
      */
     public toBgrNumber(): number
     {
-        const [r, g, b] = this.toUint8RgbArray();
-
-        return (b << 16) + (g << 8) + r;
+        throw new Error("STUB");
     }
 
     /**
@@ -742,9 +636,7 @@ export class Color
      */
     public toLittleEndianNumber(): number
     {
-        const value = this._int;
-
-        return (value >> 16) + (value & 0xff00) + ((value & 0xff) << 16);
+        throw new Error("STUB");
     }
 
     /**
@@ -779,17 +671,7 @@ export class Color
      */
     public multiply(value: ColorSource): this
     {
-        const [r, g, b, a] = Color._temp.setValue(value)._components;
-
-        this._components[0] *= r;
-        this._components[1] *= g;
-        this._components[2] *= b;
-        this._components[3] *= a;
-
-        this._refreshInt();
-        this._value = null;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -823,18 +705,7 @@ export class Color
      */
     public premultiply(alpha: number, applyToRGB = true): this
     {
-        if (applyToRGB)
-        {
-            this._components[0] *= alpha;
-            this._components[1] *= alpha;
-            this._components[2] *= alpha;
-        }
-        this._components[3] = alpha;
-
-        this._refreshInt();
-        this._value = null;
-
-        return this;
+        throw new Error("STUB");
     }
 
     /**
@@ -865,26 +736,7 @@ export class Color
      */
     public toPremultiplied(alpha: number, applyToRGB = true): number
     {
-        if (alpha === 1.0)
-        {
-            return (0xff << 24) + this._int;
-        }
-        if (alpha === 0.0)
-        {
-            return applyToRGB ? 0 : this._int;
-        }
-        let r = (this._int >> 16) & 0xff;
-        let g = (this._int >> 8) & 0xff;
-        let b = this._int & 0xff;
-
-        if (applyToRGB)
-        {
-            r = ((r * alpha) + 0.5) | 0;
-            g = ((g * alpha) + 0.5) | 0;
-            b = ((b * alpha) + 0.5) | 0;
-        }
-
-        return ((alpha * 255) << 24) + (r << 16) + (g << 8) + b;
+        throw new Error("STUB");
     }
 
     /**
@@ -940,10 +792,7 @@ export class Color
      */
     public toHexa(): string
     {
-        const alphaValue = Math.round(this._components[3] * 255);
-        const alphaString = alphaValue.toString(16);
-
-        return this.toHex() + '00'.substring(0, 2 - alphaString.length) + alphaString;
+        throw new Error("STUB");
     }
 
     /**
@@ -985,101 +834,13 @@ export class Color
      */
     private _normalize(value: Exclude<ColorSource, Color>): void
     {
-        let r: number | undefined;
-        let g: number | undefined;
-        let b: number | undefined;
-        let a: number | undefined;
-
-        // Number is a primitive so typeof works fine, but in the case
-        // that someone creates a class that extends Number, we also
-        // need to check for instanceof Number
-        if (
-            (typeof value === 'number' || value instanceof Number)
-            && (value as number) >= 0
-            && (value as number) <= 0xffffff
-        )
-        {
-            const int = value as number; // cast required because instanceof Number is ambiguous for TS
-
-            r = ((int >> 16) & 0xff) / 255;
-            g = ((int >> 8) & 0xff) / 255;
-            b = (int & 0xff) / 255;
-            a = 1.0;
-        }
-        else if (
-            (Array.isArray(value) || value instanceof Float32Array)
-            // Can be rgb or rgba
-            && value.length >= 3
-            && value.length <= 4
-        )
-        {
-            // make sure all values are 0 - 1
-            value = this._clamp(value);
-            [r, g, b, a = 1.0] = value;
-        }
-        else if (
-            (value instanceof Uint8Array || value instanceof Uint8ClampedArray)
-            // Can be rgb or rgba
-            && value.length >= 3
-            && value.length <= 4
-        )
-        {
-            // make sure all values are 0 - 255
-            value = this._clamp(value, 0, 255);
-            [r, g, b, a = 255] = value;
-            r /= 255;
-            g /= 255;
-            b /= 255;
-            a /= 255;
-        }
-        else if (typeof value === 'string' || typeof value === 'object')
-        {
-            if (typeof value === 'string')
-            {
-                const match = Color.HEX_PATTERN.exec(value);
-
-                if (match)
-                {
-                    // Normalize hex string, remove 0x or # prefix
-                    value = `#${match[2]}`;
-                }
-            }
-
-            const color = colord(value as AnyColor);
-
-            if (color.isValid())
-            {
-                ({ r, g, b, a } = color.rgba);
-                r /= 255;
-                g /= 255;
-                b /= 255;
-            }
-        }
-
-        // Cache normalized values for rgba and hex integer
-        if (r !== undefined)
-        {
-            this._components[0] = r as number;
-            this._components[1] = g as number;
-            this._components[2] = b as number;
-            this._components[3] = a as number;
-            this._refreshInt();
-        }
-        else
-        {
-            throw new Error(`Unable to convert color ${value}`);
-        }
+        throw new Error("STUB");
     }
 
     /** Refresh the internal color rgb number */
     private _refreshInt(): void
     {
-        // Clamp values to 0 - 1
-        this._clamp(this._components);
-
-        const [r, g, b] = this._components;
-
-        this._int = ((r * 255) << 16) + ((g * 255) << 8) + ((b * 255) | 0);
+        throw new Error("STUB");
     }
 
     /**
@@ -1097,7 +858,7 @@ export class Color
 
         value.forEach((v, i) =>
         {
-            value[i] = Math.min(Math.max(v, min), max);
+            throw new Error("STUB");
         });
 
         return value;

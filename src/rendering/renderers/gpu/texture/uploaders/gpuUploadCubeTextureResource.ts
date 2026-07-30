@@ -13,22 +13,6 @@ export function createGpuUploadCubeTextureResource(
     uploaders: Record<string, GpuTextureUploader> & { image: GpuTextureUploader }
 ): GpuTextureUploader<CubeTextureSource>
 {
-    return {
-        type: 'cube',
-        upload(source: CubeTextureSource, gpuTexture: GPUTexture, gpu: GPU)
-        {
-            const faces = source.faces;
-
-            for (let i = 0; i < FACE_ORDER.length; i++)
-            {
-                const key = FACE_ORDER[i];
-                const face = faces[key];
-
-                const uploader = uploaders[face.uploadMethodId] || uploaders.image;
-
-                uploader.upload(face as any, gpuTexture, gpu, i);
-            }
-        }
-    };
+    throw new Error("STUB");
 }
 

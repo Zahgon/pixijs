@@ -54,7 +54,7 @@ export const loadKTX2 = {
     {
         if (Array.isArray(texture))
         {
-            texture.forEach((t) => t.destroy(true));
+            texture.forEach((t) => { throw new Error("STUB"); });
         }
         else
         {

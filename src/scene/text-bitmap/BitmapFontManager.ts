@@ -369,8 +369,7 @@ class BitmapFontManagerClass
 
             fnt.once('destroy', () =>
             {
-                fontCount--;
-                Cache.remove(fontFamilyKey);
+                throw new Error("STUB");
             });
 
             Cache.set(
@@ -451,57 +450,7 @@ class BitmapFontManagerClass
     // eslint-disable-next-line max-len
     public install(...args: [string | BitmapFontInstallOptions, (TextStyle | TextStyleOptions)?, BitmapFontInstallOptions?]): BitmapFont
     {
-        let options = args[0] as BitmapFontInstallOptions;
-
-        if (typeof options === 'string')
-        {
-            options = {
-                name: options,
-                style: args[1],
-                chars: args[2]?.chars,
-                resolution: args[2]?.resolution,
-                padding: args[2]?.padding,
-                skipKerning: args[2]?.skipKerning,
-            } as BitmapFontInstallOptions;
-
-            // #if _DEBUG
-            // eslint-disable-next-line max-len
-            deprecation(v8_0_0, 'BitmapFontManager.install(name, style, options) is deprecated, use BitmapFontManager.install({name, style, ...options})');
-            // #endif
-        }
-
-        const name = options?.name;
-
-        if (!name)
-        {
-            throw new Error('[BitmapFontManager] Property `name` is required.');
-        }
-
-        options = { ...this.defaultOptions, ...options };
-
-        const textStyle = options.style;
-
-        const style = textStyle instanceof TextStyle ? textStyle : new TextStyle(textStyle);
-        const overrideFill = options.dynamicFill ?? this._canUseTintForStyle(style);
-        const font = new DynamicBitmapFont({
-            style,
-            overrideFill,
-            skipKerning: options.skipKerning,
-            padding: options.padding,
-            resolution: options.resolution,
-            overrideSize: false,
-            textureStyle: options.textureStyle,
-        });
-
-        const flatChars = resolveCharacters(options.chars);
-
-        font.ensureCharacters(flatChars.join(''));
-
-        Cache.set(`${name}-bitmap`, font);
-
-        font.once('destroy', () => Cache.remove(`${name}-bitmap`));
-
-        return font;
+        throw new Error("STUB");
     }
 
     /**
@@ -510,13 +459,7 @@ class BitmapFontManagerClass
      */
     public uninstall(name: string)
     {
-        const cacheKey = `${name}-bitmap`;
-        const font = Cache.get<BitmapFont>(cacheKey);
-
-        if (font)
-        {
-            font.destroy();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -528,13 +471,7 @@ class BitmapFontManagerClass
      */
     private _canUseTintForStyle(style: TextStyle): boolean
     {
-        // Exclude strokes, non black shadows and ensure
-        // we have a non gradient or pattern fill,
-        // and the fill color is white
-        return !style._stroke
-            && (!style.dropShadow || style.dropShadow.color === 0x000000)
-            && !style._fill.fill
-            && style._fill.color === 0xFFFFFF;
+        throw new Error("STUB");
     }
 }
 

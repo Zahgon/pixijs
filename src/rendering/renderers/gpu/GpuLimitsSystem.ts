@@ -52,38 +52,12 @@ export class GpuLimitsSystem implements System
 
     public contextChange(): void
     {
-        const device = this._renderer.device.gpu.device;
-
-        this.maxTextures = Math.min(
-            device.limits.maxSampledTexturesPerShaderStage,
-            device.limits.maxSamplersPerShaderStage,
-        );
-        this.maxBatchableTextures = this.maxTextures;
-
-        this._detectOverrideConstantsSupport(device);
+        throw new Error("STUB");
     }
 
     private _detectOverrideConstantsSupport(device: GPUDevice): void
     {
-        device.pushErrorScope('validation');
-
-        const testModule = device.createShaderModule({
-            code: 'override TEST_VALUE: f32 = 0.0;\n@compute @workgroup_size(1) fn main() {}',
-        });
-
-        device.createComputePipeline({
-            layout: 'auto',
-            compute: {
-                module: testModule,
-                entryPoint: 'main',
-                constants: { TEST_VALUE: 1.0 },
-            },
-        });
-
-        void device.popErrorScope().then((error) =>
-        {
-            this.supportsOverrideConstants = !error;
-        });
+        throw new Error("STUB");
     }
 
     public destroy(): void

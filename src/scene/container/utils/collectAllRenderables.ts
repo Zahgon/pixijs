@@ -16,14 +16,5 @@ export function collectAllRenderables(
     container: Container, instructionSet: InstructionSet, rendererOrPipes: Renderer | RenderPipes
 ): void
 {
-    // #if _DEBUG
-    deprecation('8.7.0', 'Please use container.collectRenderables instead.');
-    // #endif
-
-    // deprecate the use of renderPipes by finding the renderer attached to the batch pipe as this is always there
-    const renderer = (rendererOrPipes as Renderer).renderPipes
-        ? (rendererOrPipes as Renderer)
-        : (rendererOrPipes as RenderPipes).batch.renderer;
-
-    return container.collectRenderables(instructionSet, renderer, null);
+    throw new Error("STUB");
 }

@@ -74,25 +74,7 @@ export class TextureMatrix
      */
     constructor(texture: Texture, clampMargin?: number)
     {
-        this.mapCoord = new Matrix();
-        this.uClampFrame = new Float32Array(4);
-        this.uClampOffset = new Float32Array(2);
-        this._updateID = 0;
-
-        this.clampOffset = 0;
-
-        if ((typeof clampMargin === 'undefined'))
-        {
-            this.clampMargin = (texture.width < 10) ? 0 : 0.5;
-        }
-        else
-        {
-            this.clampMargin = clampMargin;
-        }
-
-        this.isSimple = false;
-
-        this.texture = texture;
+        throw new Error("STUB");
     }
 
     /** Texture property. */
@@ -126,23 +108,7 @@ export class TextureMatrix
      */
     public multiplyUvs(uvs: Float32Array, out?: Float32Array): Float32Array
     {
-        if (out === undefined)
-        {
-            out = uvs;
-        }
-
-        const mat = this.mapCoord;
-
-        for (let i = 0; i < uvs.length; i += 2)
-        {
-            const x = uvs[i];
-            const y = uvs[i + 1];
-
-            out[i] = (x * mat.a) + (y * mat.c) + mat.tx;
-            out[i + 1] = (x * mat.b) + (y * mat.d) + mat.ty;
-        }
-
-        return out;
+        throw new Error("STUB");
     }
 
     /**

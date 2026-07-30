@@ -18,5 +18,5 @@ export const basisTranscoderUrls = {
  */
 export function setBasisTranscoderPath(config: Partial<typeof basisTranscoderUrls>)
 {
-    Object.assign(basisTranscoderUrls, config);
+    throw new Error("STUB");
 }

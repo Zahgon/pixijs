@@ -192,7 +192,7 @@ export class FilterSystem implements System
      */
     public get activeBackTexture(): Texture | undefined
     {
-        return this._activeFilterData?.backTexture;
+        throw new Error("STUB");
     }
 
     /**
@@ -222,7 +222,7 @@ export class FilterSystem implements System
         const rootAntialias = colorTextureSource.antialias;
 
         // if there are no filters, or all of them disabled, we skip the pass
-        if (filters.every((filter) => !filter.enabled))
+        if (filters.every((filter) => { throw new Error("STUB"); }))
         {
             filterData.skip = true;
 
@@ -309,7 +309,7 @@ export class FilterSystem implements System
         const rootAntialias = colorTextureSource.antialias;
 
         // if there are no filters, or all of them disabled, we skip the pass
-        if (filters.every((filter) => !filter.enabled))
+        if (filters.every((filter) => { throw new Error("STUB"); }))
         {
             filterData.skip = true;
 

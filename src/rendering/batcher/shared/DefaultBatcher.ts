@@ -82,11 +82,7 @@ export class DefaultBatcher extends Batcher
 
     constructor(options: BatcherOptions)
     {
-        super(options);
-
-        defaultShader ??= new DefaultShader(options.maxTextures);
-
-        this.shader = defaultShader;
+        throw new Error("STUB");
     }
 
     /**

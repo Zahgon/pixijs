@@ -16,14 +16,7 @@ const idHash: Record<string, number> = Object.create(null);
  */
 function createResourceIdFromString(value: string): number
 {
-    const id = idHash[value];
-
-    if (id === undefined)
-    {
-        idHash[value] = uid('resource');
-    }
-
-    return id;
+    throw new Error("STUB");
 }
 
 /**
@@ -139,90 +132,56 @@ export class TextureStyle extends EventEmitter<{
      */
     constructor(options: TextureStyleOptions = {})
     {
-        super();
-
-        options = { ...TextureStyle.defaultOptions, ...options };
-
-        this.addressMode = options.addressMode;
-
-        this.addressModeU = options.addressModeU ?? this.addressModeU;
-        this.addressModeV = options.addressModeV ?? this.addressModeV;
-        this.addressModeW = options.addressModeW ?? this.addressModeW;
-
-        this.scaleMode = options.scaleMode;
-
-        this.magFilter = options.magFilter ?? this.magFilter;
-        this.minFilter = options.minFilter ?? this.minFilter;
-        this.mipmapFilter = options.mipmapFilter ?? this.mipmapFilter;
-
-        this.lodMinClamp = options.lodMinClamp;
-        this.lodMaxClamp = options.lodMaxClamp;
-
-        this.compare = options.compare;
-
-        this.maxAnisotropy = options.maxAnisotropy ?? 1;
+        throw new Error("STUB");
     }
 
     set addressMode(value: WRAP_MODE)
     {
-        this.addressModeU = value;
-        this.addressModeV = value;
-        this.addressModeW = value;
+        throw new Error("STUB");
     }
 
     /** setting this will set wrapModeU,wrapModeV and wrapModeW all at once! */
     get addressMode(): WRAP_MODE
     {
-        return this.addressModeU;
+        throw new Error("STUB");
     }
 
     set wrapMode(value: WRAP_MODE)
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'TextureStyle.wrapMode is now TextureStyle.addressMode');
-        // #endif
-
-        this.addressMode = value;
+        throw new Error("STUB");
     }
 
     get wrapMode(): WRAP_MODE
     {
-        return this.addressMode;
+        throw new Error("STUB");
     }
 
     set scaleMode(value: SCALE_MODE)
     {
-        this.magFilter = value;
-        this.minFilter = value;
-        this.mipmapFilter = value;
+        throw new Error("STUB");
     }
 
     /** setting this will set magFilter,minFilter and mipmapFilter all at once!  */
     get scaleMode(): SCALE_MODE
     {
-        return this.magFilter;
+        throw new Error("STUB");
     }
 
     /** Specifies the maximum anisotropy value clamp used by the sampler. */
     set maxAnisotropy(value: number)
     {
-        this._maxAnisotropy = Math.min(value, 16);
-
-        if (this._maxAnisotropy > 1)
-        {
-            this.scaleMode = 'linear';
-        }
+        throw new Error("STUB");
     }
 
     get maxAnisotropy(): number
     {
-        return this._maxAnisotropy;
+        throw new Error("STUB");
     }
 
     // TODO - move this to WebGL?
     get _resourceId(): number
     {
-        return this._sharedResourceId || this._generateResourceId();
+        throw new Error("STUB");
     }
 
     public update()
@@ -234,12 +193,7 @@ export class TextureStyle extends EventEmitter<{
 
     private _generateResourceId(): number
     {
-        // eslint-disable-next-line max-len
-        const bigKey = `${this.addressModeU}-${this.addressModeV}-${this.addressModeW}-${this.magFilter}-${this.minFilter}-${this.mipmapFilter}-${this.lodMinClamp}-${this.lodMaxClamp}-${this.compare}-${this._maxAnisotropy}`;
-
-        this._sharedResourceId = createResourceIdFromString(bigKey);
-
-        return this._resourceId;
+        throw new Error("STUB");
     }
 
     /** Destroys the style */

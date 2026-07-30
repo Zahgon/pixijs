@@ -61,19 +61,7 @@ class GifSource
      */
     constructor(frames: GifFrame[])
     {
-        // #if _DEBUG
-        if (!frames || !frames.length) throw new Error('Invalid frames');
-        // #endif
-
-        // All frames are the same size, get the first frame's size
-        const [{ texture: { width, height } }] = frames;
-
-        this.width = width;
-        this.height = height;
-        this.frames = frames;
-        this.textures = this.frames.map((frame) => frame.texture);
-        this.totalFrames = this.frames.length;
-        this.duration = this.frames[this.totalFrames - 1].end;
+        throw new Error("STUB");
     }
 
     /** Destroy animation data and don't use after this */

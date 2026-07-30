@@ -36,9 +36,7 @@ export const uniformParsers: UniformParserDefinition[] = [
         type: 'mat3x3<f32>',
         test: (data: UniformData): boolean =>
         {
-            const value = data.value as Matrix;
-
-            return value.a !== undefined;
+            throw new Error("STUB");
         },
         ubo: `
             var matrix = uv[name].toArray(true);
@@ -60,7 +58,7 @@ export const uniformParsers: UniformParserDefinition[] = [
     {
         type: 'vec4<f32>',
         test: (data: UniformData): boolean =>
-            data.type === 'vec4<f32>' && data.size === 1 && (data.value as Rectangle).width !== undefined,
+            { throw new Error("STUB"); },
         ubo: `
             v = uv[name];
             data[offset] = v.x;
@@ -84,7 +82,7 @@ export const uniformParsers: UniformParserDefinition[] = [
     {
         type: 'vec2<f32>',
         test: (data: UniformData): boolean =>
-            data.type === 'vec2<f32>' && data.size === 1 && (data.value as PointLike).x !== undefined,
+            { throw new Error("STUB"); },
         ubo:  `
             v = uv[name];
             data[offset] = v.x;
@@ -104,7 +102,7 @@ export const uniformParsers: UniformParserDefinition[] = [
     {
         type: 'vec4<f32>',
         test: (data: UniformData): boolean =>
-            data.type === 'vec4<f32>' && data.size === 1 && (data.value as Color).red !== undefined,
+            { throw new Error("STUB"); },
         ubo: `
             v = uv[name];
             data[offset] = v.red;
@@ -128,7 +126,7 @@ export const uniformParsers: UniformParserDefinition[] = [
     {
         type: 'vec3<f32>',
         test: (data: UniformData): boolean =>
-            data.type === 'vec3<f32>' && data.size === 1 && (data.value as Color).red !== undefined,
+            { throw new Error("STUB"); },
         ubo: `
             v = uv[name];
             data[offset] = v.red;

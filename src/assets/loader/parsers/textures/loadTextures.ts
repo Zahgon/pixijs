@@ -142,22 +142,7 @@ export const loadTextures: LoaderParser<Texture, TextureSourceOptions, LoadTextu
         {
             src = await new Promise((resolve, reject) =>
             {
-                src = DOMAdapter.get().createImage();
-                src.crossOrigin = this.config.crossOrigin;
-
-                src.src = url;
-                if (src.complete)
-                {
-                    resolve(src);
-                }
-                else
-                {
-                    src.onload = (): void =>
-                    {
-                        resolve(src);
-                    };
-                    src.onerror = reject;
-                }
+                throw new Error("STUB");
             });
         }
 

@@ -128,42 +128,7 @@ export class VideoSource extends TextureSource<VideoResource>
         options: VideoSourceOptions
     )
     {
-        super(options);
-
-        // Merge provided options with default ones
-        options = {
-            ...VideoSource.defaultOptions,
-            ...options
-        };
-
-        this._autoUpdate = true;
-        this._isConnectedToTicker = false;
-        this._updateFPS = options.updateFPS || 0;
-        this._msToNextUpdate = 0;
-        this.autoPlay = options.autoPlay !== false;
-        this.alphaMode = options.alphaMode ?? 'premultiply-alpha-on-upload';
-
-        // Binding for frame updates
-        this._videoFrameRequestCallback = this._videoFrameRequestCallback.bind(this);
-        this._videoFrameRequestCallbackHandle = null;
-
-        this._load = null;
-        this._resolve = null;
-        this._reject = null;
-
-        // Bind for listeners
-        this._onCanPlay = this._onCanPlay.bind(this);
-        this._onCanPlayThrough = this._onCanPlayThrough.bind(this);
-        this._onError = this._onError.bind(this);
-        this._onPlayStart = this._onPlayStart.bind(this);
-        this._onPlayStop = this._onPlayStop.bind(this);
-        this._onSeeked = this._onSeeked.bind(this);
-        this._onLoadedMetadata = this._onLoadedMetadata.bind(this);
-
-        if (options.autoLoad !== false)
-        {
-            void this.load();
-        }
+        throw new Error("STUB");
     }
 
     /** Update the video frame if the source is not destroyed and meets certain conditions. */
@@ -196,18 +161,7 @@ export class VideoSource extends TextureSource<VideoResource>
     /** Callback to update the video frame and potentially request the next frame update. */
     private _videoFrameRequestCallback(): void
     {
-        this.updateFrame();
-
-        if (this.destroyed)
-        {
-            this._videoFrameRequestCallbackHandle = null;
-        }
-        else
-        {
-            this._videoFrameRequestCallbackHandle = this.resource.requestVideoFrameCallback(
-                this._videoFrameRequestCallback
-            );
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -216,7 +170,7 @@ export class VideoSource extends TextureSource<VideoResource>
      */
     public get isValid(): boolean
     {
-        return !!this.resource.videoWidth && !!this.resource.videoHeight;
+        throw new Error("STUB");
     }
 
     /**
@@ -274,24 +228,7 @@ export class VideoSource extends TextureSource<VideoResource>
         // Create and return the loading promise
         this._load = new Promise((resolve, reject): void =>
         {
-            if (this.isValid)
-            {
-                resolve(this);
-            }
-            else
-            {
-                this._resolve = resolve;
-                this._reject = reject;
-
-                if (options.preloadTimeoutMs !== undefined)
-                {
-                    this._preloadTimeout = setTimeout(() =>
-                    {
-                        this._onError(new ErrorEvent(`Preload exceeded timeout of ${options.preloadTimeoutMs}ms`));
-                    }) as unknown as number;
-                }
-                source.load();
-            }
+            throw new Error("STUB");
         });
 
         return this._load;
@@ -349,55 +286,29 @@ export class VideoSource extends TextureSource<VideoResource>
     /** Stops the update loop when a pause event is triggered. */
     private _onPlayStop(): void
     {
-        this._configureAutoUpdate();
+        throw new Error("STUB");
     }
 
     /** Handles behavior when the video completes seeking to the current playback position. */
     private _onSeeked(): void
     {
-        if (this._autoUpdate && !this._isSourcePlaying())
-        {
-            this._msToNextUpdate = 0;
-            this.updateFrame();
-            this._msToNextUpdate = 0;
-        }
+        throw new Error("STUB");
     }
 
     /** When intrinsic size becomes known after play / canplay (common with MediaStream). */
     private _onLoadedMetadata(): void
     {
-        if (!this.isValid)
-        {
-            return;
-        }
-
-        this._mediaReady();
+        throw new Error("STUB");
     }
 
     private _onCanPlay(): void
     {
-        const source = this.resource;
-
-        // Remove event listeners
-        source.removeEventListener('canplay', this._onCanPlay);
-
-        this._mediaReady();
+        throw new Error("STUB");
     }
 
     private _onCanPlayThrough(): void
     {
-        const source = this.resource;
-
-        // Remove event listeners
-        source.removeEventListener('canplaythrough', this._onCanPlayThrough);
-
-        if (this._preloadTimeout)
-        {
-            clearTimeout(this._preloadTimeout);
-            this._preloadTimeout = undefined;
-        }
-
-        this._mediaReady();
+        throw new Error("STUB");
     }
 
     /** Fired when the video is loaded and ready to play. */
@@ -465,16 +376,12 @@ export class VideoSource extends TextureSource<VideoResource>
     /** Should the base texture automatically update itself, set to true by default. */
     get autoUpdate(): boolean
     {
-        return this._autoUpdate;
+        throw new Error("STUB");
     }
 
     set autoUpdate(value: boolean)
     {
-        if (value !== this._autoUpdate)
-        {
-            this._autoUpdate = value;
-            this._configureAutoUpdate();
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -484,16 +391,12 @@ export class VideoSource extends TextureSource<VideoResource>
      */
     get updateFPS(): number
     {
-        return this._updateFPS;
+        throw new Error("STUB");
     }
 
     set updateFPS(value: number)
     {
-        if (value !== this._updateFPS)
-        {
-            this._updateFPS = value;
-            this._configureAutoUpdate();
-        }
+        throw new Error("STUB");
     }
 
     /**

@@ -41,42 +41,27 @@ export class BatchableGraphics implements DefaultBatchableMeshElement
 
     get uvs()
     {
-        return this.geometryData.uvs;
+        throw new Error("STUB");
     }
 
     get positions()
     {
-        return this.geometryData.vertices;
+        throw new Error("STUB");
     }
 
     get indices()
     {
-        return this.geometryData.indices;
+        throw new Error("STUB");
     }
 
     get blendMode()
     {
-        if (this.renderable && this.applyTransform)
-        {
-            return this.renderable.groupBlendMode;
-        }
-
-        return 'normal';
+        throw new Error("STUB");
     }
 
     get color()
     {
-        const rgb = this.baseColor;
-        const bgr = (rgb >> 16) | (rgb & 0xff00) | ((rgb & 0xff) << 16);
-        const renderable = this.renderable;
-
-        if (renderable)
-        {
-            return multiplyHexColors(bgr, renderable.groupColor)
-            + ((this.alpha * renderable.groupAlpha * 255) << 24);
-        }
-
-        return bgr + ((this.alpha * 255) << 24);
+        throw new Error("STUB");
     }
 
     get transform()

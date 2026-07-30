@@ -190,14 +190,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     constructor(renderer: Renderer, private readonly _mobileInfo: isMobileResult = isMobile)
     {
-        this._hookDiv = null;
-
-        if (_mobileInfo.tablet || _mobileInfo.phone)
-        {
-            this._createTouchHook();
-        }
-
-        this._renderer = renderer;
+        throw new Error("STUB");
     }
 
     /**
@@ -207,7 +200,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     get isActive(): boolean
     {
-        return this._isActive;
+        throw new Error("STUB");
     }
 
     /**
@@ -217,7 +210,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     get isMobileAccessibility(): boolean
     {
-        return this._isMobileAccessibility;
+        throw new Error("STUB");
     }
 
     /**
@@ -226,7 +219,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     get hookDiv()
     {
-        return this._hookDiv;
+        throw new Error("STUB");
     }
 
     /**
@@ -235,7 +228,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     get div()
     {
-        return this._div;
+        throw new Error("STUB");
     }
 
     /**
@@ -244,26 +237,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _createTouchHook(): void
     {
-        const hookDiv = document.createElement('button');
-
-        hookDiv.style.width = `${DIV_HOOK_SIZE}px`;
-        hookDiv.style.height = `${DIV_HOOK_SIZE}px`;
-        hookDiv.style.position = 'absolute';
-        hookDiv.style.top = `${DIV_HOOK_POS_X}px`;
-        hookDiv.style.left = `${DIV_HOOK_POS_Y}px`;
-        hookDiv.style.zIndex = DIV_HOOK_ZINDEX.toString();
-        hookDiv.style.backgroundColor = '#FF0000';
-        hookDiv.title = 'select to enable accessibility for this content';
-
-        hookDiv.addEventListener('focus', () =>
-        {
-            this._isMobileAccessibility = true;
-            this._activate();
-            this._destroyTouchHook();
-        });
-
-        document.body.appendChild(hookDiv);
-        this._hookDiv = hookDiv;
+        throw new Error("STUB");
     }
 
     /**
@@ -329,15 +303,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
         {
             const observer = new MutationObserver(() =>
             {
-                if (canvas.parentNode)
-                {
-                    observer.disconnect();
-
-                    // Add to DOM
-                    this._canvasObserver.ensureAttached();
-                    // Only start the postrender runner after div is ready
-                    this._initAccessibilitySetup();
-                }
+                throw new Error("STUB");
             });
 
             observer.observe(document.body, { childList: true, subtree: true });
@@ -404,10 +370,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
 
             pool.forEach((div) =>
             {
-                if (div.parentNode)
-                {
-                    div.parentNode.removeChild(div);
-                }
+                throw new Error("STUB");
             });
             delete this._pools[accessibleType];
         }
@@ -493,106 +456,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     public postrender(): void
     {
-        /* On Android default web browser, tab order seems to be calculated by position rather than tabIndex,
-        *  moving buttons can cause focus to flicker between two buttons making it hard/impossible to navigate,
-        *  so I am just running update every half a second, seems to fix it.
-        */
-        const now = performance.now();
-
-        if (this._mobileInfo.android.device && now < this._androidUpdateCount)
-        {
-            return;
-        }
-
-        this._androidUpdateCount = now + this._androidUpdateFrequency;
-
-        if ((!this._renderer.renderingToScreen || !this._renderer.view.canvas)
-            && !this._isRunningTests)
-        {
-            return;
-        }
-
-        // Track which containers are still active this frame
-        const activeIds = new Set<number>();
-
-        if (this._renderer.lastObjectRendered)
-        {
-            this._updateAccessibleObjects(this._renderer.lastObjectRendered as Container);
-
-            // Mark all updated containers as active
-            for (const child of this._children)
-            {
-                if (child._renderId === this._renderId)
-                {
-                    activeIds.add(this._children.indexOf(child));
-                }
-            }
-        }
-
-        // Remove any containers that weren't updated this frame
-        for (let i = this._children.length - 1; i >= 0; i--)
-        {
-            const child = this._children[i];
-
-            if (!activeIds.has(i))
-            {
-                // Container was removed, clean up its accessibility div
-                if (child._accessibleDiv && child._accessibleDiv.parentNode)
-                {
-                    child._accessibleDiv.parentNode.removeChild(child._accessibleDiv);
-
-                    const pool = this._getPool(child.accessibleType);
-
-                    pool.push(child._accessibleDiv);
-                    child._accessibleDiv = null;
-                }
-                child._accessibleActive = false;
-                removeItems(this._children, i, 1);
-            }
-        }
-
-        // Update root div dimensions if needed
-        if (this._renderer.renderingToScreen)
-        {
-            // Ensure the main DOM element is attached to the same parent as the canvas
-            this._canvasObserver.ensureAttached();
-        }
-
-        // Update positions of existing divs
-        for (let i = 0; i < this._children.length; i++)
-        {
-            const child = this._children[i];
-
-            if (!child._accessibleActive || !child._accessibleDiv)
-            {
-                continue;
-            }
-
-            // Only update position-related properties
-            const div = child._accessibleDiv;
-            const hitArea = (child.hitArea || child.getBounds().rectangle) as Rectangle;
-
-            if (child.hitArea)
-            {
-                const wt = child.worldTransform;
-
-                div.style.left = `${(wt.tx + (hitArea.x * wt.a))}px`;
-                div.style.top = `${(wt.ty + (hitArea.y * wt.d))}px`;
-                div.style.width = `${hitArea.width * wt.a}px`;
-                div.style.height = `${hitArea.height * wt.d}px`;
-            }
-            else
-            {
-                this._capHitArea(hitArea);
-                div.style.left = `${hitArea.x}px`;
-                div.style.top = `${hitArea.y}px`;
-                div.style.width = `${hitArea.width}px`;
-                div.style.height = `${hitArea.height}px`;
-            }
-        }
-
-        // increment the render id..
-        this._renderId++;
+        throw new Error("STUB");
     }
 
     /**
@@ -611,29 +475,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _capHitArea(hitArea: Rectangle): void
     {
-        if (hitArea.x < 0)
-        {
-            hitArea.width += hitArea.x;
-            hitArea.x = 0;
-        }
-
-        if (hitArea.y < 0)
-        {
-            hitArea.height += hitArea.y;
-            hitArea.y = 0;
-        }
-
-        const { width: viewWidth, height: viewHeight } = this._renderer;
-
-        if (hitArea.x + hitArea.width > viewWidth)
-        {
-            hitArea.width = viewWidth - hitArea.x;
-        }
-
-        if (hitArea.y + hitArea.height > viewHeight)
-        {
-            hitArea.height = viewHeight - hitArea.y;
-        }
+        throw new Error("STUB");
     }
 
     /**
@@ -775,12 +617,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _dispatchEvent(e: UIEvent, type: string[]): void
     {
-        const { container: target } = e.target as AccessibleHTMLElement;
-        const boundary = this._renderer.events.rootBoundary;
-        const event: FederatedEvent = Object.assign(new FederatedEvent(boundary), { target });
-
-        boundary.rootTarget = this._renderer.lastObjectRendered as Container;
-        type.forEach((type) => boundary.dispatchEvent(event, type));
+        throw new Error("STUB");
     }
 
     /**
@@ -790,7 +627,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _onClick(e: MouseEvent): void
     {
-        this._dispatchEvent(e, ['click', 'pointertap', 'tap']);
+        throw new Error("STUB");
     }
 
     /**
@@ -800,12 +637,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _onFocus(e: FocusEvent): void
     {
-        if (!(e.target as Element).getAttribute('aria-live'))
-        {
-            (e.target as Element).setAttribute('aria-live', 'assertive');
-        }
-
-        this._dispatchEvent(e, ['mouseover']);
+        throw new Error("STUB");
     }
 
     /**
@@ -815,12 +647,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _onFocusOut(e: FocusEvent): void
     {
-        if (!(e.target as Element).getAttribute('aria-live'))
-        {
-            (e.target as Element).setAttribute('aria-live', 'polite');
-        }
-
-        this._dispatchEvent(e, ['mouseout']);
+        throw new Error("STUB");
     }
 
     /**
@@ -830,12 +657,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _onKeyDown(e: KeyboardEvent): void
     {
-        if (e.keyCode !== KEY_CODE_TAB || !this._activateOnTab)
-        {
-            return;
-        }
-
-        this._activate();
+        throw new Error("STUB");
     }
 
     /**
@@ -845,12 +667,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     private _onMouseMove(e: MouseEvent): void
     {
-        if (e.movementX === 0 && e.movementY === 0)
-        {
-            return;
-        }
-
-        this._deactivate();
+        throw new Error("STUB");
     }
 
     /**
@@ -890,14 +707,7 @@ export class AccessibilitySystem implements System<AccessibilitySystemOptions>
      */
     public setAccessibilityEnabled(enabled: boolean): void
     {
-        if (enabled)
-        {
-            this._activate();
-        }
-        else
-        {
-            this._deactivate();
-        }
+        throw new Error("STUB");
     }
 
     private _getPool(accessibleType: string): AccessibleHTMLElement[]

@@ -130,11 +130,7 @@ export abstract class AbstractBitmapFont<FontType>
      */
     public get font(): BitmapFontData['fontFamily']
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'BitmapFont.font is deprecated, please use BitmapFont.fontFamily instead.');
-        // #endif
-
-        return this.fontFamily;
+        throw new Error("STUB");
     }
 
     /**
@@ -143,11 +139,7 @@ export abstract class AbstractBitmapFont<FontType>
      */
     public get pageTextures(): AbstractBitmapFont<FontType>['pages']
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'BitmapFont.pageTextures is deprecated, please use BitmapFont.pages instead.');
-        // #endif
-
-        return this.pages;
+        throw new Error("STUB");
     }
 
     /**
@@ -156,11 +148,7 @@ export abstract class AbstractBitmapFont<FontType>
      */
     public get size(): BitmapFontData['fontSize']
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'BitmapFont.size is deprecated, please use BitmapFont.fontMetrics.fontSize instead.');
-        // #endif
-
-        return this.fontMetrics.fontSize;
+        throw new Error("STUB");
     }
 
     /**
@@ -169,12 +157,7 @@ export abstract class AbstractBitmapFont<FontType>
      */
     public get distanceFieldRange(): NonNullable<BitmapFontData['distanceField']>['range']
     {
-        // #if _DEBUG
-        // eslint-disable-next-line max-len
-        deprecation(v8_0_0, 'BitmapFont.distanceFieldRange is deprecated, please use BitmapFont.distanceField.range instead.');
-        // #endif
-
-        return this.distanceField.range;
+        throw new Error("STUB");
     }
 
     /**
@@ -183,11 +166,7 @@ export abstract class AbstractBitmapFont<FontType>
      */
     public get distanceFieldType(): NonNullable<BitmapFontData['distanceField']>['type']
     {
-        // #if _DEBUG
-        deprecation(v8_0_0, 'BitmapFont.distanceFieldType is deprecated, please use BitmapFont.distanceField.type instead.');
-        // #endif
-
-        return this.distanceField.type;
+        throw new Error("STUB");
     }
 
     public destroy(destroyTextures = false): void
@@ -206,7 +185,7 @@ export abstract class AbstractBitmapFont<FontType>
 
         if (destroyTextures)
         {
-            this.pages.forEach((page) => page.texture.destroy(true));
+            this.pages.forEach((page) => { throw new Error("STUB"); });
             (this.pages as any) = null;
         }
     }

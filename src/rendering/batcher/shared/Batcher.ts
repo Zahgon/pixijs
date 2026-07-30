@@ -82,16 +82,7 @@ let batchPoolIndex = 0;
 GlobalResourceRegistry.register({
     clear: () =>
     {
-        // check if the first element has a destroy method
-        if (batchPool.length > 0)
-        {
-            for (const item of batchPool)
-            {
-                if (item) item.destroy();
-            }
-        }
-        batchPool.length = 0; // clear the array
-        batchPoolIndex = 0;
+        throw new Error("STUB");
     },
 });
 
@@ -390,21 +381,7 @@ export abstract class Batcher
 
     constructor(options: BatcherOptions)
     {
-        options = { ...Batcher.defaultOptions, ...options };
-
-        if (!options.maxTextures)
-        {
-            deprecation('v8.8.0', 'maxTextures is a required option for Batcher now, please pass it in the options');
-            options.maxTextures = getMaxTexturesPerBatch();
-        }
-
-        const { maxTextures, attributesInitialSize, indicesInitialSize } = options;
-
-        this.attributeBuffer = new ViewableBuffer(attributesInitialSize * 4);
-
-        this.indexBuffer = new Uint16Array(indicesInitialSize);
-
-        this.maxTextures = maxTextures;
+        throw new Error("STUB");
     }
 
     public begin()

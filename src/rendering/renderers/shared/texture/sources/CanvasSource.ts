@@ -45,38 +45,7 @@ export class CanvasSource extends TextureSource<ICanvas>
 
     constructor(options: CanvasSourceOptions)
     {
-        if (!options.resource)
-        {
-            options.resource = DOMAdapter.get().createCanvas();
-        }
-
-        if (!options.width)
-        {
-            options.width = options.resource.width;
-
-            if (!options.autoDensity)
-            {
-                options.width /= options.resolution;
-            }
-        }
-
-        if (!options.height)
-        {
-            options.height = options.resource.height;
-
-            if (!options.autoDensity)
-            {
-                options.height /= options.resolution;
-            }
-        }
-
-        super(options);
-
-        this.autoDensity = options.autoDensity;
-
-        this.resizeCanvas();
-
-        this.transparent = !!options.transparent;
+        throw new Error("STUB");
     }
 
     public resizeCanvas()
@@ -120,6 +89,6 @@ export class CanvasSource extends TextureSource<ICanvas>
      */
     get context2D(): CanvasRenderingContext2D
     {
-        return this._context2D || (this._context2D = this.resource.getContext('2d') as CanvasRenderingContext2D);
+        throw new Error("STUB");
     }
 }

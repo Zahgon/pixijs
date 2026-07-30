@@ -16,9 +16,5 @@ export const resolveTextureUrl = {
     },
     test: loadTextures.test,
     parse: (value: string) =>
-        ({
-            resolution: parseFloat(Resolver.RETINA_PREFIX.exec(value)?.[1] ?? '1'),
-            format: value.split('.').pop(),
-            src: value,
-        }),
+        { throw new Error("STUB"); },
 } satisfies ResolveURLParser;

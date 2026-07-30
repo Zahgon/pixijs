@@ -21,10 +21,7 @@ export class ColorMask implements Effect, PoolItem
 
     constructor(options: {mask: number})
     {
-        if (options?.mask)
-        {
-            this.init(options.mask);
-        }
+        throw new Error("STUB");
     }
 
     public init(mask: number): void

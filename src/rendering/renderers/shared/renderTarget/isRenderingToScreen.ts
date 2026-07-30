@@ -10,9 +10,5 @@ import type { RenderTarget } from './RenderTarget';
  */
 export function isRenderingToScreen(renderTarget: RenderTarget): boolean
 {
-    if (renderTarget.colorAttachments.length === 0) return false;
-
-    const resource = renderTarget.colorTexture.resource;
-
-    return ((globalThis.HTMLCanvasElement && resource instanceof HTMLCanvasElement) && document.body.contains(resource));
+    throw new Error("STUB");
 }
